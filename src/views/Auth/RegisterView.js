@@ -53,14 +53,26 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   leftSide: {
-    width: "100%",
+    width: "70%",
     height: "100vh",
-    backgroundColor: "#2069D8",
     position: "relative",
+    backgroundColor: "#2069D8",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
       height: "40vh",
       margin: "0",
+    },
+  },
+
+  avatarLogo: {
+    width: 200,
+    height: 72,
+    position: "absolute",
+    top: "50%",
+    left: "33%",
+    [theme.breakpoints.down("sm")]: {
+      left: "20%",
+      top: "30%",
     },
   },
 
@@ -88,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
     margin: "0",
+    paddingRight: "200px",
     padding: "0", // Reset padding
     [theme.breakpoints.up("md")]: {
       paddingLeft: "244px", // Adjust padding for medium and larger screens
@@ -97,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "0", // Reset padding
       justifyContent: "center", // Center vertically
       alignItems: "center", // Center horizontally
+      paddingRight: "0px",
     },
   },
 }));
@@ -112,18 +126,12 @@ const RegisterView = () => {
 
   return (
     <Page className={classes.root} title="Register">
-      <Container className={classes.mainBlock}>
+      <Box className={classes.mainBlock}>
         <Box className={classes.leftSide}>
           <Avatar
             variant="square"
             src="/static/img/onecall-logo.png"
-            sx={{
-              width: 200,
-              height: 72,
-              position: "absolute",
-              top: "50%",
-              left: "33%",
-            }}
+            className={classes.avatarLogo}
           />
         </Box>
         <Box className={classes.rightSide}>
@@ -338,7 +346,7 @@ const RegisterView = () => {
             </PerfectScrollbar>
           </Box>
         </Box>
-      </Container>
+      </Box>
     </Page>
   );
 };

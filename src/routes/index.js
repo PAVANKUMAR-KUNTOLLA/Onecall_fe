@@ -2,7 +2,7 @@ import React, { lazy } from "react";
 import { Outlet, Routes, Navigate, Route, Router } from "react-router-dom";
 import Loadable from "../components/Loadable";
 import PrivateRoute from "../components/PrivateRoute";
-import AppLayout from "./../Layout/appLayout";
+import AppLayout from "./../Layout/MainLayout";
 
 import config from "../config";
 

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@mui/styles";
+import AppBar from "./appBar";
+import SideBar from "./sideBar";
 
 const useStyles = makeStyles((theme) => ({}));
 
@@ -15,7 +17,9 @@ const AppLayout = () => {
     <>
       {!initialAppLoading && (
         <div>
-          <div>
+          <div style={{ position: "relative" }}>
+            <AppBar />
+            {/* <SideBar /> */}
             <Outlet />
           </div>
         </div>

@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: -12,
   },
   mainBlock: {
-    width: "100%",
+    width: "100vw",
     height: "100vh",
     display: "flex",
     flexDirection: "row",
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   leftSide: {
-    width: "100%",
+    width: "70%",
     height: "100vh",
     position: "relative",
     backgroundColor: "#2069D8",
@@ -75,6 +75,17 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 
+  avatarLogo: {
+    width: 200,
+    height: 72,
+    position: "absolute",
+    top: "50%",
+    left: "33%",
+    [theme.breakpoints.down("sm")]: {
+      left: "20%",
+      top: "30%",
+    },
+  },
   title: {
     fontFamily: "Montserrat",
     fontWeight: "700",
@@ -99,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
     margin: "0",
+    paddingRight: "200px",
     padding: "0", // Reset padding
     [theme.breakpoints.up("md")]: {
       paddingLeft: "244px", // Adjust padding for medium and larger screens
@@ -108,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: "0", // Reset padding
       justifyContent: "center", // Center vertically
       alignItems: "center", // Center horizontally
+      paddingRight: "0px",
     },
   },
 }));
@@ -166,18 +179,12 @@ const LoginView = () => {
   return (
     <>
       <Page className={classes.root} title="Login">
-        <Container className={classes.mainBlock}>
+        <Box className={classes.mainBlock}>
           <Box className={classes.leftSide}>
             <Avatar
               variant="square"
               src="/static/img/onecall-logo.png"
-              sx={{
-                width: 200,
-                height: 72,
-                position: "absolute",
-                top: "50%",
-                left: "33%",
-              }}
+              className={classes.avatarLogo}
             />
           </Box>
           <Box className={classes.rightSide}>
@@ -381,7 +388,7 @@ const LoginView = () => {
               </Container>
             </Box>
           </Box>
-        </Container>
+        </Box>
       </Page>
 
       <Dialog
