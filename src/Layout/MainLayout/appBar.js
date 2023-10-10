@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { Avatar, Box, Grid, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
@@ -17,6 +18,12 @@ const customAppBarStyles = makeStyles((theme) => ({
 }));
 const AppBar = () => {
   const customStyles = customAppBarStyles();
+  const navigate = useNavigate();
+  const handleNavMenu = (value) => {
+    let path = value;
+    navigate(path);
+  };
+
   return (
     <Box className={customStyles.mainBlock}>
       <Grid container>
@@ -35,7 +42,12 @@ const AppBar = () => {
               justifyContent: "space-around",
             }}
           >
-            <Button className={customStyles.buttons}>Tax Year</Button>
+            <Button
+              className={customStyles.buttons}
+              onClick={(e) => handleNavMenu("tax-filling")}
+            >
+              Tax Year
+            </Button>
             <Button className={customStyles.buttons}>Profile</Button>
             <Button className={customStyles.buttons}>Refer to Earn</Button>
             <Button className={customStyles.buttons}>Logout</Button>

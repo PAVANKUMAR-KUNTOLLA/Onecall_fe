@@ -7,7 +7,7 @@ import AppLayout from "./../Layout/MainLayout";
 import config from "../config";
 
 const HomePage = Loadable(lazy(() => import("../views/Home/home.page")));
-
+const TaxFillingPage = Loadable(lazy(() => import("../views/TaxFilling")));
 const LoginViewPage = Loadable(lazy(() => import("../views/Auth/LoginView")));
 const RegisterView = Loadable(lazy(() => import("../views/Auth/RegisterView")));
 const ResetPasswordView = Loadable(
@@ -28,6 +28,7 @@ const AppRoutes = () => {
         }
       >
         <Route path="home" element={<HomePage />} />
+        <Route path="tax-filling" element={<TaxFillingPage />} />
       </Route>
       <Route path="/login" element={<LoginViewPage />} />
       <Route path="/register" element={<RegisterView />} />
