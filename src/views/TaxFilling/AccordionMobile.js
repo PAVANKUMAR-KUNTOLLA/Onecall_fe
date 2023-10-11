@@ -22,6 +22,8 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 
 import config from "../../config";
 import { makeStyles } from "@mui/styles";
+import FillerDetails from "./fillerDeatils";
+import IncomeDetails from "./incomeDetails";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -114,7 +116,7 @@ export default function BasicAccordion() {
             className={customTextClasses.accordionHeaderText}
             sx={{ fontWeight: expanded === "panel1" ? "600" : "400" }}
           >
-            Features & Benefits
+            Filer Details
           </Typography>
         </AccordionSummary>
         <AccordionDetails
@@ -206,7 +208,7 @@ export default function BasicAccordion() {
             className={customTextClasses.accordionHeaderText}
             sx={{ fontWeight: expanded === "panel2" ? "600" : "400" }}
           >
-            SGB Tranche Dates
+            Income Deatils
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
@@ -245,7 +247,7 @@ export default function BasicAccordion() {
             className={customTextClasses.accordionHeaderText}
             sx={{ fontWeight: expanded === "panel3" ? "600" : "400" }}
           >
-            FAQs
+            Bank Deatails
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
@@ -258,6 +260,86 @@ export default function BasicAccordion() {
               </Box>
             </Grid>
           </Grid>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel4"}
+        onChange={handleChange("panel4")}
+        className={customTextClasses.accordion}
+      >
+        <AccordionSummary
+          expandIcon={
+            expanded === "panel4" ? (
+              <RemoveIcon
+                size={10}
+                className={customTextClasses.collpaseIcon}
+              />
+            ) : (
+              <AddIcon size={10} className={customTextClasses.collpaseIcon} />
+            )
+          }
+          aria-controls="panel4a-content"
+          id="panel4a-header"
+          className={customTextClasses.accordionHeader}
+        >
+          <Typography
+            className={customTextClasses.accordionHeaderText}
+            sx={{ fontWeight: expanded === "panel3" ? "600" : "400" }}
+          >
+            Upload Tax Docs
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Box>
+                <Typography className={customTextClasses.headerTitle}>
+                  FAQs Coming Soon
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel5"}
+        onChange={handleChange("panel5")}
+        className={customTextClasses.accordion}
+      >
+        <AccordionSummary
+          expandIcon={
+            expanded === "panel5" ? (
+              <RemoveIcon
+                size={10}
+                className={customTextClasses.collpaseIcon}
+              />
+            ) : (
+              <AddIcon size={10} className={customTextClasses.collpaseIcon} />
+            )
+          }
+          aria-controls="panel5a-content"
+          id="panel5a-header"
+          className={customTextClasses.accordionHeader}
+        >
+          <Typography
+            className={customTextClasses.accordionHeaderText}
+            sx={{ fontWeight: expanded === "panel5" ? "600" : "400" }}
+          >
+            Tax Returns
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
+          <Grid container>
+            <Grid item xs={12}>
+              <Box>
+                <Typography className={customTextClasses.headerTitle}>
+                  FAQs Coming Soon
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+          <IncomeDetails />
+          <FillerDetails />
         </AccordionDetails>
       </Accordion>
     </Box>

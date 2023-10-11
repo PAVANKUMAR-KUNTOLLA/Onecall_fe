@@ -19,6 +19,9 @@ import StackedBarChartOutlined from "@mui/icons-material/StackedBarChartOutlined
 import PriceCheckOutlined from "@mui/icons-material/PriceCheckOutlined";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
+import FillerDeatils from "./fillerDeatils";
+import IncomeDetails from "./incomeDetails";
+import BankDetails from "./bankDetails";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -134,17 +137,27 @@ const TabsDesktop = () => {
             aria-label="basic tabs example"
           >
             <Tab
-              label="Features & Benefits"
+              label="Filer Details"
               className={customTextClasses.tabHeaderText}
               {...a11yProps(0)}
             />
             <Tab
-              label="SGB Tranche Dates"
+              label="Income Deatils"
               className={customTextClasses.tabHeaderText}
               {...a11yProps(1)}
             />
             <Tab
-              label="FAQs"
+              label="Bank Details"
+              className={customTextClasses.tabHeaderText}
+              {...a11yProps(2)}
+            />
+            <Tab
+              label="Upload Tax Docs"
+              className={customTextClasses.tabHeaderText}
+              {...a11yProps(2)}
+            />
+            <Tab
+              label="Tax Returns"
               className={customTextClasses.tabHeaderText}
               {...a11yProps(2)}
             />
@@ -152,7 +165,8 @@ const TabsDesktop = () => {
         </Box>
 
         <CustomTabPanel value={value} index={0}>
-          <Grid container>
+          <FillerDeatils />
+          {/* <Grid container>
             <Grid item xs={12}>
               <Box>
                 <Typography
@@ -213,25 +227,49 @@ const TabsDesktop = () => {
                 </Typography>
               </Box>
             </Grid>
-          </Grid>
+          </Grid> */}
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
+          <IncomeDetails />
+          {/* <Grid container>
+            <Grid item xs={12}>
+              <Box>
+                <Typography className={customTextClasses.headerTitle}>
+                  Income Deatils Coming Soon
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid> */}
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={2}>
+          <BankDetails />
+          {/* <Grid container>
+            <Grid item xs={12}>
+              <Box>
+                <Typography className={customTextClasses.headerTitle}>
+                  Bank Deatils Coming Soon
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid> */}
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={3}>
           <Grid container>
             <Grid item xs={12}>
               <Box>
                 <Typography className={customTextClasses.headerTitle}>
-                  SGB Tranche Dates Coming Soon
+                  Upload Tax Docs
                 </Typography>
               </Box>
             </Grid>
           </Grid>
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
+        <CustomTabPanel value={value} index={4}>
           <Grid container>
             <Grid item xs={12}>
               <Box>
                 <Typography className={customTextClasses.headerTitle}>
-                  FAQs Coming Soon
+                  Tax Return
                 </Typography>
               </Box>
             </Grid>
