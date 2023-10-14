@@ -81,7 +81,7 @@ const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const TabsDesktop = () => {
+const TabsDesktop = ({ data }) => {
   const customTextClasses = customTextStyles();
   const [value, setValue] = useState(0);
 

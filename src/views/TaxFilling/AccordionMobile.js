@@ -83,7 +83,7 @@ const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BasicAccordion() {
+const BasicAccordion = ({ data }) => {
   const customTextClasses = customTextStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -337,4 +337,6 @@ export default function BasicAccordion() {
       </Accordion>
     </Box>
   );
-}
+};
+
+export default BasicAccordion;

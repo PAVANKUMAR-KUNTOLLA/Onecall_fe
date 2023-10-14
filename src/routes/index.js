@@ -28,7 +28,7 @@ const AppRoutes = () => {
         }
       >
         <Route path="home" element={<HomePage />} />
-        <Route path="tax-filling" element={<TaxFillingPage />} />
+        <Route path="tax-filling/:id" element={<TaxFillingPage />} />
       </Route>
       <Route path="/login" element={<LoginViewPage />} />
       <Route path="/register" element={<RegisterView />} />
