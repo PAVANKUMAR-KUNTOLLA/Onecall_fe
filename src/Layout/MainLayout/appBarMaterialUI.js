@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 
 import { makeStyles } from "@mui/styles";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Typography,
   Toolbar,
   ListItemText,
   ListItemButton,
+  ListItemIcon,
   Button,
   List,
   IconButton,
@@ -19,6 +21,10 @@ import {
   ListItem,
   AppBar,
 } from "@mui/material";
+import HomeIcon from "@mui/icons-material/Home";
+import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import PaidIcon from "@mui/icons-material/Paid";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 const customAppBarStyles = makeStyles((theme) => ({
   mainBlock: {
@@ -48,12 +54,14 @@ const customAppBarStyles = makeStyles((theme) => ({
 
 const drawerWidth = 240;
 const navItems = ["HOME", "TAX YEAR", "REFER", "PROFILE"];
+const navIcons = [HomeIcon, NoteAddIcon, PaidIcon, AccountCircleIcon];
 
 function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const customStyles = customAppBarStyles();
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -69,6 +77,11 @@ function DrawerAppBar(props) {
       children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
     };
   }
+
+  const handleNavMenu = (value) => {
+    let path = value;
+    navigate(path);
+  };
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -93,11 +106,18 @@ function DrawerAppBar(props) {
           Kuntolla Pavan Kumar
         </Typography>
       </Box>
+      <hr></hr>
       <List>
-        {navItems.map((item) => (
+        {navItems.map((item, index) => (
           <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+            <ListItemButton sx={{ textAlign: "start" }}>
+              <ListItemIcon>
+                {React.createElement(navIcons[index])}
+              </ListItemIcon>
+              <ListItemText
+                primary={item}
+                onClick={() => handleNavMenu(item.toLowerCase())}
+              />
             </ListItemButton>
           </ListItem>
         ))}
@@ -145,8 +165,15 @@ function DrawerAppBar(props) {
               marginRight: "80px",
             }}
           >
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: "primary" }}>
+            {navItems.map((item, index) => (
+              <Button
+                key={item}
+                sx={{ color: "primary", fontSize: "16px" }}
+                onClick={() => handleNavMenu(item.toLowerCase())}
+              >
+                {React.createElement(navIcons[index], {
+                  sx: { marginRight: 1 },
+                })}
                 {item}
               </Button>
             ))}

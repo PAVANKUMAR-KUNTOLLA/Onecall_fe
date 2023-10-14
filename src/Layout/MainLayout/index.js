@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import AppBar from "./appBar";
-import DrawerAppBar from "../../components/appBarMaterialUI";
+import DrawerAppBar from "./appBarMaterialUI";
 
 const useStyles = makeStyles((theme) => ({}));
 
