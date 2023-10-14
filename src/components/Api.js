@@ -8,9 +8,10 @@ export default {
   resetPassword: "/api/v1/reset-password/",
 
   // App endpoints
-  myServices: "/api/v1/tax_filing/",
+  myServices: "/api/v1/my_services/",
   choiceData: "/api/v1/choice_data/",
   taxYears: "/api/v1/tax_years/",
+  taxFiling: "/api/v1/tax_filing/",
   personalContactDetails: "/api/v1/personal_contact_details/",
   spouseDetails: "/api/v1/spouse_details",
   dependantDetails: "/api/v1/dependant_details/",

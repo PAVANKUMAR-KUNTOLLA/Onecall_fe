@@ -16,7 +16,7 @@ const TaxFillingPage = () => {
   const handleFetchTaxFilingDetails = () => {
     setIsCurrFilingLoading(true);
     let payload = { id: params.id };
-    privateApiGET(Api.myServices, payload)
+    privateApiPOST(Api.taxFiling, payload)
       .then((response) => {
         const { status, data } = response;
         if (status === 200) {

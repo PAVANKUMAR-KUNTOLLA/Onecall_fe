@@ -19,7 +19,7 @@ import PriceCheckOutlined from "@mui/icons-material/PriceCheckOutlined";
 import { Grid, Box, Avatar, Typography } from "@mui/material";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import config from "../../config";
 import { makeStyles } from "@mui/styles";
 import BankDetails from "./bankDetails";
@@ -99,16 +99,7 @@ const BasicAccordion = ({ data }) => {
         className={customTextClasses.accordion}
       >
         <AccordionSummary
-          expandIcon={
-            expanded === "panel1" ? (
-              <RemoveIcon
-                size={10}
-                className={customTextClasses.collpaseIcon}
-              />
-            ) : (
-              <AddIcon size={10} className={customTextClasses.collpaseIcon} />
-            )
-          }
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
           className={customTextClasses.accordionHeader}
@@ -192,16 +183,7 @@ const BasicAccordion = ({ data }) => {
         className={customTextClasses.accordion}
       >
         <AccordionSummary
-          expandIcon={
-            expanded === "panel2" ? (
-              <RemoveIcon
-                size={10}
-                className={customTextClasses.collpaseIcon}
-              />
-            ) : (
-              <AddIcon size={10} className={customTextClasses.collpaseIcon} />
-            )
-          }
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2a-content"
           id="panel2a-header"
           className={customTextClasses.accordionHeader}
@@ -232,16 +214,7 @@ const BasicAccordion = ({ data }) => {
         className={customTextClasses.accordion}
       >
         <AccordionSummary
-          expandIcon={
-            expanded === "panel3" ? (
-              <RemoveIcon
-                size={10}
-                className={customTextClasses.collpaseIcon}
-              />
-            ) : (
-              <AddIcon size={10} className={customTextClasses.collpaseIcon} />
-            )
-          }
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel3a-content"
           id="panel3a-header"
           className={customTextClasses.accordionHeader}
@@ -263,16 +236,7 @@ const BasicAccordion = ({ data }) => {
         className={customTextClasses.accordion}
       >
         <AccordionSummary
-          expandIcon={
-            expanded === "panel4" ? (
-              <RemoveIcon
-                size={10}
-                className={customTextClasses.collpaseIcon}
-              />
-            ) : (
-              <AddIcon size={10} className={customTextClasses.collpaseIcon} />
-            )
-          }
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel4a-content"
           id="panel4a-header"
           className={customTextClasses.accordionHeader}
@@ -302,16 +266,7 @@ const BasicAccordion = ({ data }) => {
         className={customTextClasses.accordion}
       >
         <AccordionSummary
-          expandIcon={
-            expanded === "panel5" ? (
-              <RemoveIcon
-                size={10}
-                className={customTextClasses.collpaseIcon}
-              />
-            ) : (
-              <AddIcon size={10} className={customTextClasses.collpaseIcon} />
-            )
-          }
+          expandIcon={<ExpandMoreIcon />}
           aria-controls="panel5a-content"
           id="panel5a-header"
           className={customTextClasses.accordionHeader}

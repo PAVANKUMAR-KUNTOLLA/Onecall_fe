@@ -222,9 +222,9 @@ const HomePage = () => {
                       </TableCell>
                       <TableCell className={customStyles.tableData}>
                         <Link
-                          to={`../tax-filling/${row.id}`}
+                          to={`../tax-filing/${row.id}`}
                           onClick={() =>
-                            handleNavigate(`../tax-filling/${row.id}`)
+                            handleNavigate(`../tax-filing/${row.id}`)
                           }
                           sx={{ cursor: "pointer" }}
                         >
@@ -335,9 +335,9 @@ const HomePage = () => {
                                 }
                               >
                                 <Link
-                                  to={`../tax-filling/${row.id}`}
+                                  to={`../tax-filing/${row.id}`}
                                   onClick={() =>
-                                    handleNavigate(`../tax-filling/${row.id}`)
+                                    handleNavigate(`../tax-filing/${row.id}`)
                                   }
                                   sx={{ cursor: "pointer" }}
                                 >

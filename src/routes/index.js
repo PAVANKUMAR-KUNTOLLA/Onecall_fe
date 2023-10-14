@@ -32,7 +32,7 @@ const AppRoutes = () => {
         }
       >
         <Route path="home" element={<HomePage />} />
-        <Route path="tax-filling/:id" element={<TaxFillingPage />} />
+        <Route path="tax-filing/:id" element={<TaxFillingPage />} />
         <Route path="profile" element={<ProfilePage />} />
       </Route>
       <Route path="/login" element={<LoginViewPage />} />
