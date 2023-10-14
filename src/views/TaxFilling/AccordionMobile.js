@@ -22,7 +22,8 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 
 import config from "../../config";
 import { makeStyles } from "@mui/styles";
-import FillerDetails from "./fillerDeatils";
+import BankDetails from "./bankDetails";
+import FilerDetails from "./filerDeatils";
 import IncomeDetails from "./incomeDetails";
 
 const customTextStyles = makeStyles((theme) => ({
@@ -124,7 +125,8 @@ export default function BasicAccordion() {
             bgcolor: "#FAFAFA",
           }}
         >
-          <Grid container>
+          <FilerDetails />
+          {/* <Grid container>
             <Grid item xs={12}>
               <Box className={customTextClasses.accordionColumn}>
                 <Avatar
@@ -181,7 +183,7 @@ export default function BasicAccordion() {
                 </Typography>
               </Box>
             </Grid>
-          </Grid>
+          </Grid> */}
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -212,7 +214,8 @@ export default function BasicAccordion() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
-          <Grid container>
+          <IncomeDetails />
+          {/* <Grid container>
             <Grid item xs={12}>
               <Box>
                 <Typography className={customTextClasses.headerTitle}>
@@ -220,7 +223,7 @@ export default function BasicAccordion() {
                 </Typography>
               </Box>
             </Grid>
-          </Grid>
+          </Grid> */}
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -251,15 +254,7 @@ export default function BasicAccordion() {
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  FAQs Coming Soon
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          <BankDetails />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -338,8 +333,6 @@ export default function BasicAccordion() {
               </Box>
             </Grid>
           </Grid>
-          <IncomeDetails />
-          <FillerDetails />
         </AccordionDetails>
       </Accordion>
     </Box>

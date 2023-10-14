@@ -32,6 +32,9 @@ import { makeStyles } from "@mui/styles";
 import taxServicesData from "../../mock-adapter/taxServicesData.json";
 import { thousands_separators } from "../../utils";
 
+import Api from "../../components/Api";
+import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
+
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
@@ -67,8 +70,10 @@ const HomePage = () => {
   const customStyles = customTextStyles();
   let navigate = useNavigate();
   const state = useSelector((state) => state.issue);
-  const [data, setData] = useState(taxServicesData);
-  const taxYearServices = [2019, 2020, 2021, 2022, 2023];
+  const [myServices, setMyServices] = useState([]);
+  const [taxYearServices, setTaxYearServices] = useState([]);
+  const [isMyServicesLoading, setIsMyServicesLoading] = useState(false);
+  const [isTaxYearsLoading, setIsTaxYearsLoading] = useState(false);
   const [currSelectedYear, setCurrSelectedYear] = useState("");
   const dispatch = useDispatch();
 
@@ -77,17 +82,63 @@ const HomePage = () => {
   };
 
   const handleAddTaxServiceChange = () => {
-    setData([
-      ...data,
-      {
-        id: "228475",
-        service_type: "Regular",
-        year: currSelectedYear,
-        status: "New",
-      },
-    ]);
-    setCurrSelectedYear("");
+    setIsMyServicesLoading(true);
+    let payload = { new: true, year: currSelectedYear };
+    privateApiPOST(Api.myServices, payload)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setMyServices(data?.data);
+          setIsMyServicesLoading(false);
+          setCurrSelectedYear("");
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsMyServicesLoading(false);
+      });
   };
+
+  const handleFetchTaxYearServices = () => {
+    setIsTaxYearsLoading(true);
+    privateApiGET(Api.taxYears)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setTaxYearServices(data?.data);
+          setIsTaxYearsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsTaxYearsLoading(false);
+      });
+  };
+
+  const handleFetchMyServices = () => {
+    setIsMyServicesLoading(true);
+    privateApiGET(Api.myServices)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setMyServices(data?.data);
+          setIsMyServicesLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsMyServicesLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    handleFetchTaxYearServices();
+    handleFetchMyServices();
+  }, []);
+
   return (
     <Page title={"One Call Tax Services"}>
       <Box>
@@ -123,28 +174,29 @@ const HomePage = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data.map((row, index) => (
-                  <TableRow key={index}>
-                    <TableCell className={customStyles.tableData}>
-                      {row.id}
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      {row.service_type}
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      {row.year}
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      {row.status}
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      Start Process
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      Pay Now
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {myServices.length > 0 &&
+                  myServices.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell className={customStyles.tableData}>
+                        {row.id}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.service_type}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.year}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.status}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        <Link to="/">Start Process</Link>
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        <Link to="/">Pay Now</Link>
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>
@@ -168,15 +220,16 @@ const HomePage = () => {
                 color="secondary"
               >
                 <Grid container>
-                  {taxYearServices.map((each) => (
-                    <Grid item xs={4}>
-                      <FormControlLabel
-                        value={each}
-                        control={<Radio />}
-                        label={`${each} - Tax Filing`}
-                      />
-                    </Grid>
-                  ))}
+                  {taxYearServices.length > 0 &&
+                    taxYearServices.map((each, id) => (
+                      <Grid item xs={4} key={id}>
+                        <FormControlLabel
+                          value={each.name}
+                          control={<Radio />}
+                          label={`${each.name} - Tax Filing`}
+                        />
+                      </Grid>
+                    ))}
                 </Grid>
               </RadioGroup>
             </FormControl>
@@ -191,6 +244,7 @@ const HomePage = () => {
                   !currSelectedYear ? 0.5 : 1,
                 marginLeft: "12px",
                 marginTop: "10px",
+                display: "block",
               }}
             >
               Submit{"  "}

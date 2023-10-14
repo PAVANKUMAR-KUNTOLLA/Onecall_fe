@@ -19,9 +19,10 @@ import StackedBarChartOutlined from "@mui/icons-material/StackedBarChartOutlined
 import PriceCheckOutlined from "@mui/icons-material/PriceCheckOutlined";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import FillerDeatils from "./fillerDeatils";
+import FilerDeatils from "./filerDeatils";
 import IncomeDetails from "./incomeDetails";
 import BankDetails from "./bankDetails";
+import ConfirmDetails from "./confirmDetails";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -161,11 +162,16 @@ const TabsDesktop = () => {
               className={customTextClasses.tabHeaderText}
               {...a11yProps(2)}
             />
+            <Tab
+              label="Confirm Details"
+              className={customTextClasses.tabHeaderText}
+              {...a11yProps(2)}
+            />
           </Tabs>
         </Box>
 
         <CustomTabPanel value={value} index={0}>
-          <FillerDeatils />
+          <FilerDeatils />
           {/* <Grid container>
             <Grid item xs={12}>
               <Box>
@@ -274,6 +280,9 @@ const TabsDesktop = () => {
               </Box>
             </Grid>
           </Grid>
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={5}>
+          <ConfirmDetails />
         </CustomTabPanel>
       </Box>
     </Grid>

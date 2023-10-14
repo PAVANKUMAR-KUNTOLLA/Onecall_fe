@@ -8,9 +8,13 @@ export default {
   resetPassword: "/api/v1/reset-password/",
 
   // App endpoints
-  notification: "/api/v1/notification/",
-  products: "/api/v1/products/",
-  edit_product: "/api/v1/edit_product/",
-  record_visit: "/api/v1/record_visit_history/",
-  place_order: "/api/v1/place_order/",
+  myServices: "/api/v1/tax_filing/",
+  choiceData: "/api/v1/choice_data/",
+  taxYears: "/api/v1/tax_years/",
+  personalContactDetails: "/api/v1/personal_contact_details/",
+  spouseDetails: "/api/v1/spouse_details",
+  dependantDetails: "/api/v1/dependant_details/",
+  bankDetails: "/api/v1/bank_details/",
+  incomeDetails: "/api/v1/income_details/",
+  confirmDetails: "/api/v1/confirm_details/",
 };

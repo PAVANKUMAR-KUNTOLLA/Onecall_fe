@@ -15,7 +15,7 @@ import { statesNames, countryCode } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({}));
 
-const FillerDetails = () => {
+const FilerDetails = () => {
   const classes = useStyles();
 
   const [formData, setFormData] = useState({
@@ -1103,4 +1103,4 @@ const FillerDetails = () => {
   );
 };
 
-export default FillerDetails;
+export default FilerDetails;

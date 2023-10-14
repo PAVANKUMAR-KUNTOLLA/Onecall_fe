@@ -252,7 +252,7 @@ const LoginView = () => {
                         if (res.status === 200) {
                           window.sessionStorage.setItem(
                             "token",
-                            res.data?.token
+                            res.data?.data?.token
                           );
                           setSubmitting(false);
                           dispatch(setTaxYear(values.taxYear));
