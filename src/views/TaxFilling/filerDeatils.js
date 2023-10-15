@@ -64,7 +64,7 @@ const FilerDetails = ({
     spouseMiddleInitial: spouseDetails["spouseMiddleInitial"],
     spouseLastName: spouseDetails["spouseLastName"],
     spouseSsnOrItin: spouseDetails["spouseSsnOrItin"],
-    applyForItin: spouseDetails["applyForItin"], // Default to "No"
+    spouseApplyForItin: spouseDetails["spouseApplyForItin"], // Default to "No"
     spouseDateOfBirth: spouseDetails["spouseDateOfBirth"],
     spouseGender: spouseDetails["spouseGender"],
     spouseOccupation: spouseDetails["spouseOccupation"],
@@ -76,13 +76,14 @@ const FilerDetails = ({
     additionalMiddleInitial: dependantDetails["additionalMiddleInitial"],
     additionalLastName: dependantDetails["additionalLastName"],
     additionalSsnOrItin: dependantDetails["additionalSsnOrItin"],
-    applyForItin: dependantDetails["applyForItin"], // Default to "No"
+    additionalApplyForItin: dependantDetails["additionalApplyForItin"], // Default to "No"
     additionalDateOfBirth: dependantDetails["additionalDateOfBirth"],
     additionalGender: dependantDetails["additionalGender"],
     additionalOccupation: dependantDetails["additionalOccupation"],
-    additionalResidentialStatus:
-      dependantDetails["additionalResidentialStatus"],
+    additionalVisaType: dependantDetails["additionalVisaType"],
     additionalEmail: dependantDetails["additionalEmail"],
+    additionalStayCount: dependantDetails["additionalStayCount"],
+    additionalRelationship: dependantDetails["additionalRelationship"],
   });
 
   const stateOptions = statesNames;
@@ -131,7 +132,7 @@ const FilerDetails = ({
                 .email("Must be a valid email")
                 .max(255)
                 .required("Contact Email is required"),
-              taxFiledLastYear: Yup.string().required(
+              taxFiledLastYear: Yup.boolean().required(
                 "Please select an option"
               ),
               taxPayerStatus: Yup.string().required(
@@ -140,54 +141,54 @@ const FilerDetails = ({
 
               // additional Spouse Details (Add validation rules as needed)
               spouseFirstName: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+                is: "MARRIED",
                 then: Yup.string().required("Spouse First Name is required"),
                 otherwise: Yup.string(),
               }),
               spouseMiddleInitial: Yup.string(),
               spouseLastName: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+                is: "MARRIED",
                 then: Yup.string().required("Spouse Last Name is required"),
                 otherwise: Yup.string(),
               }),
               spouseSsnOrItin: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+                is: "MARRIED",
                 then: Yup.string().required(
                   "Spouse SSN/ITIN is required if married"
                 ),
                 otherwise: Yup.string(),
               }),
-              applyForItin: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              spouseApplyForItin: Yup.string().when("taxPayerStatus", {
+                is: "MARRIED",
                 then: Yup.string().required(
                   "Please select whether you want to apply for ITIN"
                 ),
                 otherwise: Yup.string(),
               }),
               spouseDateOfBirth: Yup.date().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+                is: "MARRIED",
                 then: Yup.date().required("Spouse Date of Birth is required"),
                 otherwise: Yup.date(),
               }),
               spouseGender: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+                is: "MARRIED",
                 then: Yup.string().required("Spouse Gender is required"),
                 otherwise: Yup.string(),
               }),
               spouseOccupation: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+                is: "MARRIED",
                 then: Yup.string().required("Spouse Occupation is required"),
                 otherwise: Yup.string(),
               }),
               spouseResidentialStatus: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+                is: "MARRIED",
                 then: Yup.string().required(
                   "Spouse Residential Status is required"
                 ),
                 otherwise: Yup.string(),
               }),
               spouseEmail: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+                is: "MARRIED",
                 then: Yup.string()
                   .email("Must be a valid email")
                   .max(255)
@@ -197,7 +198,7 @@ const FilerDetails = ({
 
               //  additional Details (Add validation rules as needed)
               additionalFirstName: Yup.string().when("providedLivingSupport", {
-                is: true, // "1" indicates "MARRIED"
+                is: true,
                 then: Yup.string().required(
                   "additional First Name is required"
                 ),
@@ -205,67 +206,83 @@ const FilerDetails = ({
               }),
               additionalMiddleInitial: Yup.string(),
               additionalLastName: Yup.string().when("providedLivingSupport", {
-                is: true, // "1" indicates "MARRIED"
+                is: true,
                 then: Yup.string().required("additional Last Name is required"),
                 otherwise: Yup.string(),
               }),
               additionalSsnOrItin: Yup.string().when("providedLivingSupport", {
-                is: true, // "1" indicates "MARRIED"
+                is: true,
                 then: Yup.string().required(
                   "additional SSN/ITIN is required if married"
                 ),
                 otherwise: Yup.string(),
               }),
-              applyForItin: Yup.string().when("providedLivingSupport", {
-                is: true, // "1" indicates "MARRIED"
-                then: Yup.string().required(
-                  "Please select whether you want to apply for ITIN"
-                ),
-                otherwise: Yup.string(),
-              }),
+              additionalApplyForItin: Yup.string().when(
+                "providedLivingSupport",
+                {
+                  is: true,
+                  then: Yup.string().required(
+                    "Please select whether you want to apply for ITIN"
+                  ),
+                  otherwise: Yup.string(),
+                }
+              ),
               additionalDateOfBirth: Yup.date().when("providedLivingSupport", {
-                is: true, // "1" indicates "MARRIED"
+                is: true,
                 then: Yup.date().required(
                   "additional Date of Birth is required"
                 ),
                 otherwise: Yup.date(),
               }),
               additionalGender: Yup.string().when("providedLivingSupport", {
-                is: true, // "1" indicates "MARRIED"
+                is: true,
                 then: Yup.string().required("additional Gender is required"),
                 otherwise: Yup.string(),
               }),
               additionalOccupation: Yup.string().when("providedLivingSupport", {
-                is: true, // "1" indicates "MARRIED"
+                is: true,
                 then: Yup.string().required(
                   "additional Occupation is required"
                 ),
                 otherwise: Yup.string(),
               }),
-              additionalResidentialStatus: Yup.string().when(
-                "providedLivingSupport",
-                {
-                  is: true, // "1" indicates "MARRIED"
-                  then: Yup.string().required(
-                    "additional Residential Status is required"
-                  ),
-                  otherwise: Yup.string(),
-                }
-              ),
+              additionalVisaType: Yup.string().when("providedLivingSupport", {
+                is: true,
+                then: Yup.string().required(
+                  "additional Residential Status is required"
+                ),
+                otherwise: Yup.string(),
+              }),
               additionalEmail: Yup.string().when("providedLivingSupport", {
-                is: true, // "1" indicates "MARRIED"
+                is: true,
                 then: Yup.string()
                   .email("Must be a valid email")
                   .max(255)
                   .required("additional Email is required"),
                 otherwise: Yup.string(),
               }),
-              providedLivingSupport: Yup.string().required(
+              providedLivingSupport: Yup.boolean().required(
                 "Please select an option"
               ),
+              additionalRelationship: Yup.string().when(
+                "providedLivingSupport",
+                {
+                  is: true,
+                  then: Yup.string().required(
+                    "additional Relationship is required"
+                  ),
+                  otherwise: Yup.string(),
+                }
+              ),
+              additionalStayCount: Yup.number().when("providedLivingSupport", {
+                is: true,
+                then: Yup.number().required(
+                  "No. of months dependent has stayed with you in U.S is required"
+                ),
+                otherwise: Yup.number(),
+              }),
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
-              console.log("print i am in onsubmit");
               setIsFilerDetailsLoading(true);
               setSubmitting(true);
               let payload = { ...values, id: id };
@@ -752,17 +769,19 @@ const FilerDetails = ({
                             label="Do you want to apply for ITIN?"
                             select
                             margin="normal"
-                            name="applyForItin"
+                            name="spouseApplyForItin"
                             onBlur={handleBlur}
                             fullWidth
                             onChange={handleChange}
-                            value={values.applyForItin}
+                            value={values.spouseApplyForItin}
                             variant="outlined"
                             error={Boolean(
-                              touched.applyForItin && errors.applyForItin
+                              touched.spouseApplyForItin &&
+                                errors.spouseApplyForItin
                             )}
                             helperText={
-                              touched.applyForItin && errors.applyForItin
+                              touched.spouseApplyForItin &&
+                              errors.spouseApplyForItin
                             }
                           >
                             <MenuItem value={false}>No</MenuItem>
@@ -1006,22 +1025,44 @@ const FilerDetails = ({
                             label="Do you want to apply for ITIN?"
                             select
                             margin="normal"
-                            name="applyForItin"
+                            name="additionalApplyForItin"
                             onBlur={handleBlur}
                             fullWidth
                             onChange={handleChange}
-                            value={values.applyForItin}
+                            value={values.additionalApplyForItin}
                             variant="outlined"
                             error={Boolean(
-                              touched.applyForItin && errors.applyForItin
+                              touched.additionalApplyForItin &&
+                                errors.additionalApplyForItin
                             )}
                             helperText={
-                              touched.applyForItin && errors.applyForItin
+                              touched.additionalApplyForItin &&
+                              errors.additionalApplyForItin
                             }
                           >
                             <MenuItem value={false}>No</MenuItem>
                             <MenuItem value={true}>Yes</MenuItem>
                           </TextField>
+                        </Grid>
+                        <Grid item sm={12} xs={12}>
+                          <TextField
+                            label="additional Relationship"
+                            margin="normal"
+                            name="additionalRelationship"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            fullWidth
+                            value={values.additionalRelationship}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.additionalRelationship &&
+                                errors.additionalRelationship
+                            )}
+                            helperText={
+                              touched.additionalRelationship &&
+                              errors.additionalRelationship
+                            }
+                          />
                         </Grid>
                       </Grid>
                     </Grid>
@@ -1098,23 +1139,38 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional Residential Status"
+                            label="additional Visa Type"
                             margin="normal"
-                            name="additionalResidentialStatus"
+                            name="additionalVisaType"
                             onBlur={handleBlur}
+                            select
                             fullWidth
                             onChange={handleChange}
-                            value={values.additionalResidentialStatus}
+                            value={values.additionalVisaType}
                             variant="outlined"
                             error={Boolean(
-                              touched.additionalResidentialStatus &&
-                                errors.additionalResidentialStatus
+                              touched.additionalVisaType &&
+                                errors.additionalVisaType
                             )}
                             helperText={
-                              touched.additionalResidentialStatus &&
-                              errors.additionalResidentialStatus
+                              touched.additionalVisaType &&
+                              errors.additionalVisaType
                             }
-                          />
+                          >
+                            {[
+                              "H4",
+                              "US Citizen",
+                              "L2",
+                              "Green Card",
+                              "Other",
+                            ].map((each, id) => {
+                              return (
+                                <MenuItem key={id} value={each}>
+                                  {each}
+                                </MenuItem>
+                              );
+                            })}
+                          </TextField>
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
@@ -1131,6 +1187,28 @@ const FilerDetails = ({
                             )}
                             helperText={
                               touched.additionalEmail && errors.additionalEmail
+                            }
+                          />
+                        </Grid>
+
+                        <Grid item sm={12} xs={12}>
+                          <TextField
+                            label="No. of months dependent has stayed with you in U.S"
+                            margin="normal"
+                            name="additionalStayCount"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            type="number"
+                            fullWidth
+                            value={values.additionalStayCount}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.additionalStayCount &&
+                                errors.additionalStayCount
+                            )}
+                            helperText={
+                              touched.additionalStayCount &&
+                              errors.additionalStayCount
                             }
                           />
                         </Grid>
