@@ -26,6 +26,7 @@ import BankDetails from "./bankDetails";
 import FilerDetails from "./filerDeatils";
 import IncomeDetails from "./incomeDetails";
 import PickAppointment from "./pickAppointment";
+import UploadTaxDocs from "./TaxDocs";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -187,12 +188,9 @@ const BasicAccordion = ({ data, handleFetchData }) => {
           id="panel4a-header"
           className={customTextClasses.accordionHeader}
         >
-          <Typography
-            className={customTextClasses.accordionHeaderText}
-            sx={{ fontWeight: expanded === "panel3" ? "600" : "400" }}
-          >
-            Upload Tax Docs
-          </Typography>
+          <Box>
+            <UploadTaxDocs id={data["id"]} />
+          </Box>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
           <Grid container>

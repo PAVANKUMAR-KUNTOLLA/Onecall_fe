@@ -26,6 +26,7 @@ import ConfirmDetails from "./confirmDetails";
 import PickAppointment from "./pickAppointment";
 import PayPalPayment from "../Home/payPalPayment";
 import TaxReturns from "./taxReturns";
+import UploadTaxDocs from "./TaxDocs";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -218,9 +219,7 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           <Grid container>
             <Grid item xs={12}>
               <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  Upload Tax Docs
-                </Typography>
+                <UploadTaxDocs id={data["id"]} />
               </Box>
             </Grid>
           </Grid>

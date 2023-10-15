@@ -212,10 +212,10 @@ const BankDetails = ({ id, data, handleFetchData }) => {
                           error={Boolean(touched.ownership && errors.ownership)}
                           helperText={touched.ownership && errors.ownership}
                         >
-                          <MenuItem value="DIRECT DEPOSIT INTO MY BANK ACCOUNT">
+                          <MenuItem value="TAXPAYER/SPOUSE">
                             Tax Payer / Spouse
                           </MenuItem>
-                          <MenuItem value="PAPER CHECK">Joint</MenuItem>
+                          <MenuItem value="JOINT">Joint</MenuItem>
                         </TextField>
                         <TextField
                           label="Routing Number"
@@ -307,10 +307,8 @@ const BankDetails = ({ id, data, handleFetchData }) => {
                           )}
                           helperText={touched.accountType && errors.accountType}
                         >
-                          <MenuItem value="DIRECT DEPOSIT INTO MY BANK ACCOUNT">
-                            Savings
-                          </MenuItem>
-                          <MenuItem value="PAPER CHECK">Checking</MenuItem>
+                          <MenuItem value="SAVINGS">Savings</MenuItem>
+                          <MenuItem value="CHECKING">Checking</MenuItem>
                         </TextField>
                         <TextField
                           label="Confirm Account Type"

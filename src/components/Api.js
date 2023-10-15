@@ -17,5 +17,8 @@ export default {
   dependantDetails: "/api/v1/dependant_details/",
   bankDetails: "/api/v1/bank_details/",
   incomeDetails: "/api/v1/income_details/",
+  uploadTaxDocs: "/api/v1/upload_tax_docs/",
   confirmDetails: "/api/v1/confirm_details/",
+  downloadTaxDocsFile: "/api/v1/download_tax_docs/",
+  deleteTaxDocsFile: "/api/v1/delete_tax_docs/",
 };
