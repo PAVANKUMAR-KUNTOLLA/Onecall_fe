@@ -327,7 +327,7 @@ const HomePage = () => {
                                   customStyles.mobileViewTableCellHeader
                                 }
                               >
-                                Action
+                                Actions
                               </Typography>
                               <Typography
                                 className={
@@ -351,7 +351,7 @@ const HomePage = () => {
                                   customStyles.mobileViewTableCellHeader
                                 }
                               >
-                                Payment
+                                Pay Now
                               </Typography>
                               <Typography
                                 className={

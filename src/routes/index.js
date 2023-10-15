@@ -13,6 +13,7 @@ const RegisterView = Loadable(lazy(() => import("../views/Auth/RegisterView")));
 const ProfilePage = Loadable(
   lazy(() => import("../views/Profile/profile.page"))
 );
+const ReferPage = Loadable(lazy(() => import("../views/Refer")));
 
 const ResetPasswordView = Loadable(
   lazy(() => import("../views/Auth/ResetPasswordView"))
@@ -34,6 +35,7 @@ const AppRoutes = () => {
         <Route path="home" element={<HomePage />} />
         <Route path="tax-filing/:id" element={<TaxFillingPage />} />
         <Route path="profile" element={<ProfilePage />} />
+        <Route path="refer" element={<ReferPage />} />
       </Route>
       <Route path="/login" element={<LoginViewPage />} />
       <Route path="/register" element={<RegisterView />} />

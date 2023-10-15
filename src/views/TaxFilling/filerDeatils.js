@@ -196,61 +196,64 @@ const FilerDetails = ({
               }),
 
               //  additional Details (Add validation rules as needed)
-              additionalFirstName: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              additionalFirstName: Yup.string().when("providedLivingSupport", {
+                is: true, // "1" indicates "MARRIED"
                 then: Yup.string().required(
                   "additional First Name is required"
                 ),
                 otherwise: Yup.string(),
               }),
               additionalMiddleInitial: Yup.string(),
-              additionalLastName: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              additionalLastName: Yup.string().when("providedLivingSupport", {
+                is: true, // "1" indicates "MARRIED"
                 then: Yup.string().required("additional Last Name is required"),
                 otherwise: Yup.string(),
               }),
-              additionalSsnOrItin: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              additionalSsnOrItin: Yup.string().when("providedLivingSupport", {
+                is: true, // "1" indicates "MARRIED"
                 then: Yup.string().required(
                   "additional SSN/ITIN is required if married"
                 ),
                 otherwise: Yup.string(),
               }),
-              applyForItin: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              applyForItin: Yup.string().when("providedLivingSupport", {
+                is: true, // "1" indicates "MARRIED"
                 then: Yup.string().required(
                   "Please select whether you want to apply for ITIN"
                 ),
                 otherwise: Yup.string(),
               }),
-              additionalDateOfBirth: Yup.date().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              additionalDateOfBirth: Yup.date().when("providedLivingSupport", {
+                is: true, // "1" indicates "MARRIED"
                 then: Yup.date().required(
                   "additional Date of Birth is required"
                 ),
                 otherwise: Yup.date(),
               }),
-              additionalGender: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              additionalGender: Yup.string().when("providedLivingSupport", {
+                is: true, // "1" indicates "MARRIED"
                 then: Yup.string().required("additional Gender is required"),
                 otherwise: Yup.string(),
               }),
-              additionalOccupation: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              additionalOccupation: Yup.string().when("providedLivingSupport", {
+                is: true, // "1" indicates "MARRIED"
                 then: Yup.string().required(
                   "additional Occupation is required"
                 ),
                 otherwise: Yup.string(),
               }),
-              additionalResidentialStatus: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
-                then: Yup.string().required(
-                  "additional Residential Status is required"
-                ),
-                otherwise: Yup.string(),
-              }),
-              additionalEmail: Yup.string().when("taxPayerStatus", {
-                is: "MARRIED", // "1" indicates "MARRIED"
+              additionalResidentialStatus: Yup.string().when(
+                "providedLivingSupport",
+                {
+                  is: true, // "1" indicates "MARRIED"
+                  then: Yup.string().required(
+                    "additional Residential Status is required"
+                  ),
+                  otherwise: Yup.string(),
+                }
+              ),
+              additionalEmail: Yup.string().when("providedLivingSupport", {
+                is: true, // "1" indicates "MARRIED"
                 then: Yup.string()
                   .email("Must be a valid email")
                   .max(255)

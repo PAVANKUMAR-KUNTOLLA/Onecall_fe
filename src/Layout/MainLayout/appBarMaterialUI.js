@@ -22,9 +22,11 @@ import {
   AppBar,
 } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import PaidIcon from "@mui/icons-material/Paid";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
+import Api from "../../components/Api";
 
 const customAppBarStyles = makeStyles((theme) => ({
   mainBlock: {
@@ -53,8 +55,8 @@ const customAppBarStyles = makeStyles((theme) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ["HOME", "TAX YEAR", "REFER", "PROFILE"];
-const navIcons = [HomeIcon, NoteAddIcon, PaidIcon, AccountCircleIcon];
+const navItems = ["HOME", "REFER", "PROFILE", "LOGOUT"];
+const navIcons = [HomeIcon, PaidIcon, AccountCircleIcon, ExitToAppIcon];
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -78,9 +80,27 @@ function DrawerAppBar(props) {
     };
   }
 
+  const handleLogout = () => {
+    privateApiPOST(Api.logout)
+      .then((response) => {
+        const { status } = response;
+        if (status === 204) {
+          sessionStorage.removeItem("token");
+          navigate("/");
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
+
   const handleNavMenu = (value) => {
     let path = value;
-    navigate(path);
+    if (path === "logout") {
+      handleLogout();
+    } else {
+      navigate(path);
+    }
   };
 
   const drawer = (

@@ -587,6 +587,7 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "flex-end",
+                  paddingBottom: { xs: "20px" },
                 }}
               >
                 <Button type="submit" variant="contained" color="primary">
