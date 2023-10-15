@@ -54,12 +54,12 @@ const FilerDetails = ({
     primaryPhoneNumber: contactDetails["primaryPhoneNumber"],
     secondaryCountryCode: contactDetails["secondaryCountryCode"],
     secondaryPhoneNumber: contactDetails["secondaryPhoneNumber"],
-    contactEmail: contactDetails["email"],
+    contactEmail: contactDetails["contactEmail"],
 
     taxFiledLastYear: incomeDetails["taxFiledLastYear"], // Set an initial value for taxFiledLastYear
 
     // additional Spouse Details (Initially hidden)
-    taxPayerStatus: spouseDetails["taxPayerStatus"], // Default to "No" (Single)
+    taxPayerStatus: personalDetails["taxPayerStatus"], // Default to "No" (Single)
     spouseFirstName: spouseDetails["spouseFirstName"],
     spouseMiddleInitial: spouseDetails["spouseMiddleInitial"],
     spouseLastName: spouseDetails["spouseLastName"],
@@ -280,7 +280,6 @@ const FilerDetails = ({
                   console.log("Error", error);
                   setIsFilerDetailsLoading(false);
                   setSubmitting(false);
-                  resetForm();
                 });
             }}
           >
@@ -845,6 +844,7 @@ const FilerDetails = ({
                             name="spouseResidentialStatus"
                             onBlur={handleBlur}
                             fullWidth
+                            select
                             onChange={handleChange}
                             value={values.spouseResidentialStatus}
                             variant="outlined"
@@ -856,7 +856,10 @@ const FilerDetails = ({
                               touched.spouseResidentialStatus &&
                               errors.spouseResidentialStatus
                             }
-                          />
+                          >
+                            <MenuItem value="VISA">Visa</MenuItem>
+                            <MenuItem value="CITIZENSHIP">Citizenship</MenuItem>
+                          </TextField>
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
@@ -917,7 +920,7 @@ const FilerDetails = ({
                     </TextField>
                   </Grid>
                 </Grid>
-                {values.providedLivingSupport === "0" && (
+                {values.providedLivingSupport === true && (
                   <Grid container spacing={2}>
                     {/* Left Side - additional Details */}
                     <Grid item lg={6} sm={6} xs={12}>
