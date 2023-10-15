@@ -25,6 +25,7 @@ import { makeStyles } from "@mui/styles";
 import BankDetails from "./bankDetails";
 import FilerDetails from "./filerDeatils";
 import IncomeDetails from "./incomeDetails";
+import PickAppointment from "./pickAppointment";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -111,11 +112,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             Filer Details
           </Typography>
         </AccordionSummary>
-        <AccordionDetails
-          sx={{
-            bgcolor: "#FAFAFA",
-          }}
-        >
+        <AccordionDetails>
           <FilerDetails
             id={data["id"]}
             personalDetails={data["personalDetails"]}
@@ -237,6 +234,28 @@ const BasicAccordion = ({ data, handleFetchData }) => {
               </Box>
             </Grid>
           </Grid>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel6"}
+        onChange={handleChange("panel6")}
+        className={customTextClasses.accordion}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel6a-content"
+          id="panel6a-header"
+          className={customTextClasses.accordionHeader}
+        >
+          <Typography
+            className={customTextClasses.accordionHeaderText}
+            sx={{ fontWeight: expanded === "panel6" ? "600" : "400" }}
+          >
+            Pick PickAppointment
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
+          <PickAppointment />
         </AccordionDetails>
       </Accordion>
     </Box>

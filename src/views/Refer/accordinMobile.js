@@ -25,6 +25,7 @@ import { makeStyles } from "@mui/styles";
 import ReferFriend from "./referFriend";
 import ReferralDiscount from "./referralDiscount";
 import MyReferrer from "./myReferrer";
+import MyReferrals from "./myReferrals";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -138,15 +139,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  My Referrals Details
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          <MyReferrals />
         </AccordionDetails>
       </Accordion>
       <Accordion

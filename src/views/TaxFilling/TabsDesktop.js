@@ -3,7 +3,7 @@ import config from "../../config";
 // Material UI
 import { Grid, Box, Avatar, Typography, Tabs, Tab } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import PercentIcon from "@mui/icons-material/Percent";
 import Groups from "@mui/icons-material/Groups";
@@ -23,6 +23,9 @@ import FilerDeatils from "./filerDeatils";
 import IncomeDetails from "./incomeDetails";
 import BankDetails from "./bankDetails";
 import ConfirmDetails from "./confirmDetails";
+import PickAppointment from "./pickAppointment";
+import PayPalPayment from "../Home/payPalPayment";
+import TaxReturns from "./taxReturns";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -82,8 +85,11 @@ const customTextStyles = makeStyles((theme) => ({
 }));
 
 const TabsDesktop = ({ data, handleFetchData }) => {
+  const params = useParams();
   const customTextClasses = customTextStyles();
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(parseInt(params.action));
+
+  console.log(params.action);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -125,6 +131,9 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           marginBottom: "64px",
         }}
       >
+        <Typography variant="h3" sx={{ marginLeft: "20px" }}>
+          Tax-Filling For Year {params.year}
+        </Typography>
         <Box
           sx={{
             borderBottom: 1,
@@ -164,6 +173,16 @@ const TabsDesktop = ({ data, handleFetchData }) => {
             />
             <Tab
               label="Confirm Details"
+              className={customTextClasses.tabHeaderText}
+              {...a11yProps(2)}
+            />
+            <Tab
+              label="Pick Appointment"
+              className={customTextClasses.tabHeaderText}
+              {...a11yProps(2)}
+            />
+            <Tab
+              label="Pay Now"
               className={customTextClasses.tabHeaderText}
               {...a11yProps(2)}
             />
@@ -207,18 +226,16 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           </Grid>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={4}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  Tax Return
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          <TaxReturns />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={5}>
           <ConfirmDetails />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={6}>
+          <PickAppointment />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={7}>
+          <PayPalPayment />
         </CustomTabPanel>
       </Box>
     </Grid>

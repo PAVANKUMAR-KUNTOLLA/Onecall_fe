@@ -222,9 +222,11 @@ const HomePage = () => {
                       </TableCell>
                       <TableCell className={customStyles.tableData}>
                         <Link
-                          to={`../tax-filing/${row.id}`}
+                          to={`../tax-filing/${row.year}/${row.id}/0`}
                           onClick={() =>
-                            handleNavigate(`../tax-filing/${row.id}`)
+                            handleNavigate(
+                              `../tax-filing/${row.year}/${row.id}/0`
+                            )
                           }
                           sx={{ cursor: "pointer" }}
                         >
@@ -232,7 +234,17 @@ const HomePage = () => {
                         </Link>
                       </TableCell>
                       <TableCell className={customStyles.tableData}>
-                        <Link to="/">Pay Now</Link>
+                        <Link
+                          to={`../tax-filing/${row.year}/${row.id}/7`}
+                          onClick={() =>
+                            handleNavigate(
+                              `../tax-filing/${row.year}/${row.id}/7`
+                            )
+                          }
+                          sx={{ cursor: "pointer" }}
+                        >
+                          Pay Now
+                        </Link>
                       </TableCell>
                       <TableCell className={customStyles.mobileView}>
                         <Box>
@@ -358,7 +370,15 @@ const HomePage = () => {
                                   customStyles.mobileViewTableCellValue
                                 }
                               >
-                                <Link to="/">Pay Now</Link>
+                                <Link
+                                  to={`../payment/${row.id}`}
+                                  onClick={() =>
+                                    handleNavigate(`../payment/${row.id}`)
+                                  }
+                                  sx={{ cursor: "pointer" }}
+                                >
+                                  Pay Now
+                                </Link>
                               </Typography>
                             </Box>
                           </Box>

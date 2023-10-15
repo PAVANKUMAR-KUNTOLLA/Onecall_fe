@@ -22,6 +22,7 @@ import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalance
 import ReferFriend from "./referFriend";
 import ReferralDiscount from "./referralDiscount";
 import MyReferrer from "./myReferrer";
+import MyReferrals from "./myReferrals";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -163,15 +164,7 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           <ReferralDiscount />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  My Referrals
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          <MyReferrals />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
           <Grid container>

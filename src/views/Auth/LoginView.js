@@ -223,7 +223,7 @@ const LoginView = () => {
                   initialValues={{
                     email: "",
                     password: "",
-                    taxYear: "",
+                    // taxYear: "",
                   }}
                   validationSchema={Yup.object().shape({
                     email: Yup.string()
@@ -233,9 +233,9 @@ const LoginView = () => {
                     password: Yup.string()
                       .max(255)
                       .required("Password is required"),
-                    taxYear: Yup.string()
-                      .max(255)
-                      .required("Tax Year is required"),
+                    // taxYear: Yup.string()
+                    //   .max(255)
+                    //   .required("Tax Year is required"),
                   })}
                   onSubmit={(values, { setSubmitting, resetForm }) => {
                     const url = Api.login;
@@ -323,7 +323,7 @@ const LoginView = () => {
                         value={values.password}
                         variant="outlined"
                       />
-                      <TextField
+                      {/* <TextField
                         select
                         error={Boolean(touched.taxYear && errors.taxYear)}
                         helperText={touched.taxYear && errors.taxYear}
@@ -338,7 +338,7 @@ const LoginView = () => {
                       >
                         <MenuItem value="currentYear">Current Year</MenuItem>
                         <MenuItem value="AllYears">All Years</MenuItem>
-                      </TextField>
+                      </TextField> */}
                       <Box my={2}>
                         <Button
                           color="primary"

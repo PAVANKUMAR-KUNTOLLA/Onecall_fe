@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
   Avatar,
+  MenuItem,
 } from "@mui/material";
 
 import { makeStyles } from "@mui/styles";
@@ -170,14 +171,22 @@ const RegisterView = () => {
                 </Box>
                 <Formik
                   initialValues={{
-                    name: "",
+                    firstName: "",
+                    lastName: "",
+                    gender: "",
                     email: "",
                     password: "",
                     passwordConfirmation: "",
                     referralId: "",
                   }}
                   validationSchema={Yup.object().shape({
-                    name: Yup.string().max(255).required("name is required"),
+                    firstName: Yup.string()
+                      .max(255)
+                      .required("First Name is required"),
+                    lastName: Yup.string()
+                      .max(255)
+                      .required("Last Name is required"),
+                    gender: Yup.string().required("Gender is required"),
                     email: Yup.string()
                       .email("Must be a valid email")
                       .max(255)
@@ -249,20 +258,47 @@ const RegisterView = () => {
                           Register
                         </Typography>
                       </Box>
-
                       <TextField
-                        error={Boolean(touched.name && errors.name)}
+                        error={Boolean(touched.firstName && errors.firstName)}
                         fullWidth
-                        helperText={touched.name && errors.name}
-                        label="Name"
+                        helperText={touched.firstName && errors.firstName}
+                        label="First Name"
                         margin="normal"
-                        name="name"
+                        name="firstName"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.name}
+                        value={values.firstName}
                         variant="outlined"
                       />
-
+                      <TextField
+                        error={Boolean(touched.lastName && errors.lastName)}
+                        fullWidth
+                        helperText={touched.lastName && errors.lastName}
+                        label="Last Name"
+                        margin="normal"
+                        name="lastName"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.lastName}
+                        variant="outlined"
+                      />
+                      <TextField
+                        error={Boolean(touched.gender && errors.gender)}
+                        select
+                        fullWidth
+                        helperText={touched.gender && errors.gender}
+                        label="Gender"
+                        margin="normal"
+                        name="gender"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.gender}
+                        variant="outlined"
+                      >
+                        <MenuItem value="MALE">Male</MenuItem>
+                        <MenuItem value="FEMALE">Female</MenuItem>
+                        <MenuItem value="Other">Other</MenuItem>
+                      </TextField>
                       <TextField
                         error={Boolean(touched.email && errors.email)}
                         fullWidth

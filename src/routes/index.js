@@ -33,7 +33,10 @@ const AppRoutes = () => {
         }
       >
         <Route path="home" element={<HomePage />} />
-        <Route path="tax-filing/:id" element={<TaxFillingPage />} />
+        <Route
+          path="tax-filing/:year/:id/:action"
+          element={<TaxFillingPage />}
+        />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="refer" element={<ReferPage />} />
       </Route>

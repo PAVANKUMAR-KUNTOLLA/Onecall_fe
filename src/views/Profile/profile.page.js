@@ -16,6 +16,10 @@ import {
 
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
+import { privateApiGET } from "../../components/PrivateRoute";
+import Api from "../../components/Api";
+
+import { useDispatch } from "react-redux";
 
 const customProfileStyles = makeStyles((theme) => ({
   mainBlock: {
@@ -64,16 +68,43 @@ const customProfileStyles = makeStyles((theme) => ({
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const userInfo = {
-    name: "",
+  const [userInfo, setUserInfo] = useState({
+    first_name: "",
+    last_name: "",
+    gender: "",
     email: "",
     phone_no: "",
-    college: "",
     address: "",
-  };
+  });
+
   const [scrollEl, setScrollEl] = useState();
   const customStyles = customProfileStyles();
+
+  const handleFetchProfileData = () => {
+    privateApiGET(Api.profile)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          let info = data?.data;
+          setUserInfo((prev) => ({
+            ...prev,
+            id: info.id,
+            first_name: info.first_name,
+            last_name: info.last_name,
+            gender: info.gender,
+            email: info.email,
+            phone_no: info.phone_no,
+            address: info.address,
+          }));
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
 
   function stringAvatar(name) {
     if (name.split(" ").length == 1) {
@@ -87,6 +118,12 @@ const ProfilePage = () => {
   }
 
   useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      handleFetchProfileData();
+    }
+  }, []);
+
+  useEffect(() => {
     if (scrollEl) {
       scrollEl.scrollTop = 100;
     }
@@ -96,9 +133,9 @@ const ProfilePage = () => {
     <Page title="Profile">
       <Container maxWidth="md" className={customStyles.mainBlock}>
         <Box className={customStyles.account}>
-          {userInfo.name && (
+          {userInfo.first_name && (
             <Avatar
-              {...stringAvatar(userInfo.name)}
+              {...stringAvatar(userInfo.first_name + userInfo.last_name)}
               sx={{
                 width: "100px",
                 height: "100px",
@@ -110,6 +147,13 @@ const ProfilePage = () => {
               }}
             />
           )}
+
+          <Typography
+            sx={{ fontWeight: "700", marginTop: "10px", fontSize: "16px" }}
+          >
+            {userInfo.first_name} {userInfo.last_name}
+          </Typography>
+
           <Card sx={{ marginTop: "20px" }}>
             <CardHeader
               subheader={"This information can't be edited"}
@@ -122,13 +166,40 @@ const ProfilePage = () => {
                     <Grid item md={4} xs={12}>
                       <TextField
                         fullWidth
-                        label="Name"
+                        label="First_Name"
                         name="name"
-                        value={userInfo?.["name"]}
+                        value={userInfo?.["first_name"]}
                         variant="outlined"
                         InputProps={{
                           readOnly: true,
                         }}
+                        disabled
+                      />
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                      <TextField
+                        fullWidth
+                        label="Last_Name"
+                        name="name"
+                        value={userInfo?.["last_name"]}
+                        variant="outlined"
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        disabled
+                      />
+                    </Grid>
+                    <Grid item md={4} xs={12}>
+                      <TextField
+                        fullWidth
+                        label="Gender"
+                        name="name"
+                        value={userInfo?.["gender"]}
+                        variant="outlined"
+                        InputProps={{
+                          readOnly: true,
+                        }}
+                        disabled
                       />
                     </Grid>
                     <Grid item md={4} xs={12}>
@@ -141,6 +212,7 @@ const ProfilePage = () => {
                         InputProps={{
                           readOnly: true,
                         }}
+                        disabled
                       />
                     </Grid>
                     <Grid item md={4} xs={12}>
@@ -153,21 +225,10 @@ const ProfilePage = () => {
                         InputProps={{
                           readOnly: true,
                         }}
+                        disabled
                       />
                     </Grid>
                     <Grid item md={4} xs={12}>
-                      <TextField
-                        fullWidth
-                        label="College"
-                        name="college"
-                        value={userInfo ? userInfo["college"] : ""}
-                        variant="outlined"
-                        InputProps={{
-                          readOnly: true,
-                        }}
-                      />
-                    </Grid>
-                    <Grid item md={8} xs={12}>
                       <TextField
                         fullWidth
                         label="Address"
@@ -177,6 +238,7 @@ const ProfilePage = () => {
                         InputProps={{
                           readOnly: true,
                         }}
+                        disabled
                       />
                     </Grid>
                   </Grid>
