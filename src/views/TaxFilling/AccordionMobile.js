@@ -83,7 +83,7 @@ const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const BasicAccordion = ({ data }) => {
+const BasicAccordion = ({ data, handleFetchData }) => {
   const customTextClasses = customTextStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -116,65 +116,15 @@ const BasicAccordion = ({ data }) => {
             bgcolor: "#FAFAFA",
           }}
         >
-          <FilerDetails />
-          {/* <Grid container>
-            <Grid item xs={12}>
-              <Box className={customTextClasses.accordionColumn}>
-                <Avatar
-                  sx={{ bgcolor: config.tabsIconBgColor }}
-                  alt="Percent icon"
-                >
-                  <PercentIcon color="primaryMain" />
-                </Avatar>
-                <Typography
-                  className={customTextClasses.accordionColumnHeaderText}
-                >
-                  Interest Rate
-                </Typography>
-                <Typography className={customTextClasses.accordionColumnText}>
-                  2.50% per annum on initial investment, payable semi annually
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box className={customTextClasses.accordionColumn}>
-                <Avatar
-                  sx={{ bgcolor: config.tabsIconBgColor }}
-                  alt="Percent icon"
-                >
-                  <Groups color="primaryMain" />
-                </Avatar>
-                <Typography
-                  className={customTextClasses.accordionColumnHeaderText}
-                >
-                  Eligible Investors
-                </Typography>
-                <Typography className={customTextClasses.accordionColumnText}>
-                  It can be held by any Indian resident individual, Trusts,
-                  HUFs, Chariaccordionle Institution, University, individual on
-                  behalf of minor child, or jointly with any other individual.
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12}>
-              <Box className={customTextClasses.accordionColumn}>
-                <Avatar
-                  sx={{ bgcolor: config.tabsIconBgColor }}
-                  alt="Percent icon"
-                >
-                  <ListAlt color="primaryMain" />
-                </Avatar>
-                <Typography
-                  className={customTextClasses.accordionColumnHeaderText}
-                >
-                  Listing
-                </Typography>
-                <Typography className={customTextClasses.accordionColumnText}>
-                  BSE / NSE
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid> */}
+          <FilerDetails
+            id={data["id"]}
+            personalDetails={data["personalDetails"]}
+            contactDetails={data["contactDetails"]}
+            spouseDetails={data["spouseDetails"]}
+            dependantDetails={data["dependantDetails"]}
+            incomeDetails={data["incomeDetails"]}
+            handleFetchData={handleFetchData}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -196,16 +146,11 @@ const BasicAccordion = ({ data }) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
-          <IncomeDetails />
-          {/* <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  SGB Tranche Dates Coming Soon
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid> */}
+          <IncomeDetails
+            id={data["id"]}
+            data={data["incomeDetails"]}
+            handleFetchData={handleFetchData}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -227,7 +172,11 @@ const BasicAccordion = ({ data }) => {
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
-          <BankDetails />
+          <BankDetails
+            id={data["id"]}
+            data={data["bankDetails"]}
+            handleFetchData={handleFetchData}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion

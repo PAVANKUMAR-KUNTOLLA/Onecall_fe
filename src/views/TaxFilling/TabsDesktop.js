@@ -81,7 +81,7 @@ const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const TabsDesktop = ({ data }) => {
+const TabsDesktop = ({ data, handleFetchData }) => {
   const customTextClasses = customTextStyles();
   const [value, setValue] = useState(0);
 
@@ -171,93 +171,29 @@ const TabsDesktop = ({ data }) => {
         </Box>
 
         <CustomTabPanel value={value} index={0}>
-          <FilerDeatils />
-          {/* <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography
-                  className={customTextClasses.headerTitle}
-                  sx={{ marginBottom: "-4px" }}
-                >
-                  Features of SGB Investment
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Box className={customTextClasses.tabColumn}>
-                <Avatar
-                  sx={{ bgcolor: config.tabsIconBgColor }}
-                  alt="Percent icon"
-                >
-                  <PercentIcon color="primaryMain" />
-                </Avatar>
-                <Typography className={customTextClasses.tabColumnHeaderText}>
-                  Interest Rate
-                </Typography>
-                <Typography className={customTextClasses.tabColumnText}>
-                  2.50% per annum on initial investment, payable semi annually
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Box className={customTextClasses.tabColumn}>
-                <Avatar
-                  sx={{ bgcolor: config.tabsIconBgColor }}
-                  alt="Percent icon"
-                >
-                  <Groups color="primaryMain" />
-                </Avatar>
-                <Typography className={customTextClasses.tabColumnHeaderText}>
-                  Eligible Investors
-                </Typography>
-                <Typography className={customTextClasses.tabColumnText}>
-                  It can be held by any Indian resident individual, Trusts,
-                  HUFs, Charitable Institution, University, individual on behalf
-                  of minor child, or jointly with any other individual.
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <Box className={customTextClasses.tabColumn}>
-                <Avatar
-                  sx={{ bgcolor: config.tabsIconBgColor }}
-                  alt="Percent icon"
-                >
-                  <ListAlt color="primaryMain" />
-                </Avatar>
-                <Typography className={customTextClasses.tabColumnHeaderText}>
-                  Listing
-                </Typography>
-                <Typography className={customTextClasses.tabColumnText}>
-                  BSE / NSE
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid> */}
+          <FilerDeatils
+            id={data["id"]}
+            personalDetails={data["personalDetails"]}
+            contactDetails={data["contactDetails"]}
+            spouseDetails={data["spouseDetails"]}
+            dependantDetails={data["dependantDetails"]}
+            incomeDetails={data["incomeDetails"]}
+            handleFetchData={handleFetchData}
+          />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <IncomeDetails />
-          {/* <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  Income Deatils Coming Soon
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid> */}
+          <IncomeDetails
+            id={data["id"]}
+            data={data["incomeDetails"]}
+            handleFetchData={handleFetchData}
+          />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <BankDetails />
-          {/* <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  Bank Deatils Coming Soon
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid> */}
+          <BankDetails
+            id={data["id"]}
+            data={data["bankDetails"]}
+            handleFetchData={handleFetchData}
+          />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={3}>
           <Grid container>

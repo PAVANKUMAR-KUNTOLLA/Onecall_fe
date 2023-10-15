@@ -42,7 +42,7 @@ const handleSubmit = (values) => {
   console.log(values);
 };
 
-const IncomeDetails = () => {
+const IncomeDetails = ({ id, data, handleFetchData }) => {
   const [additionalInfoArray, setAdditionalInfoArray] = useState([]);
   const [incomeDescription, setIncomeDescription] = useState("");
   const [incomeAmount, setIncomeAmount] = useState("");

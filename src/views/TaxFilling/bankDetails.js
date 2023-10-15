@@ -48,7 +48,7 @@ const handleSubmit = (values) => {
   console.log(values);
 };
 
-const BankDetails = () => {
+const BankDetails = ({ id, data, handleFetchData }) => {
   const [isAdditionalFieldsDisabled, setAdditionalFieldsDisabled] =
     useState(true);
 
