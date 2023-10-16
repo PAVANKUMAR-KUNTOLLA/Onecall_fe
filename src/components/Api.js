@@ -21,4 +21,9 @@ export default {
   confirmDetails: "/api/v1/confirm_details/",
   downloadTaxDocsFile: "/api/v1/download_tax_docs/",
   deleteTaxDocsFile: "/api/v1/delete_tax_docs/",
+  bookAppointment: "/api/v1/book_appointment/",
+  appointmentDetails: "/api/v1/appointment_details/",
+  deleteAppointment: "/api/v1/delete_appointment/",
+  makeReferal: "/api/v1/make_referal/",
+  referalDetails: "/api/v1/referal_details/",
 };

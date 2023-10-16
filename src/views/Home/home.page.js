@@ -347,9 +347,11 @@ const HomePage = () => {
                                 }
                               >
                                 <Link
-                                  to={`../tax-filing/${row.id}`}
+                                  to={`../tax-filing/${row.year}/${row.id}/0`}
                                   onClick={() =>
-                                    handleNavigate(`../tax-filing/${row.id}`)
+                                    handleNavigate(
+                                      `../tax-filing/${row.year}/${row.id}/0`
+                                    )
                                   }
                                   sx={{ cursor: "pointer" }}
                                 >
@@ -371,9 +373,11 @@ const HomePage = () => {
                                 }
                               >
                                 <Link
-                                  to={`../payment/${row.id}`}
+                                  to={`../tax-filing/${row.year}/${row.id}/7`}
                                   onClick={() =>
-                                    handleNavigate(`../payment/${row.id}`)
+                                    handleNavigate(
+                                      `../tax-filing/${row.year}/${row.id}/7`
+                                    )
                                   }
                                   sx={{ cursor: "pointer" }}
                                 >

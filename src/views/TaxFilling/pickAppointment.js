@@ -14,11 +14,17 @@ import {
   TableRow,
   Paper,
   MenuItem,
+  CircularProgress,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Api from "../../components/Api";
-import { privateApiGET } from "../../components/PrivateRoute";
+import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
+import { customTextStyles } from "./TaxDocs";
 
-const PickAppointment = () => {
+const PickAppointment = ({ id }) => {
+  const customStyles = customTextStyles();
+  const [isPickAppointmentDetailsLoading, setIsPickAppointmentDetailsLoading] =
+    useState(false);
   const [userInfo, setUserInfo] = useState({
     first_name: "",
     last_name: "",
@@ -30,6 +36,7 @@ const PickAppointment = () => {
     time: "23:00",
     timezone: "CST",
   });
+  const [appointmentDetails, setAppointmentDetails] = useState([]);
 
   const handleDateChange = (event) => {
     setAppointmentData({
@@ -50,6 +57,64 @@ const PickAppointment = () => {
       ...appointmentData,
       timezone: event.target.value,
     });
+  };
+
+  const handleCancelAppointment = (appointmentId) => {
+    setIsPickAppointmentDetailsLoading(true);
+    let payload = { id: id, appointmentId: appointmentId };
+    privateApiPOST(Api.deleteAppointment, payload)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setIsPickAppointmentDetailsLoading(false);
+          handleFetchAppointmentDetails();
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsPickAppointmentDetailsLoading(false);
+      });
+  };
+
+  const handleFetchAppointmentDetails = () => {
+    setIsPickAppointmentDetailsLoading(true);
+    let payload = { id: id };
+    privateApiPOST(Api.appointmentDetails, payload)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setIsPickAppointmentDetailsLoading(false);
+          setAppointmentDetails(data?.data);
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsPickAppointmentDetailsLoading(false);
+      });
+  };
+  const handleFetchAppointmentChange = (payload) => {
+    setIsPickAppointmentDetailsLoading(true);
+
+    privateApiPOST(Api.bookAppointment, payload)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setIsPickAppointmentDetailsLoading(false);
+          setAppointmentData({
+            date: "",
+            time: "23:00",
+            timezone: "CST",
+          });
+          handleFetchAppointmentDetails();
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsPickAppointmentDetailsLoading(false);
+      });
   };
   const handleFetchProfileData = () => {
     privateApiGET(Api.profile)
@@ -72,6 +137,12 @@ const PickAppointment = () => {
       });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let payload = { ...appointmentData, id: id };
+    handleFetchAppointmentChange(payload);
+  };
+
   const showMsg = () => {
     // Add your showMsg function logic here
   };
@@ -79,6 +150,7 @@ const PickAppointment = () => {
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
       handleFetchProfileData();
+      handleFetchAppointmentDetails();
     }
   }, []);
 
@@ -167,58 +239,134 @@ const PickAppointment = () => {
             10/15/2023 to 12/31/2023
           </Typography>
         </Typography>
-        <Grid container spacing={2} sx={{ marginTop: "30px" }}>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              type="date"
-              value={appointmentData.date}
-              onChange={handleDateChange}
-              fullWidth
-              sx={{ width: "80%" }}
-            />
+        <form autoComplete="off" onSubmit={handleSubmit}>
+          <Grid container spacing={2} sx={{ marginTop: "30px" }}>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                type="date"
+                value={appointmentData.date}
+                onChange={handleDateChange}
+                fullWidth
+                required
+                sx={{ width: "80%" }}
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                select
+                label="Time"
+                value={appointmentData.time}
+                onChange={handleTimeChange}
+                variant="outlined"
+                fullWidth
+                required
+                sx={{ width: "80%" }}
+              >
+                {timeOptions.map((option) => (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                select
+                value={appointmentData.timezone}
+                onChange={handleTimezoneChange}
+                fullWidth
+                required
+                sx={{ width: "80%" }}
+              >
+                <MenuItem value="CST">CST</MenuItem>
+                {/* Add more time zones as needed */}
+              </TextField>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              select
-              label="Time"
-              value={appointmentData.time}
-              onChange={handleTimeChange}
-              variant="outlined"
-              fullWidth
-              sx={{ width: "80%" }}
-            >
-              {timeOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <TextField
-              select
-              value={appointmentData.timezone}
-              onChange={handleTimezoneChange}
-              fullWidth
-              sx={{ width: "80%" }}
-            >
-              <MenuItem value="CST">CST</MenuItem>
-              {/* Add more time zones as needed */}
-            </TextField>
-          </Grid>
-        </Grid>
-        <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
-          Maximum number of appointments you can have is "ONE". If you already
-          have an appointment delete it before scheduling new appointment
-        </Typography>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={showMsg}
-          sx={{ display: "block", margin: "0 auto", marginTop: "20px" }}
-        >
-          SUBMIT
-        </Button>
+          <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
+            Maximum number of appointments you can have is "ONE". If you already
+            have an appointment delete it before scheduling new appointment
+          </Typography>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={showMsg}
+            sx={{ display: "block", margin: "0 auto", marginTop: "20px" }}
+          >
+            SUBMIT
+          </Button>
+        </form>
+        <Box>
+          {isPickAppointmentDetailsLoading ? (
+            <CircularProgress />
+          ) : (
+            <TableContainer sx={{ marginTop: "32px" }}>
+              <Table
+                sx={{
+                  borderCollapse: "collapse",
+                }}
+                aria-label="Place Order Series Table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell className={customStyles.tableHeader}>
+                      Date
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      Start Time
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      End Time
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      Status
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {appointmentDetails.length > 0 &&
+                    appointmentDetails.map((row, index) => (
+                      <TableRow key={index}>
+                        <TableCell className={customStyles.tableData}>
+                          {row.date}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {row.start_time}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {row.end_time}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {row.status}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            visibility:
+                              row.status === "BOOKED" ? "visible" : "hidden",
+                          }}
+                        >
+                          <Button
+                            disabled={isPickAppointmentDetailsLoading}
+                            startIcon={<DeleteIcon />}
+                            size="small"
+                            onClick={() => {
+                              handleCancelAppointment(row.id);
+                            }}
+                          >
+                            Delete{" "}
+                            {isPickAppointmentDetailsLoading && (
+                              <CircularProgress sx={{ ml: 1 }} size={14} />
+                            )}
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </Box>
       </Container>
     </Box>
   );

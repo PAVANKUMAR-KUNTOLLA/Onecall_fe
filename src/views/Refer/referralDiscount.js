@@ -75,7 +75,7 @@ const ReferralDiscount = () => {
               </Typography>
             </ListItem>
             <ListItem>
-              <Typography variant="body1">
+              <Box variant="body1">
                 <font color="green" size="2">
                   Example:
                   <ul>
@@ -98,7 +98,7 @@ const ReferralDiscount = () => {
                     </li>
                   </ul>
                 </font>
-              </Typography>
+              </Box>
             </ListItem>
             <ListItem>
               <Typography variant="body1" sx={{ color: "#FF0000" }}>

@@ -249,11 +249,11 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             className={customTextClasses.accordionHeaderText}
             sx={{ fontWeight: expanded === "panel6" ? "600" : "400" }}
           >
-            Pick PickAppointment
+            Pick Appointment
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
-          <PickAppointment />
+          <PickAppointment id={data["id"]} />
         </AccordionDetails>
       </Accordion>
     </Box>

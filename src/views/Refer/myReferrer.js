@@ -1,11 +1,43 @@
+import React, { useState, useEffect } from "react";
+
 import { Container, Typography, Box, Grid, TextField } from "@mui/material";
-import React from "react";
+import Api from "../../components/Api";
+import { privateApiGET } from "../../components/PrivateRoute";
 
 const MyReferrer = () => {
-  const referralDetails = {
-    referralId: "",
+  const [isReferralDetailsLoading, setIsReferralDetailsLoading] =
+    useState(false);
+  const [referralDetails, setReferralDetails] = useState({
     referralEmail: "",
+    referralID: "",
+  });
+
+  const handleFetchProfileDetails = () => {
+    setIsReferralDetailsLoading(true);
+    privateApiGET(Api.profile)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setReferralDetails({
+            ...referralDetails,
+            referralEmail: data?.data["referred_by"],
+            referralID: data?.data["referral_id"],
+          });
+          setIsReferralDetailsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsReferralDetailsLoading(false);
+      });
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("token")) {
+      handleFetchProfileDetails();
+    }
+  }, []);
 
   return (
     <Box>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Page from "../../components/Page";
 import {
   Grid,
@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import Api from "../../components/Api";
+import { privateApiPOST } from "../../components/PrivateRoute";
 
 const initialValues = {
   firstName: "",
@@ -27,20 +29,35 @@ const validationSchema = Yup.object().shape({
   contact: Yup.string().required("Contact number is required"),
 });
 
-const handleSubmit = (values) => {
-  // Handle form submission here
-  console.log(values);
-};
-
 const ReferFriend = () => {
+  const [isReferalDetailsLoading, setIsReferalDetailsLoading] = useState(false);
   return (
     <Box>
       <Container>
         <Typography variant="h4">Referal Details:</Typography>
         <Formik
           initialValues={initialValues}
-          onSubmit={handleSubmit}
           validationSchema={validationSchema}
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            setIsReferalDetailsLoading(true);
+            setSubmitting(true);
+            let payload = { ...values };
+            privateApiPOST(Api.makeReferal, payload)
+              .then((response) => {
+                const { status, data } = response;
+                if (status === 200) {
+                  console.log("data", data);
+                  setIsReferalDetailsLoading(false);
+                  resetForm();
+                  setSubmitting(false);
+                }
+              })
+              .catch((error) => {
+                console.log("Error", error);
+                setIsReferalDetailsLoading(false);
+                setSubmitting(false);
+              });
+          }}
         >
           {({ values, handleChange, errors, touched, handleBlur }) => (
             <Form>

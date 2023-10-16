@@ -28,7 +28,7 @@ import PayPalPayment from "../Home/payPalPayment";
 import TaxReturns from "./taxReturns";
 import UploadTaxDocs from "./TaxDocs";
 
-const customTextStyles = makeStyles((theme) => ({
+export const customTextStyles = makeStyles((theme) => ({
   accordion: {
     marginBottom: "8px",
     borderRadius: "10px",
@@ -231,7 +231,7 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           <ConfirmDetails />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={6}>
-          <PickAppointment />
+          <PickAppointment id={data["id"]} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={7}>
           <PayPalPayment />
