@@ -225,7 +225,8 @@ const UploadTaxDocs = ({ id }) => {
 
   const handleFetchMyTaxDocs = () => {
     setState((prev) => ({ ...prev, isMyTaxDocsLoading: true }));
-    privateApiGET(Api.uploadTaxDocs)
+    let payload = { id: id };
+    privateApiPOST(Api.uploadTaxDocs, payload)
       .then((response) => {
         const { status, data } = response;
         if (status === 200) {
