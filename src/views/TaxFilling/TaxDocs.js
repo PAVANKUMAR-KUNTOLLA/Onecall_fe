@@ -13,6 +13,7 @@ import {
   TableHead,
   TableCell,
   CircularProgress,
+  Container,
 } from "@mui/material";
 
 import { makeStyles } from "@mui/styles";
@@ -78,6 +79,11 @@ export const customTextStyles = makeStyles((theme) => ({
     fontSize: "10px",
     fontWeight: "400",
     lineHeight: "14px",
+  },
+  buttons: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
 }));
 
@@ -249,124 +255,231 @@ const UploadTaxDocs = ({ id }) => {
   }, []);
 
   return (
-    <>
-      {showAlert.isAlert && (
-        <CustomAlert
-          open={showAlert.isAlert}
-          severity={showAlert.severity}
-          alertTitle={showAlert.alertTitle}
-          alertText={showAlert.alertText}
-          onClose={() =>
-            setShowAlert({
-              isAlert: false,
-              alertTitle: "",
-              alertText: "",
-              severity: "",
-            })
-          }
-        />
-      )}
-      <Box display="flex" justifyContent="flex-end">
-        <Box>
-          <input
-            required
-            id="import-file-button"
-            type="file"
-            onChange={handleUploadClick}
-            accept=".xlsx"
-            style={{ opacity: 0, visibility: "hidden", width: "1px" }}
+    <Box>
+      <Container>
+        {showAlert.isAlert && (
+          <CustomAlert
+            open={showAlert.isAlert}
+            severity={showAlert.severity}
+            alertTitle={showAlert.alertTitle}
+            alertText={showAlert.alertText}
+            onClose={() =>
+              setShowAlert({
+                isAlert: false,
+                alertTitle: "",
+                alertText: "",
+                severity: "",
+              })
+            }
           />
-          <label htmlFor="import-file-button">
-            <Button
-              startIcon={<CloudUploadIcon />}
-              component="span"
-              variant="contained"
-            >
-              Choose File
-            </Button>
-          </label>
-          <Typography sx={{ marginTop: "8px", fontStyle: "italic" }}>
-            {state.selectedFile.name}
-          </Typography>
-        </Box>
-        <Button onClick={handleUploadTaxDocs}>Upload</Button>
-      </Box>
-      <Box>
-        {state.isMyTaxDocsLoading ? (
-          <CircularProgress />
-        ) : (
-          <TableContainer sx={{ marginTop: "32px" }}>
-            <Table
-              sx={{
-                borderCollapse: "collapse",
-              }}
-              aria-label="Place Order Series Table"
-            >
-              <TableHead>
-                <TableRow>
-                  <TableCell className={customStyles.tableHeader}>
-                    File Name
-                  </TableCell>
-                  <TableCell className={customStyles.tableHeader}>
-                    Upload Time
-                  </TableCell>
-                  <TableCell className={customStyles.tableHeader}>
-                    File Size
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {state.myTaxDocs.length > 0 &&
-                  state.myTaxDocs.map((row, index) => (
-                    <TableRow key={index}>
-                      <TableCell className={customStyles.tableData}>
-                        {row.file_name}
-                      </TableCell>
-                      <TableCell className={customStyles.tableData}>
-                        {row.upload_time}
-                      </TableCell>
-                      <TableCell className={customStyles.tableData}>
-                        {row.file_size}
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          disabled={isLoading}
-                          startIcon={<GetApp />}
-                          size="small"
-                          variant="outlined"
-                          onClick={() => {
-                            handleDownloadFile(row.file_name);
-                          }}
-                        >
-                          Download{" "}
-                          {isLoading && (
-                            <CircularProgress sx={{ ml: 1 }} size={14} />
-                          )}
-                        </Button>
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          disabled={isLoading}
-                          startIcon={<DeleteIcon />}
-                          size="small"
-                          onClick={() => {
-                            handleDeleteFile(row.file_name);
-                          }}
-                        >
-                          Delete{" "}
-                          {isLoading && (
-                            <CircularProgress sx={{ ml: 1 }} size={14} />
-                          )}
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
         )}
-      </Box>
-    </>
+        <Box
+          display="flex"
+          justifyContent="flex-end"
+          sx={{ marginTop: { xs: "20px" } }}
+        >
+          <Box sx={{ marginRight: "20px" }}>
+            <input
+              required
+              id="import-file-button"
+              type="file"
+              onChange={handleUploadClick}
+              accept=".xlsx"
+              style={{ opacity: 0, visibility: "hidden", width: "1px" }}
+            />
+            <label htmlFor="import-file-button">
+              <Button
+                startIcon={<CloudUploadIcon />}
+                component="span"
+                variant="contained"
+              >
+                Choose File
+              </Button>
+            </label>
+            <Typography sx={{ marginTop: "8px", fontStyle: "italic" }}>
+              {state.selectedFile.name}
+            </Typography>
+          </Box>
+          <Button onClick={handleUploadTaxDocs} sx={{ marginBottom: "10px" }}>
+            Upload
+          </Button>
+        </Box>
+        <Box>
+          {state.isMyTaxDocsLoading ? (
+            <CircularProgress />
+          ) : (
+            <TableContainer sx={{ marginTop: "32px" }}>
+              <Table
+                sx={{
+                  borderCollapse: "collapse",
+                }}
+                aria-label="Place Order Series Table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell className={customStyles.tableHeader}>
+                      File Name
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      Upload Time
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      File Size
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {state.myTaxDocs.length > 0 &&
+                    state.myTaxDocs.map((row, index) => (
+                      <TableRow key={index}>
+                        <TableCell className={customStyles.tableData}>
+                          {row.file_name}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {row.upload_time}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {row.file_size}
+                        </TableCell>
+                        <TableCell className={customStyles.buttons}>
+                          <Button
+                            disabled={isLoading}
+                            startIcon={<GetApp />}
+                            size="small"
+                            variant="outlined"
+                            onClick={() => {
+                              handleDownloadFile(row.file_name);
+                            }}
+                          >
+                            Download{" "}
+                            {isLoading && (
+                              <CircularProgress sx={{ ml: 1 }} size={14} />
+                            )}
+                          </Button>
+                        </TableCell>
+                        <TableCell className={customStyles.buttons}>
+                          <Button
+                            disabled={isLoading}
+                            startIcon={<DeleteIcon />}
+                            size="small"
+                            onClick={() => {
+                              handleDeleteFile(row.file_name);
+                            }}
+                          >
+                            Delete{" "}
+                            {isLoading && (
+                              <CircularProgress sx={{ ml: 1 }} size={14} />
+                            )}
+                          </Button>
+                        </TableCell>
+                        <TableCell className={customStyles.mobileView}>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                File Name
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.file_name}
+                              </Typography>
+                            </Box>
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Upload Time
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.upload_time}
+                              </Typography>
+                            </Box>
+
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                File Size
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.file_size}
+                              </Typography>
+                            </Box>
+
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-between",
+                                marginTop: "16px",
+                              }}
+                            >
+                              <Button
+                                disabled={isLoading}
+                                startIcon={<GetApp />}
+                                size="small"
+                                variant="outlined"
+                                onClick={() => {
+                                  handleDownloadFile(row.file_name);
+                                }}
+                              >
+                                Download{" "}
+                                {isLoading && (
+                                  <CircularProgress sx={{ ml: 1 }} size={14} />
+                                )}
+                              </Button>
+                              <Button
+                                disabled={isLoading}
+                                startIcon={<DeleteIcon />}
+                                size="small"
+                                onClick={() => {
+                                  handleDeleteFile(row.file_name);
+                                }}
+                              >
+                                Delete{" "}
+                                {isLoading && (
+                                  <CircularProgress sx={{ ml: 1 }} size={14} />
+                                )}
+                              </Button>
+                            </Box>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

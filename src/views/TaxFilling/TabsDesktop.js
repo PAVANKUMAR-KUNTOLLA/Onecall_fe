@@ -168,11 +168,6 @@ const TabsDesktop = ({ data, handleFetchData }) => {
               {...a11yProps(2)}
             />
             <Tab
-              label="Tax Returns"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(2)}
-            />
-            <Tab
               label="Confirm Details"
               className={customTextClasses.tabHeaderText}
               {...a11yProps(2)}
@@ -184,6 +179,11 @@ const TabsDesktop = ({ data, handleFetchData }) => {
             />
             <Tab
               label="Pay Now"
+              className={customTextClasses.tabHeaderText}
+              {...a11yProps(2)}
+            />
+            <Tab
+              label="Tax Returns"
               className={customTextClasses.tabHeaderText}
               {...a11yProps(2)}
             />
@@ -225,16 +225,24 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           </Grid>
         </CustomTabPanel>
         <CustomTabPanel value={value} index={4}>
-          <TaxReturns />
+          <ConfirmDetails
+            id={data["id"]}
+            personalDetails={data["personalDetails"]}
+            contactDetails={data["contactDetails"]}
+            spouseDetails={data["spouseDetails"]}
+            dependantDetails={data["dependantDetails"]}
+            incomeDetails={data["incomeDetails"]}
+            bankDetails={data["bankDetails"]}
+          />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={5}>
-          <ConfirmDetails />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={6}>
           <PickAppointment id={data["id"]} />
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={7}>
+        <CustomTabPanel value={value} index={6}>
           <PayPalPayment />
+        </CustomTabPanel>
+        <CustomTabPanel value={value} index={7}>
+          <TaxReturns />
         </CustomTabPanel>
       </Box>
     </Grid>

@@ -35,7 +35,7 @@ const customAppBarStyles = makeStyles((theme) => ({
     padding: "10px 0",
   },
   logoAvatar: {
-    maxHeight: "42px",
+    maxHeight: "42px !important",
     maxWidth: "120px !important",
     [theme.breakpoints.up("sm")]: {
       marginLeft: "200px",
@@ -55,8 +55,8 @@ const customAppBarStyles = makeStyles((theme) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ["HOME", "REFER", "PROFILE", "LOGOUT"];
-const navIcons = [HomeIcon, PaidIcon, AccountCircleIcon, ExitToAppIcon];
+const navItems = ["PROFILE", "REFER", "LOGOUT"];
+const navIcons = [AccountCircleIcon, PaidIcon, ExitToAppIcon];
 
 function DrawerAppBar(props) {
   const { window } = props;

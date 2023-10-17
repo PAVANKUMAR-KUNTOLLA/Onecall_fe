@@ -19,7 +19,55 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
-import { customTextStyles } from "./TaxDocs";
+import { makeStyles } from "@mui/styles";
+
+const customTextStyles = makeStyles((theme) => ({
+  tableHeader: {
+    fontSize: "16px",
+    fontWeight: "400",
+    lineHeight: "23px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  tableData: {
+    fontSize: "16px",
+    fontWeight: "700",
+    lineHeight: "22px",
+    [theme.breakpoints.down("sm")]: {
+      // marginBottom: "8px",
+      display: "none",
+    },
+  },
+  mobileViewTableCellValue: {
+    color: "rgb(71, 71, 71)",
+    fontSize: "14px",
+    fontWeight: "400",
+    lineHeight: "19px",
+  },
+  mobileView: {
+    borderRadius: "4px",
+    boxShadow: "0px 0px 5px rgba(0,0,0, 0.1)",
+    backgroundColor: "rgba(255,255,255, 1) !important",
+    cursor: "pointer",
+    border: "none !important",
+    marginBottom: "20px",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  mobileViewTableCellHeader: {
+    color: "rgb(245, 166, 35)",
+    fontSize: "10px",
+    fontWeight: "400",
+    lineHeight: "14px",
+  },
+  buttons: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+}));
 
 const PickAppointment = ({ id }) => {
   const customStyles = customTextStyles();
@@ -301,7 +349,13 @@ const PickAppointment = ({ id }) => {
           {isPickAppointmentDetailsLoading ? (
             <CircularProgress />
           ) : (
-            <TableContainer sx={{ marginTop: "32px" }}>
+            <TableContainer
+              sx={{
+                marginTop: "32px",
+                marginLeft: { xs: "-32px", sm: "0px" },
+                paddingBottom: { xs: "10px", sm: "0px" },
+              }}
+            >
               <Table
                 sx={{
                   borderCollapse: "collapse",
@@ -353,12 +407,124 @@ const PickAppointment = ({ id }) => {
                             onClick={() => {
                               handleCancelAppointment(row.id);
                             }}
+                            className={customStyles.buttons}
                           >
                             Delete{" "}
                             {isPickAppointmentDetailsLoading && (
                               <CircularProgress sx={{ ml: 1 }} size={14} />
                             )}
                           </Button>
+                        </TableCell>
+                        <TableCell className={customStyles.mobileView}>
+                          <Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-between",
+                                marginTop: "16px",
+                              }}
+                            >
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  Date
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.date}
+                                </Typography>
+                              </Box>
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  Start Time
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.start_time}
+                                </Typography>
+                              </Box>
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-between",
+                                marginTop: "16px",
+                              }}
+                            >
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  End Time
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.end_time}
+                                </Typography>
+                              </Box>
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  Status
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.status}
+                                </Typography>
+                              </Box>
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "center", // Center the button horizontally
+                                alignItems: "center",
+                              }}
+                            >
+                              <Button
+                                disabled={isPickAppointmentDetailsLoading}
+                                startIcon={<DeleteIcon />}
+                                size="small"
+                                onClick={() => {
+                                  handleCancelAppointment(row.id);
+                                }}
+                              >
+                                Delete{" "}
+                                {isPickAppointmentDetailsLoading && (
+                                  <CircularProgress sx={{ ml: 1 }} size={14} />
+                                )}
+                              </Button>
+                            </Box>
+                          </Box>
                         </TableCell>
                       </TableRow>
                     ))}

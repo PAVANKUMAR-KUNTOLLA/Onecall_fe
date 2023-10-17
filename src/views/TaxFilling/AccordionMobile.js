@@ -27,6 +27,9 @@ import FilerDetails from "./filerDeatils";
 import IncomeDetails from "./incomeDetails";
 import PickAppointment from "./pickAppointment";
 import UploadTaxDocs from "./TaxDocs";
+import TaxReturns from "./taxReturns";
+import PayPalPayment from "../Home/payPalPayment";
+import ConfirmDetails from "./confirmDetails";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -169,7 +172,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             Bank Deatails
           </Typography>
         </AccordionSummary>
-        <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
+        <AccordionDetails sx={{ bgcolor: "#FAFAFA", paddingLeft: "0px" }}>
           <BankDetails
             id={data["id"]}
             data={data["bankDetails"]}
@@ -188,20 +191,10 @@ const BasicAccordion = ({ data, handleFetchData }) => {
           id="panel4a-header"
           className={customTextClasses.accordionHeader}
         >
-          <Box>
-            <UploadTaxDocs id={data["id"]} />
-          </Box>
+          Upload Tax Docs
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  FAQs Coming Soon
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          <UploadTaxDocs id={data["id"]} />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -219,19 +212,19 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             className={customTextClasses.accordionHeaderText}
             sx={{ fontWeight: expanded === "panel5" ? "600" : "400" }}
           >
-            Tax Returns
+            Confirm BankDetails
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <Typography className={customTextClasses.headerTitle}>
-                  FAQs Coming Soon
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
+          <ConfirmDetails
+            id={data["id"]}
+            personalDetails={data["personalDetails"]}
+            contactDetails={data["contactDetails"]}
+            spouseDetails={data["spouseDetails"]}
+            dependantDetails={data["dependantDetails"]}
+            incomeDetails={data["incomeDetails"]}
+            bankDetails={data["bankDetails"]}
+          />
         </AccordionDetails>
       </Accordion>
       <Accordion
@@ -254,6 +247,50 @@ const BasicAccordion = ({ data, handleFetchData }) => {
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
           <PickAppointment id={data["id"]} />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel7"}
+        onChange={handleChange("panel7")}
+        className={customTextClasses.accordion}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel7a-content"
+          id="panel7a-header"
+          className={customTextClasses.accordionHeader}
+        >
+          <Typography
+            className={customTextClasses.accordionHeaderText}
+            sx={{ fontWeight: expanded === "panel7" ? "600" : "400" }}
+          >
+            Pay Now
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
+          <PayPalPayment />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel8"}
+        onChange={handleChange("panel8")}
+        className={customTextClasses.accordion}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel8a-content"
+          id="panel8a-header"
+          className={customTextClasses.accordionHeader}
+        >
+          <Typography
+            className={customTextClasses.accordionHeaderText}
+            sx={{ fontWeight: expanded === "panel8" ? "600" : "400" }}
+          >
+            Tax Return
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
+          <TaxReturns />
         </AccordionDetails>
       </Accordion>
     </Box>

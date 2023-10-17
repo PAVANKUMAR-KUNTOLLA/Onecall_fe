@@ -121,6 +121,7 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center", // Center vertically
       alignItems: "center", // Center horizontally
       paddingRight: "0px",
+      marginTop: "-100px",
     },
   },
 }));

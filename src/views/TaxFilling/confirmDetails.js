@@ -18,90 +18,100 @@ import { statesNames, countryCode } from "../../constants";
 
 const useStyles = makeStyles((theme) => ({}));
 
-const ConfirmDetails = () => {
+const ConfirmDetails = ({
+  id,
+  personalDetails,
+  contactDetails,
+  spouseDetails,
+  dependantDetails,
+  incomeDetails,
+  bankDetails,
+}) => {
   const classes = useStyles();
   const stateOptions = statesNames;
   const countryCodes = countryCode;
   const [formData, setFormData] = useState({
     // Personal Details
 
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    ssn: "",
-    dateOfBirth: "",
-    gender: "",
-    occupation: "",
-    residentialStatus: "",
-    email: "",
+    firstName: personalDetails["firstName"],
+    middleName: personalDetails["middleName"],
+    lastName: personalDetails["lastName"],
+    ssn: personalDetails["ssn"],
+    dateOfBirth: personalDetails["dateOfBirth"],
+    gender: personalDetails["gender"],
+    occupation: personalDetails["occupation"],
+    residentialStatus: personalDetails["residentialStatus"],
+    email: personalDetails["email"],
 
     // Contact Details
-    street: "",
-    apartment: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    country: "",
-    primaryCountryCode: "",
-    primaryPhoneNumber: "",
-    secondaryCountryCode: "",
-    secondaryPhoneNumber: "",
-    contactEmail: "",
+    street: contactDetails["street"],
+    apartment: contactDetails["apartment"],
+    city: contactDetails["city"],
+    state: contactDetails["state"],
+    zipCode: contactDetails["zipCode"],
+    country: contactDetails["country"],
+    primaryCountryCode: contactDetails["primaryCountryCode"],
+    primaryPhoneNumber: contactDetails["primaryPhoneNumber"],
+    secondaryCountryCode: contactDetails["secondaryCountryCode"],
+    secondaryPhoneNumber: contactDetails["secondaryPhoneNumber"],
+    contactEmail: contactDetails["contactEmail"],
 
-    taxFiledLastYear: "0", // Set an initial value for taxFiledLastYear
+    taxFiledLastYear: incomeDetails["taxFiledLastYear"], // Set an initial value for taxFiledLastYear
 
     // additional Spouse Details (Initially hidden)
-    taxPayerStatus: "1", // Default to "No" (Single)
-    spouseFirstName: "",
-    spouseMiddleInitial: "",
-    spouseLastName: "",
-    spouseSsnOrItin: "",
-    applyForItin: "0", // Default to "No"
-    spouseDateOfBirth: "",
-    spouseGender: "",
-    spouseOccupation: "",
-    spouseResidentialStatus: "",
-    spouseEmail: "",
+    taxPayerStatus: personalDetails["taxPayerStatus"], // Default to "No" (Single)
+    spouseFirstName: spouseDetails["spouseFirstName"],
+    spouseMiddleInitial: spouseDetails["spouseMiddleInitial"],
+    spouseLastName: spouseDetails["spouseLastName"],
+    spouseSsnOrItin: spouseDetails["spouseSsnOrItin"],
+    spouseApplyForItin: spouseDetails["spouseApplyForItin"], // Default to "No"
+    spouseDateOfBirth: spouseDetails["spouseDateOfBirth"],
+    spouseGender: spouseDetails["spouseGender"],
+    spouseOccupation: spouseDetails["spouseOccupation"],
+    spouseResidentialStatus: spouseDetails["spouseResidentialStatus"],
+    spouseEmail: spouseDetails["spouseEmail"],
 
-    providedLivingSupport: "1",
-    additionalFirstName: "",
-    additionalMiddleInitial: "",
-    additionalLastName: "",
-    additionalSsnOrItin: "",
-    applyForItin: "0", // Default to "No"
-    additionalDateOfBirth: "",
-    additionalGender: "",
-    additionalOccupation: "",
-    additionalResidentialStatus: "",
-    additionalEmail: "",
+    providedLivingSupport: dependantDetails["providedLivingSupport"],
+    additionalFirstName: dependantDetails["additionalFirstName"],
+    additionalMiddleInitial: dependantDetails["additionalMiddleInitial"],
+    additionalLastName: dependantDetails["additionalLastName"],
+    additionalSsnOrItin: dependantDetails["additionalSsnOrItin"],
+    additionalApplyForItin: dependantDetails["additionalApplyForItin"], // Default to "No"
+    additionalDateOfBirth: dependantDetails["additionalDateOfBirth"],
+    additionalGender: dependantDetails["additionalGender"],
+    additionalOccupation: dependantDetails["additionalOccupation"],
+    additionalVisaType: dependantDetails["additionalVisaType"],
+    additionalEmail: dependantDetails["additionalEmail"],
+    additionalStayCount: dependantDetails["additionalStayCount"],
+    additionalRelationship: dependantDetails["additionalRelationship"],
 
     //Income Details
-    interestIncome: "no",
-    dividendIncome: "no",
-    soldStocks: "no",
-    soldCrypto: "no",
-    foreignIncome: "no",
-    retirementAccounts: "no",
-    stateTaxRefund: "no",
-    foreignBankAccount: "no",
-    foreignAssets: "no",
-    rentalIncome: "no",
-    income1099: "no",
-    incomeDescription: "",
-    incomeAmount: "",
+    interestIncome: incomeDetails["interestIncome"],
+    dividendIncome: incomeDetails["dividendIncome"],
+    soldStocks: incomeDetails["soldStocks"],
+    soldCrypto: incomeDetails["soldCrypto"],
+    foreignIncome: incomeDetails["foreignIncome"],
+    retirementAccounts: incomeDetails["retirementAccounts"],
+    stateTaxRefund: incomeDetails["stateTaxRefund"],
+    foreignBankAccount: incomeDetails["foreignBankAccount"],
+    foreignAssets: incomeDetails["foreignAssets"],
+    rentalIncome: incomeDetails["rentalIncome"],
+    income1099: incomeDetails["income1099"],
+    incomeDescription: incomeDetails["incomeDescription"],
+    incomeAmount: incomeDetails["incomeAmount"],
+    addAdditionalInformation: false,
 
     //Bank Details
-
-    bankingType: "0",
-    bankName: "",
-    accountHolderName: "",
-    ownership: "",
-    routingNumber: "",
-    confirmRoutingNumber: "",
-    accountNumber: "",
-    confirmAccountNumber: "",
-    accountType: "",
-    confirmAccountType: "",
+    bankingType: bankDetails["bankingType"],
+    bankName: bankDetails["bankName"],
+    accountHolderName: bankDetails["accountHolderName"],
+    ownership: bankDetails["ownership"],
+    routingNumber: bankDetails["routingNumber"],
+    confirmRoutingNumber: bankDetails["confirmRoutingNumber"],
+    accountNumber: bankDetails["accountNumber"],
+    confirmAccountNumber: bankDetails["confirmAccountNumber"],
+    accountType: bankDetails["accountType"],
+    confirmAccountType: bankDetails["confirmAccountType"],
   });
   return (
     <Box>
@@ -166,9 +176,9 @@ const ConfirmDetails = () => {
                 disabled
                 variant="outlined"
               >
-                <MenuItem value="male">Male</MenuItem>
-                <MenuItem value="female">Female</MenuItem>
-                <MenuItem value="other">Other</MenuItem>
+                <MenuItem value="MALE">Male</MenuItem>
+                <MenuItem value="FEMALE">Female</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
               </TextField>
               <TextField
                 fullWidth
@@ -257,9 +267,9 @@ const ConfirmDetails = () => {
                 disabled
                 variant="outlined"
               >
-                <MenuItem value="india">India</MenuItem>
-                <MenuItem value="usa">USA</MenuItem>
-                <MenuItem value="other">Other</MenuItem>
+                <MenuItem value="India">India</MenuItem>
+                <MenuItem value="USA">USA</MenuItem>
+                <MenuItem value="Other">Other</MenuItem>
               </TextField>
               <Grid container spacing={2}>
                 <Grid item sm={3} xs={4}>
@@ -384,13 +394,13 @@ const ConfirmDetails = () => {
               >
                 <option value="">Select Status</option>{" "}
                 {/* Add an empty option */}
-                <option value="0">Single</option>
-                <option value="1">Married</option>
+                <option value="SINGLE">Single</option>
+                <option value="MARRIED">Married</option>
               </select>
             </Grid>
           </Grid>
         </Grid>
-        {formData.taxPayerStatus === "1" && (
+        {formData.taxPayerStatus === "MARRIED" && (
           <Grid container spacing={2}>
             {/* Left Side - Spouse Details */}
             <Grid item lg={6} sm={6} xs={12}>
@@ -451,8 +461,8 @@ const ConfirmDetails = () => {
                     variant="outlined"
                     disabled
                   >
-                    <MenuItem value="0">No</MenuItem>
-                    <MenuItem value="1">Yes</MenuItem>
+                    <MenuItem value={false}>No</MenuItem>
+                    <MenuItem value={true}>Yes</MenuItem>
                   </TextField>
                 </Grid>
               </Grid>
@@ -485,9 +495,9 @@ const ConfirmDetails = () => {
                     variant="outlined"
                     disabled
                   >
-                    <MenuItem value="male">Male</MenuItem>
-                    <MenuItem value="female">Female</MenuItem>
-                    <MenuItem value="other">Other</MenuItem>
+                    <MenuItem value="MALE">Male</MenuItem>
+                    <MenuItem value="FEMALE">Female</MenuItem>
+                    <MenuItem value="Other">Other</MenuItem>
                   </TextField>
                 </Grid>
                 <Grid item sm={12} xs={12}>
@@ -510,7 +520,10 @@ const ConfirmDetails = () => {
                     value={formData.spouseResidentialStatus}
                     variant="outlined"
                     disabled
-                  />
+                  >
+                    <MenuItem value="VISA">Visa</MenuItem>
+                    <MenuItem value="CITIZENSHIP">Citizenship</MenuItem>
+                  </TextField>
                 </Grid>
                 <Grid item sm={12} xs={12}>
                   <TextField
@@ -549,12 +562,12 @@ const ConfirmDetails = () => {
               variant="outlined"
               disabled
             >
-              <MenuItem value="0">Yes</MenuItem>
-              <MenuItem value="1">No</MenuItem>
+              <MenuItem value={true}>Yes</MenuItem>
+              <MenuItem value={false}>No</MenuItem>
             </TextField>
           </Grid>
         </Grid>
-        {formData.providedLivingSupport === "0" && (
+        {formData.providedLivingSupport === true && (
           <Grid container spacing={2}>
             {/* Left Side - additional Details */}
             <Grid item lg={6} sm={6} xs={12}>
@@ -614,8 +627,8 @@ const ConfirmDetails = () => {
                     variant="outlined"
                     disabled
                   >
-                    <MenuItem value="0">No</MenuItem>
-                    <MenuItem value="1">Yes</MenuItem>
+                    <MenuItem value={false}>No</MenuItem>
+                    <MenuItem value={true}>Yes</MenuItem>
                   </TextField>
                 </Grid>
               </Grid>
@@ -648,9 +661,9 @@ const ConfirmDetails = () => {
                     variant="outlined"
                     disabled
                   >
-                    <MenuItem value="male">Male</MenuItem>
-                    <MenuItem value="female">Female</MenuItem>
-                    <MenuItem value="other">Other</MenuItem>
+                    <MenuItem value="MALE">Male</MenuItem>
+                    <MenuItem value="FEMALE">Female</MenuItem>
+                    <MenuItem value="Other">Other</MenuItem>
                   </TextField>
                 </Grid>
                 <Grid item sm={12} xs={12}>
@@ -713,14 +726,21 @@ const ConfirmDetails = () => {
               <RadioGroup
                 name="interestIncome"
                 value={formData.interestIncome}
-                disabled
                 sx={{
                   display: "flex",
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -753,8 +773,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -787,8 +815,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -821,8 +857,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -854,8 +898,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -889,8 +941,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -923,8 +983,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -958,8 +1026,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -993,8 +1069,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -1027,8 +1111,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -1061,8 +1153,16 @@ const ConfirmDetails = () => {
                   flexDirection: "row",
                 }}
               >
-                <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-                <FormControlLabel value="no" control={<Radio />} label="No" />
+                <FormControlLabel
+                  value={true}
+                  control={<Radio />}
+                  label="Yes"
+                />
+                <FormControlLabel
+                  value={false}
+                  control={<Radio />}
+                  label="No"
+                />
               </RadioGroup>
             </FormControl>
           </Grid>
@@ -1135,13 +1235,15 @@ const ConfirmDetails = () => {
                 disabled
               >
                 <option value="">Select Option</option>
-                <option value="0">Direct deposit into my bank account</option>
-                <option value="1">Paper check</option>
+                <option value="DIRECT DEPOSIT INTO MY BANK ACCOUNT">
+                  Direct deposit into my bank account
+                </option>
+                <option value="PAPER CHECK">Paper Check</option>
               </select>
             </Grid>
           </Grid>
 
-          {formData.bankingType === "0" && (
+          {formData.bankingType === "DIRECT DEPOSIT INTO MY BANK ACCOUNT" && (
             <Grid>
               {/* Additional Fields for Direct Deposit */}
               <Typography
@@ -1236,8 +1338,8 @@ const ConfirmDetails = () => {
                     variant="outlined"
                     disabled
                   >
-                    <MenuItem value="0">Savings</MenuItem>
-                    <MenuItem value="1">Checking</MenuItem>
+                    <MenuItem value="SAVINGS">Savings</MenuItem>
+                    <MenuItem value="CHECKING">Checking</MenuItem>
                   </TextField>
                   <TextField
                     label="Confirm Account Type"
@@ -1249,8 +1351,8 @@ const ConfirmDetails = () => {
                     variant="outlined"
                     disabled
                   >
-                    <MenuItem value="0">Savings</MenuItem>
-                    <MenuItem value="1">Checking</MenuItem>
+                    <MenuItem value="SAVINGS">Savings</MenuItem>
+                    <MenuItem value="CHECKING">Checking</MenuItem>
                   </TextField>
                 </Grid>
               </Grid>

@@ -77,7 +77,12 @@ const PayPalPayment = () => {
                 name="amount"
                 variant="outlined"
                 fullWidth
-                sx={{ mt: "20px", width: "50%", display: "block" }} // Adjust the margin-top as needed
+                sx={{
+                  mt: "20px",
+                  width: "50%",
+                  display: "block",
+                  ml: { xs: "20px", sm: "0px" },
+                }} // Adjust the margin-top as needed
               />
               <Button type="submit">
                 <img

@@ -29,11 +29,18 @@ export const customTextStyles = makeStyles((theme) => ({
     fontSize: "16px",
     fontWeight: "400",
     lineHeight: "23px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   tableData: {
     fontSize: "16px",
     fontWeight: "700",
     lineHeight: "22px",
+    [theme.breakpoints.down("sm")]: {
+      // marginBottom: "8px",
+      display: "none",
+    },
   },
   headerText: {
     fontSize: "24px",
@@ -49,6 +56,28 @@ export const customTextStyles = makeStyles((theme) => ({
     color: "#FFFFFF",
     padding: "10px 40px 9px",
     marginBottom: "4px",
+  },
+  mobileViewTableCellValue: {
+    color: "rgb(71, 71, 71)",
+    fontSize: "14px",
+    fontWeight: "400",
+    lineHeight: "19px",
+  },
+  mobileView: {
+    borderRadius: "4px",
+    boxShadow: "0px 0px 5px rgba(0,0,0, 0.1)",
+    backgroundColor: "rgba(255,255,255, 1) !important",
+    cursor: "pointer",
+    border: "none !important",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  mobileViewTableCellHeader: {
+    color: "rgb(245, 166, 35)",
+    fontSize: "10px",
+    fontWeight: "400",
+    lineHeight: "14px",
   },
 }));
 
@@ -89,6 +118,61 @@ const TaxReturns = () => {
                   <TableCell className={customStyles.tableData}></TableCell>
                   <TableCell className={customStyles.tableData}></TableCell>
                   <TableCell className={customStyles.tableData}></TableCell>
+                  <TableCell className={customStyles.mobileView}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginTop: "16px",
+                      }}
+                    >
+                      <Box sx={{ marginTop: "3px" }}>
+                        <Typography
+                          className={customStyles.mobileViewTableCellHeader}
+                        >
+                          ID
+                        </Typography>
+
+                        <Typography
+                          className={customStyles.mobileViewTableCellValue}
+                        ></Typography>
+                      </Box>
+                      <Box sx={{ marginTop: "3px" }}>
+                        <Typography
+                          className={customStyles.mobileViewTableCellHeader}
+                        >
+                          Document Name
+                        </Typography>
+
+                        <Typography
+                          className={customStyles.mobileViewTableCellValue}
+                        ></Typography>
+                      </Box>
+
+                      <Box sx={{ marginTop: "3px" }}>
+                        <Typography
+                          className={customStyles.mobileViewTableCellHeader}
+                        >
+                          uploaded on
+                        </Typography>
+
+                        <Typography
+                          className={customStyles.mobileViewTableCellValue}
+                        ></Typography>
+                      </Box>
+                      <Box sx={{ marginTop: "3px" }}>
+                        <Typography
+                          className={customStyles.mobileViewTableCellHeader}
+                        >
+                          Remarks
+                        </Typography>
+
+                        <Typography
+                          className={customStyles.mobileViewTableCellValue}
+                        ></Typography>
+                      </Box>
+                    </Box>
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>

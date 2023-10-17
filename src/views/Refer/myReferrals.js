@@ -31,11 +31,17 @@ export const customTextStyles = makeStyles((theme) => ({
     fontSize: "16px",
     fontWeight: "400",
     lineHeight: "23px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   tableData: {
     fontSize: "16px",
     fontWeight: "700",
     lineHeight: "22px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   headerText: {
     fontSize: "24px",
@@ -51,6 +57,28 @@ export const customTextStyles = makeStyles((theme) => ({
     color: "#FFFFFF",
     padding: "10px 40px 9px",
     marginBottom: "4px",
+  },
+  mobileViewTableCellValue: {
+    color: "rgb(71, 71, 71)",
+    fontSize: "14px",
+    fontWeight: "400",
+    lineHeight: "19px",
+  },
+  mobileView: {
+    borderRadius: "4px",
+    boxShadow: "0px 0px 5px rgba(0,0,0, 0.1)",
+    backgroundColor: "rgba(255,255,255, 1) !important",
+    cursor: "pointer",
+    border: "none !important",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  mobileViewTableCellHeader: {
+    color: "rgb(245, 166, 35)",
+    fontSize: "10px",
+    fontWeight: "400",
+    lineHeight: "14px",
   },
 }));
 
@@ -131,6 +159,94 @@ const MyReferrals = () => {
                       <TableCell className={customStyles.tableData}>
                         {row.phone_no}
                       </TableCell>
+                      <TableCell className={customStyles.mobileView}>
+                        <Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                First Name
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.first_name}
+                              </Typography>
+                            </Box>
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Last Name
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.last_name}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Email Id
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.email}
+                              </Typography>
+                            </Box>
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Phone Number
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.phone_no}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </TableCell>
                     </TableRow>
                   ))}
               </TableBody>
@@ -179,6 +295,94 @@ const MyReferrals = () => {
                       </TableCell>
                       <TableCell className={customStyles.tableData}>
                         {row.contact_no}
+                      </TableCell>
+                      <TableCell className={customStyles.mobileView}>
+                        <Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "row",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box sx={{ marginTop: "3px", marginRight: "10px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                First Name
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.first_name}
+                              </Typography>
+                            </Box>
+                            <Box sx={{ marginTop: "3px", marginRight: "10px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Last Name
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.last_name}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Email Id
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.email}
+                              </Typography>
+                            </Box>
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Phone Number
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.contact_no}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Box>
                       </TableCell>
                     </TableRow>
                   ))}
