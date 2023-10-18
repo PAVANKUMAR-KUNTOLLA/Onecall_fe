@@ -30,6 +30,16 @@ const FilerDetails = ({
   const classes = useStyles();
   const [isFilerDetailsLoading, setIsFilerDetailsLoading] = useState(false);
 
+  const transform = (input) => {
+    if (input.includes("-")) return input;
+
+    const rawSsn = input.replace(/-/g, ""); // Remove hyphens
+    const formattedSsn = rawSsn
+      .replace(/\D/g, "") // Remove non-digits
+      .replace(/(\d{3})(\d{2})(\d{4})/, "$1-$2-$3"); // Format as 123-45-6789
+    return formattedSsn;
+  };
+
   const [formData, setFormData] = useState({
     // Personal Details
 
@@ -103,7 +113,12 @@ const FilerDetails = ({
                 .required("First Name is required"),
               middleName: Yup.string().max(255),
               lastName: Yup.string().max(255).required("Last Name is required"),
-              ssn: Yup.string().max(255).required("SSN is required"),
+              ssn: Yup.string()
+                .matches(
+                  /^\d{9}$/,
+                  "SSN must be exactly 9 digits long and contain only numbers"
+                )
+                .required("SSN is required"),
               dateOfBirth: Yup.date()
                 .max(new Date(), "Date of Birth cannot be in the future")
                 .required("Date of Birth is required"),
@@ -153,9 +168,9 @@ const FilerDetails = ({
               }),
               spouseSsnOrItin: Yup.string().when("taxPayerStatus", {
                 is: "MARRIED",
-                then: Yup.string().required(
-                  "Spouse SSN/ITIN is required if married"
-                ),
+                then: Yup.string()
+                  .required("Spouse SSN/ITIN is required if married")
+                  .matches(/^\d{9}$/, "Spouse SSN/ITIN must be 9 digits"),
                 otherwise: Yup.string(),
               }),
               spouseApplyForItin: Yup.string().when("taxPayerStatus", {
@@ -363,7 +378,7 @@ const FilerDetails = ({
                         name="ssn"
                         onBlur={handleBlur}
                         onChange={handleChange}
-                        value={values.ssn}
+                        value={transform(values.ssn)}
                         variant="outlined"
                       />
                       <TextField
@@ -419,7 +434,7 @@ const FilerDetails = ({
                         helperText={
                           touched.residentialStatus && errors.residentialStatus
                         }
-                        label="Residential Status (Visa Type / Citizenship)"
+                        label="Residential Status"
                         margin="normal"
                         name="residentialStatus"
                         onBlur={handleBlur}
@@ -427,8 +442,15 @@ const FilerDetails = ({
                         value={values.residentialStatus}
                         variant="outlined"
                       >
-                        <MenuItem value="VISA">Visa</MenuItem>
-                        <MenuItem value="CITIZENSHIP">Citizenship</MenuItem>
+                        {["H4", "US Citizen", "L2", "Green Card", "Other"].map(
+                          (each, id) => {
+                            return (
+                              <MenuItem key={id} value={each}>
+                                {each}
+                              </MenuItem>
+                            );
+                          }
+                        )}
                       </TextField>
                     </Box>
                   </Grid>
@@ -754,7 +776,7 @@ const FilerDetails = ({
                             onBlur={handleBlur}
                             onChange={handleChange}
                             fullWidth
-                            value={values.spouseSsnOrItin}
+                            value={transform(values.spouseSsnOrItin)}
                             variant="outlined"
                             error={Boolean(
                               touched.spouseSsnOrItin && errors.spouseSsnOrItin
@@ -946,11 +968,11 @@ const FilerDetails = ({
                   <Grid container spacing={2}>
                     {/* Left Side - additional Details */}
                     <Grid item lg={6} sm={6} xs={12}>
-                      <Typography variant="h5">additional Details</Typography>
+                      <Typography variant="h5">Additional Details</Typography>
                       <Grid container spacing={2}>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional First Name"
+                            label=" First Name"
                             margin="normal"
                             name="additionalFirstName"
                             onBlur={handleBlur}
@@ -970,7 +992,7 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional Middle Initial"
+                            label=" Middle Initial"
                             margin="normal"
                             name="additionalMiddleInitial"
                             onBlur={handleBlur}
@@ -982,7 +1004,7 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional Last Name"
+                            label=" Last Name"
                             margin="normal"
                             name="additionalLastName"
                             onBlur={handleBlur}
@@ -1002,13 +1024,13 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional SSN/ITIN"
+                            label=" SSN/ITIN"
                             margin="normal"
                             name="additionalSsnOrItin"
                             onBlur={handleBlur}
                             onChange={handleChange}
                             fullWidth
-                            value={values.additionalSsnOrItin}
+                            value={transform(values.additionalSsnOrItin)}
                             variant="outlined"
                             error={Boolean(
                               touched.additionalSsnOrItin &&
@@ -1046,7 +1068,7 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional Relationship"
+                            label=" Relationship"
                             margin="normal"
                             name="additionalRelationship"
                             onBlur={handleBlur}
@@ -1094,7 +1116,7 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional Gender"
+                            label=" Gender"
                             select
                             margin="normal"
                             name="additionalGender"
@@ -1119,7 +1141,7 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional Occupation / Job Title"
+                            label=" Occupation / Job Title"
                             margin="normal"
                             name="additionalOccupation"
                             onBlur={handleBlur}
@@ -1139,7 +1161,7 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional Visa Type"
+                            label=" Visa Type"
                             margin="normal"
                             name="additionalVisaType"
                             onBlur={handleBlur}
@@ -1174,7 +1196,7 @@ const FilerDetails = ({
                         </Grid>
                         <Grid item sm={12} xs={12}>
                           <TextField
-                            label="additional Email Id"
+                            label=" Email Id"
                             margin="normal"
                             name="additionalEmail"
                             onBlur={handleBlur}

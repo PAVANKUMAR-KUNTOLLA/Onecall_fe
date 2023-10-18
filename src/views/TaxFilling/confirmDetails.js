@@ -575,7 +575,7 @@ const ConfirmDetails = ({
               <Grid container spacing={2}>
                 <Grid item sm={12} xs={12}>
                   <TextField
-                    label="additional First Name"
+                    label=" First Name"
                     margin="normal"
                     name="additionalFirstName"
                     fullWidth
@@ -586,7 +586,7 @@ const ConfirmDetails = ({
                 </Grid>
                 <Grid item sm={12} xs={12}>
                   <TextField
-                    label="additional Middle Initial"
+                    label=" Middle Initial"
                     margin="normal"
                     name="additionalMiddleInitial"
                     fullWidth
@@ -596,7 +596,7 @@ const ConfirmDetails = ({
                 </Grid>
                 <Grid item sm={12} xs={12}>
                   <TextField
-                    label="additional Last Name"
+                    label=" Last Name"
                     margin="normal"
                     name="additionalLastName"
                     fullWidth
@@ -607,7 +607,7 @@ const ConfirmDetails = ({
                 </Grid>
                 <Grid item sm={12} xs={12}>
                   <TextField
-                    label="additional SSN/ITIN"
+                    label=" SSN/ITIN"
                     margin="normal"
                     name="additionalSsnOrItin"
                     fullWidth
@@ -652,7 +652,7 @@ const ConfirmDetails = ({
                 </Grid>
                 <Grid item sm={12} xs={12}>
                   <TextField
-                    label="additional Gender"
+                    label=" Gender"
                     select
                     margin="normal"
                     name="additionalGender"
@@ -668,7 +668,7 @@ const ConfirmDetails = ({
                 </Grid>
                 <Grid item sm={12} xs={12}>
                   <TextField
-                    label="additional Occupation / Job Title"
+                    label=" Occupation / Job Title"
                     margin="normal"
                     name="additionalOccupation"
                     fullWidth
@@ -679,7 +679,7 @@ const ConfirmDetails = ({
                 </Grid>
                 <Grid item sm={12} xs={12}>
                   <TextField
-                    label="additional Residential Status"
+                    label=" Residential Status"
                     margin="normal"
                     name="additionalResidentialStatus"
                     fullWidth
@@ -690,7 +690,7 @@ const ConfirmDetails = ({
                 </Grid>
                 <Grid item sm={12} xs={12}>
                   <TextField
-                    label="additional Email Id"
+                    label=" Email Id"
                     margin="normal"
                     name="additionalEmail"
                     fullWidth

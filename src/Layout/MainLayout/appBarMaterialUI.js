@@ -35,8 +35,6 @@ const customAppBarStyles = makeStyles((theme) => ({
     padding: "10px 0",
   },
   logoAvatar: {
-    maxHeight: "42px !important",
-    maxWidth: "120px !important",
     [theme.breakpoints.up("sm")]: {
       marginLeft: "200px",
       marginRight: "auto",
@@ -171,7 +169,9 @@ function DrawerAppBar(props) {
             variant="square"
             src="/static/img/onecall-logo.png"
             sx={{
-              flexGrow: 1,
+              // flexGrow: 1,
+              height: 42,
+              width: 120,
             }}
             className={customStyles.logoAvatar}
           />

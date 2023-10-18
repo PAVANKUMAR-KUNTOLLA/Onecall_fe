@@ -352,7 +352,6 @@ const PickAppointment = ({ id }) => {
             <TableContainer
               sx={{
                 marginTop: "32px",
-                marginLeft: { xs: "-32px", sm: "0px" },
                 paddingBottom: { xs: "10px", sm: "0px" },
               }}
             >
@@ -398,6 +397,7 @@ const PickAppointment = ({ id }) => {
                           sx={{
                             visibility:
                               row.status === "BOOKED" ? "visible" : "hidden",
+                            display: { xs: "none", sm: "block" },
                           }}
                         >
                           <Button
@@ -448,6 +448,23 @@ const PickAppointment = ({ id }) => {
                                     customStyles.mobileViewTableCellHeader
                                   }
                                 >
+                                  Status
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.status}
+                                </Typography>
+                              </Box>
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
                                   Start Time
                                 </Typography>
 
@@ -485,44 +502,36 @@ const PickAppointment = ({ id }) => {
                                   {row.end_time}
                                 </Typography>
                               </Box>
-                              <Box sx={{ marginTop: "3px" }}>
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellHeader
-                                  }
-                                >
-                                  Status
-                                </Typography>
-
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellValue
-                                  }
-                                >
-                                  {row.status}
-                                </Typography>
-                              </Box>
-                            </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                justifyContent: "center", // Center the button horizontally
-                                alignItems: "center",
-                              }}
-                            >
-                              <Button
-                                disabled={isPickAppointmentDetailsLoading}
-                                startIcon={<DeleteIcon />}
-                                size="small"
-                                onClick={() => {
-                                  handleCancelAppointment(row.id);
-                                }}
+                              <Box
+                              // sx={{
+                              //   display: "flex",
+                              //   justifyContent: "center", // Center the button horizontally
+                              //   alignItems: "center",
+                              // }}
                               >
-                                Delete{" "}
-                                {isPickAppointmentDetailsLoading && (
-                                  <CircularProgress sx={{ ml: 1 }} size={14} />
-                                )}
-                              </Button>
+                                <Button
+                                  disabled={isPickAppointmentDetailsLoading}
+                                  startIcon={<DeleteIcon />}
+                                  size="small"
+                                  onClick={() => {
+                                    handleCancelAppointment(row.id);
+                                  }}
+                                  sx={{
+                                    visibility:
+                                      row.status === "BOOKED"
+                                        ? "visible"
+                                        : "hidden",
+                                  }}
+                                >
+                                  Delete{" "}
+                                  {isPickAppointmentDetailsLoading && (
+                                    <CircularProgress
+                                      sx={{ ml: 1 }}
+                                      size={14}
+                                    />
+                                  )}
+                                </Button>
+                              </Box>
                             </Box>
                           </Box>
                         </TableCell>
