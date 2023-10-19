@@ -122,8 +122,8 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             personalDetails={data["personalDetails"]}
             contactDetails={data["contactDetails"]}
             spouseDetails={data["spouseDetails"]}
-            dependantDetails={data["dependantDetails"]}
             incomeDetails={data["incomeDetails"]}
+            providedLivingSupport={data["providedLivingSupport"]}
             handleFetchData={handleFetchData}
           />
         </AccordionDetails>
@@ -143,7 +143,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             className={customTextClasses.accordionHeaderText}
             sx={{ fontWeight: expanded === "panel2" ? "600" : "400" }}
           >
-            Income Deatils
+            Income Details
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
@@ -169,7 +169,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             className={customTextClasses.accordionHeaderText}
             sx={{ fontWeight: expanded === "panel3" ? "600" : "400" }}
           >
-            Bank Deatails
+            Bank Details
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA", paddingLeft: "0px" }}>
@@ -212,7 +212,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             className={customTextClasses.accordionHeaderText}
             sx={{ fontWeight: expanded === "panel5" ? "600" : "400" }}
           >
-            Confirm BankDetails
+            Confirm Details
           </Typography>
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
@@ -221,7 +221,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             personalDetails={data["personalDetails"]}
             contactDetails={data["contactDetails"]}
             spouseDetails={data["spouseDetails"]}
-            dependantDetails={data["dependantDetails"]}
+            providedLivingSupport={data["providedLivingSupport"]}
             incomeDetails={data["incomeDetails"]}
             bankDetails={data["bankDetails"]}
           />

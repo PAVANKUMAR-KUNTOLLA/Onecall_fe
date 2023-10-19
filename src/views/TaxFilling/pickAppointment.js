@@ -82,7 +82,7 @@ const PickAppointment = ({ id }) => {
   const [appointmentData, setAppointmentData] = useState({
     date: "",
     time: "23:00",
-    timezone: "CST",
+    timezone: "America/Chicago",
   });
   const [appointmentDetails, setAppointmentDetails] = useState([]);
 
@@ -154,7 +154,7 @@ const PickAppointment = ({ id }) => {
           setAppointmentData({
             date: "",
             time: "23:00",
-            timezone: "CST",
+            timezone: "America/Chicago",
           });
           handleFetchAppointmentDetails();
         }
@@ -284,7 +284,7 @@ const PickAppointment = ({ id }) => {
         <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
           Please pick your availability between{" "}
           <Typography variant="body1" color="primary" component="span">
-            10/15/2023 to 12/31/2023
+            01/11/2023 to 04/18/2023
           </Typography>
         </Typography>
         <form autoComplete="off" onSubmit={handleSubmit}>
@@ -326,7 +326,8 @@ const PickAppointment = ({ id }) => {
                 required
                 sx={{ width: "80%" }}
               >
-                <MenuItem value="CST">CST</MenuItem>
+                <MenuItem value="America/Chicago">CST</MenuItem>
+                <MenuItem value="EST">EST</MenuItem>
                 {/* Add more time zones as needed */}
               </TextField>
             </Grid>
@@ -399,6 +400,7 @@ const PickAppointment = ({ id }) => {
                               row.status === "BOOKED" ? "visible" : "hidden",
                             display: { xs: "none", sm: "block" },
                           }}
+                          className={customStyles.tableData}
                         >
                           <Button
                             disabled={isPickAppointmentDetailsLoading}

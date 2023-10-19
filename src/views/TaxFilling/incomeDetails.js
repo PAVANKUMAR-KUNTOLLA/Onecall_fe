@@ -640,16 +640,12 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-end",
+                    justifyContent: "flex-end",
                     paddingBottom: { xs: "20px" },
                   }}
                 >
                   <Button type="submit" variant="contained" color="primary">
-                    Back
-                  </Button>
-                  <Button type="submit" variant="contained" color="primary">
-                    Save & Proceed
+                    Save
                   </Button>
                 </Box>
               </Form>

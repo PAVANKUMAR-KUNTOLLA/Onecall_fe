@@ -196,8 +196,8 @@ const TabsDesktop = ({ data, handleFetchData }) => {
             personalDetails={data["personalDetails"]}
             contactDetails={data["contactDetails"]}
             spouseDetails={data["spouseDetails"]}
-            dependantDetails={data["dependantDetails"]}
             incomeDetails={data["incomeDetails"]}
+            providedLivingSupport={data["providedLivingSupport"]}
             handleFetchData={handleFetchData}
           />
         </CustomTabPanel>
@@ -230,7 +230,7 @@ const TabsDesktop = ({ data, handleFetchData }) => {
             personalDetails={data["personalDetails"]}
             contactDetails={data["contactDetails"]}
             spouseDetails={data["spouseDetails"]}
-            dependantDetails={data["dependantDetails"]}
+            providedLivingSupport={data["providedLivingSupport"]}
             incomeDetails={data["incomeDetails"]}
             bankDetails={data["bankDetails"]}
           />

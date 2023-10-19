@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -12,24 +12,100 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  CircularProgress,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { statesNames, countryCode } from "../../constants";
+import Api from "../../components/Api";
+import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  tableHeader: {
+    fontSize: "16px",
+    fontWeight: "400",
+    lineHeight: "23px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+  tableData: {
+    fontSize: "16px",
+    fontWeight: "700",
+    lineHeight: "22px",
+    [theme.breakpoints.down("sm")]: {
+      // marginBottom: "8px",
+      display: "none",
+    },
+  },
+  mobileViewTableCellValue: {
+    color: "rgb(71, 71, 71)",
+    fontSize: "14px",
+    fontWeight: "400",
+    lineHeight: "19px",
+  },
+  mobileView: {
+    borderRadius: "4px",
+    boxShadow: "0px 0px 5px rgba(0,0,0, 0.1)",
+    backgroundColor: "rgba(255,255,255, 1) !important",
+    cursor: "pointer",
+    border: "none !important",
+    marginBottom: "20px",
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  mobileViewTableCellHeader: {
+    color: "rgb(245, 166, 35)",
+    fontSize: "10px",
+    fontWeight: "400",
+    lineHeight: "14px",
+  },
+  buttons: {
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
+  },
+}));
 
 const ConfirmDetails = ({
   id,
   personalDetails,
   contactDetails,
   spouseDetails,
-  dependantDetails,
   incomeDetails,
+  providedLivingSupport,
   bankDetails,
 }) => {
-  const classes = useStyles();
+  const customStyles = useStyles();
   const stateOptions = statesNames;
   const countryCodes = countryCode;
+
+  const [isDependantDetailsLoading, setIsDependantDetailsLoading] =
+    useState(false);
+  const [dependantDetails, setDependantDetails] = useState([]);
+
+  const transform = (input) => {
+    if (input === undefined || input === null) {
+      return "";
+    }
+
+    if (input.includes("-")) {
+      return input;
+    }
+
+    const rawSsn = input.replace(/-/g, ""); // Remove hyphens
+    const formattedSsn = rawSsn
+      .replace(/\D/g, "") // Remove non-digits
+      .replace(/(\d{3})(\d{3})(\d{3})/, "$1-$2-$3"); // Format as 123-45-6789
+    return formattedSsn;
+  };
+
   const [formData, setFormData] = useState({
     // Personal Details
 
@@ -71,19 +147,7 @@ const ConfirmDetails = ({
     spouseResidentialStatus: spouseDetails["spouseResidentialStatus"],
     spouseEmail: spouseDetails["spouseEmail"],
 
-    providedLivingSupport: dependantDetails["providedLivingSupport"],
-    additionalFirstName: dependantDetails["additionalFirstName"],
-    additionalMiddleInitial: dependantDetails["additionalMiddleInitial"],
-    additionalLastName: dependantDetails["additionalLastName"],
-    additionalSsnOrItin: dependantDetails["additionalSsnOrItin"],
-    additionalApplyForItin: dependantDetails["additionalApplyForItin"], // Default to "No"
-    additionalDateOfBirth: dependantDetails["additionalDateOfBirth"],
-    additionalGender: dependantDetails["additionalGender"],
-    additionalOccupation: dependantDetails["additionalOccupation"],
-    additionalVisaType: dependantDetails["additionalVisaType"],
-    additionalEmail: dependantDetails["additionalEmail"],
-    additionalStayCount: dependantDetails["additionalStayCount"],
-    additionalRelationship: dependantDetails["additionalRelationship"],
+    providedLivingSupport: providedLivingSupport,
 
     //Income Details
     interestIncome: incomeDetails["interestIncome"],
@@ -113,12 +177,35 @@ const ConfirmDetails = ({
     accountType: bankDetails["accountType"],
     confirmAccountType: bankDetails["confirmAccountType"],
   });
+
+  const handleFetchDependantDetails = () => {
+    setIsDependantDetailsLoading(true);
+    let payload = { id: id };
+    privateApiPOST(Api.dependantDetails, payload)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setDependantDetails(data?.data);
+          setIsDependantDetailsLoading(false);
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsDependantDetailsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    handleFetchDependantDetails();
+  }, []);
+
   return (
     <Box>
       <Container>
         <Grid container spacing={2}>
           <Grid item lg={6} sm={6} xs={12}>
-            <Box className={classes.leftSide}>
+            <Box className={customStyles.leftSide}>
               <Typography variant="h5">Personal Details</Typography>
               <TextField
                 fullWidth
@@ -203,7 +290,7 @@ const ConfirmDetails = ({
 
           {/* Right Side - Contact Details */}
           <Grid item lg={6} sm={6} xs={12}>
-            <Box className={classes.rightSide}>
+            <Box className={customStyles.rightSide}>
               <Typography variant="h5">Contact Details</Typography>
               <TextField
                 fullWidth
@@ -455,9 +542,9 @@ const ConfirmDetails = ({
                     label="Do you want to apply for ITIN?"
                     select
                     margin="normal"
-                    name="applyForItin"
+                    name="spouseApplyForItin"
                     fullWidth
-                    value={formData.applyForItin}
+                    value={formData.spouseApplyForItin}
                     variant="outlined"
                     disabled
                   >
@@ -567,142 +654,177 @@ const ConfirmDetails = ({
             </TextField>
           </Grid>
         </Grid>
-        {formData.providedLivingSupport === true && (
-          <Grid container spacing={2}>
-            {/* Left Side - additional Details */}
-            <Grid item lg={6} sm={6} xs={12}>
-              <Typography variant="h5">additional Details</Typography>
-              <Grid container spacing={2}>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=" First Name"
-                    margin="normal"
-                    name="additionalFirstName"
-                    fullWidth
-                    value={formData.additionalFirstName}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=" Middle Initial"
-                    margin="normal"
-                    name="additionalMiddleInitial"
-                    fullWidth
-                    value={formData.additionalMiddleInitial}
-                    variant="outlined"
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=" Last Name"
-                    margin="normal"
-                    name="additionalLastName"
-                    fullWidth
-                    value={formData.additionalLastName}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=" SSN/ITIN"
-                    margin="normal"
-                    name="additionalSsnOrItin"
-                    fullWidth
-                    value={formData.additionalSsnOrItin}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Do you want to apply for ITIN?"
-                    select
-                    margin="normal"
-                    name="applyForItin"
-                    fullWidth
-                    value={formData.applyForItin}
-                    variant="outlined"
-                    disabled
-                  >
-                    <MenuItem value={false}>No</MenuItem>
-                    <MenuItem value={true}>Yes</MenuItem>
-                  </TextField>
-                </Grid>
-              </Grid>
-            </Grid>
+        <Box>
+          {isDependantDetailsLoading ? (
+            <CircularProgress />
+          ) : (
+            <TableContainer
+              sx={{
+                marginTop: "32px",
+                marginBottom: "16px",
+                paddingBottom: { xs: "10px", sm: "0px" },
+              }}
+            >
+              <Typography variant="h5">Dependant Details</Typography>
+              <Table
+                sx={{
+                  borderCollapse: "collapse",
+                }}
+                aria-label="Place Order Series Table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell className={customStyles.tableHeader}>
+                      First Name
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      Last Name
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      SSN/ITIN
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      Relationship
+                    </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      Visa Type
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {dependantDetails.length > 0 &&
+                    dependantDetails.map((row, index) => (
+                      <TableRow key={index}>
+                        <TableCell className={customStyles.tableData}>
+                          {row.additionalFirstName}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {row.additionalLastName}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {transform(row.additionalSsnOrItin)}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {row.additionalRelationship}
+                        </TableCell>
+                        <TableCell className={customStyles.tableData}>
+                          {row.additionalVisaType}
+                        </TableCell>
+                        <TableCell className={customStyles.mobileView}>
+                          <Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-between",
+                                marginTop: "16px",
+                              }}
+                            >
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  First Name
+                                </Typography>
 
-            {/* Right Side - additional Contact */}
-            <Grid item lg={6} sm={6} xs={12}>
-              <Typography variant="h5">additional Contact</Typography>
-              <Grid container spacing={2}>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=""
-                    margin="normal"
-                    name="additionalDateOfBirth"
-                    fullWidth
-                    type="date"
-                    value={formData.additionalDateOfBirth}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=" Gender"
-                    select
-                    margin="normal"
-                    name="additionalGender"
-                    fullWidth
-                    value={formData.additionalGender}
-                    variant="outlined"
-                    disabled
-                  >
-                    <MenuItem value="MALE">Male</MenuItem>
-                    <MenuItem value="FEMALE">Female</MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                  </TextField>
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=" Occupation / Job Title"
-                    margin="normal"
-                    name="additionalOccupation"
-                    fullWidth
-                    value={formData.additionalOccupation}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=" Residential Status"
-                    margin="normal"
-                    name="additionalResidentialStatus"
-                    fullWidth
-                    value={formData.additionalResidentialStatus}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=" Email Id"
-                    margin="normal"
-                    name="additionalEmail"
-                    fullWidth
-                    value={formData.additionalEmail}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        )}
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.additionalFirstName}
+                                </Typography>
+                              </Box>
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  Last Name
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.additionalLastName}
+                                </Typography>
+                              </Box>
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  RelationShip
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.additionalRelationship}
+                                </Typography>
+                              </Box>
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexWrap: "wrap",
+                                justifyContent: "space-around",
+                                marginTop: "16px",
+                              }}
+                            >
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  Visa Type
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {row.additionalVisaType}
+                                </Typography>
+                              </Box>
+
+                              <Box sx={{ marginTop: "3px" }}>
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellHeader
+                                  }
+                                >
+                                  SSN/ITIN
+                                </Typography>
+
+                                <Typography
+                                  className={
+                                    customStyles.mobileViewTableCellValue
+                                  }
+                                >
+                                  {transform(row.additionalSsnOrItin)}
+                                </Typography>
+                              </Box>
+                            </Box>
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+        </Box>
         <Grid container spacing={2}>
           {/* Interest Income */}
           <Grid item sm={12} xs={12}>
@@ -1286,8 +1408,10 @@ const ConfirmDetails = ({
                     variant="outlined"
                     disabled
                   >
-                    <MenuItem value="0">Tax Payer / Spouse</MenuItem>
-                    <MenuItem value="1">Joint</MenuItem>
+                    <MenuItem value="TAXPAYER/SPOUSE">
+                      Tax Payer / Spouse
+                    </MenuItem>
+                    <MenuItem value="JOINT">Joint</MenuItem>
                   </TextField>
 
                   <TextField
