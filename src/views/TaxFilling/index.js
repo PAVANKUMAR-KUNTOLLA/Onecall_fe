@@ -141,9 +141,7 @@ const TaxFillingPage = () => {
                   >
                     <CircularProgress size={30} />
                   </Box>
-                ) : data.personalDetails &&
-                  data.bankDetails &&
-                  data.incomeDetails ? (
+                ) : data ? (
                   <Box
                     sx={{
                       backgroundColor: "rgba(255,255,255,1)",
@@ -184,6 +182,7 @@ const TaxFillingPage = () => {
                           incomeDetails={data["incomeDetails"]}
                           bankDetails={data["bankDetails"]}
                           handlePickAppointment={handleActiveTabChange}
+                          dependantDetails={data["dependantDetails"]}
                         />
                       )}
                       {isActiveTab === "Pick Appointment" && (
@@ -214,9 +213,7 @@ const TaxFillingPage = () => {
               >
                 <CircularProgress size={30} />
               </Box>
-            ) : data.personalDetails &&
-              data.bankDetails &&
-              data.incomeDetails ? (
+            ) : data ? (
               <BasicAccordion
                 data={data}
                 handleFetchData={handleFetchTaxFilingDetails}

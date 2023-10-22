@@ -13,7 +13,7 @@ import {
   CardContent,
   CardHeader,
 } from "@mui/material";
-
+import { useSelector } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 import { privateApiGET } from "../../components/PrivateRoute";
@@ -70,41 +70,10 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [userInfo, setUserInfo] = useState({
-    first_name: "",
-    last_name: "",
-    gender: "",
-    email: "",
-    phone_no: "",
-    address: "",
-  });
+  const state = useSelector((state) => state.app);
 
   const [scrollEl, setScrollEl] = useState();
   const customStyles = customProfileStyles();
-
-  const handleFetchProfileData = () => {
-    privateApiGET(Api.profile)
-      .then((response) => {
-        const { status, data } = response;
-        if (status === 200) {
-          console.log("data", data);
-          let info = data?.data;
-          setUserInfo((prev) => ({
-            ...prev,
-            id: info.id,
-            first_name: info.first_name,
-            last_name: info.last_name,
-            gender: info.gender,
-            email: info.email,
-            phone_no: info.phone_no,
-            address: info.address,
-          }));
-        }
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
-  };
 
   function stringAvatar(name) {
     if (name.split(" ").length == 1) {
@@ -118,12 +87,6 @@ const ProfilePage = () => {
   }
 
   useEffect(() => {
-    if (sessionStorage.getItem("token")) {
-      handleFetchProfileData();
-    }
-  }, []);
-
-  useEffect(() => {
     if (scrollEl) {
       scrollEl.scrollTop = 100;
     }
@@ -133,9 +96,9 @@ const ProfilePage = () => {
     <Page title="Profile">
       <Container maxWidth="md" className={customStyles.mainBlock}>
         <Box className={customStyles.account}>
-          {userInfo.first_name && (
+          {state.first_name && (
             <Avatar
-              {...stringAvatar(userInfo.first_name + userInfo.last_name)}
+              {...stringAvatar(state.first_name + state.last_name)}
               sx={{
                 width: "100px",
                 height: "100px",
@@ -151,7 +114,7 @@ const ProfilePage = () => {
           <Typography
             sx={{ fontWeight: "700", marginTop: "10px", fontSize: "16px" }}
           >
-            {userInfo.first_name} {userInfo.last_name}
+            {state.first_name} {state.last_name}
           </Typography>
 
           <Card sx={{ marginTop: "20px" }}>
@@ -168,7 +131,7 @@ const ProfilePage = () => {
                         fullWidth
                         label="First_Name"
                         name="name"
-                        value={userInfo?.["first_name"]}
+                        value={state?.["first_name"]}
                         variant="outlined"
                         InputProps={{
                           readOnly: true,
@@ -181,7 +144,7 @@ const ProfilePage = () => {
                         fullWidth
                         label="Last_Name"
                         name="name"
-                        value={userInfo?.["last_name"]}
+                        value={state?.["last_name"]}
                         variant="outlined"
                         InputProps={{
                           readOnly: true,
@@ -194,7 +157,7 @@ const ProfilePage = () => {
                         fullWidth
                         label="Gender"
                         name="name"
-                        value={userInfo?.["gender"]}
+                        value={state?.["gender"]}
                         variant="outlined"
                         InputProps={{
                           readOnly: true,
@@ -207,7 +170,7 @@ const ProfilePage = () => {
                         fullWidth
                         label="Email"
                         name="email"
-                        value={userInfo?.["email"]}
+                        value={state?.["email"]}
                         variant="outlined"
                         InputProps={{
                           readOnly: true,
@@ -220,7 +183,7 @@ const ProfilePage = () => {
                         fullWidth
                         label="Phone Number"
                         name="phone_no"
-                        value={userInfo ? userInfo["phone_no"] : ""}
+                        value={state ? state["phone_no"] : ""}
                         variant="outlined"
                         InputProps={{
                           readOnly: true,
@@ -233,7 +196,7 @@ const ProfilePage = () => {
                         fullWidth
                         label="Address"
                         name="address"
-                        value={userInfo ? userInfo["address"] : ""}
+                        value={state ? state["address"] : ""}
                         variant="outlined"
                         InputProps={{
                           readOnly: true,

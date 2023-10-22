@@ -218,6 +218,7 @@ const BasicAccordion = ({ data, handleFetchData, handleDownloadTemplate }) => {
             incomeDetails={data["incomeDetails"]}
             bankDetails={data["bankDetails"]}
             handlePickAppointment={handlePickAppointment}
+            dependantDetails={data["dependantDetails"]}
           />
         </AccordionDetails>
       </Accordion>

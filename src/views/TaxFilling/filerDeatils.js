@@ -331,23 +331,19 @@ const FilerDetails = ({
 
                 additionalFirstName: Yup.string().when("isNewDependant", {
                   is: true,
-                  then: Yup.string().required(
-                    "additional First Name is required"
-                  ),
+                  then: Yup.string().required("First Name is required"),
                   otherwise: Yup.string(),
                 }),
                 additionalMiddleInitial: Yup.string(),
                 additionalLastName: Yup.string().when("isNewDependant", {
                   is: true,
-                  then: Yup.string().required(
-                    "additional Last Name is required"
-                  ),
+                  then: Yup.string().required("Last Name is required"),
                   otherwise: Yup.string(),
                 }),
                 additionalSsnOrItin: Yup.string().when("isNewDependant", {
                   is: true,
                   then: Yup.string().required(
-                    "additional SSN/ITIN is required if married"
+                    "SSN/ITIN is required if married"
                   ),
                   otherwise: Yup.string(),
                 }),
@@ -360,28 +356,22 @@ const FilerDetails = ({
                 }),
                 additionalDateOfBirth: Yup.date().when("isNewDependant", {
                   is: true,
-                  then: Yup.date().required(
-                    "additional Date of Birth is required"
-                  ),
+                  then: Yup.date().required("Date of Birth is required"),
                   otherwise: Yup.date(),
                 }),
                 additionalGender: Yup.string().when("isNewDependant", {
                   is: true,
-                  then: Yup.string().required("additional Gender is required"),
+                  then: Yup.string().required("Gender is required"),
                   otherwise: Yup.string(),
                 }),
                 additionalOccupation: Yup.string().when("isNewDependant", {
                   is: true,
-                  then: Yup.string().required(
-                    "additional Occupation is required"
-                  ),
+                  then: Yup.string().required("Occupation is required"),
                   otherwise: Yup.string(),
                 }),
                 additionalVisaType: Yup.string().when("isNewDependant", {
                   is: true,
-                  then: Yup.string().required(
-                    "additional Residential Status is required"
-                  ),
+                  then: Yup.string().required("Residential Status is required"),
                   otherwise: Yup.string(),
                 }),
                 additionalEmail: Yup.string().when("isNewDependant", {
@@ -389,14 +379,12 @@ const FilerDetails = ({
                   then: Yup.string()
                     .email("Must be a valid email")
                     .max(255)
-                    .required("additional Email is required"),
+                    .required("Email is required"),
                   otherwise: Yup.string(),
                 }),
                 additionalRelationship: Yup.string().when("isNewDependant", {
                   is: true,
-                  then: Yup.string().required(
-                    "additional Relationship is required"
-                  ),
+                  then: Yup.string().required("Relationship is required"),
                   otherwise: Yup.string(),
                 }),
                 additionalStayCount: Yup.number().when("isNewDependant", {

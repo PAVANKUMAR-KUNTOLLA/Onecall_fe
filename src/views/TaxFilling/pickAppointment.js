@@ -16,6 +16,8 @@ import {
   MenuItem,
   CircularProgress,
 } from "@mui/material";
+import { useSelector } from "react-redux";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
@@ -73,11 +75,7 @@ const PickAppointment = ({ id }) => {
   const customStyles = customTextStyles();
   const [isPickAppointmentDetailsLoading, setIsPickAppointmentDetailsLoading] =
     useState(false);
-  const [userInfo, setUserInfo] = useState({
-    first_name: "",
-    last_name: "",
-    phone_no: "",
-  });
+  const state = useSelector((state) => state.app);
 
   const [appointmentData, setAppointmentData] = useState({
     date: "",
@@ -164,26 +162,6 @@ const PickAppointment = ({ id }) => {
         setIsPickAppointmentDetailsLoading(false);
       });
   };
-  const handleFetchProfileData = () => {
-    privateApiGET(Api.profile)
-      .then((response) => {
-        const { status, data } = response;
-        if (status === 200) {
-          console.log("data", data);
-          let info = data?.data;
-          setUserInfo((prev) => ({
-            ...prev,
-            id: info.id,
-            first_name: info.first_name,
-            last_name: info.last_name,
-            phone_no: info.phone_no,
-          }));
-        }
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -197,7 +175,6 @@ const PickAppointment = ({ id }) => {
 
   useEffect(() => {
     if (sessionStorage.getItem("token")) {
-      handleFetchProfileData();
       handleFetchAppointmentDetails();
     }
   }, []);
@@ -229,7 +206,7 @@ const PickAppointment = ({ id }) => {
               fullWidth
               label="Name"
               name="name"
-              value={`${userInfo?.first_name} ${userInfo?.last_name}`}
+              value={`${state.first_name} ${state.last_name}`}
               variant="outlined"
               InputProps={{
                 readOnly: true,
@@ -247,7 +224,7 @@ const PickAppointment = ({ id }) => {
               fullWidth
               label="Phone Number"
               name="phone_no"
-              value={userInfo ? userInfo.phone_no : ""}
+              value={state ? state.phone_no : ""}
               variant="outlined"
               InputProps={{
                 readOnly: true,

@@ -9,9 +9,19 @@ export const appSlice = createSlice({
     setTaxYear(state, action) {
       state.taxYear = action.payload;
     },
+    setUserInfo(state, action) {
+      const { first_name, last_name, email, phone_no, gender, address } =
+        action.payload;
+      state.first_name = first_name;
+      state.last_name = last_name;
+      state.phone_no = phone_no;
+      state.email = email;
+      state.gender = gender;
+      state.address = address;
+    },
   },
 });
 
-export const { setTaxYear } = appSlice.actions;
+export const { setTaxYear, setUserInfo } = appSlice.actions;
 
 export default appSlice.reducer;

@@ -82,14 +82,11 @@ const ConfirmDetails = ({
   providedLivingSupport,
   bankDetails,
   handlePickAppointment,
+  dependantDetails,
 }) => {
   const customStyles = useStyles();
   const stateOptions = statesNames;
   const countryCodes = countryCode;
-
-  const [isDependantDetailsLoading, setIsDependantDetailsLoading] =
-    useState(false);
-  const [dependantDetails, setDependantDetails] = useState([]);
 
   const transform = (input) => {
     if (input === undefined || input === null) {
@@ -178,28 +175,6 @@ const ConfirmDetails = ({
     accountType: bankDetails["accountType"],
     confirmAccountType: bankDetails["confirmAccountType"],
   });
-
-  const handleFetchDependantDetails = () => {
-    setIsDependantDetailsLoading(true);
-    let payload = { id: id };
-    privateApiPOST(Api.dependantDetails, payload)
-      .then((response) => {
-        const { status, data } = response;
-        if (status === 200) {
-          console.log("data", data);
-          setDependantDetails(data?.data);
-          setIsDependantDetailsLoading(false);
-        }
-      })
-      .catch((error) => {
-        console.log("Error", error);
-        setIsDependantDetailsLoading(false);
-      });
-  };
-
-  useEffect(() => {
-    handleFetchDependantDetails();
-  }, []);
 
   return (
     <Box>
@@ -656,175 +631,172 @@ const ConfirmDetails = ({
           </Grid>
         </Grid>
         <Box>
-          {isDependantDetailsLoading ? (
-            <CircularProgress />
-          ) : (
-            <TableContainer
+          (
+          <TableContainer
+            sx={{
+              marginTop: "32px",
+              marginBottom: "16px",
+              paddingBottom: { xs: "10px", sm: "0px" },
+            }}
+          >
+            <Typography variant="h5">Dependant Details</Typography>
+            <Table
               sx={{
-                marginTop: "32px",
-                marginBottom: "16px",
-                paddingBottom: { xs: "10px", sm: "0px" },
+                borderCollapse: "collapse",
               }}
+              aria-label="Place Order Series Table"
             >
-              <Typography variant="h5">Dependant Details</Typography>
-              <Table
-                sx={{
-                  borderCollapse: "collapse",
-                }}
-                aria-label="Place Order Series Table"
-              >
-                <TableHead>
-                  <TableRow>
-                    <TableCell className={customStyles.tableHeader}>
-                      First Name
-                    </TableCell>
-                    <TableCell className={customStyles.tableHeader}>
-                      Last Name
-                    </TableCell>
-                    <TableCell className={customStyles.tableHeader}>
-                      SSN/ITIN
-                    </TableCell>
-                    <TableCell className={customStyles.tableHeader}>
-                      Relationship
-                    </TableCell>
-                    <TableCell className={customStyles.tableHeader}>
-                      Visa Type
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {dependantDetails.length > 0 &&
-                    dependantDetails.map((row, index) => (
-                      <TableRow key={index}>
-                        <TableCell className={customStyles.tableData}>
-                          {row.additionalFirstName}
-                        </TableCell>
-                        <TableCell className={customStyles.tableData}>
-                          {row.additionalLastName}
-                        </TableCell>
-                        <TableCell className={customStyles.tableData}>
-                          {transform(row.additionalSsnOrItin)}
-                        </TableCell>
-                        <TableCell className={customStyles.tableData}>
-                          {row.additionalRelationship}
-                        </TableCell>
-                        <TableCell className={customStyles.tableData}>
-                          {row.additionalVisaType}
-                        </TableCell>
-                        <TableCell className={customStyles.mobileView}>
-                          <Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                justifyContent: "space-between",
-                                marginTop: "16px",
-                              }}
-                            >
-                              <Box sx={{ marginTop: "3px" }}>
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellHeader
-                                  }
-                                >
-                                  First Name
-                                </Typography>
+              <TableHead>
+                <TableRow>
+                  <TableCell className={customStyles.tableHeader}>
+                    First Name
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    Last Name
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    SSN/ITIN
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    Relationship
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    Visa Type
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {dependantDetails.length > 0 &&
+                  dependantDetails.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell className={customStyles.tableData}>
+                        {row.additionalFirstName}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.additionalLastName}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {transform(row.additionalSsnOrItin)}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.additionalRelationship}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.additionalVisaType}
+                      </TableCell>
+                      <TableCell className={customStyles.mobileView}>
+                        <Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              justifyContent: "space-between",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                First Name
+                              </Typography>
 
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellValue
-                                  }
-                                >
-                                  {row.additionalFirstName}
-                                </Typography>
-                              </Box>
-                              <Box sx={{ marginTop: "3px" }}>
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellHeader
-                                  }
-                                >
-                                  Last Name
-                                </Typography>
-
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellValue
-                                  }
-                                >
-                                  {row.additionalLastName}
-                                </Typography>
-                              </Box>
-                              <Box sx={{ marginTop: "3px" }}>
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellHeader
-                                  }
-                                >
-                                  RelationShip
-                                </Typography>
-
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellValue
-                                  }
-                                >
-                                  {row.additionalRelationship}
-                                </Typography>
-                              </Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.additionalFirstName}
+                              </Typography>
                             </Box>
-                            <Box
-                              sx={{
-                                display: "flex",
-                                flexWrap: "wrap",
-                                justifyContent: "space-around",
-                                marginTop: "16px",
-                              }}
-                            >
-                              <Box sx={{ marginTop: "3px" }}>
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellHeader
-                                  }
-                                >
-                                  Visa Type
-                                </Typography>
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Last Name
+                              </Typography>
 
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellValue
-                                  }
-                                >
-                                  {row.additionalVisaType}
-                                </Typography>
-                              </Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.additionalLastName}
+                              </Typography>
+                            </Box>
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                RelationShip
+                              </Typography>
 
-                              <Box sx={{ marginTop: "3px" }}>
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellHeader
-                                  }
-                                >
-                                  SSN/ITIN
-                                </Typography>
-
-                                <Typography
-                                  className={
-                                    customStyles.mobileViewTableCellValue
-                                  }
-                                >
-                                  {transform(row.additionalSsnOrItin)}
-                                </Typography>
-                              </Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.additionalRelationship}
+                              </Typography>
                             </Box>
                           </Box>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              justifyContent: "space-around",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Visa Type
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.additionalVisaType}
+                              </Typography>
+                            </Box>
+
+                            <Box sx={{ marginTop: "3px" }}>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                SSN/ITIN
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {transform(row.additionalSsnOrItin)}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Box>
         <Grid container spacing={2}>
           {/* Interest Income */}

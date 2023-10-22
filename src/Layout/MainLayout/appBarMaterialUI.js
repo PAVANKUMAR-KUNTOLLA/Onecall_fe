@@ -1,7 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { useState, useEffect } from "react";
-
+import { useSelector } from "react-redux";
 import { makeStyles } from "@mui/styles";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
@@ -61,10 +61,7 @@ function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const [userInfo, setUserInfo] = useState({
-    first_name: "",
-    last_name: "",
-  });
+  const state = useSelector((state) => state.app);
 
   const customStyles = customAppBarStyles();
   const navigate = useNavigate();
@@ -107,26 +104,6 @@ function DrawerAppBar(props) {
     }
   };
 
-  const handleFetchProfileData = () => {
-    privateApiGET(Api.profile)
-      .then((response) => {
-        const { status, data } = response;
-        if (status === 200) {
-          console.log("data", data);
-          let info = data?.data;
-          setUserInfo((prev) => ({
-            ...prev,
-            id: info.id,
-            first_name: info.first_name,
-            last_name: info.last_name,
-          }));
-        }
-      })
-      .catch((error) => {
-        console.log("Error", error);
-      });
-  };
-
   function stringAvatar(name) {
     if (name.split(" ").length == 1) {
       return {
@@ -138,10 +115,6 @@ function DrawerAppBar(props) {
     };
   }
 
-  useEffect(() => {
-    handleFetchProfileData();
-  }, []);
-
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       {/* <Typography variant="h6" sx={{ my: 2 }}>
@@ -149,8 +122,8 @@ function DrawerAppBar(props) {
       </Typography> */}
       <Box className={customStyles.account}>
         <Avatar
-          // {...stringAvatar(userInfo.name)}
-          {...stringAvatar(userInfo.first_name + userInfo.last_name)}
+          // {...stringAvatar(state.name)}
+          {...stringAvatar(state.first_name + state.last_name)}
           sx={{
             width: "75px",
             height: "75px",
@@ -162,7 +135,7 @@ function DrawerAppBar(props) {
         />
 
         <Typography className={customStyles.title} variant="h6" sx={{ my: 2 }}>
-          {userInfo.first_name + " " + userInfo.last_name}
+          {state.first_name + " " + state.last_name}
         </Typography>
       </Box>
       <hr></hr>
