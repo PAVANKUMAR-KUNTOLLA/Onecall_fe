@@ -125,127 +125,82 @@ const TabsDesktop = ({ data, handleFetchData }) => {
   }
 
   return (
-    <Grid item xs={12}>
+    <Box
+      sx={{
+        width: "100%",
+        marginBottom: "64px",
+      }}
+    >
       <Box
         sx={{
-          width: "100%",
-          marginBottom: "64px",
+          borderBottom: 1,
+          borderColor: "divider",
+          margin: "8px 32px 32px 10px",
         }}
       >
-        <Typography variant="h3" sx={{ marginLeft: "20px" }}>
-          Tax-Filling For Year {params.year}
-        </Typography>
-        <Box
-          sx={{
-            borderBottom: 1,
-            borderColor: "divider",
-            margin: "8px 32px 32px 10px",
-          }}
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="basic tabs example"
         >
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="basic tabs example"
-          >
-            <Tab
-              label="Filer Details"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(0)}
-            />
-            <Tab
-              label="Income Deatils"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(1)}
-            />
-            <Tab
-              label="Bank Details"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(2)}
-            />
-            <Tab
-              label="Upload Tax Docs"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(2)}
-            />
-            <Tab
-              label="Confirm Details"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(2)}
-            />
-            <Tab
-              label="Pick Appointment"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(2)}
-            />
-            <Tab
-              label="Pay Now"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(2)}
-            />
-            <Tab
-              label="Tax Returns"
-              className={customTextClasses.tabHeaderText}
-              {...a11yProps(2)}
-            />
-          </Tabs>
-        </Box>
-
-        <CustomTabPanel value={value} index={0}>
-          <FilerDeatils
-            id={data["id"]}
-            personalDetails={data["personalDetails"]}
-            contactDetails={data["contactDetails"]}
-            spouseDetails={data["spouseDetails"]}
-            incomeDetails={data["incomeDetails"]}
-            providedLivingSupport={data["providedLivingSupport"]}
-            handleFetchData={handleFetchData}
+          <Tab
+            label="Filer Details"
+            className={customTextClasses.tabHeaderText}
+            {...a11yProps(0)}
           />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
-          <IncomeDetails
-            id={data["id"]}
-            data={data["incomeDetails"]}
-            handleFetchData={handleFetchData}
+          <Tab
+            label="Income Deatils"
+            className={customTextClasses.tabHeaderText}
+            {...a11yProps(1)}
           />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <BankDetails
-            id={data["id"]}
-            data={data["bankDetails"]}
-            handleFetchData={handleFetchData}
+          <Tab
+            label="Bank Details"
+            className={customTextClasses.tabHeaderText}
+            {...a11yProps(2)}
           />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={3}>
-          <Grid container>
-            <Grid item xs={12}>
-              <Box>
-                <UploadTaxDocs id={data["id"]} />
-              </Box>
-            </Grid>
-          </Grid>
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={4}>
-          <ConfirmDetails
-            id={data["id"]}
-            personalDetails={data["personalDetails"]}
-            contactDetails={data["contactDetails"]}
-            spouseDetails={data["spouseDetails"]}
-            providedLivingSupport={data["providedLivingSupport"]}
-            incomeDetails={data["incomeDetails"]}
-            bankDetails={data["bankDetails"]}
+          <Tab
+            label="Upload Tax Docs"
+            className={customTextClasses.tabHeaderText}
+            {...a11yProps(3)}
           />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={5}>
-          <PickAppointment id={data["id"]} />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={6}>
-          <PayPalPayment />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={7}>
-          <TaxReturns />
-        </CustomTabPanel>
+        </Tabs>
       </Box>
-    </Grid>
+
+      <CustomTabPanel value={value} index={0}>
+        <FilerDeatils
+          id={data["id"]}
+          personalDetails={data["personalDetails"]}
+          contactDetails={data["contactDetails"]}
+          spouseDetails={data["spouseDetails"]}
+          incomeDetails={data["incomeDetails"]}
+          providedLivingSupport={data["providedLivingSupport"]}
+          handleFetchData={handleFetchData}
+        />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={1}>
+        <IncomeDetails
+          id={data["id"]}
+          data={data["incomeDetails"]}
+          handleFetchData={handleFetchData}
+        />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={2}>
+        <BankDetails
+          id={data["id"]}
+          data={data["bankDetails"]}
+          handleFetchData={handleFetchData}
+        />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={3}>
+        <Grid container>
+          <Grid item xs={12}>
+            <Box>
+              <UploadTaxDocs id={data["id"]} />
+            </Box>
+          </Grid>
+        </Grid>
+      </CustomTabPanel>
+    </Box>
   );
 };
 export default TabsDesktop;

@@ -48,7 +48,8 @@ const AppBar = () => {
             >
               Tax Year
             </Button>
-            <Button className={customStyles.buttons}>Profile</Button>
+            <Button className={customStyles.buttons}>Home</Button>
+            {/* <Button className={customStyles.buttons}>Profile</Button> */}
             <Button className={customStyles.buttons}>Refer to Earn</Button>
             <Button className={customStyles.buttons}>Logout</Button>
           </Box>

@@ -53,8 +53,8 @@ const customAppBarStyles = makeStyles((theme) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ["PROFILE", "REFER", "LOGOUT"];
-const navIcons = [AccountCircleIcon, PaidIcon, ExitToAppIcon];
+const navItems = ["HOME", "REFER", "LOGOUT"]; // "PROFILE",
+const navIcons = [HomeIcon, PaidIcon, ExitToAppIcon]; //, AccountCircleIcon,
 
 function DrawerAppBar(props) {
   const { window } = props;

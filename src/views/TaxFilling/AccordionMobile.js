@@ -2,25 +2,10 @@ import React, { useState } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import PercentIcon from "@mui/icons-material/Percent";
-import Groups from "@mui/icons-material/Groups";
-import ListAlt from "@mui/icons-material/ListAlt";
-import AspectRatioOutlined from "@mui/icons-material/AspectRatioOutlined";
-import UnfoldLess from "@mui/icons-material/UnfoldLess";
-import UnfoldMore from "@mui/icons-material/UnfoldMore";
-import DiscountOutlined from "@mui/icons-material/DiscountOutlined";
-import MonetizationOnOutlined from "@mui/icons-material/MonetizationOnOutlined";
-import InsertPageBreakOutlined from "@mui/icons-material/InsertPageBreakOutlined";
-import DescriptionOutlined from "@mui/icons-material/DescriptionOutlined";
-import StackedBarChartOutlined from "@mui/icons-material/StackedBarChartOutlined";
-import PriceCheckOutlined from "@mui/icons-material/PriceCheckOutlined";
 import { Grid, Box, Avatar, Typography } from "@mui/material";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import config from "../../config";
 import { makeStyles } from "@mui/styles";
 import BankDetails from "./bankDetails";
 import FilerDetails from "./filerDeatils";
@@ -93,7 +78,12 @@ const BasicAccordion = ({ data, handleFetchData }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
+    console.log(panel);
     setExpanded(isExpanded ? panel : false);
+  };
+
+  const handlePickAppointment = () => {
+    setExpanded("panel6");
   };
 
   return (
@@ -224,6 +214,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             providedLivingSupport={data["providedLivingSupport"]}
             incomeDetails={data["incomeDetails"]}
             bankDetails={data["bankDetails"]}
+            handlePickAppointment={handlePickAppointment}
           />
         </AccordionDetails>
       </Accordion>

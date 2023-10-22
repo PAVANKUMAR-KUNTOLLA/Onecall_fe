@@ -81,6 +81,7 @@ const ConfirmDetails = ({
   incomeDetails,
   providedLivingSupport,
   bankDetails,
+  handlePickAppointment,
 }) => {
   const customStyles = useStyles();
   const stateOptions = statesNames;
@@ -1490,7 +1491,20 @@ const ConfirmDetails = ({
             alignItems: "center",
           }}
         >
-          <Button type="submit" variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handlePickAppointment("Pick Appointment")}
+            sx={{ display: { xs: "none", sm: "block" } }}
+          >
+            Confirm Personal Details To Pick An Appointment
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handlePickAppointment("panel6")}
+            sx={{ display: { xs: "block", sm: "none" } }}
+          >
             Confirm Personal Details To Pick An Appointment
           </Button>
         </Box>

@@ -18,7 +18,6 @@ import { makeStyles } from "@mui/styles";
 import { useNavigate } from "react-router-dom";
 import { privateApiGET } from "../../components/PrivateRoute";
 import Api from "../../components/Api";
-import HomePage from "../Home/home.page";
 
 import { useDispatch } from "react-redux";
 
@@ -249,7 +248,6 @@ const ProfilePage = () => {
           </Card>
         </Box>
       </Container>
-      <HomePage />
     </Page>
   );
 };

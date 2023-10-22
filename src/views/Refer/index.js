@@ -13,26 +13,12 @@ const ReferPage = () => {
   return (
     <Page title={"Refer"}>
       <Container maxWidth="md">
-        <Grid item xs={12} sx={{ display: { xs: "none", sm: "block" } }}>
-          {/* {isLoading ? (
-            <CircularProgress />
-          ) : data.personalDetails && data.bankDetails && data.incomeDetails ? ( */}
-          <TabsDesktop
-          // data={data}
-          // handleFetchData={handleFetchTaxFilingDetails}
-          />
-          {/* ) : null} */}
-        </Grid>
-        <Grid item xs={12} sx={{ display: { xs: "block", sm: "none" } }}>
-          {/* {isLoading ? (
-            <CircularProgress />
-          ) : data.personalDetails && data.bankDetails && data.incomeDetails ? ( */}
-          <BasicAccordion
-          // data={data}
-          // handleFetchData={handleFetchTaxFilingDetails}
-          />
-          {/* ) : null} */}
-        </Grid>
+        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <TabsDesktop />
+        </Box>
+        <Box sx={{ display: { xs: "block", sm: "none" } }}>
+          <BasicAccordion />
+        </Box>
       </Container>
     </Page>
   );

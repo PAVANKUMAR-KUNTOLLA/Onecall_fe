@@ -1395,12 +1395,220 @@ const FilerDetails = ({
                       </Grid>
                     </Grid>
                   )}
+                  <Box>
+                    {isDependantDetailsLoading ? (
+                      <CircularProgress />
+                    ) : (
+                      <TableContainer
+                        sx={{
+                          marginTop: "32px",
+                          paddingBottom: { xs: "10px", sm: "0px" },
+                        }}
+                      >
+                        <Typography variant="h5">Dependant Details</Typography>
+                        <Table
+                          sx={{
+                            borderCollapse: "collapse",
+                          }}
+                          aria-label="Place Order Series Table"
+                        >
+                          <TableHead>
+                            <TableRow>
+                              <TableCell className={customStyles.tableHeader}>
+                                First Name
+                              </TableCell>
+                              <TableCell className={customStyles.tableHeader}>
+                                Last Name
+                              </TableCell>
+                              <TableCell className={customStyles.tableHeader}>
+                                SSN/ITIN
+                              </TableCell>
+                              <TableCell className={customStyles.tableHeader}>
+                                Relationship
+                              </TableCell>
+                              <TableCell className={customStyles.tableHeader}>
+                                Visa Type
+                              </TableCell>
+                            </TableRow>
+                          </TableHead>
+                          <TableBody>
+                            {dependantDetails.length > 0 &&
+                              dependantDetails.map((row, index) => (
+                                <TableRow key={index}>
+                                  <TableCell className={customStyles.tableData}>
+                                    {row.additionalFirstName}
+                                  </TableCell>
+                                  <TableCell className={customStyles.tableData}>
+                                    {row.additionalLastName}
+                                  </TableCell>
+                                  <TableCell className={customStyles.tableData}>
+                                    {transform(row.additionalSsnOrItin)}
+                                  </TableCell>
+                                  <TableCell className={customStyles.tableData}>
+                                    {row.additionalRelationship}
+                                  </TableCell>
+                                  <TableCell className={customStyles.tableData}>
+                                    {row.additionalVisaType}
+                                  </TableCell>
+                                  <TableCell className={customStyles.tableData}>
+                                    <Button
+                                      disabled={isFilerDetailsLoading}
+                                      startIcon={<DeleteIcon />}
+                                      size="small"
+                                      onClick={() => {
+                                        handleDeleteDependant(row.id);
+                                      }}
+                                      className={customStyles.buttons}
+                                    >
+                                      Delete{" "}
+                                      {isFilerDetailsLoading && (
+                                        <CircularProgress
+                                          sx={{ ml: 1 }}
+                                          size={14}
+                                        />
+                                      )}
+                                    </Button>
+                                  </TableCell>
+                                  <TableCell
+                                    className={customStyles.mobileView}
+                                  >
+                                    <Box>
+                                      <Box
+                                        sx={{
+                                          display: "flex",
+                                          flexWrap: "wrap",
+                                          justifyContent: "space-between",
+                                          marginTop: "16px",
+                                        }}
+                                      >
+                                        <Box sx={{ marginTop: "3px" }}>
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellHeader
+                                            }
+                                          >
+                                            First Name
+                                          </Typography>
 
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellValue
+                                            }
+                                          >
+                                            {row.additionalFirstName}
+                                          </Typography>
+                                        </Box>
+                                        <Box sx={{ marginTop: "3px" }}>
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellHeader
+                                            }
+                                          >
+                                            Last Name
+                                          </Typography>
+
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellValue
+                                            }
+                                          >
+                                            {row.additionalLastName}
+                                          </Typography>
+                                        </Box>
+                                        <Box sx={{ marginTop: "3px" }}>
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellHeader
+                                            }
+                                          >
+                                            RelationShip
+                                          </Typography>
+
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellValue
+                                            }
+                                          >
+                                            {row.additionalRelationship}
+                                          </Typography>
+                                        </Box>
+                                      </Box>
+                                      <Box
+                                        sx={{
+                                          display: "flex",
+                                          flexWrap: "wrap",
+                                          justifyContent: "space-between",
+                                          marginTop: "16px",
+                                        }}
+                                      >
+                                        <Box sx={{ marginTop: "3px" }}>
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellHeader
+                                            }
+                                          >
+                                            Visa Type
+                                          </Typography>
+
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellValue
+                                            }
+                                          >
+                                            {row.additionalVisaType}
+                                          </Typography>
+                                        </Box>
+
+                                        <Box sx={{ marginTop: "3px" }}>
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellHeader
+                                            }
+                                          >
+                                            SSN/ITIN
+                                          </Typography>
+
+                                          <Typography
+                                            className={
+                                              customStyles.mobileViewTableCellValue
+                                            }
+                                          >
+                                            {transform(row.additionalSsnOrItin)}
+                                          </Typography>
+                                        </Box>
+
+                                        <Button
+                                          disabled={isFilerDetailsLoading}
+                                          startIcon={<DeleteIcon />}
+                                          size="small"
+                                          onClick={() => {
+                                            handleDeleteDependant(row.id);
+                                          }}
+                                        >
+                                          Delete{" "}
+                                          {isFilerDetailsLoading && (
+                                            <CircularProgress
+                                              sx={{ ml: 1 }}
+                                              size={14}
+                                            />
+                                          )}
+                                        </Button>
+                                      </Box>
+                                    </Box>
+                                  </TableCell>
+                                </TableRow>
+                              ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    )}
+                  </Box>
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "flex-end",
                       alignItems: "flex-end",
+                      marginTop: { xs: "8px", sm: "16px" },
                     }}
                   >
                     <Button
@@ -1415,209 +1623,6 @@ const FilerDetails = ({
                 </form>
               )}
             </Formik>
-            <Box>
-              {isDependantDetailsLoading ? (
-                <CircularProgress />
-              ) : (
-                <TableContainer
-                  sx={{
-                    marginTop: "32px",
-                    paddingBottom: { xs: "10px", sm: "0px" },
-                  }}
-                >
-                  <Typography variant="h5">Dependant Details</Typography>
-                  <Table
-                    sx={{
-                      borderCollapse: "collapse",
-                    }}
-                    aria-label="Place Order Series Table"
-                  >
-                    <TableHead>
-                      <TableRow>
-                        <TableCell className={customStyles.tableHeader}>
-                          First Name
-                        </TableCell>
-                        <TableCell className={customStyles.tableHeader}>
-                          Last Name
-                        </TableCell>
-                        <TableCell className={customStyles.tableHeader}>
-                          SSN/ITIN
-                        </TableCell>
-                        <TableCell className={customStyles.tableHeader}>
-                          Relationship
-                        </TableCell>
-                        <TableCell className={customStyles.tableHeader}>
-                          Visa Type
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {dependantDetails.length > 0 &&
-                        dependantDetails.map((row, index) => (
-                          <TableRow key={index}>
-                            <TableCell className={customStyles.tableData}>
-                              {row.additionalFirstName}
-                            </TableCell>
-                            <TableCell className={customStyles.tableData}>
-                              {row.additionalLastName}
-                            </TableCell>
-                            <TableCell className={customStyles.tableData}>
-                              {transform(row.additionalSsnOrItin)}
-                            </TableCell>
-                            <TableCell className={customStyles.tableData}>
-                              {row.additionalRelationship}
-                            </TableCell>
-                            <TableCell className={customStyles.tableData}>
-                              {row.additionalVisaType}
-                            </TableCell>
-                            <TableCell className={customStyles.tableData}>
-                              <Button
-                                disabled={isFilerDetailsLoading}
-                                startIcon={<DeleteIcon />}
-                                size="small"
-                                onClick={() => {
-                                  handleDeleteDependant(row.id);
-                                }}
-                                className={customStyles.buttons}
-                              >
-                                Delete{" "}
-                                {isFilerDetailsLoading && (
-                                  <CircularProgress sx={{ ml: 1 }} size={14} />
-                                )}
-                              </Button>
-                            </TableCell>
-                            <TableCell className={customStyles.mobileView}>
-                              <Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    justifyContent: "space-between",
-                                    marginTop: "16px",
-                                  }}
-                                >
-                                  <Box sx={{ marginTop: "3px" }}>
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellHeader
-                                      }
-                                    >
-                                      First Name
-                                    </Typography>
-
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellValue
-                                      }
-                                    >
-                                      {row.additionalFirstName}
-                                    </Typography>
-                                  </Box>
-                                  <Box sx={{ marginTop: "3px" }}>
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellHeader
-                                      }
-                                    >
-                                      Last Name
-                                    </Typography>
-
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellValue
-                                      }
-                                    >
-                                      {row.additionalLastName}
-                                    </Typography>
-                                  </Box>
-                                  <Box sx={{ marginTop: "3px" }}>
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellHeader
-                                      }
-                                    >
-                                      RelationShip
-                                    </Typography>
-
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellValue
-                                      }
-                                    >
-                                      {row.additionalRelationship}
-                                    </Typography>
-                                  </Box>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    flexWrap: "wrap",
-                                    justifyContent: "space-between",
-                                    marginTop: "16px",
-                                  }}
-                                >
-                                  <Box sx={{ marginTop: "3px" }}>
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellHeader
-                                      }
-                                    >
-                                      Visa Type
-                                    </Typography>
-
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellValue
-                                      }
-                                    >
-                                      {row.additionalVisaType}
-                                    </Typography>
-                                  </Box>
-
-                                  <Box sx={{ marginTop: "3px" }}>
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellHeader
-                                      }
-                                    >
-                                      SSN/ITIN
-                                    </Typography>
-
-                                    <Typography
-                                      className={
-                                        customStyles.mobileViewTableCellValue
-                                      }
-                                    >
-                                      {transform(row.additionalSsnOrItin)}
-                                    </Typography>
-                                  </Box>
-
-                                  <Button
-                                    disabled={isFilerDetailsLoading}
-                                    startIcon={<DeleteIcon />}
-                                    size="small"
-                                    onClick={() => {
-                                      handleDeleteDependant(row.id);
-                                    }}
-                                  >
-                                    Delete{" "}
-                                    {isFilerDetailsLoading && (
-                                      <CircularProgress
-                                        sx={{ ml: 1 }}
-                                        size={14}
-                                      />
-                                    )}
-                                  </Button>
-                                </Box>
-                              </Box>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
-              )}
-            </Box>
           </Box>
         )}
       </Container>
