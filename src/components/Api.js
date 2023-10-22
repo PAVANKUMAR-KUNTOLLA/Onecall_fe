@@ -27,4 +27,5 @@ export default {
   deleteAppointment: "/api/v1/delete_appointment/",
   makeReferal: "/api/v1/make_referal/",
   referalDetails: "/api/v1/referal_details/",
+  templateDownload: "/api/v1/download_template",
 };

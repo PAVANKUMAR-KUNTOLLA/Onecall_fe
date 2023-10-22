@@ -12,6 +12,7 @@ import {
   Radio,
   CircularProgress,
   Tooltip,
+  ButtonBase,
 } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup"; // Import Yup for validation
@@ -19,7 +20,12 @@ import TextField from "@mui/material/TextField";
 import Api from "../../components/Api";
 import { privateApiPOST } from "../../components/PrivateRoute";
 
-const IncomeDetails = ({ id, data, handleFetchData }) => {
+const IncomeDetails = ({
+  id,
+  data,
+  handleFetchData,
+  handleDownloadTemplate,
+}) => {
   const [isIncomeDetailsLoading, setIsIncomeDetailsLoading] = useState(false);
 
   const initialValues = {
@@ -144,7 +150,6 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                       <Tooltip
                         title="Upload 1099-INT forms and Interest received in Foreign Banks"
                         placement="left-end"
-                        sx={{ display: { xs: "none", sm: "display" } }}
                       >
                         <Button>Details</Button>
                       </Tooltip>
@@ -292,6 +297,20 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                       >
                         <Button>Details</Button>
                       </Tooltip>
+                      {values.soldCrypto ? (
+                        <ButtonBase
+                          onClick={() =>
+                            handleDownloadTemplate("Crypto_Information_1.xls")
+                          }
+                          sx={{
+                            marginTop: "2px",
+                            textDecoration: "underline",
+                          }}
+                          disableTouchRipple
+                        >
+                          Download and fill Crypto Excel
+                        </ButtonBase>
+                      ) : null}
                     </FormControl>
                   </Grid>
                   {/* Foreign Income */}
@@ -487,6 +506,20 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                       >
                         <Button>Details</Button>
                       </Tooltip>
+                      {values.foreignBankAccount ? (
+                        <ButtonBase
+                          onClick={() =>
+                            handleDownloadTemplate("FBAR_Information_2022.xls")
+                          }
+                          sx={{
+                            marginTop: "2px",
+                            textDecoration: "underline",
+                          }}
+                          disableTouchRipple
+                        >
+                          Download and fill FBAR Excel
+                        </ButtonBase>
+                      ) : null}
                     </FormControl>
                   </Grid>
 
@@ -536,6 +569,22 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                       >
                         <Button>Details</Button>
                       </Tooltip>
+                      {values.foreignAssets ? (
+                        <ButtonBase
+                          onClick={() =>
+                            handleDownloadTemplate(
+                              "FBAR_Information_2022_1.xls"
+                            )
+                          }
+                          sx={{
+                            marginTop: "2px",
+                            textDecoration: "underline",
+                          }}
+                          disableTouchRipple
+                        >
+                          Download and fill FBAR Excel(Financial Assets Tab)
+                        </ButtonBase>
+                      ) : null}
                     </FormControl>
                   </Grid>
 

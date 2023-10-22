@@ -63,6 +63,29 @@ const TaxFillingPage = () => {
       });
   };
 
+  const handleDownloadTemplate = (file) => {
+    let payload = {
+      file_name: file,
+    };
+
+    privateApiPOST(Api.templateDownload, payload, { responseType: "blob" })
+      .then((res) => {
+        const { status, data } = res;
+        if (status === 200) {
+          const url = window.URL.createObjectURL(new Blob([data]));
+          const anchor = document.createElement("a");
+          anchor.href = url;
+          anchor.setAttribute("download", file);
+          document.body.appendChild(anchor);
+          anchor.click();
+        } else {
+        }
+      })
+      .catch((err) => {
+        console.log("handleDownloadFile--->", err);
+      });
+  };
+
   useEffect(() => {
     handleFetchTaxFilingDetails();
   }, []);
@@ -148,6 +171,7 @@ const TaxFillingPage = () => {
                         <TabsDesktop
                           data={data}
                           handleFetchData={handleFetchTaxFilingDetails}
+                          handleDownloadTemplate={handleDownloadTemplate}
                         />
                       )}
                       {isActiveTab === "Confirm Details" && (
@@ -196,6 +220,7 @@ const TaxFillingPage = () => {
               <BasicAccordion
                 data={data}
                 handleFetchData={handleFetchTaxFilingDetails}
+                handleDownloadTemplate={handleDownloadTemplate}
               />
             ) : null}
           </Box>

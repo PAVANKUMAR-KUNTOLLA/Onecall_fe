@@ -14,6 +14,7 @@ import {
   TableHead,
   TableRow,
   CircularProgress,
+  ButtonBase,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { makeStyles } from "@mui/styles";
@@ -79,6 +80,7 @@ const FilerDetails = ({
   incomeDetails,
   providedLivingSupport,
   handleFetchData,
+  handleDownloadTemplate,
 }) => {
   const customStyles = customTextStyles();
   const [isFilerDetailsLoading, setIsFilerDetailsLoading] = useState(false);
@@ -940,6 +942,20 @@ const FilerDetails = ({
                               <MenuItem value={false}>No</MenuItem>
                               <MenuItem value={true}>Yes</MenuItem>
                             </TextField>
+                            {values.spouseApplyForItin === true && (
+                              <ButtonBase
+                                onClick={() =>
+                                  handleDownloadTemplate("ITIN_Information.xls")
+                                }
+                                sx={{
+                                  marginTop: "2px",
+                                  textDecoration: "underline",
+                                }}
+                                disableTouchRipple
+                              >
+                                Download ITIN Information Excel
+                              </ButtonBase>
+                            )}
                           </Grid>
                         </Grid>
                       </Grid>
@@ -1220,6 +1236,20 @@ const FilerDetails = ({
                               <MenuItem value={false}>No</MenuItem>
                               <MenuItem value={true}>Yes</MenuItem>
                             </TextField>
+                            {values.additionalApplyForItin === true && (
+                              <ButtonBase
+                                onClick={() =>
+                                  handleDownloadTemplate("ITIN_Information.xls")
+                                }
+                                sx={{
+                                  marginTop: "2px",
+                                  textDecoration: "underline",
+                                }}
+                                disableTouchRipple
+                              >
+                                Download ITIN Information Excel
+                              </ButtonBase>
+                            )}
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField

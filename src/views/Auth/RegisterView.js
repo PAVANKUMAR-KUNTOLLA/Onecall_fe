@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import {
   Box,
   Button,
@@ -118,6 +118,8 @@ const useStyles = makeStyles((theme) => ({
 
 const RegisterView = () => {
   const classes = useStyles();
+  const { pathname, search } = useLocation();
+  const queryParams = new URLSearchParams(search);
   const [showAlert, setShowAlert] = useState({
     isAlert: false,
     alertTitle: "",
@@ -174,10 +176,10 @@ const RegisterView = () => {
                     firstName: "",
                     lastName: "",
                     gender: "",
-                    email: "",
+                    email: queryParams.get("email"),
                     password: "",
                     passwordConfirmation: "",
-                    referralId: "",
+                    referralId: queryParams.get("referralId"),
                   }}
                   validationSchema={Yup.object().shape({
                     firstName: Yup.string()

@@ -74,7 +74,7 @@ const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const BasicAccordion = ({ data, handleFetchData }) => {
+const BasicAccordion = ({ data, handleFetchData, handleDownloadTemplate }) => {
   const customTextClasses = customTextStyles();
   const [expanded, setExpanded] = useState(false);
 
@@ -116,6 +116,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             incomeDetails={data["incomeDetails"]}
             providedLivingSupport={data["providedLivingSupport"]}
             handleFetchData={handleFetchData}
+            handleDownloadTemplate={handleDownloadTemplate}
           />
         </AccordionDetails>
       </Accordion>
@@ -142,6 +143,7 @@ const BasicAccordion = ({ data, handleFetchData }) => {
             id={data["id"]}
             data={data["incomeDetails"]}
             handleFetchData={handleFetchData}
+            handleDownloadTemplate={handleDownloadTemplate}
           />
         </AccordionDetails>
       </Accordion>

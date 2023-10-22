@@ -85,7 +85,7 @@ export const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const TabsDesktop = ({ data, handleFetchData }) => {
+const TabsDesktop = ({ data, handleFetchData, handleDownloadTemplate }) => {
   const params = useParams();
   const customTextClasses = customTextStyles();
   const [value, setValue] = useState(parseInt(params.action));
@@ -180,6 +180,7 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           incomeDetails={data["incomeDetails"]}
           providedLivingSupport={data["providedLivingSupport"]}
           handleFetchData={handleFetchData}
+          handleDownloadTemplate={handleDownloadTemplate}
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
@@ -187,6 +188,7 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           id={data["id"]}
           data={data["incomeDetails"]}
           handleFetchData={handleFetchData}
+          handleDownloadTemplate={handleDownloadTemplate}
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
