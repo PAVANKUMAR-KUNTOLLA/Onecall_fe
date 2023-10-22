@@ -15,6 +15,7 @@ import UploadTaxDocs from "./TaxDocs";
 import TaxReturns from "./taxReturns";
 import PayPalPayment from "../Home/payPalPayment";
 import ConfirmDetails from "./confirmDetails";
+import RefundQuote from "./refundQuote";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {
@@ -282,6 +283,28 @@ const BasicAccordion = ({ data, handleFetchData }) => {
         </AccordionSummary>
         <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
           <TaxReturns />
+        </AccordionDetails>
+      </Accordion>
+      <Accordion
+        expanded={expanded === "panel9"}
+        onChange={handleChange("panel9")}
+        className={customTextClasses.accordion}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel9a-content"
+          id="panel9a-header"
+          className={customTextClasses.accordionHeader}
+        >
+          <Typography
+            className={customTextClasses.accordionHeaderText}
+            sx={{ fontWeight: expanded === "panel9" ? "600" : "400" }}
+          >
+            Refund Quote
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails sx={{ bgcolor: "#FAFAFA" }}>
+          <RefundQuote />
         </AccordionDetails>
       </Accordion>
     </Box>

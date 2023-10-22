@@ -163,6 +163,11 @@ const TabsDesktop = ({ data, handleFetchData }) => {
             className={customTextClasses.tabHeaderText}
             {...a11yProps(3)}
           />
+          <Tab
+            label="Tax Returns"
+            className={customTextClasses.tabHeaderText}
+            {...a11yProps(3)}
+          />
         </Tabs>
       </Box>
 
@@ -196,6 +201,15 @@ const TabsDesktop = ({ data, handleFetchData }) => {
           <Grid item xs={12}>
             <Box>
               <UploadTaxDocs id={data["id"]} />
+            </Box>
+          </Grid>
+        </Grid>
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={4}>
+        <Grid container>
+          <Grid item xs={12}>
+            <Box>
+              <TaxReturns id={data["id"]} />
             </Box>
           </Grid>
         </Grid>

@@ -11,6 +11,7 @@ import {
   FormControlLabel,
   Radio,
   CircularProgress,
+  Tooltip,
 } from "@mui/material";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup"; // Import Yup for validation
@@ -140,6 +141,13 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="Upload 1099-INT forms and Interest received in Foreign Banks"
+                        placement="left-end"
+                        sx={{ display: { xs: "none", sm: "display" } }}
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 
@@ -182,6 +190,12 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="Upload 1099-DIV forms and dividends received in Foreign Banks"
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 
@@ -224,6 +238,12 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="Upload 1099-B, Gain/Loss statement in excel format. If it is ESPP/RSU stocks, upload adjusted cost basis details as well."
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 
@@ -266,6 +286,12 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="Download and fill Crypto CSV."
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
                   {/* Foreign Income */}
@@ -307,6 +333,13 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+
+                      <Tooltip
+                        title="Upload Total income received in Foreign Country and Total taxes paid in Foreign Country"
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 
@@ -350,6 +383,12 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="401k/IRA etc., which is not mentioned in your W2. Upload Bank Statement 1099 R in Upload Tax Docs section"
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 
@@ -392,6 +431,12 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="If yes, upload 1099 G you might have received from State in Upload Tax Docs section"
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 
@@ -435,6 +480,13 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="As per recent IRS laws, you need to report if the combined investments(stocks/bonds/real estate) of all your foreign accounts exceeds $10,000 on at least 1 day.
+                        You do not need to pay any tax on this amount. A separate form need to be sent to IRS"
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 
@@ -478,6 +530,12 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="As per recent IRS laws, you need to report if the combined investments(stocks/bonds/Accounts/Partnerships) of all your foreign assets exceeds $50,000 on at least 1 day in year 2022. You do not need to pay any tax on this amount. You need to report these details to avoid penalties."
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 
@@ -562,6 +620,12 @@ const IncomeDetails = ({ id, data, handleFetchData }) => {
                           label="No"
                         />
                       </RadioGroup>
+                      <Tooltip
+                        title="Upload 1099 Misc / 1099 NEC"
+                        placement="left-end"
+                      >
+                        <Button>Details</Button>
+                      </Tooltip>
                     </FormControl>
                   </Grid>
 

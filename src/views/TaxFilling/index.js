@@ -20,6 +20,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
+import RefundQuote from "./refundQuote";
 
 export const customTextStyles = makeStyles((theme) => ({
   tabButton: {
@@ -41,9 +42,7 @@ const TaxFillingPage = () => {
   const [isActiveTab, setIsActiveTab] = useState("My Details");
 
   const handleActiveTabChange = (tabName) => {
-    if (tabName !== "Refund Quote") {
-      setIsActiveTab(tabName);
-    }
+    setIsActiveTab(tabName);
   };
 
   const handleFetchTaxFilingDetails = () => {
@@ -166,9 +165,7 @@ const TaxFillingPage = () => {
                       {isActiveTab === "Pick Appointment" && (
                         <PickAppointment id={data["id"]} />
                       )}
-                      {isActiveTab === "Refund Quote" && (
-                        <TabsDesktop data={data} />
-                      )}
+                      {isActiveTab === "Refund Quote" && <RefundQuote />}
                       {isActiveTab === "Pay Now" && <PayPalPayment />}
                     </PerfectScrollbar>
                   </Box>

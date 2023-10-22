@@ -1,5 +1,6 @@
 import * as React from "react";
 import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
 
 import { makeStyles } from "@mui/styles";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -60,6 +61,11 @@ function DrawerAppBar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const [userInfo, setUserInfo] = useState({
+    first_name: "",
+    last_name: "",
+  });
+
   const customStyles = customAppBarStyles();
   const navigate = useNavigate();
 
@@ -101,6 +107,41 @@ function DrawerAppBar(props) {
     }
   };
 
+  const handleFetchProfileData = () => {
+    privateApiGET(Api.profile)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          let info = data?.data;
+          setUserInfo((prev) => ({
+            ...prev,
+            id: info.id,
+            first_name: info.first_name,
+            last_name: info.last_name,
+          }));
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+      });
+  };
+
+  function stringAvatar(name) {
+    if (name.split(" ").length == 1) {
+      return {
+        children: `${name.split(" ")[0][0]}`,
+      };
+    }
+    return {
+      children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+    };
+  }
+
+  useEffect(() => {
+    handleFetchProfileData();
+  }, []);
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
       {/* <Typography variant="h6" sx={{ my: 2 }}>
@@ -109,7 +150,7 @@ function DrawerAppBar(props) {
       <Box className={customStyles.account}>
         <Avatar
           // {...stringAvatar(userInfo.name)}
-          {...stringAvatar("Kuntolla Pavan Kumar")}
+          {...stringAvatar(userInfo.first_name + userInfo.last_name)}
           sx={{
             width: "75px",
             height: "75px",
@@ -121,7 +162,7 @@ function DrawerAppBar(props) {
         />
 
         <Typography className={customStyles.title} variant="h6" sx={{ my: 2 }}>
-          Kuntolla Pavan Kumar
+          {userInfo.first_name + " " + userInfo.last_name}
         </Typography>
       </Box>
       <hr></hr>
