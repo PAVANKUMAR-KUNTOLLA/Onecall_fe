@@ -173,7 +173,7 @@ const FilerDetails = ({
         if (status === 200) {
           console.log("data", data);
           setIsDependantDetailsLoading(false);
-          handleFetchDependantDetails;
+          handleFetchDependantDetails();
         }
       })
       .catch((error) => {
