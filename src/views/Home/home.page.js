@@ -235,10 +235,10 @@ const HomePage = () => {
                       </TableCell>
                       <TableCell className={customStyles.tableData}>
                         <Link
-                          to={`../tax-filing/${row.year}/${row.id}/6`}
+                          to={`../tax-filing/${row.year}/${row.id}/0`}
                           onClick={() =>
                             handleNavigate(
-                              `../tax-filing/${row.year}/${row.id}/6`
+                              `../tax-filing/${row.year}/${row.id}/0`
                             )
                           }
                           sx={{ cursor: "pointer" }}
