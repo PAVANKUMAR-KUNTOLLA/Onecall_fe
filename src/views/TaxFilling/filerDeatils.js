@@ -200,6 +200,27 @@ const FilerDetails = ({
       });
   };
 
+  function CustomLabel({ label, required }) {
+    return (
+      <label style={{ display: "flex", alignItems: "center" }}>
+        {label}
+        {required && (
+          <span
+            style={{
+              color: "red",
+              fontSize: "26px",
+              marginTop: "6px",
+              marginLeft: "3px",
+            }}
+          >
+            {" "}
+            *
+          </span>
+        )}
+      </label>
+    );
+  }
+
   useEffect(() => {
     handleFetchDependantDetails();
   }, []);
@@ -431,12 +452,14 @@ const FilerDetails = ({
                     {/* Left Side - Personal Details */}
                     <Grid item lg={6} sm={6} xs={12}>
                       <Box className={customStyles.leftSide}>
-                        <Typography variant="h5">Personal Details</Typography>
+                        <Typography variant="h4">Personal Details</Typography>
                         <TextField
                           error={Boolean(touched.firstName && errors.firstName)}
                           fullWidth
                           helperText={touched.firstName && errors.firstName}
-                          label="First Name"
+                          label={
+                            <CustomLabel label="First Name" required={true} />
+                          }
                           margin="normal"
                           name="firstName"
                           onBlur={handleBlur}
@@ -450,7 +473,9 @@ const FilerDetails = ({
                           )}
                           fullWidth
                           helperText={touched.middleName && errors.middleName}
-                          label="Middle Name"
+                          label={
+                            <CustomLabel label="Middle Name" required={false} />
+                          }
                           margin="normal"
                           name="middleName"
                           onBlur={handleBlur}
@@ -462,7 +487,9 @@ const FilerDetails = ({
                           error={Boolean(touched.lastName && errors.lastName)}
                           fullWidth
                           helperText={touched.lastName && errors.lastName}
-                          label="Last Name"
+                          label={
+                            <CustomLabel label="Last Name" required={true} />
+                          }
                           margin="normal"
                           name="lastName"
                           onBlur={handleBlur}
@@ -474,7 +501,7 @@ const FilerDetails = ({
                           error={Boolean(touched.ssn && errors.ssn)}
                           fullWidth
                           helperText={touched.ssn && errors.ssn}
-                          label="SSN"
+                          label={<CustomLabel label="SSN" required={true} />}
                           margin="normal"
                           name="ssn"
                           onBlur={handleBlur}
@@ -488,7 +515,12 @@ const FilerDetails = ({
                           )}
                           fullWidth
                           helperText={touched.dateOfBirth && errors.dateOfBirth}
-                          label=""
+                          label={
+                            <CustomLabel
+                              label="Date of Birth"
+                              required={true}
+                            />
+                          }
                           margin="normal"
                           name="dateOfBirth"
                           onBlur={handleBlur}
@@ -496,13 +528,26 @@ const FilerDetails = ({
                           type="date"
                           value={values.dateOfBirth}
                           variant="outlined"
+                          InputLabelProps={{
+                            shrink: true, // This is important for the label to behave correctly
+                          }}
+                          InputProps={{
+                            style: {
+                              color: "black", // Customize the label color
+                            },
+                          }}
+                          inputProps={{
+                            // To disable the default placeholder
+                            placeholder: "",
+                            // Other attributes you might need
+                          }}
                         />
                         <TextField
                           error={Boolean(touched.gender && errors.gender)}
                           select
                           fullWidth
                           helperText={touched.gender && errors.gender}
-                          label="Gender"
+                          label={<CustomLabel label="Gender" required={true} />}
                           margin="normal"
                           name="gender"
                           onBlur={handleBlur}
@@ -520,7 +565,9 @@ const FilerDetails = ({
                           )}
                           fullWidth
                           helperText={touched.occupation && errors.occupation}
-                          label="Occupation"
+                          label={
+                            <CustomLabel label="Occupation" required={true} />
+                          }
                           margin="normal"
                           name="occupation"
                           onBlur={handleBlur}
@@ -539,7 +586,12 @@ const FilerDetails = ({
                             touched.residentialStatus &&
                             errors.residentialStatus
                           }
-                          label="Residential Status"
+                          label={
+                            <CustomLabel
+                              label="Residential Status"
+                              required={true}
+                            />
+                          }
                           margin="normal"
                           name="residentialStatus"
                           onBlur={handleBlur}
@@ -565,14 +617,20 @@ const FilerDetails = ({
                     </Grid>
 
                     {/* Right Side - Contact Details */}
-                    <Grid item lg={6} sm={6} xs={12}>
+                    <Grid
+                      item
+                      lg={5}
+                      sm={5}
+                      xs={12}
+                      sx={{ marginLeft: { xs: "0px", sm: "60px" } }}
+                    >
                       <Box className={customStyles.rightSide}>
-                        <Typography variant="h5">Contact Details</Typography>
+                        <Typography variant="h4">Contact Details</Typography>
                         <TextField
                           error={Boolean(touched.street && errors.street)}
                           fullWidth
                           helperText={touched.street && errors.street}
-                          label="Street"
+                          label={<CustomLabel label="Street" required={true} />}
                           margin="normal"
                           name="street"
                           onBlur={handleBlur}
@@ -584,7 +642,9 @@ const FilerDetails = ({
                           error={Boolean(touched.apartment && errors.apartment)}
                           fullWidth
                           helperText={touched.apartment && errors.apartment}
-                          label="Apartment"
+                          label={
+                            <CustomLabel label="Apartment" required={true} />
+                          }
                           margin="normal"
                           name="apartment"
                           onBlur={handleBlur}
@@ -596,7 +656,7 @@ const FilerDetails = ({
                           error={Boolean(touched.city && errors.city)}
                           fullWidth
                           helperText={touched.city && errors.city}
-                          label="City"
+                          label={<CustomLabel label="City" required={true} />}
                           margin="normal"
                           name="city"
                           onBlur={handleBlur}
@@ -609,7 +669,7 @@ const FilerDetails = ({
                           select
                           fullWidth
                           helperText={touched.state && errors.state}
-                          label="State"
+                          label={<CustomLabel label="State" required={true} />}
                           margin="normal"
                           name="state"
                           onBlur={handleBlur}
@@ -627,7 +687,9 @@ const FilerDetails = ({
                           error={Boolean(touched.zipCode && errors.zipCode)}
                           fullWidth
                           helperText={touched.zipCode && errors.zipCode}
-                          label="Zip Code"
+                          label={
+                            <CustomLabel label="Zip Code" required={true} />
+                          }
                           margin="normal"
                           name="zipCode"
                           onBlur={handleBlur}
@@ -640,7 +702,9 @@ const FilerDetails = ({
                           select
                           fullWidth
                           helperText={touched.country && errors.country}
-                          label="Country"
+                          label={
+                            <CustomLabel label="Country" required={true} />
+                          }
                           margin="normal"
                           name="country"
                           onBlur={handleBlur}
@@ -665,7 +729,12 @@ const FilerDetails = ({
                                 touched.primaryCountryCode &&
                                 errors.primaryCountryCode
                               }
-                              label="country code"
+                              label={
+                                <CustomLabel
+                                  label="Country Code"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="primaryCountryCode"
                               onBlur={handleBlur}
@@ -694,7 +763,12 @@ const FilerDetails = ({
                                 touched.primaryPhoneNumber &&
                                 errors.primaryPhoneNumber
                               }
-                              label="Primary Phone Number"
+                              label={
+                                <CustomLabel
+                                  label="Primary Phone Number"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="primaryPhoneNumber"
                               onBlur={handleBlur}
@@ -715,7 +789,12 @@ const FilerDetails = ({
                                 touched.secondaryCountryCode &&
                                 errors.secondaryCountryCode
                               }
-                              label="Country Code"
+                              label={
+                                <CustomLabel
+                                  label="Country Code"
+                                  required={false}
+                                />
+                              }
                               margin="normal"
                               name="secondaryCountryCode"
                               onBlur={handleBlur}
@@ -744,7 +823,12 @@ const FilerDetails = ({
                                 touched.secondaryPhoneNumber &&
                                 errors.secondaryPhoneNumber
                               }
-                              label="Secondary Phone Number"
+                              label={
+                                <CustomLabel
+                                  label="Secondary Phone Number"
+                                  required={false}
+                                />
+                              }
                               margin="normal"
                               name="secondaryPhoneNumber"
                               onBlur={handleBlur}
@@ -762,7 +846,12 @@ const FilerDetails = ({
                           helperText={
                             touched.contactEmail && errors.contactEmail
                           }
-                          label="Contact Email"
+                          label={
+                            <CustomLabel
+                              label="Contact Email"
+                              required={true}
+                            />
+                          }
                           margin="normal"
                           name="contactEmail"
                           onBlur={handleBlur}
@@ -782,8 +871,10 @@ const FilerDetails = ({
                         style={{ display: "flex", alignItems: "center" }}
                       >
                         <Typography variant="body1">
-                          Have you filed your taxes with Taxcooler in the last
-                          year?
+                          <CustomLabel
+                            label="Have you filed your taxes with Taxcooler in the last year?"
+                            required={true}
+                          />
                         </Typography>
                       </Grid>
                       <Grid item xs={2} sm={1}>
@@ -813,7 +904,13 @@ const FilerDetails = ({
                           marginBottom: "30px",
                         }}
                       >
-                        <Typography variant="body1">Taxpayer Status</Typography>
+                        <Typography variant="body1">
+                          {" "}
+                          <CustomLabel
+                            label="Taxpayer Status"
+                            required={true}
+                          />
+                        </Typography>
                       </Grid>
                       <Grid item xs={4} sm={1}>
                         <select
@@ -839,7 +936,12 @@ const FilerDetails = ({
                         <Grid container spacing={2}>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Spouse First Name"
+                              label={
+                                <CustomLabel
+                                  label="Spouse First Name"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="spouseFirstName"
                               onBlur={handleBlur}
@@ -859,7 +961,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Spouse Middle Initial"
+                              label={
+                                <CustomLabel
+                                  label="Spouse Middle Initial"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="spouseMiddleInitial"
                               onBlur={handleBlur}
@@ -871,7 +978,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Spouse Last Name"
+                              label={
+                                <CustomLabel
+                                  label="Spouse Last Name"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="spouseLastName"
                               onBlur={handleBlur}
@@ -889,7 +1001,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Spouse SSN/ITIN"
+                              label={
+                                <CustomLabel
+                                  label="Spouse SSN/ITIN"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="spouseSsnOrItin"
                               onBlur={handleBlur}
@@ -909,7 +1026,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Do you want to apply for ITIN?"
+                              label={
+                                <CustomLabel
+                                  label="Do you want to apply for ITIN?"
+                                  required={true}
+                                />
+                              }
                               select
                               margin="normal"
                               name="spouseApplyForItin"
@@ -954,7 +1076,12 @@ const FilerDetails = ({
                         <Grid container spacing={2}>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label=""
+                              label={
+                                <CustomLabel
+                                  label="Date of Birth"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="spouseDateOfBirth"
                               onBlur={handleBlur}
@@ -971,11 +1098,29 @@ const FilerDetails = ({
                                 touched.spouseDateOfBirth &&
                                 errors.spouseDateOfBirth
                               }
+                              InputLabelProps={{
+                                shrink: true, // This is important for the label to behave correctly
+                              }}
+                              InputProps={{
+                                style: {
+                                  color: "black", // Customize the label color
+                                },
+                              }}
+                              inputProps={{
+                                // To disable the default placeholder
+                                placeholder: "",
+                                // Other attributes you might need
+                              }}
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Spouse Gender"
+                              label={
+                                <CustomLabel
+                                  label="Spouse Gender"
+                                  required={true}
+                                />
+                              }
                               select
                               margin="normal"
                               name="spouseGender"
@@ -998,7 +1143,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Spouse Occupation / Job Title"
+                              label={
+                                <CustomLabel
+                                  label="Spouse Occupation / Job Title"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="spouseOccupation"
                               onBlur={handleBlur}
@@ -1018,7 +1168,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Spouse Residential Status"
+                              label={
+                                <CustomLabel
+                                  label="Spouse Residential Status"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="spouseResidentialStatus"
                               onBlur={handleBlur}
@@ -1044,7 +1199,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Spouse Email Id"
+                              label={
+                                <CustomLabel
+                                  label="Spouse Email Id"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name="spouseEmail"
                               onBlur={handleBlur}
@@ -1072,14 +1232,17 @@ const FilerDetails = ({
                       style={{ display: "flex", alignItems: "center" }}
                     >
                       <Typography variant="body1">
-                        Have you (or your spouse, if married) provided living
+                        <CustomLabel
+                          label=" Have you (or your spouse, if married) provided living
                         support to your kids and/or dependents during the tax
-                        year?
+                        year?"
+                          required={true}
+                        />
                       </Typography>
                     </Grid>
                     <Grid item xs={2} sm={3}>
                       <TextField
-                        label=""
+                        label={<CustomLabel label="" />}
                         select
                         margin="normal"
                         name="providedLivingSupport"
@@ -1131,7 +1294,12 @@ const FilerDetails = ({
                         <Grid container spacing={2}>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="First Name"
+                              label={
+                                <CustomLabel
+                                  label="First Name"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name={`additionalFirstName`}
                               onBlur={handleBlur}
@@ -1151,7 +1319,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Middle Initial"
+                              label={
+                                <CustomLabel
+                                  label="Middle Initial"
+                                  required={false}
+                                />
+                              }
                               margin="normal"
                               name={`additionalMiddleInitial`}
                               onBlur={handleBlur}
@@ -1163,7 +1336,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Last Name"
+                              label={
+                                <CustomLabel
+                                  label="Last Name"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name={`additionalLastName`}
                               onBlur={handleBlur}
@@ -1183,7 +1361,9 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="SSN/ITIN"
+                              label={
+                                <CustomLabel label="SSN/ITIN" required={true} />
+                              }
                               margin="normal"
                               name={`additionalSsnOrItin`}
                               onBlur={handleBlur}
@@ -1203,7 +1383,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Do you want to apply for ITIN?"
+                              label={
+                                <CustomLabel
+                                  label="Do you want to apply for ITIN?"
+                                  required={true}
+                                />
+                              }
                               select
                               margin="normal"
                               name={`additionalApplyForItin`}
@@ -1241,7 +1426,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Relationship"
+                              label={
+                                <CustomLabel
+                                  label="Relationship"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name={`additionalRelationship`}
                               onBlur={handleBlur}
@@ -1268,7 +1458,12 @@ const FilerDetails = ({
                         <Grid container spacing={2}>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Date of Birth"
+                              label={
+                                <CustomLabel
+                                  label="Date of Birth"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name={`additionalDateOfBirth`}
                               onBlur={handleBlur}
@@ -1285,11 +1480,26 @@ const FilerDetails = ({
                                 touched.additionalDateOfBirth &&
                                 errors.additionalDateOfBirth
                               }
+                              InputLabelProps={{
+                                shrink: true, // This is important for the label to behave correctly
+                              }}
+                              InputProps={{
+                                style: {
+                                  color: "black", // Customize the label color
+                                },
+                              }}
+                              inputProps={{
+                                // To disable the default placeholder
+                                placeholder: "",
+                                // Other attributes you might need
+                              }}
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Gender"
+                              label={
+                                <CustomLabel label="Gender" required={true} />
+                              }
                               select
                               margin="normal"
                               name={`additionalGender`}
@@ -1314,7 +1524,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Occupation / Job Title"
+                              label={
+                                <CustomLabel
+                                  label="Occupation / Job Title"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name={`additionalOccupation`}
                               onBlur={handleBlur}
@@ -1334,7 +1549,12 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Visa Type"
+                              label={
+                                <CustomLabel
+                                  label="Visa Type"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name={`additionalVisaType`}
                               onBlur={handleBlur}
@@ -1369,7 +1589,9 @@ const FilerDetails = ({
                           </Grid>
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="Email Id"
+                              label={
+                                <CustomLabel label="Email Id" required={true} />
+                              }
                               margin="normal"
                               name={`additionalEmail`}
                               onBlur={handleBlur}
@@ -1390,7 +1612,12 @@ const FilerDetails = ({
 
                           <Grid item sm={12} xs={12}>
                             <TextField
-                              label="No. of months dependent has stayed with you in U.S"
+                              label={
+                                <CustomLabel
+                                  label="No. of months dependent has stayed with you in U.S"
+                                  required={true}
+                                />
+                              }
                               margin="normal"
                               name={`additionalStayCount`}
                               onBlur={handleBlur}

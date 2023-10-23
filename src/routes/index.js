@@ -10,9 +10,9 @@ const HomePage = Loadable(lazy(() => import("../views/Home/home.page")));
 const TaxFillingPage = Loadable(lazy(() => import("../views/TaxFilling")));
 const LoginViewPage = Loadable(lazy(() => import("../views/Auth/LoginView")));
 const RegisterView = Loadable(lazy(() => import("../views/Auth/RegisterView")));
-const ProfilePage = Loadable(
-  lazy(() => import("../views/Profile/profile.page"))
-);
+// const ProfilePage = Loadable(
+//   lazy(() => import("../views/Profile/profile.page"))
+// );
 const ReferPage = Loadable(lazy(() => import("../views/Refer")));
 
 const ResetPasswordView = Loadable(
@@ -37,7 +37,7 @@ const AppRoutes = () => {
           path="tax-filing/:year/:id/:action"
           element={<TaxFillingPage />}
         />
-        <Route path="profile" element={<ProfilePage />} />
+        {/* <Route path="profile" element={<ProfilePage />} /> */}
         <Route path="refer" element={<ReferPage />} />
       </Route>
       <Route path="/login" element={<LoginViewPage />} />
