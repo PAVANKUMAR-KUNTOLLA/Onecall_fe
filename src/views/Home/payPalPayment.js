@@ -9,6 +9,9 @@ import {
 } from "@mui/material";
 
 const PayPalPayment = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
   return (
     <Container>
       <Grid spacing={2} container justifyContent="center" alignItems="center">
@@ -41,7 +44,10 @@ const PayPalPayment = () => {
               If your payment is successful, you'll receive an automatic email
               confirmation from "PayPal."
             </Typography>
-            <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <form
+              action={handleSubmit}
+              // action="https://www.paypal.com/cgi-bin/webscr" method="post"
+            >
               <input type="hidden" name="cmd" value="_xclick" />
               <input type="hidden" name="business" value="4KKFRTPBL3E8E" />
               <input type="hidden" name="lc" value="US" />
