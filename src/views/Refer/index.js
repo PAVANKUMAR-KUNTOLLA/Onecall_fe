@@ -8,11 +8,12 @@ import BasicAccordion from "./accordinMobile";
 
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
+import DrawerAppBar from "../../Layout/MainLayout/appBarMaterialUI";
 
 const ReferPage = () => {
   return (
     <Page title={"Refer"}>
-      <Container maxWidth="md">
+      <Container maxWidth="lg">
         <Box sx={{ display: { xs: "none", sm: "block" } }}>
           <TabsDesktop />
         </Box>

@@ -23,6 +23,8 @@ import { Formik, Form } from "formik";
 import { statesNames, countryCode } from "../../constants";
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
+import CustomInputTextField from "../../components/CustomInputField";
+import { ALIGN_LEFT } from "@blueprintjs/core/lib/esm/common/classes";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -208,8 +210,7 @@ const FilerDetails = ({
           <span
             style={{
               color: "red",
-              fontSize: "26px",
-              marginTop: "6px",
+              fontSize: "16px",
               marginLeft: "3px",
             }}
           >
@@ -450,16 +451,30 @@ const FilerDetails = ({
                 <form autoComplete="off" onSubmit={handleSubmit}>
                   <Grid container spacing={2}>
                     {/* Left Side - Personal Details */}
+
                     <Grid item lg={6} sm={6} xs={12}>
                       <Box className={customStyles.leftSide}>
-                        <Typography variant="h4">Personal Details</Typography>
-                        <TextField
+                        <Typography variant="h4" sx={{ marginBottom: "16px" }}>
+                          Personal Details
+                        </Typography>
+                        <Grid item xs={5} sx={{ marginTop: "20px" }}>
+                          <Typography variant="subtitle1" color="textSecondary">
+                            Taxpayer Name
+                            <font color="red" size="2">
+                              (As Per SSN):
+                            </font>
+                          </Typography>
+                        </Grid>
+
+                        <CustomInputTextField
+                          attribute="First Name"
+                          is_required={true}
                           error={Boolean(touched.firstName && errors.firstName)}
                           fullWidth
                           helperText={touched.firstName && errors.firstName}
-                          label={
-                            <CustomLabel label="First Name" required={true} />
-                          }
+                          // label={
+                          //   <CustomLabel label="First Name" required={true} />
+                          // }
                           margin="normal"
                           name="firstName"
                           onBlur={handleBlur}
@@ -467,41 +482,50 @@ const FilerDetails = ({
                           value={values.firstName}
                           variant="outlined"
                         />
-                        <TextField
-                          error={Boolean(
-                            touched.middleName && errors.middleName
-                          )}
-                          fullWidth
-                          helperText={touched.middleName && errors.middleName}
-                          label={
-                            <CustomLabel label="Middle Name" required={false} />
-                          }
-                          margin="normal"
-                          name="middleName"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          value={values.middleName}
-                          variant="outlined"
-                        />
-                        <TextField
-                          error={Boolean(touched.lastName && errors.lastName)}
-                          fullWidth
-                          helperText={touched.lastName && errors.lastName}
-                          label={
-                            <CustomLabel label="Last Name" required={true} />
-                          }
-                          margin="normal"
-                          name="lastName"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          value={values.lastName}
-                          variant="outlined"
-                        />
-                        <TextField
+
+                        <Box>
+                          <CustomInputTextField
+                            attribute="Middle Initial"
+                            is_required={false}
+                            error={Boolean(
+                              touched.middleName && errors.middleName
+                            )}
+                            fullWidth
+                            helperText={touched.middleName && errors.middleName}
+                            // label={
+                            //   <CustomLabel label="Middle Name" required={false} />
+                            // }
+                            margin="normal"
+                            name="middleName"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.middleName}
+                            variant="outlined"
+                          />
+                          <CustomInputTextField
+                            attribute="Last Name"
+                            is_required={true}
+                            error={Boolean(touched.lastName && errors.lastName)}
+                            fullWidth
+                            helperText={touched.lastName && errors.lastName}
+                            // label={
+                            //   <CustomLabel label="Last Name" required={true} />
+                            // }
+                            margin="normal"
+                            name="lastName"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.lastName}
+                            variant="outlined"
+                          />
+                        </Box>
+                        <CustomInputTextField
+                          attribute="SSN"
+                          is_required={true}
                           error={Boolean(touched.ssn && errors.ssn)}
                           fullWidth
                           helperText={touched.ssn && errors.ssn}
-                          label={<CustomLabel label="SSN" required={true} />}
+                          // label={<CustomLabel label="SSN" required={true} />}
                           margin="normal"
                           name="ssn"
                           onBlur={handleBlur}
@@ -509,18 +533,20 @@ const FilerDetails = ({
                           value={transform(values.ssn)}
                           variant="outlined"
                         />
-                        <TextField
+                        <CustomInputTextField
+                          attribute="Date of Birth"
+                          is_required={true}
                           error={Boolean(
                             touched.dateOfBirth && errors.dateOfBirth
                           )}
                           fullWidth
                           helperText={touched.dateOfBirth && errors.dateOfBirth}
-                          label={
-                            <CustomLabel
-                              label="Date of Birth"
-                              required={true}
-                            />
-                          }
+                          // label={
+                          //   <CustomLabel
+                          //     label="Date of Birth"
+                          //     required={true}
+                          //   />
+                          // }
                           margin="normal"
                           name="dateOfBirth"
                           onBlur={handleBlur}
@@ -542,12 +568,14 @@ const FilerDetails = ({
                             // Other attributes you might need
                           }}
                         />
-                        <TextField
+                        <CustomInputTextField
+                          attribute="Gender"
+                          is_required={true}
                           error={Boolean(touched.gender && errors.gender)}
                           select
                           fullWidth
                           helperText={touched.gender && errors.gender}
-                          label={<CustomLabel label="Gender" required={true} />}
+                          // label={<CustomLabel label="Gender" required={true} />}
                           margin="normal"
                           name="gender"
                           onBlur={handleBlur}
@@ -558,16 +586,18 @@ const FilerDetails = ({
                           <MenuItem value="MALE">Male</MenuItem>
                           <MenuItem value="FEMALE">Female</MenuItem>
                           <MenuItem value="Other">Other</MenuItem>
-                        </TextField>
-                        <TextField
+                        </CustomInputTextField>
+                        <CustomInputTextField
+                          attribute="Occupation / Job Title"
+                          is_required={true}
                           error={Boolean(
                             touched.occupation && errors.occupation
                           )}
                           fullWidth
                           helperText={touched.occupation && errors.occupation}
-                          label={
-                            <CustomLabel label="Occupation" required={true} />
-                          }
+                          // label={
+                          //   <CustomLabel label="Occupation" required={true} />
+                          // }
                           margin="normal"
                           name="occupation"
                           onBlur={handleBlur}
@@ -575,7 +605,9 @@ const FilerDetails = ({
                           value={values.occupation}
                           variant="outlined"
                         />
-                        <TextField
+                        <CustomInputTextField
+                          attribute="Residential Status"
+                          is_required={true}
                           error={Boolean(
                             touched.residentialStatus &&
                               errors.residentialStatus
@@ -586,12 +618,12 @@ const FilerDetails = ({
                             touched.residentialStatus &&
                             errors.residentialStatus
                           }
-                          label={
-                            <CustomLabel
-                              label="Residential Status"
-                              required={true}
-                            />
-                          }
+                          // label={
+                          //   <CustomLabel
+                          //     label="Residential Status"
+                          //     required={true}
+                          //   />
+                          // }
                           margin="normal"
                           name="residentialStatus"
                           onBlur={handleBlur}
@@ -612,25 +644,36 @@ const FilerDetails = ({
                               </MenuItem>
                             );
                           })}
-                        </TextField>
+                        </CustomInputTextField>
                       </Box>
                     </Grid>
 
                     {/* Right Side - Contact Details */}
                     <Grid
                       item
-                      lg={5}
-                      sm={5}
+                      lg={6}
+                      sm={6}
                       xs={12}
-                      sx={{ marginLeft: { xs: "0px", sm: "60px" } }}
+                      // sx={{ marginLeft: { xs: "0px", sm: "60px" } }}
                     >
                       <Box className={customStyles.rightSide}>
-                        <Typography variant="h4">Contact Details</Typography>
-                        <TextField
+                        <Typography variant="h4" sx={{ marginBottom: "16px" }}>
+                          Contact Details
+                        </Typography>
+                        <Typography
+                          color={"red"}
+                          sx={{ marginLeft: "10px" }}
+                          variant="h5"
+                        >
+                          (Provide U.S current communication Address)
+                        </Typography>
+                        <CustomInputTextField
+                          attribute="Street"
+                          is_required={true}
                           error={Boolean(touched.street && errors.street)}
                           fullWidth
                           helperText={touched.street && errors.street}
-                          label={<CustomLabel label="Street" required={true} />}
+                          // label={<CustomLabel label="Street" required={true} />}
                           margin="normal"
                           name="street"
                           onBlur={handleBlur}
@@ -638,13 +681,15 @@ const FilerDetails = ({
                           value={values.street}
                           variant="outlined"
                         />
-                        <TextField
+                        <CustomInputTextField
+                          attribute="Apartment"
+                          is_required={true}
                           error={Boolean(touched.apartment && errors.apartment)}
                           fullWidth
                           helperText={touched.apartment && errors.apartment}
-                          label={
-                            <CustomLabel label="Apartment" required={true} />
-                          }
+                          // label={
+                          //   <CustomLabel label="Apartment" required={true} />
+                          // }
                           margin="normal"
                           name="apartment"
                           onBlur={handleBlur}
@@ -652,11 +697,13 @@ const FilerDetails = ({
                           value={values.apartment}
                           variant="outlined"
                         />
-                        <TextField
+                        <CustomInputTextField
+                          attribute="City"
+                          is_required={true}
                           error={Boolean(touched.city && errors.city)}
                           fullWidth
                           helperText={touched.city && errors.city}
-                          label={<CustomLabel label="City" required={true} />}
+                          // label={<CustomLabel label="City" required={true} />}
                           margin="normal"
                           name="city"
                           onBlur={handleBlur}
@@ -664,12 +711,14 @@ const FilerDetails = ({
                           value={values.city}
                           variant="outlined"
                         />
-                        <TextField
+                        <CustomInputTextField
+                          attribute="State"
+                          is_required={true}
                           error={Boolean(touched.state && errors.state)}
                           select
                           fullWidth
                           helperText={touched.state && errors.state}
-                          label={<CustomLabel label="State" required={true} />}
+                          // label={<CustomLabel label="State" required={true} />}
                           margin="normal"
                           name="state"
                           onBlur={handleBlur}
@@ -682,14 +731,16 @@ const FilerDetails = ({
                               {option.label}
                             </MenuItem>
                           ))}
-                        </TextField>
-                        <TextField
+                        </CustomInputTextField>
+                        <CustomInputTextField
+                          attribute="Zip Code"
+                          is_required={true}
                           error={Boolean(touched.zipCode && errors.zipCode)}
                           fullWidth
                           helperText={touched.zipCode && errors.zipCode}
-                          label={
-                            <CustomLabel label="Zip Code" required={true} />
-                          }
+                          // label={
+                          //   <CustomLabel label="Zip Code" required={true} />
+                          // }
                           margin="normal"
                           name="zipCode"
                           onBlur={handleBlur}
@@ -697,14 +748,16 @@ const FilerDetails = ({
                           value={values.zipCode}
                           variant="outlined"
                         />
-                        <TextField
+                        <CustomInputTextField
+                          attribute="Country"
+                          is_required={true}
                           error={Boolean(touched.country && errors.country)}
                           select
                           fullWidth
                           helperText={touched.country && errors.country}
-                          label={
-                            <CustomLabel label="Country" required={true} />
-                          }
+                          // label={
+                          //   <CustomLabel label="Country" required={true} />
+                          // }
                           margin="normal"
                           name="country"
                           onBlur={handleBlur}
@@ -712,13 +765,15 @@ const FilerDetails = ({
                           value={values.country}
                           variant="outlined"
                         >
-                          <MenuItem value="India">India</MenuItem>
+                          {/* <MenuItem value="India">India</MenuItem> */}
                           <MenuItem value="USA">USA</MenuItem>
                           <MenuItem value="Other">Other</MenuItem>
-                        </TextField>
+                        </CustomInputTextField>
                         <Grid container spacing={2}>
                           <Grid item sm={3} xs={4}>
-                            <TextField
+                            <CustomInputTextField
+                              attribute="No"
+                              is_required={true}
                               error={Boolean(
                                 touched.primaryCountryCode &&
                                   errors.primaryCountryCode
@@ -729,12 +784,9 @@ const FilerDetails = ({
                                 touched.primaryCountryCode &&
                                 errors.primaryCountryCode
                               }
-                              label={
-                                <CustomLabel
-                                  label="Country Code"
-                                  required={true}
-                                />
-                              }
+                              // label={
+                              //   <CustomLabel label="+91" required={true} />
+                              // }
                               margin="normal"
                               name="primaryCountryCode"
                               onBlur={handleBlur}
@@ -750,10 +802,12 @@ const FilerDetails = ({
                                   {option.label}
                                 </MenuItem>
                               ))}
-                            </TextField>
+                            </CustomInputTextField>
                           </Grid>
                           <Grid item sm={9} xs={8}>
-                            <TextField
+                            <CustomInputTextField
+                              attribute="Primary Phone"
+                              is_required={true}
                               error={Boolean(
                                 touched.primaryPhoneNumber &&
                                   errors.primaryPhoneNumber
@@ -763,12 +817,12 @@ const FilerDetails = ({
                                 touched.primaryPhoneNumber &&
                                 errors.primaryPhoneNumber
                               }
-                              label={
-                                <CustomLabel
-                                  label="Primary Phone Number"
-                                  required={true}
-                                />
-                              }
+                              // label={
+                              //   <CustomLabel
+                              //     label="Primary Phone Number"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="primaryPhoneNumber"
                               onBlur={handleBlur}
@@ -778,7 +832,9 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={3} xs={4}>
-                            <TextField
+                            <CustomInputTextField
+                              attribute="No"
+                              is_required={true}
                               error={Boolean(
                                 touched.secondaryCountryCode &&
                                   errors.secondaryCountryCode
@@ -789,12 +845,12 @@ const FilerDetails = ({
                                 touched.secondaryCountryCode &&
                                 errors.secondaryCountryCode
                               }
-                              label={
-                                <CustomLabel
-                                  label="Country Code"
-                                  required={false}
-                                />
-                              }
+                              // label={
+                              //   <CustomLabel
+                              //     label="Country Code"
+                              //     required={false}
+                              //   />
+                              // }
                               margin="normal"
                               name="secondaryCountryCode"
                               onBlur={handleBlur}
@@ -810,10 +866,12 @@ const FilerDetails = ({
                                   {option.label}
                                 </MenuItem>
                               ))}
-                            </TextField>
+                            </CustomInputTextField>
                           </Grid>
                           <Grid item sm={9} xs={8}>
-                            <TextField
+                            <CustomInputTextField
+                              is_required={true}
+                              attribute="Secondary Phone"
                               error={Boolean(
                                 touched.secondaryPhoneNumber &&
                                   errors.secondaryPhoneNumber
@@ -823,12 +881,12 @@ const FilerDetails = ({
                                 touched.secondaryPhoneNumber &&
                                 errors.secondaryPhoneNumber
                               }
-                              label={
-                                <CustomLabel
-                                  label="Secondary Phone Number"
-                                  required={false}
-                                />
-                              }
+                              // label={
+                              //   <CustomLabel
+                              //     label="Secondary Phone Number"
+                              //     required={false}
+                              //   />
+                              // }
                               margin="normal"
                               name="secondaryPhoneNumber"
                               onBlur={handleBlur}
@@ -838,7 +896,9 @@ const FilerDetails = ({
                             />
                           </Grid>
                         </Grid>
-                        <TextField
+                        <CustomInputTextField
+                          attribute="Email Id"
+                          is_required={true}
                           error={Boolean(
                             touched.contactEmail && errors.contactEmail
                           )}
@@ -846,12 +906,12 @@ const FilerDetails = ({
                           helperText={
                             touched.contactEmail && errors.contactEmail
                           }
-                          label={
-                            <CustomLabel
-                              label="Contact Email"
-                              required={true}
-                            />
-                          }
+                          // label={
+                          //   <CustomLabel
+                          //     label="Contact Email"
+                          //     required={true}
+                          //   />
+                          // }
                           margin="normal"
                           name="contactEmail"
                           onBlur={handleBlur}
@@ -935,13 +995,15 @@ const FilerDetails = ({
                         <Typography variant="h5">Spouse Details</Typography>
                         <Grid container spacing={2}>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Spouse First Name"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="First Name"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="First Name"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="spouseFirstName"
                               onBlur={handleBlur}
@@ -960,13 +1022,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Spouse Middle Initial"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Middle Initial"
+                              is_required={false}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Spouse Middle Initial"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="spouseMiddleInitial"
                               onBlur={handleBlur}
@@ -977,13 +1041,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Spouse Last Name"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Last Name"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Spouse Last Name"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="spouseLastName"
                               onBlur={handleBlur}
@@ -1000,13 +1066,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Spouse SSN/ITIN"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="SSN/ITIN"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Spouse SSN/ITIN"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="spouseSsnOrItin"
                               onBlur={handleBlur}
@@ -1025,13 +1093,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Do you want to apply for ITIN?"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Do you want to apply for ITIN?"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Do you want to apply for ITIN?"
+                              //     required={true}
+                              //   />
+                              // }
                               select
                               margin="normal"
                               name="spouseApplyForItin"
@@ -1051,7 +1121,7 @@ const FilerDetails = ({
                             >
                               <MenuItem value={false}>No</MenuItem>
                               <MenuItem value={true}>Yes</MenuItem>
-                            </TextField>
+                            </CustomInputTextField>
                             {values.spouseApplyForItin === true && (
                               <ButtonBase
                                 onClick={() =>
@@ -1075,13 +1145,15 @@ const FilerDetails = ({
                         <Typography variant="h5">Spouse Contact</Typography>
                         <Grid container spacing={2}>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Date of Birth"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Date of Birth"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Date of Birth"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="spouseDateOfBirth"
                               onBlur={handleBlur}
@@ -1114,13 +1186,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Spouse Gender"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Gender"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Spouse Gender"
+                              //     required={true}
+                              //   />
+                              // }
                               select
                               margin="normal"
                               name="spouseGender"
@@ -1139,16 +1213,18 @@ const FilerDetails = ({
                               <MenuItem value="MALE">Male</MenuItem>
                               <MenuItem value="FEMALE">Female</MenuItem>
                               <MenuItem value="Other">Other</MenuItem>
-                            </TextField>
+                            </CustomInputTextField>
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Spouse Occupation / Job Title"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Occupation / Job Title"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Spouse Occupation / Job Title"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="spouseOccupation"
                               onBlur={handleBlur}
@@ -1167,13 +1243,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Spouse Residential Status"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Residential Status"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Spouse Residential Status"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="spouseResidentialStatus"
                               onBlur={handleBlur}
@@ -1195,16 +1273,18 @@ const FilerDetails = ({
                               <MenuItem value="CITIZENSHIP">
                                 Citizenship
                               </MenuItem>
-                            </TextField>
+                            </CustomInputTextField>
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Spouse Email Id"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Email Id"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Spouse Email Id"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name="spouseEmail"
                               onBlur={handleBlur}
@@ -1236,13 +1316,14 @@ const FilerDetails = ({
                           label=" Have you (or your spouse, if married) provided living
                         support to your kids and/or dependents during the tax
                         year?"
-                          required={true}
                         />
                       </Typography>
                     </Grid>
                     <Grid item xs={2} sm={3}>
-                      <TextField
-                        label={<CustomLabel label="" />}
+                      <CustomInputTextField
+                        attribute=""
+                        is_required={true}
+                        // label={<CustomLabel label="" />}
                         select
                         margin="normal"
                         name="providedLivingSupport"
@@ -1261,8 +1342,18 @@ const FilerDetails = ({
                       >
                         <MenuItem value={true}>Yes</MenuItem>
                         <MenuItem value={false}>No</MenuItem>
-                      </TextField>
+                      </CustomInputTextField>
                     </Grid>
+                  </Grid>
+                  <Grid>
+                    <Typography
+                      variant="body1"
+                      style={{ color: "blue", wordSpacing: "2px" }}
+                    >
+                      NOTE: Make sure the kids or dependants reported in your
+                      (Taxpayer) 2023 Tax Return are not claimed as dependants
+                      in any other 2023 Individual Tax Returns.
+                    </Typography>
                   </Grid>
 
                   {values.providedLivingSupport === true ? (
@@ -1293,13 +1384,15 @@ const FilerDetails = ({
                         <Typography variant="h5">Additional Details</Typography>
                         <Grid container spacing={2}>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="First Name"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="First Name"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="First Name"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name={`additionalFirstName`}
                               onBlur={handleBlur}
@@ -1318,13 +1411,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Middle Initial"
-                                  required={false}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Middle Initial"
+                              is_required={false}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Middle Initial"
+                              //     required={false}
+                              //   />
+                              // }
                               margin="normal"
                               name={`additionalMiddleInitial`}
                               onBlur={handleBlur}
@@ -1335,13 +1430,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Last Name"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Last Name"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Last Name"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name={`additionalLastName`}
                               onBlur={handleBlur}
@@ -1360,10 +1457,12 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel label="SSN/ITIN" required={true} />
-                              }
+                            <CustomInputTextField
+                              attribute="SSN/ITIN"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel label="SSN/ITIN" required={true} />
+                              // }
                               margin="normal"
                               name={`additionalSsnOrItin`}
                               onBlur={handleBlur}
@@ -1382,13 +1481,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Do you want to apply for ITIN?"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Do you want to apply for ITIN?"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Do you want to apply for ITIN?"
+                              //     required={true}
+                              //   />
+                              // }
                               select
                               margin="normal"
                               name={`additionalApplyForItin`}
@@ -1408,7 +1509,7 @@ const FilerDetails = ({
                             >
                               <MenuItem value={false}>No</MenuItem>
                               <MenuItem value={true}>Yes</MenuItem>
-                            </TextField>
+                            </CustomInputTextField>
                             {values.additionalApplyForItin === true && (
                               <ButtonBase
                                 onClick={() =>
@@ -1425,13 +1526,15 @@ const FilerDetails = ({
                             )}
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Relationship"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Relationship"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Relationship"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name={`additionalRelationship`}
                               onBlur={handleBlur}
@@ -1457,13 +1560,15 @@ const FilerDetails = ({
                         <Typography variant="h5">Additional Contact</Typography>
                         <Grid container spacing={2}>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Date of Birth"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Dependent DOB"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Date of Birth"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name={`additionalDateOfBirth`}
                               onBlur={handleBlur}
@@ -1496,10 +1601,12 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel label="Gender" required={true} />
-                              }
+                            <CustomInputTextField
+                              attribute="Gender"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel label="Gender" required={true} />
+                              // }
                               select
                               margin="normal"
                               name={`additionalGender`}
@@ -1520,16 +1627,18 @@ const FilerDetails = ({
                               <MenuItem value="MALE">Male</MenuItem>
                               <MenuItem value="FEMALE">Female</MenuItem>
                               <MenuItem value="Other">Other</MenuItem>
-                            </TextField>
+                            </CustomInputTextField>
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Occupation / Job Title"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Occupation / Job Title"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Occupation / Job Title"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name={`additionalOccupation`}
                               onBlur={handleBlur}
@@ -1548,13 +1657,15 @@ const FilerDetails = ({
                             />
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="Visa Type"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="Visa Type"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="Visa Type"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name={`additionalVisaType`}
                               onBlur={handleBlur}
@@ -1585,13 +1696,15 @@ const FilerDetails = ({
                                   </MenuItem>
                                 );
                               })}
-                            </TextField>
+                            </CustomInputTextField>
                           </Grid>
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel label="Email Id" required={true} />
-                              }
+                            <CustomInputTextField
+                              attribute="Email Id"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel label="Email Id" required={true} />
+                              // }
                               margin="normal"
                               name={`additionalEmail`}
                               onBlur={handleBlur}
@@ -1611,13 +1724,15 @@ const FilerDetails = ({
                           </Grid>
 
                           <Grid item sm={12} xs={12}>
-                            <TextField
-                              label={
-                                <CustomLabel
-                                  label="No. of months dependent has stayed with you in U.S"
-                                  required={true}
-                                />
-                              }
+                            <CustomInputTextField
+                              attribute="No. of months dependent has stayed with you in U.S"
+                              is_required={true}
+                              // label={
+                              //   <CustomLabel
+                              //     label="No. of months dependent has stayed with you in U.S"
+                              //     required={true}
+                              //   />
+                              // }
                               margin="normal"
                               name={`additionalStayCount`}
                               onBlur={handleBlur}

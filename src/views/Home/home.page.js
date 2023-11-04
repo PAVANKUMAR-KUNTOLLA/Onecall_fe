@@ -30,7 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import config from "../../config";
 import { makeStyles } from "@mui/styles";
 import taxServicesData from "../../mock-adapter/taxServicesData.json";
-import { thousands_separators } from "../../utils";
+import DrawerAppBar from "../../Layout/MainLayout/appBarMaterialUI";
 
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
@@ -173,7 +173,7 @@ const HomePage = () => {
   return (
     <Page title={"One Call Tax Services"}>
       <Box>
-        <Container maxWidth="md">
+        <Container maxWidth="lg">
           <Typography className={customStyles.headerText}>
             My Selected Services
           </Typography>
@@ -235,10 +235,10 @@ const HomePage = () => {
                       </TableCell>
                       <TableCell className={customStyles.tableData}>
                         <Link
-                          to={`../tax-filing/${row.year}/${row.id}/0`}
+                          to={`../tax-filing/${row.year}/${row.id}/7`}
                           onClick={() =>
                             handleNavigate(
-                              `../tax-filing/${row.year}/${row.id}/0`
+                              `../tax-filing/${row.year}/${row.id}/7`
                             )
                           }
                           sx={{ cursor: "pointer" }}
@@ -373,10 +373,10 @@ const HomePage = () => {
                                 }
                               >
                                 <Link
-                                  to={`../tax-filing/${row.year}/${row.id}/0`}
+                                  to={`../tax-filing/${row.year}/${row.id}/7`}
                                   onClick={() =>
                                     handleNavigate(
-                                      `../tax-filing/${row.year}/${row.id}/0`
+                                      `../tax-filing/${row.year}/${row.id}/7`
                                     )
                                   }
                                   sx={{

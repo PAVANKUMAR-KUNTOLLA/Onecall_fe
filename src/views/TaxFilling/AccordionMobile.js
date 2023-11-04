@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -76,7 +77,9 @@ const customTextStyles = makeStyles((theme) => ({
 
 const BasicAccordion = ({ data, handleFetchData, handleDownloadTemplate }) => {
   const customTextClasses = customTextStyles();
-  const [expanded, setExpanded] = useState(false);
+  const params = useParams();
+  const [expanded, setExpanded] =
+    parseInt(params.action) === 7 ? useState("panel7") : useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     console.log(panel);

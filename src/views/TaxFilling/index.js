@@ -8,6 +8,7 @@ import {
   Typography,
   Card,
   Button,
+  Avatar,
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import TabsDesktop from "../TaxFilling/TabsDesktop";
@@ -39,7 +40,10 @@ const TaxFillingPage = () => {
   const customStyles = customTextStyles();
   const [data, setData] = useState({});
   const [isLoadingSpin, setIsLoadingSpin] = useState(true);
-  const [isActiveTab, setIsActiveTab] = useState("My Details");
+  const [isActiveTab, setIsActiveTab] =
+    parseInt(params.action) === 7
+      ? useState("Pay Now")
+      : useState("My Details");
 
   const handleActiveTabChange = (tabName) => {
     setIsActiveTab(tabName);
@@ -99,7 +103,7 @@ const TaxFillingPage = () => {
               <Grid item xs={2}>
                 <Card
                   sx={{
-                    minHeight: "280px",
+                    minHeight: "240px",
                     borderRadius: "2px",
                   }}
                 >
@@ -109,19 +113,38 @@ const TaxFillingPage = () => {
                     "Pick Appointment",
                     "Refund Quote",
                     "Pay Now",
-                  ].map((each, index) => (
-                    <Button
-                      key={index}
-                      onClick={() => handleActiveTabChange(each)}
-                      variant={isActiveTab === each ? "contained" : "text"}
-                      className={customStyles.tabButton}
-                      sx={{
-                        color: isActiveTab === each ? "#fff" : "#474747",
-                      }}
-                    >
-                      {each}
-                    </Button>
-                  ))}
+                  ].map((each, index) =>
+                    each === "Pay Now" ? (
+                      // Conditional rendering for "Pay Now" button
+                      <Button
+                        key={index}
+                        onClick={() => handleActiveTabChange(each)}
+                      >
+                        <img
+                          src="/static/img/pay_now.jpg"
+                          alt="Pay Now"
+                          style={{
+                            minWidth: "100px",
+                            width: "190px",
+                            height: "50px",
+                          }}
+                        />
+                      </Button>
+                    ) : (
+                      // Conditional rendering for other tabs
+                      <Button
+                        key={index}
+                        onClick={() => handleActiveTabChange(each)}
+                        variant={isActiveTab === each ? "contained" : "text"}
+                        className={customStyles.tabButton}
+                        sx={{
+                          color: isActiveTab === each ? "#fff" : "#474747",
+                        }}
+                      >
+                        {each}
+                      </Button>
+                    )
+                  )}
                 </Card>
               </Grid>
               <Grid item xs={10}>
@@ -163,14 +186,43 @@ const TaxFillingPage = () => {
                             isActiveTab === "My Details" ? 0 : "30px",
                         }}
                       >
-                        Tax-Filing For Year {params.year}
+                        Tax-Filing For Year - {params.year}
                       </Typography>
+
                       {isActiveTab === "My Details" && (
-                        <TabsDesktop
-                          data={data}
-                          handleFetchData={handleFetchTaxFilingDetails}
-                          handleDownloadTemplate={handleDownloadTemplate}
-                        />
+                        <Box>
+                          <Typography
+                            color={"primary"}
+                            sx={{
+                              marginTop: "10px",
+                              marginLeft: "auto",
+                              marginRight: "auto",
+                              textAlign: "center",
+                            }}
+                          >
+                            NOTE : ON FILLING ALL INFORMATION PLEASE MENTION
+                            YOUR AVAILABILITY IN Pick an Appointment PAGE
+                          </Typography>
+                          <Typography
+                            color={"red"}
+                            sx={{
+                              marginLeft: "24px",
+                              wordSpacing: "3px",
+                              marginTop: "4px",
+                            }}
+                          >
+                            Taxpayer and spouse's SSN and Date of Birth fields
+                            are set to default values. Please don't change them.
+                            We will collect these details via phone call at the
+                            time of tax filing
+                          </Typography>
+
+                          <TabsDesktop
+                            data={data}
+                            handleFetchData={handleFetchTaxFilingDetails}
+                            handleDownloadTemplate={handleDownloadTemplate}
+                          />
+                        </Box>
                       )}
                       {isActiveTab === "Confirm Details" && (
                         <ConfirmDetails

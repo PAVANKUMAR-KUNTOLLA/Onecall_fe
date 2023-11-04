@@ -14,7 +14,9 @@ import {
   TableCell,
   CircularProgress,
   Container,
+  Paper,
 } from "@mui/material";
+import { Card, CardContent, Link } from "@mui/material";
 
 import { makeStyles } from "@mui/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -84,6 +86,30 @@ export const customTextStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
+  },
+  alertCard: {
+    border: "1px solid #000000",
+    marginBottom: theme.spacing(2),
+  },
+  alertIcon: {
+    color: "#EB3414",
+    marginRight: theme.spacing(1),
+  },
+  root: {
+    color: "red",
+    fontSize: "1.0rem",
+    marginLeft: "10px",
+  },
+  link: {
+    textDecoration: "none",
+    color: "inherit",
+    color: "primary",
+  },
+  info: {
+    color: "green",
+    fontSize: "1.5rem",
+    border: "1px solid #000000",
+    marginTop: "10px",
   },
 }));
 
@@ -273,6 +299,87 @@ const UploadTaxDocs = ({ id }) => {
             }
           />
         )}
+        <Card className={customStyles.alertCard}>
+          <CardContent>
+            <Typography sx={{ marginBottom: "10px", color: "red" }}>
+              Alerts
+            </Typography>
+            <Typography variant="body2">
+              <span className={customStyles.alertIcon}>!&nbsp;</span>
+              Information / Documents submitted here will be secured.
+            </Typography>
+            <br />
+            <Typography variant="body2">
+              <span className={customStyles.alertIcon}>!&nbsp;</span>
+              Please contact our Team if any issues in uploading documents
+            </Typography>
+          </CardContent>
+        </Card>
+
+        <Typography className={customStyles.root}>
+          If needed, use the following links to download the required documents:
+          <br />
+          <Link
+            href="/static/img/1099_NEC_Expenses_Tax_Information.xlsx"
+            className={customStyles.link}
+          >
+            1099 NEC Expenses Tax Information
+          </Link>
+          <br />
+          <Link
+            href="/static/img/City_Tax_Return_Information.xlsx"
+            className={customStyles.link}
+          >
+            City Tax Return Information
+          </Link>
+          <br />
+          <Link
+            href="/static/img/Crypto_Information.xls"
+            className={customStyles.link}
+          >
+            Crypto Information
+          </Link>
+          <br />
+          <Link
+            href="/static/img/FBAR_Information_2022.xls"
+            className={customStyles.link}
+          >
+            FBAR Information
+          </Link>
+          <br />
+          <Link
+            href="/static/img/ITIN_Information.xls"
+            className={customStyles.link}
+          >
+            ITN Information
+          </Link>
+          <br />
+          <Link
+            href="/static/img/Rental_Property_Details.xls"
+            className={customStyles.link}
+          >
+            Rental Property Details
+          </Link>
+          <br />
+          After downloading, please fill/complete these documents and upload
+          them in the attachment section.
+        </Typography>
+        <Paper elevation={3} className={customStyles.info}>
+          <Table width="100%">
+            <TableBody>
+              <TableRow valign="top">
+                <TableCell align="left" width="20%">
+                  Addition Information
+                </TableCell>
+                <TableCell width="5%"> - </TableCell>
+                <TableCell align="left" width="75%">
+                  If you want to provide any additional information to your Tax
+                  Consultant, please discuss during the Tax Interview.
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </Paper>
         <Box
           display="flex"
           justifyContent="flex-end"

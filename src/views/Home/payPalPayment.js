@@ -45,7 +45,8 @@ const PayPalPayment = () => {
               confirmation from "PayPal."
             </Typography>
             <form
-              action={handleSubmit}
+              autoComplete="off"
+              onSubmit={handleSubmit}
               // action="https://www.paypal.com/cgi-bin/webscr" method="post"
             >
               <input type="hidden" name="cmd" value="_xclick" />
