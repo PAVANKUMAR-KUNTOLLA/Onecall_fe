@@ -135,7 +135,7 @@ const TabsDesktop = ({ data, handleFetchData, handleDownloadTemplate }) => {
         sx={{
           borderBottom: 1,
           borderColor: "divider",
-          margin: "8px 32px 32px 10px",
+          margin: "8px",
         }}
       >
         <Tabs

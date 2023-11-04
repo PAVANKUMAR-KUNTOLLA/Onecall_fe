@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Typography, Box, Grid, TextField } from "@mui/material";
 import Api from "../../components/Api";
 import { privateApiGET } from "../../components/PrivateRoute";
+import CustomInputTextField from "../../components/CustomInputField";
 
 const MyReferrer = () => {
   const [isReferralDetailsLoading, setIsReferralDetailsLoading] =
@@ -40,35 +41,51 @@ const MyReferrer = () => {
   }, []);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        marginTop: "40px",
+        backgroundColor: "#fff",
+        padding: { sm: "30px", xs: "0" },
+        paddingTop: { xs: "30px" },
+        paddingBottom: { xs: "20px" },
+
+        bgcolor: "#ffffff",
+        transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+        borderRadius: "6px",
+        boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",
+        overflow: "hidden",
+        marginTop: "20px",
+        color: "#333333",
+        backgroundImage: "none",
+      }}
+    >
       <Container>
-        <Box>
-          <Typography variant="h5">Referral Details</Typography>
-          <Grid container>
-            <Grid item sm={5} xs={12} sx={{ marginRight: "20px" }}>
-              <TextField
-                fullWidth
-                label="Referral ID"
-                margin="normal"
-                name="referralID" // Updated name
-                disabled
-                value={referralDetails.referralID} // Updated value
-                variant="outlined"
-              />
-            </Grid>
-            <Grid item sm={5} xs={12} sx={{ marginRight: "20px" }}>
-              <TextField
-                fullWidth
-                label="Referral Email"
-                margin="normal"
-                name="referralEmail" // Updated name
-                value={referralDetails.referralEmail} // Updated value
-                variant="outlined"
-                disabled
-              />
-            </Grid>
+        <Typography variant="h4">Referal Details:</Typography>
+
+        <Grid container>
+          <Grid item sm={5} xs={12} sx={{ marginRight: "20px" }}>
+            <CustomInputTextField
+              fullWidth
+              attribute="Referral ID"
+              margin="normal"
+              name="referralID" // Updated name
+              disabled
+              value={referralDetails.referralID} // Updated value
+              variant="outlined"
+            />
           </Grid>
-        </Box>
+          <Grid item sm={5} xs={12} sx={{ marginRight: "20px" }}>
+            <CustomInputTextField
+              fullWidth
+              attribute="Referral Email"
+              margin="normal"
+              name="referralEmail" // Updated name
+              value={referralDetails.referralEmail} // Updated value
+              variant="outlined"
+              disabled
+            />
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );

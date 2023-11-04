@@ -1,11 +1,29 @@
 import React from "react";
 import { Box, TextField, Grid, Typography } from "@mui/material";
 
-const CustomInputTextField = ({ attribute, is_required, ...others }) => {
+import PropTypes from "prop-types";
+
+const CustomInputTextField = ({
+  attribute,
+  is_required,
+  attributeTextAlign,
+  isMarginTopNotRequired,
+  ...others
+}) => {
   return (
-    <Box>
+    <Grid
+      item
+      xs={12}
+      sx={{
+        maxHeight: "60px",
+      }}
+    >
       <Grid container>
-        <Grid item xs={4} sx={{ marginTop: "24px" }}>
+        <Grid
+          item
+          xs={4}
+          sx={{ marginTop: isMarginTopNotRequired ? "12px" : "24px" }}
+        >
           {/* <Typography
             sx={{
               margin: "20px 10px",
@@ -32,24 +50,43 @@ const CustomInputTextField = ({ attribute, is_required, ...others }) => {
               attribute
             )}
           </Typography> */}
-
-          <Typography variant="body1">
-            <span>{attribute}</span>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: { xs: 0, sm: attributeTextAlign ? "5px" : 0 },
+              justifyContent: {
+                xs: "flex-start",
+                sm: attributeTextAlign ? "flex-end" : "flex-start",
+              },
+            }}
+          >
+            <Typography
+              variant="body1"
+              sx={{
+                whiteSpace:
+                  attribute === "Occupation / Job Title"
+                    ? "nowrap"
+                    : "pre-wrap",
+              }}
+            >
+              {attribute}
+            </Typography>
             {is_required && (
-              <span
-                style={{
+              <Typography
+                sx={{
                   color: "red",
                   fontSize: "0.875rem",
                   marginLeft: "3px",
                 }}
               >
                 *
-              </span>
+              </Typography>
             )}
             &nbsp;:
-          </Typography>
+          </Box>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={attribute === "Income Amount" ? 4 : 8}>
           <TextField
             {...others}
             sx={{
@@ -70,8 +107,14 @@ const CustomInputTextField = ({ attribute, is_required, ...others }) => {
           />
         </Grid>
       </Grid>
-    </Box>
+    </Grid>
   );
+};
+
+CustomInputTextField.prototype = {
+  is_required: PropTypes.bool,
+  attribute: PropTypes.string, //['success','warning', 'error']
+  attributeTextAlign: PropTypes.string, //['success','warning', 'error']
 };
 
 export default CustomInputTextField;

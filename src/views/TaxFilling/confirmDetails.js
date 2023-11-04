@@ -177,7 +177,13 @@ const ConfirmDetails = ({
   });
 
   return (
-    <Box>
+    <Box
+      sx={{
+        padding: "20px 0 5px",
+        border: { xs: "none", sm: "1px solid #3A97BB" },
+        minHeight: { xs: "auto", sm: "800px" },
+      }}
+    >
       <Container>
         <Grid container spacing={2}>
           <Grid item lg={6} sm={6} xs={12}>

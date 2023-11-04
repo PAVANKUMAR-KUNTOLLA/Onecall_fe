@@ -99,6 +99,8 @@ function AppBar(props) {
     let path = value;
     if (path === "logout") {
       handleLogout();
+    } else if (path === "refer to earn") {
+      navigate("refer");
     } else {
       navigate(path);
     }
@@ -225,27 +227,40 @@ function AppBar(props) {
           }}
         >
           <Box sx={{ display: "flex" }}>
-            {["HOME", "REFER"].map((each, index) => (
-              <Button
-                key={index}
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: "400",
-                  flex: 1,
-                  marginRight: "30px",
-                  maxHeight: "30px",
-                  padding: "6px 15px",
-                  "&:hover": {
-                    backgroundColor: "#2069DB",
-                    color: "#ffffff",
-                  },
-                }}
-                onClick={() => handleNavMenu(each.toLowerCase())}
-                variant="contained"
-              >
-                {each}
-              </Button>
-            ))}
+            <Button
+              sx={{
+                fontSize: "14px",
+                fontWeight: "400",
+                marginRight: "30px",
+                maxHeight: "45px",
+                padding: "6px 15px",
+                "&:hover": {
+                  backgroundColor: "#2069DB",
+                  color: "#ffffff",
+                },
+              }}
+              onClick={() => handleNavMenu("home")}
+              variant="contained"
+            >
+              HOME
+            </Button>
+            <Button
+              sx={{
+                fontSize: "14px",
+                fontWeight: "400",
+                marginRight: "30px",
+                maxHeight: "45px",
+                padding: "6px 15px",
+                "&:hover": {
+                  backgroundColor: "#2069DB",
+                  color: "#ffffff",
+                },
+              }}
+              onClick={() => handleNavMenu("refer to earn")}
+              variant="contained"
+            >
+              REFER TO EARN
+            </Button>
           </Box>
           <Box sx={{ alignItems: "end" }}>
             <Button

@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import Page from "../../components/Page";
-import {
-  Grid,
-  Box,
-  Typography,
-  Button,
-  Container,
-  TextField,
-} from "@mui/material";
+import { Grid, Box, Typography, Button, Container } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import Api from "../../components/Api";
 import { privateApiPOST } from "../../components/PrivateRoute";
+import CustomInputTextField from "../../components/CustomInputField";
 
 const initialValues = {
   firstName: "",
@@ -32,7 +26,24 @@ const validationSchema = Yup.object().shape({
 const ReferFriend = () => {
   const [isReferalDetailsLoading, setIsReferalDetailsLoading] = useState(false);
   return (
-    <Box>
+    <Box
+      sx={{
+        marginTop: "40px",
+        backgroundColor: "#fff",
+        padding: { sm: "30px", xs: "0" },
+        paddingTop: { xs: "30px" },
+        paddingBottom: { xs: "20px" },
+
+        bgcolor: "#ffffff",
+        transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+        borderRadius: "6px",
+        boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",
+        overflow: "hidden",
+        marginTop: "20px",
+        color: "#333333",
+        backgroundImage: "none",
+      }}
+    >
       <Container>
         <Typography variant="h4">Referal Details:</Typography>
         <Formik
@@ -70,8 +81,8 @@ const ReferFriend = () => {
                   }}
                 >
                   <Grid item xs={12} sm={5} sx={{ marginRight: "20px" }}>
-                    <TextField
-                      label="First Name"
+                    <CustomInputTextField
+                      attribute="First Name"
                       margin="normal"
                       name="firstName"
                       onBlur={handleBlur}
@@ -84,8 +95,8 @@ const ReferFriend = () => {
                     />
                   </Grid>
                   <Grid item xs={12} sm={5} sx={{ marginRight: "20px" }}>
-                    <TextField
-                      label="Last Name"
+                    <CustomInputTextField
+                      attribute="Last Name"
                       margin="normal"
                       name="lastName"
                       onBlur={handleBlur}
@@ -98,8 +109,8 @@ const ReferFriend = () => {
                     />
                   </Grid>
                   <Grid item xs={12} sm={5} sx={{ marginRight: "20px" }}>
-                    <TextField
-                      label="Email"
+                    <CustomInputTextField
+                      attribute="Email"
                       margin="normal"
                       name="email"
                       onBlur={handleBlur}
@@ -112,8 +123,8 @@ const ReferFriend = () => {
                     />
                   </Grid>
                   <Grid item xs={12} sm={5} sx={{ marginRight: "20px" }}>
-                    <TextField
-                      label="Contact"
+                    <CustomInputTextField
+                      attribute="Contact"
                       margin="normal"
                       name="contact"
                       onBlur={handleBlur}

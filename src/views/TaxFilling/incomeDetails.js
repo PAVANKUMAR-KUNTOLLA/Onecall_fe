@@ -19,6 +19,7 @@ import * as Yup from "yup"; // Import Yup for validation
 import TextField from "@mui/material/TextField";
 import Api from "../../components/Api";
 import { privateApiPOST } from "../../components/PrivateRoute";
+import CustomInputTextField from "../../components/CustomInputField";
 
 const IncomeDetails = ({
   id,
@@ -46,7 +47,14 @@ const IncomeDetails = ({
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        padding: "20px 0 5px",
+        border: { xs: "none", sm: "1px solid #3A97BB" },
+        minHeight: { xs: "auto", sm: "800px" },
+      }}
+    >
+      {" "}
       <Container>
         {isIncomeDetailsLoading ? (
           <CircularProgress />
@@ -691,45 +699,40 @@ const IncomeDetails = ({
                       <Typography variant="h5">
                         Add other Income Information
                       </Typography>
-                      <Grid item xs={12}>
-                        <TextField
-                          error={Boolean(
-                            touched.incomeDescription &&
-                              errors.incomeDescription
-                          )}
-                          fullWidth
-                          helperText={
-                            touched.incomeDescription &&
-                            errors.incomeDescription
-                          }
-                          label="Income Descritption"
-                          margin="normal"
-                          name="incomeDescription"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          value={values.incomeDescription}
-                          variant="outlined"
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={6}>
-                        <TextField
-                          error={Boolean(
-                            touched.incomeAmount && errors.incomeAmount
-                          )}
-                          fullWidth
-                          helperText={
-                            touched.incomeAmount && errors.incomeAmount
-                          }
-                          label="Income Amount"
-                          margin="normal"
-                          name="incomeAmount"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          value={values.incomeAmount}
-                          variant="outlined"
-                          type="number"
-                        />
-                      </Grid>
+
+                      <CustomInputTextField
+                        error={Boolean(
+                          touched.incomeDescription && errors.incomeDescription
+                        )}
+                        fullWidth
+                        helperText={
+                          touched.incomeDescription && errors.incomeDescription
+                        }
+                        attribute="Income Description"
+                        margin="normal"
+                        name="incomeDescription"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.incomeDescription}
+                        variant="outlined"
+                      />
+
+                      <CustomInputTextField
+                        error={Boolean(
+                          touched.incomeAmount && errors.incomeAmount
+                        )}
+                        fullWidth
+                        helperText={touched.incomeAmount && errors.incomeAmount}
+                        attribute="Income Amount"
+                        margin="normal"
+                        name="incomeAmount"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        value={values.incomeAmount}
+                        variant="outlined"
+                        type="number"
+                      />
+
                       {/* <Grid item xs={12} sm={6}>
                         <Button
                           variant={

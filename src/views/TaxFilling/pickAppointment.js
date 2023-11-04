@@ -22,6 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
 import { makeStyles } from "@mui/styles";
+import CustomInputTextField from "../../components/CustomInputField";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -195,16 +196,33 @@ const PickAppointment = ({ id }) => {
   const timeOptions = generateTimeOptions();
 
   return (
-    <Box>
+    <Box
+      sx={{
+        padding: "20px 0 5px",
+        border: { xs: "none", sm: "1px solid #3A97BB" },
+        minHeight: { xs: "auto", sm: "800px" },
+      }}
+    >
+      {" "}
       <Container>
         <Typography variant="h5">
           Tax Notes Interview - Schedule your date:
         </Typography>
-        <Grid container sx={{ marginTop: "30px" }}>
-          <Grid item sm={5} xs={12} sx={{ marginRight: "20px" }}>
-            <TextField
+        <Box
+          sx={{
+            display: { xs: "block", sm: "flex" },
+            flexWrap: "wrap",
+            justifyContent: "space-around",
+            marginTop: "30px",
+          }}
+        >
+          <Box sx={{ width: { xs: "100%", sm: "35%" } }}>
+            <CustomInputTextField
+              isMarginTopNotRequired={true}
+              attribute="Client Name"
+              is_required={false}
               fullWidth
-              label="Name"
+              // label="Name"
               name="name"
               value={`${state.first_name} ${state.last_name}`}
               variant="outlined"
@@ -212,17 +230,15 @@ const PickAppointment = ({ id }) => {
                 readOnly: true,
               }}
             />
-          </Grid>
+          </Box>
 
-          <Grid
-            item
-            sm={5}
-            xs={12}
-            sx={{ marginTop: { xs: "10px" }, marginRight: "20px" }}
-          >
-            <TextField
+          <Box sx={{ width: { xs: "100%", sm: "35%" } }}>
+            <CustomInputTextField
+              isMarginTopNotRequired={true}
+              attribute={"Phone Number"}
+              is_required={false}
               fullWidth
-              label="Phone Number"
+              // label="Phone Number"
               name="phone_no"
               value={state ? state.phone_no : ""}
               variant="outlined"
@@ -230,8 +246,8 @@ const PickAppointment = ({ id }) => {
                 readOnly: true,
               }}
             />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
         <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
           Become a confirmed client by making an advance fee payment. Same day
           tax filing available for Confirmed Clients.
@@ -265,50 +281,63 @@ const PickAppointment = ({ id }) => {
           </Typography>
         </Typography>
         <form autoComplete="off" onSubmit={handleSubmit}>
-          <Grid container spacing={2} sx={{ marginTop: "30px" }}>
-            <Grid item xs={12} sm={4}>
-              <TextField
+          <Box
+            sx={{
+              display: { xs: "block", sm: "flex" },
+              flexWrap: "wrap",
+              justifyContent: "space-between",
+              marginTop: "30px",
+            }}
+          >
+            <Box sx={{ width: { xs: "100%", sm: "30%" } }}>
+              <CustomInputTextField
+                isMarginTopNotRequired={true}
+                attribute="Date"
+                is_required={false}
                 type="date"
                 value={appointmentData.date}
                 onChange={handleDateChange}
                 fullWidth
                 required
-                sx={{ width: "80%" }}
               />
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <TextField
+            </Box>
+            <Box sx={{ width: { xs: "100%", sm: "40%" } }}>
+              <CustomInputTextField
+                isMarginTopNotRequired={true}
+                attribute="Preferrable Time"
+                is_required={false}
                 select
-                label="Time"
+                // label="Time"
                 value={appointmentData.time}
                 onChange={handleTimeChange}
                 variant="outlined"
                 fullWidth
                 required
-                sx={{ width: "80%" }}
               >
                 {timeOptions.map((option) => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
                 ))}
-              </TextField>
-            </Grid>
-            <Grid item xs={12} sm={4}>
-              <TextField
+              </CustomInputTextField>
+            </Box>
+            <Box sx={{ width: { xs: "100%", sm: "30%" } }}>
+              <CustomInputTextField
+                isMarginTopNotRequired={true}
+                attribute="Time Zone"
+                is_required={false}
                 select
                 value={appointmentData.timezone}
                 onChange={handleTimezoneChange}
                 fullWidth
                 required
-                sx={{ width: "80%" }}
               >
                 <MenuItem value="America/Chicago">CST</MenuItem>
                 <MenuItem value="EST">EST</MenuItem>
                 {/* Add more time zones as needed */}
-              </TextField>
-            </Grid>
-          </Grid>
+              </CustomInputTextField>
+            </Box>
+          </Box>
           <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
             Maximum number of appointments you can have is "ONE". If you already
             have an appointment delete it before scheduling new appointment

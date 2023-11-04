@@ -54,7 +54,7 @@ const customAppBarStyles = makeStyles((theme) => ({
 }));
 
 const drawerWidth = 240;
-const navItems = ["HOME", "REFER", "LOGOUT"]; // "PROFILE",
+const navItems = ["HOME", "REFER TO EARN", "LOGOUT"]; // "PROFILE",
 const navIcons = [HomeIcon, PaidIcon, ExitToAppIcon]; //, AccountCircleIcon,
 
 function DrawerAppBar(props) {
@@ -99,6 +99,8 @@ function DrawerAppBar(props) {
     let path = value;
     if (path === "logout") {
       handleLogout();
+    } else if (path === "refer to earn") {
+      navigate("refer");
     } else {
       navigate(path);
     }

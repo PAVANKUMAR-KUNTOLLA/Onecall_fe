@@ -214,7 +214,6 @@ const FilerDetails = ({
               marginLeft: "3px",
             }}
           >
-            {" "}
             *
           </span>
         )}
@@ -227,7 +226,13 @@ const FilerDetails = ({
   }, []);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        padding: "20px 0 5px",
+        border: { xs: "none", sm: "1px solid #3A97BB" },
+        minHeight: { xs: "auto", sm: "800px" },
+      }}
+    >
       <Container>
         {isFilerDetailsLoading ? (
           <CircularProgress />
@@ -468,6 +473,7 @@ const FilerDetails = ({
 
                         <CustomInputTextField
                           attribute="First Name"
+                          attributeTextAlign="right"
                           is_required={true}
                           error={Boolean(touched.firstName && errors.firstName)}
                           fullWidth
@@ -483,44 +489,46 @@ const FilerDetails = ({
                           variant="outlined"
                         />
 
-                        <Box>
-                          <CustomInputTextField
-                            attribute="Middle Initial"
-                            is_required={false}
-                            error={Boolean(
-                              touched.middleName && errors.middleName
-                            )}
-                            fullWidth
-                            helperText={touched.middleName && errors.middleName}
-                            // label={
-                            //   <CustomLabel label="Middle Name" required={false} />
-                            // }
-                            margin="normal"
-                            name="middleName"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.middleName}
-                            variant="outlined"
-                          />
-                          <CustomInputTextField
-                            attribute="Last Name"
-                            is_required={true}
-                            error={Boolean(touched.lastName && errors.lastName)}
-                            fullWidth
-                            helperText={touched.lastName && errors.lastName}
-                            // label={
-                            //   <CustomLabel label="Last Name" required={true} />
-                            // }
-                            margin="normal"
-                            name="lastName"
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            value={values.lastName}
-                            variant="outlined"
-                          />
-                        </Box>
+                        <CustomInputTextField
+                          attribute="Middle Initial"
+                          attributeTextAlign="right"
+                          is_required={false}
+                          error={Boolean(
+                            touched.middleName && errors.middleName
+                          )}
+                          fullWidth
+                          helperText={touched.middleName && errors.middleName}
+                          // label={
+                          //   <CustomLabel label="Middle Name" required={false} />
+                          // }
+                          margin="normal"
+                          name="middleName"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.middleName}
+                          variant="outlined"
+                        />
+                        <CustomInputTextField
+                          attribute="Last Name"
+                          attributeTextAlign="right"
+                          is_required={true}
+                          error={Boolean(touched.lastName && errors.lastName)}
+                          fullWidth
+                          helperText={touched.lastName && errors.lastName}
+                          // label={
+                          //   <CustomLabel label="Last Name" required={true} />
+                          // }
+                          margin="normal"
+                          name="lastName"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.lastName}
+                          variant="outlined"
+                        />
+
                         <CustomInputTextField
                           attribute="SSN"
+                          attributeTextAlign="right"
                           is_required={true}
                           error={Boolean(touched.ssn && errors.ssn)}
                           fullWidth
@@ -535,6 +543,7 @@ const FilerDetails = ({
                         />
                         <CustomInputTextField
                           attribute="Date of Birth"
+                          attributeTextAlign="right"
                           is_required={true}
                           error={Boolean(
                             touched.dateOfBirth && errors.dateOfBirth
@@ -570,6 +579,7 @@ const FilerDetails = ({
                         />
                         <CustomInputTextField
                           attribute="Gender"
+                          attributeTextAlign="right"
                           is_required={true}
                           error={Boolean(touched.gender && errors.gender)}
                           select
@@ -589,6 +599,7 @@ const FilerDetails = ({
                         </CustomInputTextField>
                         <CustomInputTextField
                           attribute="Occupation / Job Title"
+                          attributeTextAlign="right"
                           is_required={true}
                           error={Boolean(
                             touched.occupation && errors.occupation
@@ -607,6 +618,7 @@ const FilerDetails = ({
                         />
                         <CustomInputTextField
                           attribute="Residential Status"
+                          attributeTextAlign="right"
                           is_required={true}
                           error={Boolean(
                             touched.residentialStatus &&
@@ -769,133 +781,227 @@ const FilerDetails = ({
                           <MenuItem value="USA">USA</MenuItem>
                           <MenuItem value="Other">Other</MenuItem>
                         </CustomInputTextField>
-                        <Grid container spacing={2}>
-                          <Grid item sm={3} xs={4}>
-                            <CustomInputTextField
-                              attribute="No"
-                              is_required={true}
-                              error={Boolean(
-                                touched.primaryCountryCode &&
-                                  errors.primaryCountryCode
-                              )}
-                              select
-                              fullWidth
-                              helperText={
-                                touched.primaryCountryCode &&
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "93%",
+                            margin: "10px 0",
+                            maxHeight: "60px",
+                          }}
+                        >
+                          <Typography
+                            variant="body1"
+                            sx={{
+                              width: { xs: "30%", sm: "120px" },
+                            }}
+                          >
+                            <span>Primary Phone</span>
+                            <span
+                              style={{
+                                color: "red",
+                                fontSize: "0.875rem",
+                                marginLeft: "3px",
+                              }}
+                            >
+                              *
+                            </span>
+                            &nbsp;:
+                          </Typography>
+
+                          <TextField
+                            attribute="Primary Phone"
+                            error={Boolean(
+                              touched.primaryCountryCode &&
                                 errors.primaryCountryCode
-                              }
-                              // label={
-                              //   <CustomLabel label="+91" required={true} />
-                              // }
-                              margin="normal"
-                              name="primaryCountryCode"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              value={values.primaryCountryCode}
-                              variant="outlined"
-                            >
-                              {countryCodes.map((option) => (
-                                <MenuItem
-                                  key={option.value}
-                                  value={option.value}
-                                >
-                                  {option.label}
-                                </MenuItem>
-                              ))}
-                            </CustomInputTextField>
-                          </Grid>
-                          <Grid item sm={9} xs={8}>
-                            <CustomInputTextField
-                              attribute="Primary Phone"
-                              is_required={true}
-                              error={Boolean(
-                                touched.primaryPhoneNumber &&
-                                  errors.primaryPhoneNumber
-                              )}
-                              fullWidth
-                              helperText={
-                                touched.primaryPhoneNumber &&
+                            )}
+                            select
+                            helperText={
+                              touched.primaryCountryCode &&
+                              errors.primaryCountryCode
+                            }
+                            // label={
+                            //   <CustomLabel label="+91" required={true} />
+                            // }
+                            margin="normal"
+                            name="primaryCountryCode"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.primaryCountryCode}
+                            variant="outlined"
+                            sx={{
+                              width: "18%",
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderRadius: "2px",
+                                },
+                              },
+                              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                {
+                                  border: "0.1px solid #bdbdbd",
+                                },
+                              "& .MuiOutlinedInput-input": {
+                                padding: "10px",
+                                backgroundColor: "rgba(255,255,255,1)",
+                              },
+                            }}
+                          >
+                            {countryCodes.map((option) => (
+                              <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+
+                          <TextField
+                            error={Boolean(
+                              touched.primaryPhoneNumber &&
                                 errors.primaryPhoneNumber
-                              }
-                              // label={
-                              //   <CustomLabel
-                              //     label="Primary Phone Number"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="primaryPhoneNumber"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              value={values.primaryPhoneNumber}
-                              variant="outlined"
-                            />
-                          </Grid>
-                          <Grid item sm={3} xs={4}>
-                            <CustomInputTextField
-                              attribute="No"
-                              is_required={true}
-                              error={Boolean(
-                                touched.secondaryCountryCode &&
-                                  errors.secondaryCountryCode
-                              )}
-                              select
-                              fullWidth
-                              helperText={
-                                touched.secondaryCountryCode &&
+                            )}
+                            helperText={
+                              touched.primaryPhoneNumber &&
+                              errors.primaryPhoneNumber
+                            }
+                            // label={
+                            //   <CustomLabel
+                            //     label="Primary Phone Number"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="primaryPhoneNumber"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.primaryPhoneNumber}
+                            variant="outlined"
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderRadius: "2px",
+                                },
+                              },
+                              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                {
+                                  border: "0.1px solid #bdbdbd",
+                                },
+                              "& .MuiOutlinedInput-input": {
+                                padding: "10px",
+                                backgroundColor: "rgba(255,255,255,1)",
+                              },
+                              width: { xs: "50%", sm: "165px" },
+                            }}
+                          />
+                        </Box>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                            width: "93%",
+                            margin: "10px 0",
+                            maxHeight: "60px",
+                          }}
+                        >
+                          <Typography
+                            variant="body1"
+                            sx={{
+                              width: { xs: "30%", sm: "120px" },
+                            }}
+                          >
+                            <span>Secondary Phone</span>
+                            &nbsp;:
+                          </Typography>
+
+                          <TextField
+                            error={Boolean(
+                              touched.secondaryCountryCode &&
                                 errors.secondaryCountryCode
-                              }
-                              // label={
-                              //   <CustomLabel
-                              //     label="Country Code"
-                              //     required={false}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="secondaryCountryCode"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              value={values.secondaryCountryCode}
-                              variant="outlined"
-                            >
-                              {countryCodes.map((option) => (
-                                <MenuItem
-                                  key={option.value}
-                                  value={option.value}
-                                >
-                                  {option.label}
-                                </MenuItem>
-                              ))}
-                            </CustomInputTextField>
-                          </Grid>
-                          <Grid item sm={9} xs={8}>
-                            <CustomInputTextField
-                              is_required={true}
-                              attribute="Secondary Phone"
-                              error={Boolean(
-                                touched.secondaryPhoneNumber &&
-                                  errors.secondaryPhoneNumber
-                              )}
-                              fullWidth
-                              helperText={
-                                touched.secondaryPhoneNumber &&
+                            )}
+                            select
+                            helperText={
+                              touched.secondaryCountryCode &&
+                              errors.secondaryCountryCode
+                            }
+                            // label={
+                            //   <CustomLabel
+                            //     label="Country Code"
+                            //     required={false}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="secondaryCountryCode"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.secondaryCountryCode}
+                            variant="outlined"
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderRadius: "2px",
+                                },
+                              },
+                              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                {
+                                  border: "0.1px solid #bdbdbd",
+                                },
+                              "& .MuiOutlinedInput-input": {
+                                padding: "10px",
+                                backgroundColor: "rgba(255,255,255,1)",
+                              },
+                              width: "18%",
+                            }}
+                          >
+                            {countryCodes.map((option) => (
+                              <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                              </MenuItem>
+                            ))}
+                          </TextField>
+
+                          <TextField
+                            attribute="Secondary Phone"
+                            error={Boolean(
+                              touched.secondaryPhoneNumber &&
                                 errors.secondaryPhoneNumber
-                              }
-                              // label={
-                              //   <CustomLabel
-                              //     label="Secondary Phone Number"
-                              //     required={false}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="secondaryPhoneNumber"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              value={values.secondaryPhoneNumber}
-                              variant="outlined"
-                            />
-                          </Grid>
-                        </Grid>
+                            )}
+                            helperText={
+                              touched.secondaryPhoneNumber &&
+                              errors.secondaryPhoneNumber
+                            }
+                            // label={
+                            //   <CustomLabel
+                            //     label="Secondary Phone Number"
+                            //     required={false}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="secondaryPhoneNumber"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={values.secondaryPhoneNumber}
+                            variant="outlined"
+                            sx={{
+                              "& .MuiOutlinedInput-root": {
+                                "& fieldset": {
+                                  borderRadius: "2px",
+                                },
+                              },
+                              "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                                {
+                                  border: "0.1px solid #bdbdbd",
+                                },
+                              "& .MuiOutlinedInput-input": {
+                                padding: "10px",
+                                backgroundColor: "rgba(255,255,255,1)",
+                              },
+                              width: { xs: "50%", sm: "165px" },
+                            }}
+                          />
+                        </Box>
+
                         <CustomInputTextField
                           attribute="Email Id"
                           is_required={true}
@@ -922,71 +1028,74 @@ const FilerDetails = ({
                       </Box>
                     </Grid>
                   </Grid>
-                  <Grid container sx={{ marginTop: "30px" }}>
-                    <Grid container sx={{ marginBottom: "30px" }}>
-                      <Grid
-                        item
-                        xs={10}
-                        sm={5}
-                        style={{ display: "flex", alignItems: "center" }}
-                      >
-                        <Typography variant="body1">
-                          <CustomLabel
-                            label="Have you filed your taxes with Taxcooler in the last year?"
-                            required={true}
-                          />
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={2} sm={1}>
-                        <select
-                          id="taxFiledLastYear"
-                          name="taxFiledLastYear"
-                          value={values.taxFiledLastYear}
-                          onChange={handleChange}
-                          style={{ width: "100%" }}
+                  <Grid item xs={12}>
+                    <Box sx={{ margin: "16px 0" }}>
+                      <Grid container spacing={2}>
+                        <Grid
+                          item
+                          xs={10}
+                          sm={5}
+                          style={{ display: "flex", alignItems: "center" }}
                         >
-                          <option value="">Select</option>
-                          {/* Add an empty option */}
-                          <option value={true}>Yes</option>
-                          <option value={false}>No</option>
-                        </select>
+                          <Typography variant="body1">
+                            <CustomLabel
+                              label="Have you filed your taxes with Taxcooler in the last year?"
+                              required={true}
+                            />
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={2} sm={1}>
+                          <select
+                            id="taxFiledLastYear"
+                            name="taxFiledLastYear"
+                            value={values.taxFiledLastYear}
+                            onChange={handleChange}
+                            style={{ width: "100%" }}
+                          >
+                            <option value="">Select</option>
+                            {/* Add an empty option */}
+                            <option value={true}>Yes</option>
+                            <option value={false}>No</option>
+                          </select>
+                        </Grid>
                       </Grid>
-                    </Grid>
-
-                    <Grid container sx={{ marginBottom: "30px" }}>
-                      <Grid
-                        item
-                        xs={8}
-                        sm={5}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          marginBottom: "30px",
-                        }}
-                      >
-                        <Typography variant="body1">
-                          {" "}
-                          <CustomLabel
-                            label="Taxpayer Status"
-                            required={true}
-                          />
-                        </Typography>
-                      </Grid>
-                      <Grid item xs={4} sm={1}>
-                        <select
-                          id="taxPayerStatus"
-                          name="taxPayerStatus"
-                          value={values.taxPayerStatus}
-                          onChange={handleChange}
-                          style={{ width: "100%" }}
+                    </Box>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Box sx={{ margin: "16px 0" }}>
+                      <Grid container spacing={2}>
+                        <Grid
+                          item
+                          xs={8}
+                          sm={5}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
                         >
-                          <option value="">Select Status</option>{" "}
-                          {/* Add an empty option */}
-                          <option value="SINGLE">Single</option>
-                          <option value="MARRIED">Married</option>
-                        </select>
+                          <Typography variant="body1">
+                            <CustomLabel
+                              label="Taxpayer Status"
+                              required={true}
+                            />
+                          </Typography>
+                        </Grid>
+                        <Grid item xs={4} sm={1}>
+                          <select
+                            id="taxPayerStatus"
+                            name="taxPayerStatus"
+                            value={values.taxPayerStatus}
+                            onChange={handleChange}
+                            style={{ width: "100%" }}
+                          >
+                            <option value="">Select Status</option>{" "}
+                            {/* Add an empty option */}
+                            <option value="SINGLE">Single</option>
+                            <option value="MARRIED">Married</option>
+                          </select>
+                        </Grid>
                       </Grid>
-                    </Grid>
+                    </Box>
                   </Grid>
                   {values.taxPayerStatus === "MARRIED" && (
                     <Grid container spacing={2}>
@@ -994,149 +1103,139 @@ const FilerDetails = ({
                       <Grid item lg={6} sm={6} xs={12}>
                         <Typography variant="h5">Spouse Details</Typography>
                         <Grid container spacing={2}>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="First Name"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="First Name"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="spouseFirstName"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              fullWidth
-                              value={values.spouseFirstName}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseFirstName &&
-                                  errors.spouseFirstName
-                              )}
-                              helperText={
-                                touched.spouseFirstName &&
-                                errors.spouseFirstName
-                              }
-                            />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="Middle Initial"
-                              is_required={false}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Spouse Middle Initial"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="spouseMiddleInitial"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              fullWidth
-                              value={values.spouseMiddleInitial}
-                              variant="outlined"
-                            />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="Last Name"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Spouse Last Name"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="spouseLastName"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              fullWidth
-                              value={values.spouseLastName}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseLastName && errors.spouseLastName
-                              )}
-                              helperText={
-                                touched.spouseLastName && errors.spouseLastName
-                              }
-                            />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="SSN/ITIN"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Spouse SSN/ITIN"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="spouseSsnOrItin"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              fullWidth
-                              value={transform(values.spouseSsnOrItin)}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseSsnOrItin &&
-                                  errors.spouseSsnOrItin
-                              )}
-                              helperText={
-                                touched.spouseSsnOrItin &&
-                                errors.spouseSsnOrItin
-                              }
-                            />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="Do you want to apply for ITIN?"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Do you want to apply for ITIN?"
-                              //     required={true}
-                              //   />
-                              // }
-                              select
-                              margin="normal"
-                              name="spouseApplyForItin"
-                              onBlur={handleBlur}
-                              fullWidth
-                              onChange={handleChange}
-                              value={values.spouseApplyForItin}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseApplyForItin &&
-                                  errors.spouseApplyForItin
-                              )}
-                              helperText={
-                                touched.spouseApplyForItin &&
-                                errors.spouseApplyForItin
-                              }
-                            >
-                              <MenuItem value={false}>No</MenuItem>
-                              <MenuItem value={true}>Yes</MenuItem>
-                            </CustomInputTextField>
-                            {values.spouseApplyForItin === true && (
-                              <ButtonBase
-                                onClick={() =>
-                                  handleDownloadTemplate("ITIN_Information.xls")
-                                }
-                                sx={{
-                                  marginTop: "2px",
-                                  textDecoration: "underline",
-                                }}
-                                disableTouchRipple
-                              >
-                                Download ITIN Information Excel
-                              </ButtonBase>
+                          <CustomInputTextField
+                            attribute="First Name"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="First Name"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="spouseFirstName"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            fullWidth
+                            value={values.spouseFirstName}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseFirstName && errors.spouseFirstName
                             )}
-                          </Grid>
+                            helperText={
+                              touched.spouseFirstName && errors.spouseFirstName
+                            }
+                          />
+
+                          <CustomInputTextField
+                            attribute="Middle Initial"
+                            is_required={false}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Spouse Middle Initial"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="spouseMiddleInitial"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            fullWidth
+                            value={values.spouseMiddleInitial}
+                            variant="outlined"
+                          />
+
+                          <CustomInputTextField
+                            attribute="Last Name"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Spouse Last Name"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="spouseLastName"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            fullWidth
+                            value={values.spouseLastName}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseLastName && errors.spouseLastName
+                            )}
+                            helperText={
+                              touched.spouseLastName && errors.spouseLastName
+                            }
+                          />
+
+                          <CustomInputTextField
+                            attribute="SSN/ITIN"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Spouse SSN/ITIN"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="spouseSsnOrItin"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            fullWidth
+                            value={transform(values.spouseSsnOrItin)}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseSsnOrItin && errors.spouseSsnOrItin
+                            )}
+                            helperText={
+                              touched.spouseSsnOrItin && errors.spouseSsnOrItin
+                            }
+                          />
+
+                          <CustomInputTextField
+                            attribute="Do you want to apply for ITIN?"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Do you want to apply for ITIN?"
+                            //     required={true}
+                            //   />
+                            // }
+                            select
+                            margin="normal"
+                            name="spouseApplyForItin"
+                            onBlur={handleBlur}
+                            fullWidth
+                            onChange={handleChange}
+                            value={values.spouseApplyForItin}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseApplyForItin &&
+                                errors.spouseApplyForItin
+                            )}
+                            helperText={
+                              touched.spouseApplyForItin &&
+                              errors.spouseApplyForItin
+                            }
+                          >
+                            <MenuItem value={false}>No</MenuItem>
+                            <MenuItem value={true}>Yes</MenuItem>
+                          </CustomInputTextField>
+                          {values.spouseApplyForItin === true && (
+                            <ButtonBase
+                              onClick={() =>
+                                handleDownloadTemplate("ITIN_Information.xls")
+                              }
+                              sx={{
+                                marginTop: "2px",
+                                textDecoration: "underline",
+                              }}
+                              disableTouchRipple
+                            >
+                              Download ITIN Information Excel
+                            </ButtonBase>
+                          )}
                         </Grid>
                       </Grid>
 
@@ -1144,246 +1243,252 @@ const FilerDetails = ({
                       <Grid item lg={6} sm={6} xs={12}>
                         <Typography variant="h5">Spouse Contact</Typography>
                         <Grid container spacing={2}>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="Date of Birth"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Date of Birth"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="spouseDateOfBirth"
-                              onBlur={handleBlur}
-                              fullWidth
-                              onChange={handleChange}
-                              type="date"
-                              value={values.spouseDateOfBirth}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseDateOfBirth &&
-                                  errors.spouseDateOfBirth
-                              )}
-                              helperText={
-                                touched.spouseDateOfBirth &&
+                          <CustomInputTextField
+                            attribute="Date of Birth"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Date of Birth"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="spouseDateOfBirth"
+                            onBlur={handleBlur}
+                            fullWidth
+                            onChange={handleChange}
+                            type="date"
+                            value={values.spouseDateOfBirth}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseDateOfBirth &&
                                 errors.spouseDateOfBirth
-                              }
-                              InputLabelProps={{
-                                shrink: true, // This is important for the label to behave correctly
-                              }}
-                              InputProps={{
-                                style: {
-                                  color: "black", // Customize the label color
-                                },
-                              }}
-                              inputProps={{
-                                // To disable the default placeholder
-                                placeholder: "",
-                                // Other attributes you might need
-                              }}
-                            />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="Gender"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Spouse Gender"
-                              //     required={true}
-                              //   />
-                              // }
-                              select
-                              margin="normal"
-                              name="spouseGender"
-                              onBlur={handleBlur}
-                              onChange={handleChange}
-                              fullWidth
-                              value={values.spouseGender}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseGender && errors.spouseGender
-                              )}
-                              helperText={
-                                touched.spouseGender && errors.spouseGender
-                              }
-                            >
-                              <MenuItem value="MALE">Male</MenuItem>
-                              <MenuItem value="FEMALE">Female</MenuItem>
-                              <MenuItem value="Other">Other</MenuItem>
-                            </CustomInputTextField>
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="Occupation / Job Title"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Spouse Occupation / Job Title"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="spouseOccupation"
-                              onBlur={handleBlur}
-                              fullWidth
-                              onChange={handleChange}
-                              value={values.spouseOccupation}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseOccupation &&
-                                  errors.spouseOccupation
-                              )}
-                              helperText={
-                                touched.spouseOccupation &&
+                            )}
+                            helperText={
+                              touched.spouseDateOfBirth &&
+                              errors.spouseDateOfBirth
+                            }
+                            InputLabelProps={{
+                              shrink: true, // This is important for the label to behave correctly
+                            }}
+                            InputProps={{
+                              style: {
+                                color: "black", // Customize the label color
+                              },
+                            }}
+                            inputProps={{
+                              // To disable the default placeholder
+                              placeholder: "",
+                              // Other attributes you might need
+                            }}
+                          />
+
+                          <CustomInputTextField
+                            attribute="Gender"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Spouse Gender"
+                            //     required={true}
+                            //   />
+                            // }
+                            select
+                            margin="normal"
+                            name="spouseGender"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            fullWidth
+                            value={values.spouseGender}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseGender && errors.spouseGender
+                            )}
+                            helperText={
+                              touched.spouseGender && errors.spouseGender
+                            }
+                          >
+                            <MenuItem value="MALE">Male</MenuItem>
+                            <MenuItem value="FEMALE">Female</MenuItem>
+                            <MenuItem value="Other">Other</MenuItem>
+                          </CustomInputTextField>
+
+                          <CustomInputTextField
+                            attribute="Occupation / Job Title"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Spouse Occupation / Job Title"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="spouseOccupation"
+                            onBlur={handleBlur}
+                            fullWidth
+                            onChange={handleChange}
+                            value={values.spouseOccupation}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseOccupation &&
                                 errors.spouseOccupation
-                              }
-                            />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="Residential Status"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Spouse Residential Status"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="spouseResidentialStatus"
-                              onBlur={handleBlur}
-                              fullWidth
-                              select
-                              onChange={handleChange}
-                              value={values.spouseResidentialStatus}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseResidentialStatus &&
-                                  errors.spouseResidentialStatus
-                              )}
-                              helperText={
-                                touched.spouseResidentialStatus &&
+                            )}
+                            helperText={
+                              touched.spouseOccupation &&
+                              errors.spouseOccupation
+                            }
+                          />
+
+                          <CustomInputTextField
+                            attribute="Residential Status"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Spouse Residential Status"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="spouseResidentialStatus"
+                            onBlur={handleBlur}
+                            fullWidth
+                            select
+                            onChange={handleChange}
+                            value={values.spouseResidentialStatus}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseResidentialStatus &&
                                 errors.spouseResidentialStatus
-                              }
-                            >
-                              <MenuItem value="VISA">Visa</MenuItem>
-                              <MenuItem value="CITIZENSHIP">
-                                Citizenship
-                              </MenuItem>
-                            </CustomInputTextField>
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
-                            <CustomInputTextField
-                              attribute="Email Id"
-                              is_required={true}
-                              // label={
-                              //   <CustomLabel
-                              //     label="Spouse Email Id"
-                              //     required={true}
-                              //   />
-                              // }
-                              margin="normal"
-                              name="spouseEmail"
-                              onBlur={handleBlur}
-                              fullWidth
-                              onChange={handleChange}
-                              value={values.spouseEmail}
-                              variant="outlined"
-                              error={Boolean(
-                                touched.spouseEmail && errors.spouseEmail
-                              )}
-                              helperText={
-                                touched.spouseEmail && errors.spouseEmail
-                              }
-                            />
-                          </Grid>
+                            )}
+                            helperText={
+                              touched.spouseResidentialStatus &&
+                              errors.spouseResidentialStatus
+                            }
+                          >
+                            <MenuItem value="VISA">Visa</MenuItem>
+                            <MenuItem value="CITIZENSHIP">Citizenship</MenuItem>
+                          </CustomInputTextField>
+
+                          <CustomInputTextField
+                            attribute="Email Id"
+                            is_required={true}
+                            // label={
+                            //   <CustomLabel
+                            //     label="Spouse Email Id"
+                            //     required={true}
+                            //   />
+                            // }
+                            margin="normal"
+                            name="spouseEmail"
+                            onBlur={handleBlur}
+                            fullWidth
+                            onChange={handleChange}
+                            value={values.spouseEmail}
+                            variant="outlined"
+                            error={Boolean(
+                              touched.spouseEmail && errors.spouseEmail
+                            )}
+                            helperText={
+                              touched.spouseEmail && errors.spouseEmail
+                            }
+                          />
                         </Grid>
                       </Grid>
                     </Grid>
                   )}
-                  <Grid container sx={{ marginBottom: "30px" }}>
+
+                  <Grid container>
                     <Grid
-                      item
-                      xs={10}
-                      sm={9}
-                      style={{ display: "flex", alignItems: "center" }}
+                      container
+                      sx={{
+                        marginTop: "36px",
+                        marginBottom: "24px",
+                      }}
                     >
-                      <Typography variant="body1">
-                        <CustomLabel
-                          label=" Have you (or your spouse, if married) provided living
+                      <Grid
+                        item
+                        xs={10}
+                        sm={9}
+                        sx={{ display: "flex", alignItems: "center" }}
+                      >
+                        <Typography variant="body1">
+                          <CustomLabel
+                            label=" Have you (or your spouse, if married) provided living
                         support to your kids and/or dependents during the tax
                         year?"
-                        />
+                          />
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={2}>
+                        <CustomInputTextField
+                          attribute=""
+                          is_required={true}
+                          // label={<CustomLabel label="" />}
+                          select
+                          margin="normal"
+                          name="providedLivingSupport"
+                          onBlur={handleBlur}
+                          onChange={handleChange}
+                          value={values.providedLivingSupport}
+                          variant="outlined"
+                          error={Boolean(
+                            touched.providedLivingSupport &&
+                              errors.providedLivingSupport
+                          )}
+                          helperText={
+                            touched.providedLivingSupport &&
+                            errors.providedLivingSupport
+                          }
+                        >
+                          <MenuItem value={true}>Yes</MenuItem>
+                          <MenuItem value={false}>No</MenuItem>
+                        </CustomInputTextField>
+                      </Grid>
+                    </Grid>
+                    <Grid>
+                      <Typography
+                        variant="body1"
+                        style={{ color: "blue", wordSpacing: "2px" }}
+                      >
+                        NOTE: Make sure the kids or dependants reported in your
+                        (Taxpayer) 2023 Tax Return are not claimed as dependants
+                        in any other 2023 Individual Tax Returns.
                       </Typography>
                     </Grid>
-                    <Grid item xs={2} sm={3}>
-                      <CustomInputTextField
-                        attribute=""
-                        is_required={true}
-                        // label={<CustomLabel label="" />}
-                        select
-                        margin="normal"
-                        name="providedLivingSupport"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.providedLivingSupport}
-                        variant="outlined"
-                        error={Boolean(
-                          touched.providedLivingSupport &&
-                            errors.providedLivingSupport
-                        )}
-                        helperText={
-                          touched.providedLivingSupport &&
-                          errors.providedLivingSupport
-                        }
-                      >
-                        <MenuItem value={true}>Yes</MenuItem>
-                        <MenuItem value={false}>No</MenuItem>
-                      </CustomInputTextField>
-                    </Grid>
-                  </Grid>
-                  <Grid>
-                    <Typography
-                      variant="body1"
-                      style={{ color: "blue", wordSpacing: "2px" }}
-                    >
-                      NOTE: Make sure the kids or dependants reported in your
-                      (Taxpayer) 2023 Tax Return are not claimed as dependants
-                      in any other 2023 Individual Tax Returns.
-                    </Typography>
-                  </Grid>
 
-                  {values.providedLivingSupport === true ? (
-                    <Button
-                      type="button"
-                      variant="outlined"
-                      color="primary"
-                      onClick={() => {
-                        // Toggle between true and false
-                        setFieldValue("isNewDependant", !values.isNewDependant);
-                      }}
-                      sx={{
-                        display: "block",
-                        width: "170px",
-                        marginBottom: "16px",
-                      }}
-                    >
-                      {values.isNewDependant
-                        ? "Remove Dependant"
-                        : "Add Dependant"}
-                    </Button>
-                  ) : null}
+                    {values.providedLivingSupport === true ? (
+                      <Grid item xs={12}>
+                        <Button
+                          type="button"
+                          variant="outlined"
+                          color="primary"
+                          onClick={() => {
+                            // Toggle between true and false
+                            setFieldValue(
+                              "isNewDependant",
+                              !values.isNewDependant
+                            );
+                          }}
+                          sx={{
+                            display: "block",
+                            width: "170px",
+                            margin: "10px",
+                          }}
+                        >
+                          {values.isNewDependant
+                            ? "Remove Dependant"
+                            : "Add Dependant"}
+                        </Button>
+                      </Grid>
+                    ) : null}
 
-                  {values.isNewDependant && (
-                    <Grid container spacing={2}>
-                      {/* Left Side - additional Details */}
-                      <Grid item lg={6} sm={6} xs={12}>
-                        <Typography variant="h5">Additional Details</Typography>
-                        <Grid container spacing={2}>
-                          <Grid item sm={12} xs={12}>
+                    {values.isNewDependant && (
+                      <Grid container spacing={2}>
+                        {/* Left Side - additional Details */}
+                        <Grid item lg={6} sm={6} xs={12}>
+                          <Typography variant="h5">
+                            Additional Details
+                          </Typography>
+                          <Grid container spacing={2}>
                             <CustomInputTextField
                               attribute="First Name"
                               is_required={true}
@@ -1409,8 +1514,7 @@ const FilerDetails = ({
                                 errors.additionalFirstName
                               }
                             />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="Middle Initial"
                               is_required={false}
@@ -1428,8 +1532,7 @@ const FilerDetails = ({
                               value={values.additionalMiddleInitial}
                               variant="outlined"
                             />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="Last Name"
                               is_required={true}
@@ -1455,8 +1558,7 @@ const FilerDetails = ({
                                 errors.additionalLastName
                               }
                             />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="SSN/ITIN"
                               is_required={true}
@@ -1479,8 +1581,7 @@ const FilerDetails = ({
                                 errors.additionalSsnOrItin
                               }
                             />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="Do you want to apply for ITIN?"
                               is_required={true}
@@ -1524,8 +1625,7 @@ const FilerDetails = ({
                                 Download ITIN Information Excel
                               </ButtonBase>
                             )}
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="Relationship"
                               is_required={true}
@@ -1553,13 +1653,13 @@ const FilerDetails = ({
                             />
                           </Grid>
                         </Grid>
-                      </Grid>
 
-                      {/* Right Side - additional Contact */}
-                      <Grid item lg={6} sm={6} xs={12}>
-                        <Typography variant="h5">Additional Contact</Typography>
-                        <Grid container spacing={2}>
-                          <Grid item sm={12} xs={12}>
+                        {/* Right Side - additional Contact */}
+                        <Grid item lg={6} sm={6} xs={12}>
+                          <Typography variant="h5">
+                            Additional Contact
+                          </Typography>
+                          <Grid container spacing={2}>
                             <CustomInputTextField
                               attribute="Dependent DOB"
                               is_required={true}
@@ -1599,8 +1699,7 @@ const FilerDetails = ({
                                 // Other attributes you might need
                               }}
                             />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="Gender"
                               is_required={true}
@@ -1628,8 +1727,7 @@ const FilerDetails = ({
                               <MenuItem value="FEMALE">Female</MenuItem>
                               <MenuItem value="Other">Other</MenuItem>
                             </CustomInputTextField>
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="Occupation / Job Title"
                               is_required={true}
@@ -1655,8 +1753,7 @@ const FilerDetails = ({
                                 errors.additionalOccupation
                               }
                             />
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="Visa Type"
                               is_required={true}
@@ -1697,8 +1794,7 @@ const FilerDetails = ({
                                 );
                               })}
                             </CustomInputTextField>
-                          </Grid>
-                          <Grid item sm={12} xs={12}>
+
                             <CustomInputTextField
                               attribute="Email Id"
                               is_required={true}
@@ -1721,9 +1817,6 @@ const FilerDetails = ({
                                 errors.additionalEmail
                               }
                             />
-                          </Grid>
-
-                          <Grid item sm={12} xs={12}>
                             <CustomInputTextField
                               attribute="No. of months dependent has stayed with you in U.S"
                               is_required={true}
@@ -1753,233 +1846,263 @@ const FilerDetails = ({
                           </Grid>
                         </Grid>
                       </Grid>
-                    </Grid>
-                  )}
-                  <Box>
-                    {isDependantDetailsLoading ? (
-                      <CircularProgress />
-                    ) : (
-                      <TableContainer
-                        sx={{
-                          marginTop: "32px",
-                          paddingBottom: { xs: "10px", sm: "0px" },
-                        }}
-                      >
-                        <Typography variant="h5">Dependant Details</Typography>
-                        <Table
+                    )}
+                    <Box>
+                      {isDependantDetailsLoading ? (
+                        <CircularProgress />
+                      ) : (
+                        <TableContainer
                           sx={{
-                            borderCollapse: "collapse",
+                            marginTop: "32px",
+                            paddingBottom: { xs: "10px", sm: "0px" },
                           }}
-                          aria-label="Place Order Series Table"
                         >
-                          <TableHead>
-                            <TableRow>
-                              <TableCell className={customStyles.tableHeader}>
-                                First Name
-                              </TableCell>
-                              <TableCell className={customStyles.tableHeader}>
-                                Last Name
-                              </TableCell>
-                              <TableCell className={customStyles.tableHeader}>
-                                SSN/ITIN
-                              </TableCell>
-                              <TableCell className={customStyles.tableHeader}>
-                                Relationship
-                              </TableCell>
-                              <TableCell className={customStyles.tableHeader}>
-                                Visa Type
-                              </TableCell>
-                            </TableRow>
-                          </TableHead>
-                          <TableBody>
-                            {dependantDetails.length > 0 &&
-                              dependantDetails.map((row, index) => (
-                                <TableRow key={index}>
-                                  <TableCell className={customStyles.tableData}>
-                                    {row.additionalFirstName}
-                                  </TableCell>
-                                  <TableCell className={customStyles.tableData}>
-                                    {row.additionalLastName}
-                                  </TableCell>
-                                  <TableCell className={customStyles.tableData}>
-                                    {transform(row.additionalSsnOrItin)}
-                                  </TableCell>
-                                  <TableCell className={customStyles.tableData}>
-                                    {row.additionalRelationship}
-                                  </TableCell>
-                                  <TableCell className={customStyles.tableData}>
-                                    {row.additionalVisaType}
-                                  </TableCell>
-                                  <TableCell className={customStyles.tableData}>
-                                    <Button
-                                      disabled={isFilerDetailsLoading}
-                                      startIcon={<DeleteIcon />}
-                                      size="small"
-                                      onClick={() => {
-                                        handleDeleteDependant(row.id);
-                                      }}
-                                      className={customStyles.buttons}
+                          <Typography variant="h5" sx={{ textAlign: "center" }}>
+                            Existing Dependant Details
+                          </Typography>
+                          <Table
+                            sx={{
+                              borderCollapse: "collapse",
+                            }}
+                            aria-label="Place Order Series Table"
+                          >
+                            <TableHead>
+                              <TableRow>
+                                <TableCell className={customStyles.tableHeader}>
+                                  First Name
+                                </TableCell>
+                                <TableCell className={customStyles.tableHeader}>
+                                  Last Name
+                                </TableCell>
+                                <TableCell className={customStyles.tableHeader}>
+                                  SSN/ITIN
+                                </TableCell>
+                                <TableCell className={customStyles.tableHeader}>
+                                  Relationship
+                                </TableCell>
+                                <TableCell className={customStyles.tableHeader}>
+                                  Visa Type
+                                </TableCell>
+                              </TableRow>
+                            </TableHead>
+                            <TableBody>
+                              {dependantDetails.length > 0 &&
+                                dependantDetails.map((row, index) => (
+                                  <TableRow key={index}>
+                                    <TableCell
+                                      className={customStyles.tableData}
                                     >
-                                      Delete{" "}
-                                      {isFilerDetailsLoading && (
-                                        <CircularProgress
-                                          sx={{ ml: 1 }}
-                                          size={14}
-                                        />
-                                      )}
-                                    </Button>
-                                  </TableCell>
-                                  <TableCell
-                                    className={customStyles.mobileView}
-                                  >
-                                    <Box>
-                                      <Box
-                                        sx={{
-                                          display: "flex",
-                                          flexWrap: "wrap",
-                                          justifyContent: "space-between",
-                                          marginTop: "16px",
+                                      {row.additionalFirstName}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      {row.additionalLastName}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      {transform(row.additionalSsnOrItin)}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      {row.additionalRelationship}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      {row.additionalVisaType}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      <Button
+                                        disabled={isFilerDetailsLoading}
+                                        startIcon={<DeleteIcon />}
+                                        size="small"
+                                        onClick={() => {
+                                          handleDeleteDependant(row.id);
                                         }}
+                                        className={customStyles.buttons}
                                       >
-                                        <Box sx={{ marginTop: "3px" }}>
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellHeader
-                                            }
-                                          >
-                                            First Name
-                                          </Typography>
-
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellValue
-                                            }
-                                          >
-                                            {row.additionalFirstName}
-                                          </Typography>
-                                        </Box>
-                                        <Box sx={{ marginTop: "3px" }}>
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellHeader
-                                            }
-                                          >
-                                            Last Name
-                                          </Typography>
-
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellValue
-                                            }
-                                          >
-                                            {row.additionalLastName}
-                                          </Typography>
-                                        </Box>
-                                        <Box sx={{ marginTop: "3px" }}>
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellHeader
-                                            }
-                                          >
-                                            RelationShip
-                                          </Typography>
-
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellValue
-                                            }
-                                          >
-                                            {row.additionalRelationship}
-                                          </Typography>
-                                        </Box>
-                                      </Box>
-                                      <Box
-                                        sx={{
-                                          display: "flex",
-                                          flexWrap: "wrap",
-                                          justifyContent: "space-between",
-                                          marginTop: "16px",
-                                        }}
-                                      >
-                                        <Box sx={{ marginTop: "3px" }}>
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellHeader
-                                            }
-                                          >
-                                            Visa Type
-                                          </Typography>
-
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellValue
-                                            }
-                                          >
-                                            {row.additionalVisaType}
-                                          </Typography>
-                                        </Box>
-
-                                        <Box sx={{ marginTop: "3px" }}>
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellHeader
-                                            }
-                                          >
-                                            SSN/ITIN
-                                          </Typography>
-
-                                          <Typography
-                                            className={
-                                              customStyles.mobileViewTableCellValue
-                                            }
-                                          >
-                                            {transform(row.additionalSsnOrItin)}
-                                          </Typography>
-                                        </Box>
-
-                                        <Button
-                                          disabled={isFilerDetailsLoading}
-                                          startIcon={<DeleteIcon />}
-                                          size="small"
-                                          onClick={() => {
-                                            handleDeleteDependant(row.id);
+                                        Delete{" "}
+                                        {isFilerDetailsLoading && (
+                                          <CircularProgress
+                                            sx={{ ml: 1 }}
+                                            size={14}
+                                          />
+                                        )}
+                                      </Button>
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.mobileView}
+                                    >
+                                      <Box>
+                                        <Box
+                                          sx={{
+                                            display: "flex",
+                                            flexWrap: "wrap",
+                                            justifyContent: "space-between",
+                                            marginTop: "16px",
                                           }}
                                         >
-                                          Delete{" "}
-                                          {isFilerDetailsLoading && (
-                                            <CircularProgress
-                                              sx={{ ml: 1 }}
-                                              size={14}
-                                            />
-                                          )}
-                                        </Button>
+                                          <Box sx={{ marginTop: "3px" }}>
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellHeader
+                                              }
+                                            >
+                                              First Name
+                                            </Typography>
+
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellValue
+                                              }
+                                            >
+                                              {row.additionalFirstName}
+                                            </Typography>
+                                          </Box>
+                                          <Box sx={{ marginTop: "3px" }}>
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellHeader
+                                              }
+                                            >
+                                              Last Name
+                                            </Typography>
+
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellValue
+                                              }
+                                            >
+                                              {row.additionalLastName}
+                                            </Typography>
+                                          </Box>
+                                          <Box sx={{ marginTop: "3px" }}>
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellHeader
+                                              }
+                                            >
+                                              RelationShip
+                                            </Typography>
+
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellValue
+                                              }
+                                            >
+                                              {row.additionalRelationship}
+                                            </Typography>
+                                          </Box>
+                                        </Box>
+                                        <Box
+                                          sx={{
+                                            display: "flex",
+                                            flexWrap: "wrap",
+                                            justifyContent: "space-between",
+                                            marginTop: "16px",
+                                          }}
+                                        >
+                                          <Box sx={{ marginTop: "3px" }}>
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellHeader
+                                              }
+                                            >
+                                              Visa Type
+                                            </Typography>
+
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellValue
+                                              }
+                                            >
+                                              {row.additionalVisaType}
+                                            </Typography>
+                                          </Box>
+
+                                          <Box sx={{ marginTop: "3px" }}>
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellHeader
+                                              }
+                                            >
+                                              SSN/ITIN
+                                            </Typography>
+
+                                            <Typography
+                                              className={
+                                                customStyles.mobileViewTableCellValue
+                                              }
+                                            >
+                                              {transform(
+                                                row.additionalSsnOrItin
+                                              )}
+                                            </Typography>
+                                          </Box>
+
+                                          <Button
+                                            disabled={isFilerDetailsLoading}
+                                            startIcon={<DeleteIcon />}
+                                            size="small"
+                                            onClick={() => {
+                                              handleDeleteDependant(row.id);
+                                            }}
+                                          >
+                                            Delete{" "}
+                                            {isFilerDetailsLoading && (
+                                              <CircularProgress
+                                                sx={{ ml: 1 }}
+                                                size={14}
+                                              />
+                                            )}
+                                          </Button>
+                                        </Box>
                                       </Box>
-                                    </Box>
-                                  </TableCell>
-                                </TableRow>
-                              ))}
-                          </TableBody>
-                        </Table>
-                      </TableContainer>
-                    )}
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItems: "flex-end",
-                      marginTop: { xs: "8px", sm: "16px" },
-                    }}
-                  >
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      color="primary"
-                      disabled={isSubmitting}
-                    >
-                      SAVE
-                    </Button>
-                  </Box>
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                            </TableBody>
+                          </Table>
+
+                          <Typography
+                            variant="h5"
+                            sx={{
+                              textAlign: "center",
+                              color: "red",
+                              marginTop: "15px",
+                            }}
+                          >
+                            TO MODIFY EXISTING DEPENDENT DETAILS, DELETE THE
+                            SAME and then CLICK on "Add Additional Dependents"
+                          </Typography>
+                        </TableContainer>
+                      )}
+                    </Box>
+                    <Grid item xs={12}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "flex-end",
+                          alignItems: "flex-end",
+                          marginTop: { xs: "8px", sm: "16px" },
+                        }}
+                      >
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          disabled={isSubmitting}
+                        >
+                          SAVE
+                        </Button>
+                      </Box>
+                    </Grid>
+                  </Grid>
                 </form>
               )}
             </Formik>

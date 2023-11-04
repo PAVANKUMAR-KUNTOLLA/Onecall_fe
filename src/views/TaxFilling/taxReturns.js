@@ -84,7 +84,14 @@ export const customTextStyles = makeStyles((theme) => ({
 const TaxReturns = () => {
   const customStyles = customTextStyles();
   return (
-    <Box>
+    <Box
+      sx={{
+        padding: "20px 0 5px",
+        border: { xs: "none", sm: "1px solid #3A97BB" },
+        minHeight: { xs: "auto", sm: "800px" },
+      }}
+    >
+      {" "}
       <Container>
         <Box>
           <TableContainer sx={{ marginTop: "32px" }}>

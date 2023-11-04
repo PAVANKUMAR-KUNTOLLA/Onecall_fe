@@ -114,7 +114,24 @@ const MyReferrals = () => {
   }, []);
   console.log(referalDetails);
   return (
-    <Box>
+    <Box
+      sx={{
+        marginTop: "40px",
+        backgroundColor: "#fff",
+        padding: { sm: "30px", xs: "0" },
+        paddingTop: { xs: "30px" },
+        paddingBottom: { xs: "20px" },
+
+        bgcolor: "#ffffff",
+        transition: "box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms",
+        borderRadius: "6px",
+        boxShadow: "0px 2px 8px 0px rgba(99, 99, 99, 0.2)",
+        overflow: "hidden",
+        marginTop: "20px",
+        color: "#333333",
+        backgroundImage: "none",
+      }}
+    >
       <Container>
         <Box>
           <Typography variant="h4" sx={{ marginLeft: "10px" }}>
