@@ -75,7 +75,7 @@ export const AppBar = () => {
               marginLeft: "20px",
             }}
           >
-            PERFECT PLACE TO FILE YOUR TAXES
+            WE MAKE TAX SIMPLE
           </Typography>
         </Box>
         <Typography variant="body2" sx={{ fontSize: "16px" }}>
@@ -113,7 +113,7 @@ export const AppBar = () => {
             fontSize: "16px",
           }}
         >
-          PERFECT PLACE TO FILE YOUR TAXES
+          WE MAKE TAX SIMPLE
         </Typography>
       </Box>
     </Box>

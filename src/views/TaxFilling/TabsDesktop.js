@@ -149,7 +149,7 @@ const TabsDesktop = ({ data, handleFetchData, handleDownloadTemplate }) => {
             {...a11yProps(0)}
           />
           <Tab
-            label="Income Deatils"
+            label="Income Details"
             className={customTextClasses.tabHeaderText}
             {...a11yProps(1)}
           />
