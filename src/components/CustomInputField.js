@@ -3,6 +3,15 @@ import { Box, TextField, Grid, Typography } from "@mui/material";
 
 import PropTypes from "prop-types";
 
+const NO_WRAP_ATTRIBUTES = [
+  "Occupation / Job Title",
+  "Email Address",
+  "Password",
+  "Email ID (User ID)",
+  "Confirm Password",
+  "Referral ID (Optional)",
+];
+
 const CustomInputTextField = ({
   attribute,
   is_required,
@@ -64,10 +73,9 @@ const CustomInputTextField = ({
             <Typography
               variant="body1"
               sx={{
-                whiteSpace:
-                  attribute === "Occupation / Job Title"
-                    ? "nowrap"
-                    : "pre-wrap",
+                whiteSpace: NO_WRAP_ATTRIBUTES.includes(attribute)
+                  ? "nowrap"
+                  : "pre-wrap",
               }}
             >
               {attribute}

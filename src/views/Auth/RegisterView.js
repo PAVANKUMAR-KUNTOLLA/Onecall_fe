@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 
 import { makeStyles } from "@mui/styles";
-
+import CustomInputTextField from "../../components/CustomInputField";
+import { AppBar } from ".";
 import CustomAlert from "../../components/CustomAlert";
 
 import * as Yup from "yup";
@@ -43,81 +44,26 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 200,
   },
   mainBlock: {
-    width: "100%",
-    height: "100vh",
-    display: "flex",
-    flexDirection: "row",
-    margin: "0",
-    padding: "0",
+    // width: "100%",
+    // height: "100vh",
+    // display: "flex",
+    // flexDirection: "row",
+    padding: "10px 50px 20px",
+    margin: "20px",
+    border: "1px solid #000000",
+    minWidth: "600px",
     [theme.breakpoints.down("sm")]: {
-      flexDirection: "column",
-    },
-  },
-  leftSide: {
-    width: "70%",
-    height: "100vh",
-    position: "relative",
-    backgroundColor: "#2069D8",
-    [theme.breakpoints.down("sm")]: {
-      width: "100%",
-      height: "40vh",
-      margin: "0",
-    },
-  },
-
-  avatarLogo: {
-    width: 200,
-    height: 72,
-    position: "absolute",
-    top: "50%",
-    left: "33%",
-    [theme.breakpoints.down("sm")]: {
-      left: "20%",
-      top: "30%",
-    },
-  },
-
-  title: {
-    fontFamily: "Montserrat",
-    fontWeight: "700",
-    fontSize: "72px",
-    textAlign: "center",
-    lineHeight: "87.7px",
-    color: "#FFFFFF",
-    margin: "auto",
-    marginTop: "50vh",
-    marginBottom: "auto",
-    [theme.breakpoints.down("sm")]: {
-      marginTop: "10vh",
-    },
-  },
-
-  rightSide: {
-    width: "100%",
-    height: "100vh",
-    backgroundColor: "#F5F5F5",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center", // Center vertically
-    alignItems: "center", // Center horizontally
-    margin: "0",
-    paddingRight: "200px",
-    padding: "0", // Reset padding
-    [theme.breakpoints.up("md")]: {
-      paddingLeft: "244px", // Adjust padding for medium and larger screens
-    },
-    [theme.breakpoints.down("sm")]: {
-      width: "100%", // Set width to 100%
-      paddingLeft: "0", // Reset padding
-      justifyContent: "center", // Center vertically
-      alignItems: "center", // Center horizontally
-      paddingRight: "0px",
+      // flexDirection: "column",
+      minWidth: "350px",
+      padding: "10px 0 10px 5px",
+      margin: "10px 0",
     },
   },
 }));
 
 const RegisterView = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { pathname, search } = useLocation();
   const queryParams = new URLSearchParams(search);
   const [showAlert, setShowAlert] = useState({
@@ -128,49 +74,35 @@ const RegisterView = () => {
   });
 
   return (
-    <Page className={classes.root} title="Register">
-      <Box className={classes.mainBlock}>
-        <Box className={classes.leftSide}>
-          <Avatar
-            variant="square"
-            src="/static/img/onecall-logo.png"
-            className={classes.avatarLogo}
-          />
-        </Box>
-        <Box className={classes.rightSide}>
-          {showAlert.isAlert ? (
-            <CustomAlert
-              open={showAlert.isAlert}
-              severity={showAlert.severity}
-              alertTitle={showAlert.alertTitle}
-              alertText={showAlert.alertText}
-              onClose={() =>
-                setShowAlert({
-                  isAlert: false,
-                  alertTitle: "",
-                  alertText: "",
-                  severity: "",
-                })
-              }
-            />
-          ) : null}
-
+    <Page title="Register">
+      <Box sx={{ backgroundColor: "#183360", height: "100vh" }}>
+        <Container>
           <Box
-            display="flex"
-            flexDirection="column"
-            height="100%"
-            justifyContent="center"
+            sx={{
+              backgroundColor: "#f7f7f7",
+            }}
           >
-            <PerfectScrollbar>
-              <Container maxWidth="sm">
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  marginBottom={2}
-                >
-                  {/* We can place our logo here */}
-                </Box>
+            <AppBar />
+
+            <Box className={classes.mainBlock}>
+              {showAlert.isAlert ? (
+                <CustomAlert
+                  open={showAlert.isAlert}
+                  severity={showAlert.severity}
+                  alertTitle={showAlert.alertTitle}
+                  alertText={showAlert.alertText}
+                  onClose={() =>
+                    setShowAlert({
+                      isAlert: false,
+                      alertTitle: "",
+                      alertText: "",
+                      severity: "",
+                    })
+                  }
+                />
+              ) : null}
+
+              <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
                 <Formik
                   initialValues={{
                     firstName: "",
@@ -255,16 +187,20 @@ const RegisterView = () => {
                     values,
                   }) => (
                     <form autoComplete="off" onSubmit={handleSubmit}>
-                      <Box mb={3}>
-                        <Typography color="textPrimary" variant="h2">
-                          Register
-                        </Typography>
-                      </Box>
-                      <TextField
+                      <Typography
+                        color="textPrimary"
+                        variant="h2"
+                        sx={{ marginBottom: "12px" }}
+                      >
+                        NEW USER REGISTRATION
+                      </Typography>
+
+                      <CustomInputTextField
                         error={Boolean(touched.firstName && errors.firstName)}
                         fullWidth
                         helperText={touched.firstName && errors.firstName}
-                        label="First Name"
+                        is_required={true}
+                        attribute="First Name"
                         margin="normal"
                         name="firstName"
                         onBlur={handleBlur}
@@ -272,11 +208,12 @@ const RegisterView = () => {
                         value={values.firstName}
                         variant="outlined"
                       />
-                      <TextField
+                      <CustomInputTextField
                         error={Boolean(touched.lastName && errors.lastName)}
                         fullWidth
                         helperText={touched.lastName && errors.lastName}
-                        label="Last Name"
+                        is_required={true}
+                        attribute="Last Name"
                         margin="normal"
                         name="lastName"
                         onBlur={handleBlur}
@@ -284,12 +221,13 @@ const RegisterView = () => {
                         value={values.lastName}
                         variant="outlined"
                       />
-                      <TextField
+                      <CustomInputTextField
                         error={Boolean(touched.gender && errors.gender)}
                         select
                         fullWidth
                         helperText={touched.gender && errors.gender}
-                        label="Gender"
+                        is_required={true}
+                        attribute="Gender"
                         margin="normal"
                         name="gender"
                         onBlur={handleBlur}
@@ -300,12 +238,13 @@ const RegisterView = () => {
                         <MenuItem value="MALE">Male</MenuItem>
                         <MenuItem value="FEMALE">Female</MenuItem>
                         <MenuItem value="Other">Other</MenuItem>
-                      </TextField>
-                      <TextField
+                      </CustomInputTextField>
+                      <CustomInputTextField
                         error={Boolean(touched.email && errors.email)}
                         fullWidth
                         helperText={touched.email && errors.email}
-                        label="Email Address"
+                        is_required={true}
+                        attribute="Email Address"
                         margin="normal"
                         name="email"
                         onBlur={handleBlur}
@@ -315,11 +254,12 @@ const RegisterView = () => {
                         variant="outlined"
                       />
 
-                      <TextField
+                      <CustomInputTextField
                         error={Boolean(touched.password && errors.password)}
                         fullWidth
                         helperText={touched.password && errors.password}
-                        label="Password"
+                        is_required={true}
+                        attribute="Password"
                         margin="normal"
                         name="password"
                         onBlur={handleBlur}
@@ -328,7 +268,7 @@ const RegisterView = () => {
                         value={values.password}
                         variant="outlined"
                       />
-                      <TextField
+                      <CustomInputTextField
                         error={Boolean(
                           touched.passwordConfirmation &&
                             errors.passwordConfirmation
@@ -338,7 +278,8 @@ const RegisterView = () => {
                           touched.passwordConfirmation &&
                           errors.passwordConfirmation
                         }
-                        label="Confirm Password"
+                        is_required={true}
+                        attribute="Confirm Password"
                         margin="normal"
                         name="passwordConfirmation"
                         onBlur={handleBlur}
@@ -347,11 +288,12 @@ const RegisterView = () => {
                         value={values.passwordConfirmation}
                         variant="outlined"
                       />
-                      <TextField
+                      <CustomInputTextField
                         error={Boolean(touched.referralId && errors.referralId)}
                         fullWidth
                         helperText={touched.referralId && errors.referralId}
-                        label="Referral Id (Optional)"
+                        is_required={false}
+                        attribute="Referral Id (Optional)"
                         margin="normal"
                         name="referralId"
                         onBlur={handleBlur}
@@ -368,22 +310,26 @@ const RegisterView = () => {
                           type="submit"
                           variant="contained"
                         >
-                          Sign up
+                          Register
                         </Button>
                       </Box>
-                      <Typography color="textSecondary" variant="body1">
-                        Have an account?{" "}
-                        <Link component={RouterLink} to="/login" variant="h6">
-                          Sign in
-                        </Link>
-                      </Typography>
                     </form>
                   )}
                 </Formik>
-              </Container>
-            </PerfectScrollbar>
+                <Typography
+                  color="textSecondary"
+                  variant="body1"
+                  sx={{ textAlign: "center" }}
+                >
+                  Have an account?{" "}
+                  <Button component="span" onClick={() => navigate("/login")}>
+                    Sign in
+                  </Button>
+                </Typography>
+              </Box>
+            </Box>
           </Box>
-        </Box>
+        </Container>
       </Box>
     </Page>
   );

@@ -9,8 +9,9 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-
+import CustomInputTextField from "../../components/CustomInputField";
 import { makeStyles } from "@mui/styles";
+import { AppBar } from ".";
 import CustomAlert from "../../components/CustomAlert";
 
 import * as Yup from "yup";
@@ -44,6 +45,24 @@ const useStyles = makeStyles((theme) => ({
     marginTop: -12,
     marginLeft: -12,
   },
+
+  mainBlock: {
+    // width: "100%",
+    // height: "100vh",
+    // display: "flex",
+    // flexDirection: "row",
+    padding: "10px 50px 20px",
+    margin: "20px",
+    border: "1px solid #000000",
+    minWidth: "600px",
+    minHeight: "350px",
+    [theme.breakpoints.down("sm")]: {
+      // flexDirection: "column",
+      minWidth: "350px",
+      padding: "10px 0 10px 5px",
+      margin: "10px 0",
+    },
+  },
 }));
 
 const ResetPasswordView = ({ match }) => {
@@ -58,174 +77,183 @@ const ResetPasswordView = ({ match }) => {
   });
 
   return (
-    <Page className={classes.root} title="Reset Password">
-      {showAlert.isAlert ? (
-        <CustomAlert
-          open={showAlert.isAlert}
-          severity={showAlert.severity}
-          alertTitle={showAlert.alertTitle}
-          alertText={showAlert.alertText}
-          onClose={() =>
-            setShowAlert({
-              isAlert: false,
-              alertTitle: "",
-              alertText: "",
-              severity: "",
-            })
-          }
-        />
-      ) : null}
-      <Box
-        display="flex"
-        flexDirection="column"
-        height="100%"
-        justifyContent="center"
-      >
-        <Container maxWidth="sm">
+    <Page title="Reset Password">
+      <Box sx={{ backgroundColor: "#183360", height: "100vh" }}>
+        <Container>
           <Box
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            marginBottom={2}
-          >
-            {/* We can place our logo here */}
-          </Box>
-          <Formik
-            initialValues={{
-              password: "",
-              passwordConfirmation: "",
+            sx={{
+              backgroundColor: "#f7f7f7",
             }}
-            validationSchema={Yup.object().shape({
-              password: Yup.string()
-                .required("Please enter your password")
-                .matches(
-                  /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-                  "Password must contain at least 8 characters, one uppercase, one number and one special case character"
-                ),
+          >
+            <AppBar />
 
-              passwordConfirmation: Yup.string().when("password", {
-                is: (val) => (val && val.length > 0 ? true : false),
-                then: Yup.string().oneOf(
-                  [Yup.ref("password")],
-                  "Both password need to be the same"
-                ),
-              }),
-            })}
-            onSubmit={(values, { setSubmitting, resetForm }) => {
-              const url = Api.resetPassword;
-
-              let data = {
-                password: values["password"],
-                uidb64: params.uidb64,
-                token: params.token,
-              };
-
-              const config = {
-                headers: {
-                  "X-CSRFToken": Cookies.get("csrftoken"),
-                },
-              };
-
-              axios
-                .post(url, data, config)
-                .then((res) => {
-                  const { status, data } = res;
-                  if (status === 200) {
-                    setSubmitting(false);
+            <Box className={classes.mainBlock}>
+              {showAlert.isAlert ? (
+                <CustomAlert
+                  open={showAlert.isAlert}
+                  severity={showAlert.severity}
+                  alertTitle={showAlert.alertTitle}
+                  alertText={showAlert.alertText}
+                  onClose={() =>
                     setShowAlert({
-                      isAlert: true,
-                      alertText: data?.["message"],
-                      severity: "success",
-                    });
-                    resetForm();
+                      isAlert: false,
+                      alertTitle: "",
+                      alertText: "",
+                      severity: "",
+                    })
                   }
-                })
-                .catch((error) => {
-                  console.log(error);
-                  setSubmitting(false);
-                  setShowAlert({
-                    isAlert: true,
-                    alertText: "Something went wrong",
-                    severity: "error",
-                    alertTitle: "Error",
-                  });
-                  resetForm();
-                });
-            }}
-          >
-            {({
-              errors,
-              handleBlur,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-              touched,
-              values,
-            }) => (
-              <form autoComplete="off" onSubmit={handleSubmit}>
-                <Box mb={3}>
-                  <Typography color="textPrimary" variant="h2">
-                    Reset Password
-                  </Typography>
-                </Box>
-                <TextField
-                  error={Boolean(touched.password && errors.password)}
-                  fullWidth
-                  helperText={touched.password && errors.password}
-                  label="Password"
-                  margin="normal"
-                  name="password"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="password"
-                  value={values.password}
-                  variant="outlined"
                 />
-                <TextField
-                  error={Boolean(
-                    touched.passwordConfirmation && errors.passwordConfirmation
-                  )}
-                  fullWidth
-                  helperText={
-                    touched.passwordConfirmation && errors.passwordConfirmation
-                  }
-                  label="Confirm Password"
-                  margin="normal"
-                  name="passwordConfirmation"
-                  onBlur={handleBlur}
-                  onChange={handleChange}
-                  type="password"
-                  value={values.passwordConfirmation}
-                  variant="outlined"
-                />
+              ) : null}
 
-                <Box my={2}>
-                  <Button
-                    color="primary"
-                    disabled={isSubmitting}
-                    fullWidth
-                    size="large"
-                    type="submit"
-                    variant="contained"
-                  >
-                    Reset Password
-                    {isSubmitting && (
-                      <CircularProgress
-                        size={24}
-                        className={classes.submitProgress}
+              <Box sx={{ width: { xs: "100%", sm: "60%" } }}>
+                <Formik
+                  initialValues={{
+                    password: "",
+                    passwordConfirmation: "",
+                  }}
+                  validationSchema={Yup.object().shape({
+                    password: Yup.string()
+                      .required("Please enter your password")
+                      .matches(
+                        /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+                        "Password must contain at least 8 characters, one uppercase, one number and one special case character"
+                      ),
+
+                    passwordConfirmation: Yup.string().when("password", {
+                      is: (val) => (val && val.length > 0 ? true : false),
+                      then: Yup.string().oneOf(
+                        [Yup.ref("password")],
+                        "Both password need to be the same"
+                      ),
+                    }),
+                  })}
+                  onSubmit={(values, { setSubmitting, resetForm }) => {
+                    const url = Api.resetPassword;
+
+                    let data = {
+                      password: values["password"],
+                      uidb64: params.uidb64,
+                      token: params.token,
+                    };
+
+                    const config = {
+                      headers: {
+                        "X-CSRFToken": Cookies.get("csrftoken"),
+                      },
+                    };
+
+                    axios
+                      .post(url, data, config)
+                      .then((res) => {
+                        const { status, data } = res;
+                        if (status === 200) {
+                          setSubmitting(false);
+                          setShowAlert({
+                            isAlert: true,
+                            alertText: data?.["message"],
+                            severity: "success",
+                          });
+                          resetForm();
+                        }
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                        setSubmitting(false);
+                        setShowAlert({
+                          isAlert: true,
+                          alertText: "Something went wrong",
+                          severity: "error",
+                          alertTitle: "Error",
+                        });
+                        resetForm();
+                      });
+                  }}
+                >
+                  {({
+                    errors,
+                    handleBlur,
+                    handleChange,
+                    handleSubmit,
+                    isSubmitting,
+                    touched,
+                    values,
+                  }) => (
+                    <form autoComplete="off" onSubmit={handleSubmit}>
+                      <Typography
+                        color="textPrimary"
+                        variant="h2"
+                        sx={{ marginBottom: "16px" }}
+                      >
+                        Reset Password
+                      </Typography>
+
+                      <CustomInputTextField
+                        error={Boolean(touched.password && errors.password)}
+                        fullWidth
+                        helperText={touched.password && errors.password}
+                        attribute="Password"
+                        margin="normal"
+                        name="password"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        type="password"
+                        value={values.password}
+                        variant="outlined"
                       />
-                    )}
-                  </Button>
-                </Box>
-                <Typography color="textSecondary" variant="body1">
-                  Go back to{" "}
-                  <Link component={RouterLink} to="/login" variant="h6">
-                    Sign in
-                  </Link>
-                </Typography>
-              </form>
-            )}
-          </Formik>
+                      <CustomInputTextField
+                        error={Boolean(
+                          touched.passwordConfirmation &&
+                            errors.passwordConfirmation
+                        )}
+                        fullWidth
+                        helperText={
+                          touched.passwordConfirmation &&
+                          errors.passwordConfirmation
+                        }
+                        attribute="Confirm Password"
+                        margin="normal"
+                        name="passwordConfirmation"
+                        onBlur={handleBlur}
+                        onChange={handleChange}
+                        type="password"
+                        value={values.passwordConfirmation}
+                        variant="outlined"
+                      />
+
+                      <Box my={2}>
+                        <Button
+                          color="primary"
+                          disabled={isSubmitting}
+                          fullWidth
+                          size="large"
+                          type="submit"
+                          variant="contained"
+                        >
+                          Reset Password
+                          {isSubmitting && (
+                            <CircularProgress
+                              size={24}
+                              className={classes.submitProgress}
+                            />
+                          )}
+                        </Button>
+                      </Box>
+                      <Typography
+                        color="textSecondary"
+                        variant="body1"
+                        sx={{ textAlign: "center" }}
+                      >
+                        Go back to{" "}
+                        <Link component={RouterLink} to="/login" variant="h6">
+                          Sign in
+                        </Link>
+                      </Typography>
+                    </form>
+                  )}
+                </Formik>
+              </Box>
+            </Box>
+          </Box>
         </Container>
       </Box>
     </Page>

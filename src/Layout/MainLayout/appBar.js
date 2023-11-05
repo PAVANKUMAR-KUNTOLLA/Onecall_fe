@@ -165,60 +165,85 @@ function AppBar(props) {
   return (
     <Box sx={{ marginTop: "10px" }}>
       <Container maxWidth="lg">
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Box>
-            <Box sx={{ display: "flex" }}>
-              <Avatar
-                variant="square"
-                src="/static/img/onecall-logo.png"
-                sx={{
-                  height: 50,
-                  width: 140,
-                  marginBottom: "10px",
-                }}
-                className={customStyles.logoAvatar}
-              />
-              <Typography
-                variant="h6"
-                sx={{
-                  fontSize: "16px",
-                  marginTop: "12px",
-                  marginLeft: "20px",
-                }}
-              >
-                PERFECT PLACE TO FILE YOUR TAXES
+        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box>
+              <Box sx={{ display: "flex" }}>
+                <Avatar
+                  variant="square"
+                  src="/static/img/onecall-logo.png"
+                  sx={{
+                    height: 50,
+                    width: 140,
+                    marginBottom: "10px",
+                  }}
+                  className={customStyles.logoAvatar}
+                />
+                <Typography
+                  variant="h6"
+                  sx={{
+                    fontSize: "16px",
+                    marginTop: "12px",
+                    marginLeft: "20px",
+                  }}
+                >
+                  PERFECT PLACE TO FILE YOUR TAXES
+                </Typography>
+              </Box>
+              <Typography variant="body2" sx={{ fontSize: "16px" }}>
+                <strong>Phone:</strong> (248) 971-3300
+              </Typography>
+              <Typography variant="body2" sx={{ fontSize: "16px" }}>
+                <strong>E-mail:</strong> Onecalltaxservices.digital@gmail.com
               </Typography>
             </Box>
-            <Typography variant="body2" sx={{ fontSize: "16px" }}>
-              <strong>Phone:</strong> (248) 971-3300
+            <Avatar
+              variant="square"
+              src="/static/img/irs_image.jpg"
+              sx={{ width: "81px", height: "83px" }}
+            />
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "8px",
+            }}
+          >
+            <Typography sx={{ color: "rgb(255, 0, 0)" }}>
+              <strong>BEST WAY TO CONTACT US : PLEASE SEND AN EMAIL TO</strong>{" "}
+              onecalltaxservices.digital@gmail.com
             </Typography>
-            <Typography variant="body2" sx={{ fontSize: "16px" }}>
-              <strong>E-mail:</strong> Onecalltaxservices.digital@gmail.com
+
+            <Typography sx={{ fontSize: "16px" }}>
+              {" "}
+              <strong>Welcome:</strong> {state.email}
             </Typography>
           </Box>
+        </Box>
+
+        <Box sx={{ display: { xs: "block", sm: "none" } }}>
           <Avatar
             variant="square"
-            src="/static/img/irs_image.jpg"
-            sx={{ width: "81px", height: "83px" }}
+            src="/static/img/onecall-logo.png"
+            sx={{
+              height: 50,
+              width: 140,
+              marginTop: "12px",
+              marginBottom: "10px",
+            }}
+            className={customStyles.logoAvatar}
           />
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "8px",
-          }}
-        >
-          <Typography sx={{ color: "rgb(255, 0, 0)" }}>
-            <strong>BEST WAY TO CONTACT US : PLEASE SEND AN EMAIL TO</strong>{" "}
-            onecalltaxservices.digital@gmail.com
+          <Typography
+            variant="h6"
+            sx={{
+              fontSize: "16px",
+            }}
+          >
+            PERFECT PLACE TO FILE YOUR TAXES
           </Typography>
+        </Box>
 
-          <Typography sx={{ fontSize: "16px" }}>
-            {" "}
-            <strong>Welcome:</strong> {state.email}
-          </Typography>
-        </Box>
         <Box
           sx={{
             display: "flex",

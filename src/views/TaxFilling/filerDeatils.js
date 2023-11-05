@@ -462,69 +462,89 @@ const FilerDetails = ({
                         <Typography variant="h4" sx={{ marginBottom: "16px" }}>
                           Personal Details
                         </Typography>
-                        <Grid item xs={5} sx={{ marginTop: "20px" }}>
-                          <Typography variant="subtitle1" color="textSecondary">
+
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexWrap: "wrap",
+                            justifyContent: "space-between",
+                            maxWidth: "96%",
+                          }}
+                        >
+                          <Typography
+                            variant="subtitle1"
+                            color="textSecondary"
+                            sx={{ marginTop: "20px", maxWidth: "30%" }}
+                          >
                             Taxpayer Name
                             <font color="red" size="2">
                               (As Per SSN):
                             </font>
                           </Typography>
-                        </Grid>
 
-                        <CustomInputTextField
-                          attribute="First Name"
-                          attributeTextAlign="right"
-                          is_required={true}
-                          error={Boolean(touched.firstName && errors.firstName)}
-                          fullWidth
-                          helperText={touched.firstName && errors.firstName}
-                          // label={
-                          //   <CustomLabel label="First Name" required={true} />
-                          // }
-                          margin="normal"
-                          name="firstName"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          value={values.firstName}
-                          variant="outlined"
-                        />
+                          <Box>
+                            <CustomInputTextField
+                              attribute="First Name"
+                              attributeTextAlign="right"
+                              is_required={true}
+                              error={Boolean(
+                                touched.firstName && errors.firstName
+                              )}
+                              fullWidth
+                              helperText={touched.firstName && errors.firstName}
+                              // label={
+                              //   <CustomLabel label="First Name" required={true} />
+                              // }
+                              margin="normal"
+                              name="firstName"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.firstName}
+                              variant="outlined"
+                            />
 
-                        <CustomInputTextField
-                          attribute="Middle Initial"
-                          attributeTextAlign="right"
-                          is_required={false}
-                          error={Boolean(
-                            touched.middleName && errors.middleName
-                          )}
-                          fullWidth
-                          helperText={touched.middleName && errors.middleName}
-                          // label={
-                          //   <CustomLabel label="Middle Name" required={false} />
-                          // }
-                          margin="normal"
-                          name="middleName"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          value={values.middleName}
-                          variant="outlined"
-                        />
-                        <CustomInputTextField
-                          attribute="Last Name"
-                          attributeTextAlign="right"
-                          is_required={true}
-                          error={Boolean(touched.lastName && errors.lastName)}
-                          fullWidth
-                          helperText={touched.lastName && errors.lastName}
-                          // label={
-                          //   <CustomLabel label="Last Name" required={true} />
-                          // }
-                          margin="normal"
-                          name="lastName"
-                          onBlur={handleBlur}
-                          onChange={handleChange}
-                          value={values.lastName}
-                          variant="outlined"
-                        />
+                            <CustomInputTextField
+                              attribute="Middle Initial"
+                              attributeTextAlign="right"
+                              is_required={false}
+                              error={Boolean(
+                                touched.middleName && errors.middleName
+                              )}
+                              fullWidth
+                              helperText={
+                                touched.middleName && errors.middleName
+                              }
+                              // label={
+                              //   <CustomLabel label="Middle Name" required={false} />
+                              // }
+                              margin="normal"
+                              name="middleName"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.middleName}
+                              variant="outlined"
+                            />
+                            <CustomInputTextField
+                              attribute="Last Name"
+                              attributeTextAlign="right"
+                              is_required={true}
+                              error={Boolean(
+                                touched.lastName && errors.lastName
+                              )}
+                              fullWidth
+                              helperText={touched.lastName && errors.lastName}
+                              // label={
+                              //   <CustomLabel label="Last Name" required={true} />
+                              // }
+                              margin="normal"
+                              name="lastName"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={values.lastName}
+                              variant="outlined"
+                            />
+                          </Box>
+                        </Box>
 
                         <CustomInputTextField
                           attribute="SSN"
