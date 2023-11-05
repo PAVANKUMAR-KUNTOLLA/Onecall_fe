@@ -124,7 +124,7 @@ const ForgotPasswordView = () => {
             </Box> */}
 
         <Box mb={3}>
-          <Typography color="textPrimary" variant="h3">
+          <Typography color="textPrimary" variant="h4">
             FORGOT PASSWORD?
           </Typography>
         </Box>

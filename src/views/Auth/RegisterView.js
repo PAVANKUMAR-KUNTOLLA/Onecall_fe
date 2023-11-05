@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 50px 20px",
     margin: "20px",
     border: "1px solid #000000",
-    minWidth: "600px",
+    minWidth: "500px",
     [theme.breakpoints.down("sm")]: {
       // flexDirection: "column",
       minWidth: "350px",
@@ -189,7 +189,7 @@ const RegisterView = () => {
                     <form autoComplete="off" onSubmit={handleSubmit}>
                       <Typography
                         color="textPrimary"
-                        variant="h2"
+                        variant="h4"
                         sx={{ marginBottom: "12px" }}
                       >
                         NEW USER REGISTRATION

@@ -260,7 +260,7 @@ const TaxFillingPage = () => {
                   position: "absolute",
                   zIndex: "10",
                   left: 0,
-                  top: "50%",
+                  top: "70%",
                 }}
               >
                 <CircularProgress size={30} />

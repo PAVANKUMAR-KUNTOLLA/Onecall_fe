@@ -230,7 +230,7 @@ const LoginView = () => {
             }) => (
               <form autoComplete="off" onSubmit={handleSubmit}>
                 <Box mb={3}>
-                  <Typography color="textPrimary" variant="h3">
+                  <Typography color="textPrimary" variant="h4">
                     SIGN IN TO YOUR ACCOUNT
                   </Typography>
                 </Box>

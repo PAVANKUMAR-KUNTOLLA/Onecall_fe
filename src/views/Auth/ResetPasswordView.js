@@ -55,12 +55,13 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px",
     border: "1px solid #000000",
     minWidth: "600px",
-    minHeight: "350px",
+    minHeight: "300px",
     [theme.breakpoints.down("sm")]: {
       // flexDirection: "column",
       minWidth: "350px",
       padding: "10px 0 10px 5px",
       margin: "10px 0",
+      minHeight: "280px",
     },
   },
 }));
@@ -181,7 +182,7 @@ const ResetPasswordView = ({ match }) => {
                     <form autoComplete="off" onSubmit={handleSubmit}>
                       <Typography
                         color="textPrimary"
-                        variant="h2"
+                        variant="h4"
                         sx={{ marginBottom: "16px" }}
                       >
                         Reset Password

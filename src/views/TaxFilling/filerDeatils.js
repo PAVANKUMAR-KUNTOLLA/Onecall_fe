@@ -74,6 +74,25 @@ const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
+export function CustomLabel({ label, required }) {
+  return (
+    <label style={{ display: "flex", alignItems: "center" }}>
+      {label}
+      {required && (
+        <span
+          style={{
+            color: "red",
+            fontSize: "16px",
+            marginLeft: "3px",
+          }}
+        >
+          *
+        </span>
+      )}
+    </label>
+  );
+}
+
 const FilerDetails = ({
   id,
   personalDetails,
@@ -201,25 +220,6 @@ const FilerDetails = ({
         setIsDependantDetailsLoading(false);
       });
   };
-
-  function CustomLabel({ label, required }) {
-    return (
-      <label style={{ display: "flex", alignItems: "center" }}>
-        {label}
-        {required && (
-          <span
-            style={{
-              color: "red",
-              fontSize: "16px",
-              marginLeft: "3px",
-            }}
-          >
-            *
-          </span>
-        )}
-      </label>
-    );
-  }
 
   useEffect(() => {
     handleFetchDependantDetails();
@@ -644,7 +644,6 @@ const FilerDetails = ({
                             touched.residentialStatus &&
                               errors.residentialStatus
                           )}
-                          select
                           fullWidth
                           helperText={
                             touched.residentialStatus &&
@@ -662,21 +661,7 @@ const FilerDetails = ({
                           onChange={handleChange}
                           value={values.residentialStatus}
                           variant="outlined"
-                        >
-                          {[
-                            "H4",
-                            "US Citizen",
-                            "L2",
-                            "Green Card",
-                            "Other",
-                          ].map((each, id) => {
-                            return (
-                              <MenuItem key={id} value={each}>
-                                {each}
-                              </MenuItem>
-                            );
-                          })}
-                        </CustomInputTextField>
+                        />
                       </Box>
                     </Grid>
 
@@ -1371,7 +1356,6 @@ const FilerDetails = ({
                             name="spouseResidentialStatus"
                             onBlur={handleBlur}
                             fullWidth
-                            select
                             onChange={handleChange}
                             value={values.spouseResidentialStatus}
                             variant="outlined"
@@ -1383,10 +1367,7 @@ const FilerDetails = ({
                               touched.spouseResidentialStatus &&
                               errors.spouseResidentialStatus
                             }
-                          >
-                            <MenuItem value="VISA">Visa</MenuItem>
-                            <MenuItem value="CITIZENSHIP">Citizenship</MenuItem>
-                          </CustomInputTextField>
+                          />
 
                           <CustomInputTextField
                             attribute="Email Id"

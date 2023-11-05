@@ -24,6 +24,8 @@ import { makeStyles } from "@mui/styles";
 import { statesNames, countryCode } from "../../constants";
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
+import CustomInputTextField from "../../components/CustomInputField";
+import { CustomLabel } from "./filerDeatils";
 
 const useStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -189,83 +191,135 @@ const ConfirmDetails = ({
           <Grid item lg={6} sm={6} xs={12}>
             <Box className={customStyles.leftSide}>
               <Typography variant="h5">Personal Details</Typography>
-              <TextField
-                fullWidth
-                label="First Name"
-                margin="normal"
-                name="firstName"
+
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  maxWidth: "96%",
+                }}
+              >
+                <Typography
+                  variant="subtitle1"
+                  color="textSecondary"
+                  sx={{ marginTop: "20px", maxWidth: "30%" }}
+                >
+                  Taxpayer Name
+                  <font color="red" size="2">
+                    (As Per SSN):
+                  </font>
+                </Typography>
+
+                <Box>
+                  <CustomInputTextField
+                    disabled
+                    attribute="First Name"
+                    attributeTextAlign="right"
+                    is_required={true}
+                    fullWidth
+                    margin="normal"
+                    name="firstName"
+                    value={formData.firstName}
+                    variant="outlined"
+                  />
+
+                  <CustomInputTextField
+                    disabled
+                    attribute="Middle Initial"
+                    attributeTextAlign="right"
+                    is_required={false}
+                    fullWidth
+                    margin="normal"
+                    name="middleName"
+                    value={formData.middleName}
+                    variant="outlined"
+                  />
+                  <CustomInputTextField
+                    disabled
+                    attribute="Last Name"
+                    attributeTextAlign="right"
+                    is_required={true}
+                    fullWidth
+                    margin="normal"
+                    name="lastName"
+                    value={formData.lastName}
+                    variant="outlined"
+                  />
+                </Box>
+              </Box>
+
+              <CustomInputTextField
                 disabled
-                value={formData.firstName}
-                variant="outlined"
-              />
-              <TextField
+                attribute="SSN"
+                attributeTextAlign="right"
+                is_required={true}
                 fullWidth
-                label="Middle Name"
-                margin="normal"
-                name="middleName"
-                value={formData.middleName}
-                disabled
-                variant="outlined"
-              />
-              <TextField
-                fullWidth
-                label="Last Name"
-                margin="normal"
-                name="lastName"
-                disabled
-                value={formData.lastName}
-                variant="outlined"
-              />
-              <TextField
-                fullWidth
-                label="SSN"
                 margin="normal"
                 name="ssn"
-                value={formData.ssn}
-                disabled
+                value={transform(formData.ssn)}
                 variant="outlined"
               />
-              <TextField
+              <CustomInputTextField
+                disabled
+                attribute="Date of Birth"
+                attributeTextAlign="right"
+                is_required={true}
                 fullWidth
-                label=""
                 margin="normal"
                 name="dateOfBirth"
                 type="date"
                 value={formData.dateOfBirth}
-                disabled
                 variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                InputProps={{
+                  style: {
+                    color: "black",
+                  },
+                }}
+                inputProps={{
+                  placeholder: "",
+                }}
               />
-              <TextField
+              <CustomInputTextField
+                disabled
+                attribute="Gender"
+                attributeTextAlign="right"
+                is_required={true}
                 select
                 fullWidth
-                label="Gender"
                 margin="normal"
                 name="gender"
                 value={formData.gender}
-                disabled
                 variant="outlined"
               >
                 <MenuItem value="MALE">Male</MenuItem>
                 <MenuItem value="FEMALE">Female</MenuItem>
                 <MenuItem value="Other">Other</MenuItem>
-              </TextField>
-              <TextField
+              </CustomInputTextField>
+              <CustomInputTextField
+                disabled
+                attribute="Occupation / Job Title"
+                attributeTextAlign="right"
+                is_required={true}
                 fullWidth
-                label="Occupation"
                 margin="normal"
                 name="occupation"
                 value={formData.occupation}
-                disabled
                 variant="outlined"
               />
-              <TextField
+              <CustomInputTextField
+                disabled
+                attribute="Residential Status"
+                attributeTextAlign="right"
+                is_required={true}
                 fullWidth
-                label="Residential Status (Visa Type / Citizenship)"
                 margin="normal"
                 name="residentialStatus"
                 value={formData.residentialStatus}
                 variant="outlined"
-                disabled
               />
             </Box>
           </Grid>
@@ -273,39 +327,48 @@ const ConfirmDetails = ({
           {/* Right Side - Contact Details */}
           <Grid item lg={6} sm={6} xs={12}>
             <Box className={customStyles.rightSide}>
-              <Typography variant="h5">Contact Details</Typography>
-              <TextField
+              <Typography variant="h4" sx={{ marginBottom: "16px" }}>
+                Contact Details
+              </Typography>
+              <Typography
+                color={"red"}
+                sx={{ marginLeft: "10px" }}
+                variant="h5"
+              >
+                (Provide U.S current communication Address)
+              </Typography>
+              <CustomInputTextField
+                attribute="Street"
+                is_required={true}
                 fullWidth
-                label="Street"
-                margin="normal"
                 name="street"
                 value={formData.street}
-                disabled
                 variant="outlined"
+                disabled
               />
-              <TextField
+              <CustomInputTextField
+                attribute="Apartment"
+                is_required={true}
                 fullWidth
-                label="Apartment"
-                margin="normal"
                 name="apartment"
                 value={formData.apartment}
                 variant="outlined"
                 disabled
               />
-              <TextField
+              <CustomInputTextField
+                attribute="City"
+                is_required={true}
                 fullWidth
-                label="City"
-                margin="normal"
                 name="city"
                 value={formData.city}
-                disabled
                 variant="outlined"
+                disabled
               />
-              <TextField
+              <CustomInputTextField
+                attribute="State"
+                is_required={true}
                 select
                 fullWidth
-                label="State"
-                margin="normal"
                 name="state"
                 value={formData.state}
                 variant="outlined"
@@ -316,94 +379,187 @@ const ConfirmDetails = ({
                     {option.label}
                   </MenuItem>
                 ))}
-              </TextField>
-              <TextField
+              </CustomInputTextField>
+              <CustomInputTextField
+                attribute="Zip Code"
+                is_required={true}
                 fullWidth
-                label="Zip Code"
-                margin="normal"
                 name="zipCode"
                 value={formData.zipCode}
                 variant="outlined"
                 disabled
               />
-              <TextField
+              <CustomInputTextField
+                attribute="Country"
+                is_required={true}
                 select
                 fullWidth
-                label="Country"
-                margin="normal"
                 name="country"
                 value={formData.country}
-                disabled
                 variant="outlined"
+                disabled
               >
-                <MenuItem value="India">India</MenuItem>
                 <MenuItem value="USA">USA</MenuItem>
                 <MenuItem value="Other">Other</MenuItem>
-              </TextField>
-              <Grid container spacing={2}>
-                <Grid item sm={3} xs={4}>
-                  <TextField
-                    select
-                    fullWidth
-                    label="country code"
-                    margin="normal"
-                    name="primaryCountryCode"
-                    value={formData.primaryCountryCode}
-                    disabled
-                    variant="outlined"
+              </CustomInputTextField>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "93%",
+                  margin: "10px 0",
+                  maxHeight: "60px",
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{
+                    width: { xs: "30%", sm: "120px" },
+                  }}
+                >
+                  <span>Primary Phone</span>
+                  <span
+                    style={{
+                      color: "red",
+                      fontSize: "0.875rem",
+                      marginLeft: "3px",
+                    }}
                   >
-                    {countryCodes.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item sm={9} xs={8}>
-                  <TextField
-                    fullWidth
-                    label="Primary Phone Number"
-                    margin="normal"
-                    name="primaryPhoneNumber"
-                    value={formData.primaryPhoneNumber}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={3} xs={4}>
-                  <TextField
-                    select
-                    fullWidth
-                    label="Country Code"
-                    margin="normal"
-                    name="secondaryCountryCode"
-                    value={formData.secondaryCountryCode}
-                    variant="outlined"
-                    disabled
-                  >
-                    {countryCodes.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </Grid>
-                <Grid item sm={9} xs={8}>
-                  <TextField
-                    fullWidth
-                    label="Secondary Phone Number"
-                    margin="normal"
-                    name="secondaryPhoneNumber"
-                    value={formData.secondaryPhoneNumber}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-              </Grid>
-              <TextField
+                    *
+                  </span>
+                  &nbsp;:
+                </Typography>
+                <TextField
+                  attribute="Primary Phone"
+                  select
+                  name="primaryCountryCode"
+                  value={formData.primaryCountryCode}
+                  variant="outlined"
+                  disabled
+                  sx={{
+                    width: "18%",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "2px",
+                      },
+                    },
+                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                      {
+                        border: "0.1px solid #bdbdbd",
+                      },
+                    "& .MuiOutlinedInput-input": {
+                      padding: "10px",
+                      backgroundColor: "rgba(255,255,255,1)",
+                    },
+                  }}
+                >
+                  {countryCodes.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  name="primaryPhoneNumber"
+                  value={formData.primaryPhoneNumber}
+                  variant="outlined"
+                  disabled
+                  sx={{
+                    width: { xs: "50%", sm: "165px" },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "2px",
+                      },
+                    },
+                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                      {
+                        border: "0.1px solid #bdbdbd",
+                      },
+                    "& .MuiOutlinedInput-input": {
+                      padding: "10px",
+                      backgroundColor: "rgba(255,255,255,1)",
+                    },
+                  }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  width: "93%",
+                  margin: "10px 0",
+                  maxHeight: "60px",
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{
+                    width: { xs: "30%", sm: "120px" },
+                  }}
+                >
+                  <span>Secondary Phone</span>
+                  &nbsp;:
+                </Typography>
+                <TextField
+                  name="secondaryCountryCode"
+                  value={formData.secondaryCountryCode}
+                  variant="outlined"
+                  disabled
+                  sx={{
+                    width: "18%",
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "2px",
+                      },
+                    },
+                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                      {
+                        border: "0.1px solid #bdbdbd",
+                      },
+                    "& .MuiOutlinedInput-input": {
+                      padding: "10px",
+                      backgroundColor: "rgba(255,255,255,1)",
+                    },
+                  }}
+                >
+                  {countryCodes.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </TextField>
+                <TextField
+                  attribute="Secondary Phone"
+                  name="secondaryPhoneNumber"
+                  value={formData.secondaryPhoneNumber}
+                  variant="outlined"
+                  disabled
+                  sx={{
+                    width: { xs: "50%", sm: "165px" },
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "2px",
+                      },
+                    },
+                    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline":
+                      {
+                        border: "0.1px solid #bdbdbd",
+                      },
+                    "& .MuiOutlinedInput-input": {
+                      padding: "10px",
+                      backgroundColor: "rgba(255,255,255,1)",
+                    },
+                  }}
+                />
+              </Box>
+              <CustomInputTextField
+                attribute="Email Id"
+                is_required={true}
                 fullWidth
-                label="Contact Email"
-                margin="normal"
                 name="contactEmail"
                 value={formData.contactEmail}
                 variant="outlined"
@@ -412,62 +568,71 @@ const ConfirmDetails = ({
             </Box>
           </Grid>
         </Grid>
-        <Grid container sx={{ marginTop: "30px" }}>
-          <Grid container sx={{ marginBottom: "30px" }}>
-            <Grid
-              item
-              xs={10}
-              sm={5}
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              <Typography variant="body1">
-                Have you filed your taxes with Taxcooler in the last year?
-              </Typography>
-            </Grid>
-            <Grid item xs={2} sm={1}>
-              <select
-                id="taxFiledLastYear"
-                name="taxFiledLastYear"
-                value={formData.taxFiledLastYear}
-                style={{ width: "100%" }}
-                disabled
+        <Grid item xs={12}>
+          <Box sx={{ margin: "16px 0" }}>
+            <Grid container spacing={2}>
+              <Grid
+                item
+                xs={10}
+                sm={5}
+                style={{ display: "flex", alignItems: "center" }}
               >
-                <option value="">Select Option</option>{" "}
-                {/* Add an empty option */}
-                <option value="0">Yes</option>
-                <option value="1">No</option>
-              </select>
+                <Typography variant="body1">
+                  <CustomLabel
+                    label="Have you filed your taxes with Taxcooler in the last year?"
+                    required={true}
+                  />
+                </Typography>
+              </Grid>
+              <Grid item xs={2} sm={1}>
+                <select
+                  id="taxFiledLastYear"
+                  name="taxFiledLastYear"
+                  value={formData.taxFiledLastYear}
+                  style={{ width: "100%" }}
+                  disabled
+                >
+                  <option value="">Select</option>
+                  {/* Add an empty option */}
+                  <option value={true}>Yes</option>
+                  <option value={false}>No</option>
+                </select>
+              </Grid>
             </Grid>
-          </Grid>
-
-          <Grid container sx={{ marginBottom: "30px" }}>
-            <Grid
-              item
-              xs={8}
-              sm={5}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "30px",
-              }}
-            >
-              <Typography variant="body1">Taxpayer Status</Typography>
-            </Grid>
-            <Grid item xs={4} sm={1}>
-              <select
-                id="taxPayerStatus"
-                name="taxPayerStatus"
-                value={formData.taxPayerStatus}
-                style={{ width: "100%" }}
-                disabled
+          </Box>
+        </Grid>
+        <Grid item xs={12}>
+          <Box sx={{ margin: "16px 0" }}>
+            <Grid container spacing={2}>
+              <Grid
+                item
+                xs={8}
+                sm={5}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                }}
               >
-                <option value="">Select Status</option>{" "}
-                {/* Add an empty option */}
-                <option value="SINGLE">Single</option>
-                <option value="MARRIED">Married</option>
-              </select>
+                <Typography variant="body1">
+                  <CustomLabel label="Taxpayer Status" required={true} />
+                </Typography>
+              </Grid>
+              <Grid item xs={4} sm={1}>
+                <select
+                  id="taxPayerStatus"
+                  name="taxPayerStatus"
+                  value={formData.taxPayerStatus}
+                  style={{ width: "100%" }}
+                  disabled
+                >
+                  <option value="">Select Status</option>{" "}
+                  {/* Add an empty option */}
+                  <option value="SINGLE">Single</option>
+                  <option value="MARRIED">Married</option>
+                </select>
+              </Grid>
             </Grid>
-          </Grid>
+          </Box>
         </Grid>
         {formData.taxPayerStatus === "MARRIED" && (
           <Grid container spacing={2}>
@@ -475,65 +640,74 @@ const ConfirmDetails = ({
             <Grid item lg={6} sm={6} xs={12}>
               <Typography variant="h5">Spouse Details</Typography>
               <Grid container spacing={2}>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Spouse First Name"
-                    margin="normal"
-                    name="spouseFirstName"
-                    fullWidth
-                    value={formData.spouseFirstName}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Spouse Middle Initial"
-                    margin="normal"
-                    name="spouseMiddleInitial"
-                    fullWidth
-                    value={formData.spouseMiddleInitial}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Spouse Last Name"
-                    margin="normal"
-                    name="spouseLastName"
-                    fullWidth
-                    value={formData.spouseLastName}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Spouse SSN/ITIN"
-                    margin="normal"
-                    name="spouseSsnOrItin"
-                    fullWidth
-                    value={formData.spouseSsnOrItin}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Do you want to apply for ITIN?"
-                    select
-                    margin="normal"
-                    name="spouseApplyForItin"
-                    fullWidth
-                    value={formData.spouseApplyForItin}
-                    variant="outlined"
-                    disabled
+                <CustomInputTextField
+                  attribute="First Name"
+                  is_required={true}
+                  fullWidth
+                  name="spouseFirstName"
+                  value={formData.spouseFirstName}
+                  variant="outlined"
+                  disabled
+                />
+
+                <CustomInputTextField
+                  attribute="Middle Initial"
+                  is_required={false}
+                  fullWidth
+                  name="spouseMiddleInitial"
+                  value={formData.spouseMiddleInitial}
+                  variant="outlined"
+                  disabled
+                />
+
+                <CustomInputTextField
+                  attribute="Last Name"
+                  is_required={true}
+                  fullWidth
+                  name="spouseLastName"
+                  value={formData.spouseLastName}
+                  variant="outlined"
+                  disabled
+                />
+
+                <CustomInputTextField
+                  attribute="SSN/ITIN"
+                  is_required={true}
+                  fullWidth
+                  name="spouseSsnOrItin"
+                  value={transform(formData.spouseSsnOrItin)}
+                  variant="outlined"
+                  disabled
+                />
+
+                <CustomInputTextField
+                  attribute="Do you want to apply for ITIN?"
+                  is_required={true}
+                  select
+                  fullWidth
+                  name="spouseApplyForItin"
+                  value={formData.spouseApplyForItin}
+                  variant="outlined"
+                  disabled
+                >
+                  <MenuItem value={false}>No</MenuItem>
+                  <MenuItem value={true}>Yes</MenuItem>
+                </CustomInputTextField>
+
+                {formData.spouseApplyForItin === true && (
+                  <ButtonBase
+                    onClick={() =>
+                      handleDownloadTemplate("ITIN_Information.xls")
+                    }
+                    sx={{
+                      marginTop: "2px",
+                      textDecoration: "underline",
+                    }}
+                    disableTouchRipple
                   >
-                    <MenuItem value={false}>No</MenuItem>
-                    <MenuItem value={true}>Yes</MenuItem>
-                  </TextField>
-                </Grid>
+                    Download ITIN Information Excel
+                  </ButtonBase>
+                )}
               </Grid>
             </Grid>
 
@@ -541,101 +715,127 @@ const ConfirmDetails = ({
             <Grid item lg={6} sm={6} xs={12}>
               <Typography variant="h5">Spouse Contact</Typography>
               <Grid container spacing={2}>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label=""
-                    margin="normal"
-                    name="spouseDateOfBirth"
-                    fullWidth
-                    type="date"
-                    value={formData.spouseDateOfBirth}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Spouse Gender"
-                    select
-                    margin="normal"
-                    name="spouseGender"
-                    fullWidth
-                    value={formData.spouseGender}
-                    variant="outlined"
-                    disabled
-                  >
-                    <MenuItem value="MALE">Male</MenuItem>
-                    <MenuItem value="FEMALE">Female</MenuItem>
-                    <MenuItem value="Other">Other</MenuItem>
-                  </TextField>
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Spouse Occupation / Job Title"
-                    margin="normal"
-                    name="spouseOccupation"
-                    fullWidth
-                    value={formData.spouseOccupation}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Spouse Residential Status"
-                    margin="normal"
-                    name="spouseResidentialStatus"
-                    fullWidth
-                    value={formData.spouseResidentialStatus}
-                    variant="outlined"
-                    disabled
-                  >
-                    <MenuItem value="VISA">Visa</MenuItem>
-                    <MenuItem value="CITIZENSHIP">Citizenship</MenuItem>
-                  </TextField>
-                </Grid>
-                <Grid item sm={12} xs={12}>
-                  <TextField
-                    label="Spouse Email Id"
-                    margin="normal"
-                    name="spouseEmail"
-                    fullWidth
-                    value={formData.spouseEmail}
-                    variant="outlined"
-                    disabled
-                  />
-                </Grid>
+                <CustomInputTextField
+                  attribute="Date of Birth"
+                  is_required={true}
+                  fullWidth
+                  name="spouseDateOfBirth"
+                  type="date"
+                  value={formData.spouseDateOfBirth}
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    style: {
+                      color: "black",
+                    },
+                  }}
+                  inputProps={{
+                    placeholder: "",
+                  }}
+                  disabled
+                />
+
+                <CustomInputTextField
+                  attribute="Gender"
+                  is_required={true}
+                  select
+                  fullWidth
+                  name="spouseGender"
+                  value={formData.spouseGender}
+                  variant="outlined"
+                  disabled
+                >
+                  <MenuItem value="MALE">Male</MenuItem>
+                  <MenuItem value="FEMALE">Female</MenuItem>
+                  <MenuItem value="Other">Other</MenuItem>
+                </CustomInputTextField>
+
+                <CustomInputTextField
+                  attribute="Occupation / Job Title"
+                  is_required={true}
+                  fullWidth
+                  name="spouseOccupation"
+                  value={formData.spouseOccupation}
+                  variant="outlined"
+                  disabled
+                />
+
+                <CustomInputTextField
+                  attribute="Residential Status"
+                  is_required={true}
+                  fullWidth
+                  name="spouseResidentialStatus"
+                  value={formData.spouseResidentialStatus}
+                  variant="outlined"
+                  disabled
+                />
+
+                <CustomInputTextField
+                  attribute="Email Id"
+                  is_required={true}
+                  fullWidth
+                  name="spouseEmail"
+                  value={formData.spouseEmail}
+                  variant="outlined"
+                  disabled
+                />
               </Grid>
             </Grid>
           </Grid>
         )}
-        <Grid container sx={{ marginBottom: "30px" }}>
+        <Grid container>
           <Grid
-            item
-            xs={10}
-            sm={9}
-            style={{ display: "flex", alignItems: "center" }}
+            container
+            sx={{
+              marginTop: "36px",
+              marginBottom: "24px",
+            }}
           >
-            <Typography variant="body1">
-              Have you (or your spouse, if married) provided living support to
-              your kids and/or dependents during the tax year?
+            <Grid
+              item
+              xs={10}
+              sm={9}
+              sx={{ display: "flex", alignItems: "center" }}
+            >
+              <Typography variant="body1">
+                <CustomLabel
+                  label=" Have you (or your spouse, if married) provided living
+                        support to your kids and/or dependents during the tax
+                        year?"
+                />
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <CustomInputTextField
+                attribute=""
+                is_required={true}
+                // label={<CustomLabel label="" />}
+                select
+                margin="normal"
+                name="providedLivingSupport"
+                value={formData.providedLivingSupport}
+                variant="outlined"
+                disabled
+              >
+                <MenuItem value={true}>Yes</MenuItem>
+                <MenuItem value={false}>No</MenuItem>
+              </CustomInputTextField>
+            </Grid>
+          </Grid>
+          <Grid>
+            <Typography
+              variant="body1"
+              style={{ color: "blue", wordSpacing: "2px" }}
+            >
+              NOTE: Make sure the kids or dependants reported in your (Taxpayer)
+              2023 Tax Return are not claimed as dependants in any other 2023
+              Individual Tax Returns.
             </Typography>
           </Grid>
-          <Grid item xs={2} sm={3}>
-            <TextField
-              label=""
-              select
-              margin="normal"
-              name="providedLivingSupport"
-              value={formData.providedLivingSupport}
-              variant="outlined"
-              disabled
-            >
-              <MenuItem value={true}>Yes</MenuItem>
-              <MenuItem value={false}>No</MenuItem>
-            </TextField>
-          </Grid>
         </Grid>
+
         <Box>
           (
           <TableContainer
@@ -1277,70 +1477,73 @@ const ConfirmDetails = ({
               marginLeft: "0px",
             }}
           >
-            <Grid item sm={6} xs={12} className="leftSide">
-              <Typography variant="h5">Other Income Information</Typography>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Income Description"
-                  margin="normal"
-                  fullWidth
-                  value={formData.incomeDescription}
-                  disabled
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  label="Income Amount"
-                  margin="normal"
-                  fullWidth
-                  value={formData.incomeAmount}
-                  disabled
-                />
-              </Grid>
+            <Grid item xs={12} className="leftSide">
+              <Typography variant="h5">Add other Income Information</Typography>
+
+              <CustomInputTextField
+                disabled
+                fullWidth
+                attribute="Income Description"
+                margin="normal"
+                name="incomeDescription"
+                value={formData.incomeDescription}
+                variant="outlined"
+              />
+
+              <CustomInputTextField
+                disabled
+                fullWidth
+                attribute="Income Amount"
+                margin="normal"
+                name="incomeAmount"
+                value={formData.incomeAmount}
+                variant="outlined"
+                type="number"
+              />
             </Grid>
           </Grid>
-        </Grid>
-        <Grid container spacing={2} sx={{ marginLeft: "0px" }}>
-          <Typography variant="h4" sx={{ marginTop: "30px" }}>
-            Important Note
-          </Typography>
-          <Typography
-            sx={{
-              marginTop: "30px",
-              wordSpacing: "2px",
-            }}
-          >
-            The IRS and certain State Revenue Departments facilitate DIRECT
-            DEPOSIT / WITHDRAWAL of Tax Refund or Tax Dues on the Tax Returns.
-            If you are interested in availing this option, we request you to
-            kindly input the following details.
-          </Typography>
-
-          <Grid container sx={{ marginBottom: "30px", marginTop: "30px" }}>
-            <Grid
-              item
-              xs={10}
-              sm={4}
-              style={{ display: "flex", alignItems: "center" }}
+          <Grid container spacing={2} sx={{ marginLeft: "0px" }}>
+            <Typography variant="h4" sx={{ marginTop: "30px" }}>
+              Important Note
+            </Typography>
+            <Typography
+              sx={{
+                marginTop: "30px",
+                wordSpacing: "2px",
+              }}
             >
-              <Typography variant="body1">
-                I prefer to receive my tax refunds by way of
-              </Typography>
-            </Grid>
-            <Grid item xs={2} sm={4}>
-              <select
-                id="bankingType"
-                name="bankingType"
-                value={formData.bankingType}
-                style={{ width: "100%" }}
-                disabled
+              The IRS and certain State Revenue Departments facilitate DIRECT
+              DEPOSIT / WITHDRAWAL of Tax Refund or Tax Dues on the Tax Returns.
+              If you are interested in availing this option, we request you to
+              kindly input the following details.
+            </Typography>
+
+            <Grid container sx={{ marginBottom: "30px", marginTop: "30px" }}>
+              <Grid
+                item
+                xs={10}
+                sm={4}
+                style={{ display: "flex", alignItems: "center" }}
               >
-                <option value="">Select Option</option>
-                <option value="DIRECT DEPOSIT INTO MY BANK ACCOUNT">
-                  Direct deposit into my bank account
-                </option>
-                <option value="PAPER CHECK">Paper Check</option>
-              </select>
+                <Typography variant="body1">
+                  I prefer to receive my tax refunds by way of
+                </Typography>
+              </Grid>
+              <Grid item xs={2} sm={4}>
+                <select
+                  id="bankingType"
+                  name="bankingType"
+                  value={formData.bankingType}
+                  style={{ width: "100%" }}
+                  disabled
+                >
+                  <option value="">Select Option</option>
+                  <option value="DIRECT DEPOSIT INTO MY BANK ACCOUNT">
+                    Direct deposit into my bank account
+                  </option>
+                  <option value="PAPER CHECK">Paper Check</option>
+                </select>
+              </Grid>
             </Grid>
           </Grid>
 
@@ -1357,106 +1560,123 @@ const ConfirmDetails = ({
                 Note : Please understand that there is no risk by entering Bank
                 Account and Routing Numbers
               </Typography>
-              <Grid container spacing={2}>
+              <Grid
+                container
+                spacing={2}
+                sx={{
+                  border: "1px solid #000000",
+                  padding: "20px",
+                  marginBottom: "20px",
+                  backgroundColor: "#C7DFF0",
+                }}
+              >
                 <Grid item lg={6} sm={6} xs={12}>
-                  <TextField
-                    label="Bank Name"
+                  <CustomInputTextField
+                    attribute="Bank Name"
+                    is_required={false}
                     margin="normal"
                     name="bankName"
                     fullWidth
-                    value={formData.bankName}
+                    value={values.bankName}
                     variant="outlined"
-                    disabled
+                    disabled={values.bankingType === "PAPER CHECK"}
                   />
-                  <TextField
-                    label="Account Holder Name"
+                  <CustomInputTextField
+                    attribute="Account Number"
+                    is_required={false}
                     margin="normal"
-                    name="accountHolderName"
+                    name="accountNumber"
                     fullWidth
-                    value={formData.accountHolderName}
+                    value={values.accountNumber}
                     variant="outlined"
-                    disabled
+                    disabled={values.bankingType === "PAPER CHECK"}
                   />
-                  <TextField
-                    label="Ownership"
+                  <CustomInputTextField
+                    attribute="Routing Number"
+                    is_required={false}
+                    margin="normal"
+                    name="routingNumber"
+                    fullWidth
+                    value={values.routingNumber}
+                    variant="outlined"
+                    disabled={values.bankingType === "PAPER CHECK"}
+                  />
+                  <CustomInputTextField
+                    attribute="Account Type"
+                    is_required={false}
+                    margin="normal"
+                    name="accountType"
+                    select
+                    fullWidth
+                    value={values.accountType}
+                    variant="outlined"
+                    disabled={values.bankingType === "PAPER CHECK"}
+                  >
+                    <MenuItem value="SAVINGS">Savings</MenuItem>
+                    <MenuItem value="CHECKING">Checking</MenuItem>
+                  </CustomInputTextField>
+                  <CustomInputTextField
+                    attribute="Ownership"
+                    is_required={false}
                     margin="normal"
                     name="ownership"
                     select
                     fullWidth
-                    value={formData.ownership}
+                    value={values.ownership}
                     variant="outlined"
-                    disabled
+                    disabled={values.bankingType === "PAPER CHECK"}
                   >
                     <MenuItem value="TAXPAYER/SPOUSE">
                       Tax Payer / Spouse
                     </MenuItem>
                     <MenuItem value="JOINT">Joint</MenuItem>
-                  </TextField>
-
-                  <TextField
-                    label="Routing Number"
-                    margin="normal"
-                    name="routingNumber"
-                    fullWidth
-                    value={formData.routingNumber}
-                    variant="outlined"
-                    disabled
-                  />
-                  <TextField
-                    label="Confirm Routing Number"
-                    margin="normal"
-                    name="confirmRoutingNumber"
-                    fullWidth
-                    value={formData.confirmRoutingNumber}
-                    variant="outlined"
-                    disabled
-                  />
+                  </CustomInputTextField>
                 </Grid>
                 <Grid item lg={6} sm={6} xs={12}>
-                  <TextField
-                    label="Account Number"
+                  <CustomInputTextField
+                    attribute="Account Holder Name"
+                    is_required={false}
                     margin="normal"
-                    name="accountNumber"
+                    name="accountHolderName"
                     fullWidth
-                    value={formData.accountNumber}
+                    value={values.accountHolderName}
                     variant="outlined"
-                    disabled
+                    disabled={values.bankingType === "PAPER CHECK"}
                   />
-                  <TextField
-                    label="Confirm Account Number"
+                  <CustomInputTextField
+                    attribute="Confirm Account Number"
+                    is_required={false}
                     margin="normal"
                     name="confirmAccountNumber"
                     fullWidth
-                    value={formData.confirmAccountNumber}
+                    value={values.confirmAccountNumber}
                     variant="outlined"
-                    disabled
+                    disabled={values.bankingType === "PAPER CHECK"}
                   />
-                  <TextField
-                    label="Account Type"
+                  <CustomInputTextField
+                    attribute="Confirm Routing Number"
+                    is_required={false}
                     margin="normal"
-                    name="accountType"
-                    select
+                    name="confirmRoutingNumber"
                     fullWidth
-                    value={formData.accountType}
+                    value={values.confirmRoutingNumber}
                     variant="outlined"
-                    disabled
-                  >
-                    <MenuItem value="SAVINGS">Savings</MenuItem>
-                    <MenuItem value="CHECKING">Checking</MenuItem>
-                  </TextField>
-                  <TextField
-                    label="Confirm Account Type"
+                    disabled={values.bankingType === "PAPER CHECK"}
+                  />
+                  <CustomInputTextField
+                    attribute="Confirm Account Type"
+                    is_required={false}
                     margin="normal"
                     name="confirmAccountType"
                     select
                     fullWidth
-                    value={formData.confirmAccountType}
+                    value={values.confirmAccountType}
                     variant="outlined"
-                    disabled
+                    disabled={values.bankingType === "PAPER CHECK"}
                   >
                     <MenuItem value="SAVINGS">Savings</MenuItem>
                     <MenuItem value="CHECKING">Checking</MenuItem>
-                  </TextField>
+                  </CustomInputTextField>
                 </Grid>
               </Grid>
             </Grid>
