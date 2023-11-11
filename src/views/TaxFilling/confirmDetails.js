@@ -1591,9 +1591,9 @@ const ConfirmDetails = ({
                     margin="normal"
                     name="bankName"
                     fullWidth
-                    value={values.bankName}
+                    value={formData.bankName}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   />
                   <CustomInputTextField
                     attribute="Account Number"
@@ -1601,9 +1601,9 @@ const ConfirmDetails = ({
                     margin="normal"
                     name="accountNumber"
                     fullWidth
-                    value={values.accountNumber}
+                    value={formData.accountNumber}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   />
                   <CustomInputTextField
                     attribute="Routing Number"
@@ -1611,9 +1611,9 @@ const ConfirmDetails = ({
                     margin="normal"
                     name="routingNumber"
                     fullWidth
-                    value={values.routingNumber}
+                    value={formData.routingNumber}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   />
                   <CustomInputTextField
                     attribute="Account Type"
@@ -1622,9 +1622,9 @@ const ConfirmDetails = ({
                     name="accountType"
                     select
                     fullWidth
-                    value={values.accountType}
+                    value={formData.accountType}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   >
                     <MenuItem value="SAVINGS">Savings</MenuItem>
                     <MenuItem value="CHECKING">Checking</MenuItem>
@@ -1636,9 +1636,9 @@ const ConfirmDetails = ({
                     name="ownership"
                     select
                     fullWidth
-                    value={values.ownership}
+                    value={formData.ownership}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   >
                     <MenuItem value="TAXPAYER/SPOUSE">
                       Tax Payer / Spouse
@@ -1653,9 +1653,9 @@ const ConfirmDetails = ({
                     margin="normal"
                     name="accountHolderName"
                     fullWidth
-                    value={values.accountHolderName}
+                    value={formData.accountHolderName}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   />
                   <CustomInputTextField
                     attribute="Confirm Account Number"
@@ -1663,9 +1663,9 @@ const ConfirmDetails = ({
                     margin="normal"
                     name="confirmAccountNumber"
                     fullWidth
-                    value={values.confirmAccountNumber}
+                    value={formData.confirmAccountNumber}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   />
                   <CustomInputTextField
                     attribute="Confirm Routing Number"
@@ -1673,9 +1673,9 @@ const ConfirmDetails = ({
                     margin="normal"
                     name="confirmRoutingNumber"
                     fullWidth
-                    value={values.confirmRoutingNumber}
+                    value={formData.confirmRoutingNumber}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   />
                   <CustomInputTextField
                     attribute="Confirm Account Type"
@@ -1684,9 +1684,9 @@ const ConfirmDetails = ({
                     name="confirmAccountType"
                     select
                     fullWidth
-                    value={values.confirmAccountType}
+                    value={formData.confirmAccountType}
                     variant="outlined"
-                    disabled={values.bankingType === "PAPER CHECK"}
+                    disabled={formData.bankingType === "PAPER CHECK"}
                   >
                     <MenuItem value="SAVINGS">Savings</MenuItem>
                     <MenuItem value="CHECKING">Checking</MenuItem>
