@@ -218,7 +218,7 @@ const PickAppointment = ({ id }) => {
         >
           <Box sx={{ width: { xs: "100%", sm: "35%" } }}>
             <CustomInputTextField
-              isMarginTopNotRequired={true}
+              attributeMarginTop="12px"
               attribute="Client Name"
               is_required={false}
               fullWidth
@@ -234,7 +234,7 @@ const PickAppointment = ({ id }) => {
 
           <Box sx={{ width: { xs: "100%", sm: "35%" } }}>
             <CustomInputTextField
-              isMarginTopNotRequired={true}
+              attributeMarginTop="12px"
               attribute={"Phone Number"}
               is_required={false}
               fullWidth
@@ -291,7 +291,7 @@ const PickAppointment = ({ id }) => {
           >
             <Box sx={{ width: { xs: "100%", sm: "30%" } }}>
               <CustomInputTextField
-                isMarginTopNotRequired={true}
+                attributeMarginTop="12px"
                 attribute="Date"
                 is_required={false}
                 type="date"
@@ -303,7 +303,7 @@ const PickAppointment = ({ id }) => {
             </Box>
             <Box sx={{ width: { xs: "100%", sm: "40%" } }}>
               <CustomInputTextField
-                isMarginTopNotRequired={true}
+                attributeMarginTop="12px"
                 attribute="Preferrable Time"
                 is_required={false}
                 select
@@ -323,7 +323,7 @@ const PickAppointment = ({ id }) => {
             </Box>
             <Box sx={{ width: { xs: "100%", sm: "30%" } }}>
               <CustomInputTextField
-                isMarginTopNotRequired={true}
+                attributeMarginTop="12px"
                 attribute="Time Zone"
                 is_required={false}
                 select

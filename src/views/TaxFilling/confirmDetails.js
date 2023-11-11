@@ -638,11 +638,14 @@ const ConfirmDetails = ({
           <Grid container spacing={2}>
             {/* Left Side - Spouse Details */}
             <Grid item lg={6} sm={6} xs={12}>
-              <Typography variant="h5">Spouse Details</Typography>
+              <Typography variant="h5" mb={2}>
+                Spouse Details
+              </Typography>
               <Grid container spacing={2}>
                 <CustomInputTextField
                   attribute="First Name"
                   is_required={true}
+                  attributeMarginTop="8px"
                   fullWidth
                   name="spouseFirstName"
                   value={formData.spouseFirstName}
@@ -653,6 +656,7 @@ const ConfirmDetails = ({
                 <CustomInputTextField
                   attribute="Middle Initial"
                   is_required={false}
+                  attributeMarginTop="8px"
                   fullWidth
                   name="spouseMiddleInitial"
                   value={formData.spouseMiddleInitial}
@@ -663,6 +667,7 @@ const ConfirmDetails = ({
                 <CustomInputTextField
                   attribute="Last Name"
                   is_required={true}
+                  attributeMarginTop="8px"
                   fullWidth
                   name="spouseLastName"
                   value={formData.spouseLastName}
@@ -673,6 +678,7 @@ const ConfirmDetails = ({
                 <CustomInputTextField
                   attribute="SSN/ITIN"
                   is_required={true}
+                  attributeMarginTop="8px"
                   fullWidth
                   name="spouseSsnOrItin"
                   value={transform(formData.spouseSsnOrItin)}
@@ -683,6 +689,7 @@ const ConfirmDetails = ({
                 <CustomInputTextField
                   attribute="Do you want to apply for ITIN?"
                   is_required={true}
+                  attributeMarginTop="8px"
                   select
                   fullWidth
                   name="spouseApplyForItin"
@@ -713,11 +720,14 @@ const ConfirmDetails = ({
 
             {/* Right Side - Spouse Contact */}
             <Grid item lg={6} sm={6} xs={12}>
-              <Typography variant="h5">Spouse Contact</Typography>
+              <Typography variant="h5" mb={2}>
+                Spouse Contact
+              </Typography>
               <Grid container spacing={2}>
                 <CustomInputTextField
                   attribute="Date of Birth"
                   is_required={true}
+                  attributeMarginTop="8px"
                   fullWidth
                   name="spouseDateOfBirth"
                   type="date"
@@ -740,6 +750,7 @@ const ConfirmDetails = ({
                 <CustomInputTextField
                   attribute="Gender"
                   is_required={true}
+                  attributeMarginTop="8px"
                   select
                   fullWidth
                   name="spouseGender"
@@ -755,6 +766,7 @@ const ConfirmDetails = ({
                 <CustomInputTextField
                   attribute="Occupation / Job Title"
                   is_required={true}
+                  attributeMarginTop="8px"
                   fullWidth
                   name="spouseOccupation"
                   value={formData.spouseOccupation}
@@ -765,6 +777,7 @@ const ConfirmDetails = ({
                 <CustomInputTextField
                   attribute="Residential Status"
                   is_required={true}
+                  attributeMarginTop="8px"
                   fullWidth
                   name="spouseResidentialStatus"
                   value={formData.spouseResidentialStatus}
@@ -775,6 +788,7 @@ const ConfirmDetails = ({
                 <CustomInputTextField
                   attribute="Email Id"
                   is_required={true}
+                  attributeMarginTop="8px"
                   fullWidth
                   name="spouseEmail"
                   value={formData.spouseEmail}

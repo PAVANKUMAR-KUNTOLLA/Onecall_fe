@@ -16,7 +16,7 @@ const CustomInputTextField = ({
   attribute,
   is_required,
   attributeTextAlign,
-  isMarginTopNotRequired,
+  attributeMarginTop,
   ...others
 }) => {
   return (
@@ -31,7 +31,7 @@ const CustomInputTextField = ({
         <Grid
           item
           xs={4}
-          sx={{ marginTop: isMarginTopNotRequired ? "12px" : "24px" }}
+          sx={{ marginTop: attributeMarginTop ? attributeMarginTop : "24px" }}
         >
           {/* <Typography
             sx={{
@@ -123,6 +123,7 @@ CustomInputTextField.prototype = {
   is_required: PropTypes.bool,
   attribute: PropTypes.string, //['success','warning', 'error']
   attributeTextAlign: PropTypes.string, //['success','warning', 'error']
+  attributeMarginTop: PropTypes.string,
 };
 
 export default CustomInputTextField;
