@@ -2,13 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@mui/styles";
+import AppBar from "./appBar";
 import DrawerAppBar from "./appBarMaterialUI";
 import Api from "../../components/Api";
 import { privateApiGET } from "../../components/PrivateRoute";
 import { Box, CircularProgress } from "@mui/material";
 import { setUserInfo } from "../../redux/app/appSlice";
-
-import AppBar from "./appBar";
 
 const useStyles = makeStyles((theme) => ({}));
 
@@ -62,8 +61,7 @@ const AppLayout = () => {
             </Box>
           ) : (
             <div style={{ position: "relative" }}>
-              {/* <DrawerAppBar /> */}
-              <AppBar />
+              <DrawerAppBar />
               <Outlet />
             </div>
           )}
