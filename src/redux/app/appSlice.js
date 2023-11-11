@@ -10,12 +10,13 @@ export const appSlice = createSlice({
       state.taxYear = action.payload;
     },
     setUserInfo(state, action) {
-      const { first_name, last_name, email, phone_no, gender, address } =
+      const { first_name, last_name, email, role, phone_no, gender, address } =
         action.payload;
       state.first_name = first_name;
       state.last_name = last_name;
       state.phone_no = phone_no;
       state.email = email;
+      state.role = role;
       state.gender = gender;
       state.address = address;
     },

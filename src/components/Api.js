@@ -28,4 +28,7 @@ export default {
   makeReferal: "/api/v1/make_referal/",
   referalDetails: "/api/v1/referal_details/",
   templateDownload: "/api/v1/download_template",
+
+  //Admin Endpoints
+  associateDetails: "/api/v1/associates/",
 };

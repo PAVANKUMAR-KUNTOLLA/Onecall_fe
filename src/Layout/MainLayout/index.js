@@ -9,12 +9,13 @@ import { Box, CircularProgress } from "@mui/material";
 import { setUserInfo } from "../../redux/app/appSlice";
 
 import AppBar from "./appBar";
+import AdminAppBar from "./AdminLayout";
 
 const useStyles = makeStyles((theme) => ({}));
 
 const AppLayout = () => {
   const customStyles = useStyles();
-  const { initialAppLoading } = useSelector((state) => state.app);
+  const state = useSelector((state) => state.app);
   const dispatch = useDispatch();
   const location = useLocation();
   const [isLoadingSpin, setIsLoadingSpin] = useState(true);
@@ -41,35 +42,33 @@ const AppLayout = () => {
   }, []);
 
   return (
-    <>
-      {!initialAppLoading && (
-        <div>
-          {isLoadingSpin ? (
-            <Box
-              display="flex"
-              height="100%"
-              width="100%"
-              justifyContent="center"
-              alignItems="center"
-              sx={{
-                position: "absolute",
-                zIndex: "10",
-                left: 0,
-                top: 0,
-              }}
-            >
-              <CircularProgress size={30} />
-            </Box>
-          ) : (
-            <div style={{ position: "relative" }}>
-              {/* <DrawerAppBar /> */}
-              <AppBar />
-              <Outlet />
-            </div>
-          )}
-        </div>
-      )}
-    </>
+    <div>
+      <div>
+        {isLoadingSpin ? (
+          <Box
+            display="flex"
+            height="100%"
+            width="100%"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              position: "absolute",
+              zIndex: "10",
+              left: 0,
+              top: 0,
+            }}
+          >
+            <CircularProgress size={30} />
+          </Box>
+        ) : (
+          <div style={{ position: "relative" }}>
+            {/* <DrawerAppBar /> */}
+            {state.role === "ADMIN" ? <AdminAppBar /> : <AppBar />}
+            <Outlet />
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 
