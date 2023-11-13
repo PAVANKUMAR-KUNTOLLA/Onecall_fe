@@ -23,6 +23,7 @@ export default {
   downloadTaxDocsFile: "/api/v1/download_tax_docs/",
   deleteTaxDocsFile: "/api/v1/delete_tax_docs/",
   bookAppointment: "/api/v1/book_appointment/",
+  updateAppointment: "/api/v1/update_appointment/",
   appointmentDetails: "/api/v1/appointment_details/",
   deleteAppointment: "/api/v1/delete_appointment/",
   makeReferal: "/api/v1/make_referal/",
@@ -31,4 +32,5 @@ export default {
 
   //Admin Endpoints
   associateDetails: "/api/v1/associates/",
+  users: "/api/v1/users/",
 };

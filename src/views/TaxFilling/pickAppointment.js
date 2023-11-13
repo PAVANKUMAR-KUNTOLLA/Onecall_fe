@@ -15,30 +15,35 @@ import {
   Paper,
   MenuItem,
   CircularProgress,
+  Chip,
+  IconButton,
+  Avatar,
 } from "@mui/material";
 import { useSelector } from "react-redux";
+import CustomAlert from "../../components/CustomAlert";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import Api from "../../components/Api";
 import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
 import { makeStyles } from "@mui/styles";
 import CustomInputTextField from "../../components/CustomInputField";
+import { thousands_separators } from "../../utils/index";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
-    fontSize: "16px",
-    fontWeight: "400",
-    lineHeight: "23px",
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
-  tableData: {
     fontSize: "16px",
     fontWeight: "700",
     lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
       // marginBottom: "8px",
+      display: "none",
+    },
+  },
+  tableData: {
+    fontSize: "16px",
+    fontWeight: "400",
+    lineHeight: "23px",
+    [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
@@ -85,6 +90,13 @@ const PickAppointment = ({ id }) => {
   });
   const [appointmentDetails, setAppointmentDetails] = useState([]);
 
+  const [showAlert, setShowAlert] = useState({
+    isAlert: false,
+    alertTitle: "",
+    alertText: "",
+    severity: "",
+  });
+
   const handleDateChange = (event) => {
     setAppointmentData({
       ...appointmentData,
@@ -114,12 +126,22 @@ const PickAppointment = ({ id }) => {
         const { status, data } = response;
         if (status === 200) {
           console.log("data", data);
-          setIsPickAppointmentDetailsLoading(false);
-          handleFetchAppointmentDetails();
+          setShowAlert({
+            isAlert: true,
+            alertText: "Appointment Cancelled Successfully",
+            severity: "success",
+          });
         }
+        setIsPickAppointmentDetailsLoading(false);
+        handleFetchAppointmentDetails();
       })
       .catch((error) => {
         console.log("Error", error);
+        setShowAlert({
+          isAlert: true,
+          severity: "error",
+          alertText: data?.["message"],
+        });
         setIsPickAppointmentDetailsLoading(false);
       });
   };
@@ -138,6 +160,21 @@ const PickAppointment = ({ id }) => {
       })
       .catch((error) => {
         console.log("Error", error);
+        if (error.response.status === 400 || error.response.status === 401) {
+          setShowAlert({
+            isAlert: true,
+            alertText: error.response.data?.message,
+            severity: "error",
+            alertTitle: "Error",
+          });
+        } else {
+          setShowAlert({
+            isAlert: true,
+            alertText: "Something went wrong",
+            severity: "error",
+            alertTitle: "Error",
+          });
+        }
         setIsPickAppointmentDetailsLoading(false);
       });
   };
@@ -149,7 +186,14 @@ const PickAppointment = ({ id }) => {
         const { status, data } = response;
         if (status === 200) {
           console.log("data", data);
-          setIsPickAppointmentDetailsLoading(false);
+          if (status === 200) {
+            console.log("data", data?.data);
+            setShowAlert({
+              isAlert: true,
+              alertText: data?.message,
+              severity: "success",
+            });
+          }
           setAppointmentData({
             date: "",
             time: "23:00",
@@ -157,9 +201,25 @@ const PickAppointment = ({ id }) => {
           });
           handleFetchAppointmentDetails();
         }
+        setIsPickAppointmentDetailsLoading(false);
       })
       .catch((error) => {
         console.log("Error", error);
+        if (error.response.status === 400 || error.response.status === 401) {
+          setShowAlert({
+            isAlert: true,
+            alertText: error.response.data?.message,
+            severity: "error",
+            alertTitle: "Error",
+          });
+        } else {
+          setShowAlert({
+            isAlert: true,
+            alertText: "Something went wrong",
+            severity: "error",
+            alertTitle: "Error",
+          });
+        }
         setIsPickAppointmentDetailsLoading(false);
       });
   };
@@ -203,7 +263,22 @@ const PickAppointment = ({ id }) => {
         minHeight: { xs: "auto", sm: "800px" },
       }}
     >
-      {" "}
+      {showAlert.isAlert ? (
+        <CustomAlert
+          open={showAlert.isAlert}
+          severity={showAlert.severity}
+          alertTitle={showAlert.alertTitle}
+          alertText={showAlert.alertText}
+          onClose={() =>
+            setShowAlert({
+              isAlert: false,
+              alertTitle: "",
+              alertText: "",
+              severity: "",
+            })
+          }
+        />
+      ) : null}
       <Container>
         <Typography variant="h5">
           Tax Notes Interview - Schedule your date:
@@ -398,31 +473,53 @@ const PickAppointment = ({ id }) => {
                           {row.end_time}
                         </TableCell>
                         <TableCell className={customStyles.tableData}>
-                          {row.status}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            visibility:
-                              row.status === "BOOKED" ? "visible" : "hidden",
-                            display: { xs: "none", sm: "block" },
-                          }}
-                          className={customStyles.tableData}
-                        >
-                          <Button
-                            disabled={isPickAppointmentDetailsLoading}
-                            startIcon={<DeleteIcon />}
-                            size="small"
-                            onClick={() => {
-                              handleCancelAppointment(row.id);
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              marginTop: "8px",
+                              alignItems: "center",
+                              marginBottom: {
+                                xs: row.status !== "BOOKED" ? "14px" : 0,
+                                sm: 0,
+                              },
                             }}
-                            className={customStyles.buttons}
                           >
-                            Delete{" "}
-                            {isPickAppointmentDetailsLoading && (
-                              <CircularProgress sx={{ ml: 1 }} size={14} />
-                            )}
-                          </Button>
+                            <Chip
+                              label={row["status"]}
+                              size="small"
+                              color={
+                                row.status === "BOOKED"
+                                  ? "info"
+                                  : row.status === "CANCELLED"
+                                  ? "error"
+                                  : "success"
+                              }
+                            />
+
+                            <IconButton
+                              disabled={isPickAppointmentDetailsLoading}
+                              sx={{
+                                height: "40px",
+                                width: "40px",
+                                visibility:
+                                  row.status === "BOOKED"
+                                    ? "visible"
+                                    : "hidden",
+                                onCursor: "pointer",
+                                display: { xs: "none", sm: "flex" },
+                              }}
+                              onClick={() => handleCancelAppointment(row.id)}
+                            >
+                              <Avatar
+                                alt="delete"
+                                src="/static/img/deleteIcon.svg"
+                                sx={{ height: "24px", width: "24px" }}
+                              />
+                            </IconButton>
+                          </Box>
                         </TableCell>
+
                         <TableCell className={customStyles.mobileView}>
                           <Box>
                             <Box

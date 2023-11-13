@@ -29,18 +29,18 @@ import { ALIGN_LEFT } from "@blueprintjs/core/lib/esm/common/classes";
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "400",
-    lineHeight: "23px",
+    fontWeight: "700",
+    lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
+      // marginBottom: "8px",
       display: "none",
     },
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "700",
-    lineHeight: "22px",
+    fontWeight: "400",
+    lineHeight: "23px",
     [theme.breakpoints.down("sm")]: {
-      // marginBottom: "8px",
       display: "none",
     },
   },

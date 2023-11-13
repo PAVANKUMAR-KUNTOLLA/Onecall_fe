@@ -30,18 +30,18 @@ import axios from "axios";
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "400",
-    lineHeight: "23px",
+    fontWeight: "700",
+    lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
+      // marginBottom: "8px",
       display: "none",
     },
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "700",
-    lineHeight: "22px",
+    fontWeight: "400",
+    lineHeight: "23px",
     [theme.breakpoints.down("sm")]: {
-      // marginBottom: "8px",
       display: "none",
     },
   },
@@ -171,12 +171,22 @@ const UploadTaxDocs = ({ id }) => {
       .then((res) => {
         const { status, data } = res;
         if (status === 200) {
+          setShowAlert({
+            isAlert: true,
+            severity: "success",
+            alertText: data?.["message"],
+          });
           setIsLoading(false);
           handleFetchMyTaxDocs();
         }
       })
       .catch((err) => {
         console.log("handleDeleteFile--->", err);
+        setShowAlert({
+          isAlert: true,
+          severity: "error",
+          alertText: data?.["message"],
+        });
         setIsLoading(false);
       });
   };
@@ -440,6 +450,9 @@ const UploadTaxDocs = ({ id }) => {
                     <TableCell className={customStyles.tableHeader}>
                       File Size
                     </TableCell>
+                    <TableCell className={customStyles.tableHeader}>
+                      Actions
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -447,7 +460,7 @@ const UploadTaxDocs = ({ id }) => {
                     state.myTaxDocs.map((row, index) => (
                       <TableRow key={index}>
                         <TableCell className={customStyles.tableData}>
-                          {row.file_name}
+                          {row.file_name.replace(/^[^_]*_([^_]*_)/, "")}
                         </TableCell>
                         <TableCell className={customStyles.tableData}>
                           {row.upload_time}
@@ -456,36 +469,43 @@ const UploadTaxDocs = ({ id }) => {
                           {row.file_size}
                         </TableCell>
                         <TableCell className={customStyles.buttons}>
-                          <Button
-                            disabled={isLoading}
-                            startIcon={<GetApp />}
-                            size="small"
-                            variant="outlined"
-                            onClick={() => {
-                              handleDownloadFile(row.file_name);
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              justifyContent: "space-between",
                             }}
                           >
-                            Download{" "}
-                            {isLoading && (
-                              <CircularProgress sx={{ ml: 1 }} size={14} />
-                            )}
-                          </Button>
+                            <Button
+                              disabled={isLoading}
+                              startIcon={<GetApp />}
+                              size="small"
+                              variant="outlined"
+                              onClick={() => {
+                                handleDownloadFile(row.file_name);
+                              }}
+                            >
+                              Download{" "}
+                              {isLoading && (
+                                <CircularProgress sx={{ ml: 1 }} size={14} />
+                              )}
+                            </Button>
+                            <Button
+                              disabled={isLoading}
+                              startIcon={<DeleteIcon />}
+                              size="small"
+                              onClick={() => {
+                                handleDeleteFile(row.file_name);
+                              }}
+                            >
+                              Delete{" "}
+                              {isLoading && (
+                                <CircularProgress sx={{ ml: 1 }} size={14} />
+                              )}
+                            </Button>
+                          </Box>
                         </TableCell>
-                        <TableCell className={customStyles.buttons}>
-                          <Button
-                            disabled={isLoading}
-                            startIcon={<DeleteIcon />}
-                            size="small"
-                            onClick={() => {
-                              handleDeleteFile(row.file_name);
-                            }}
-                          >
-                            Delete{" "}
-                            {isLoading && (
-                              <CircularProgress sx={{ ml: 1 }} size={14} />
-                            )}
-                          </Button>
-                        </TableCell>
+
                         <TableCell className={customStyles.mobileView}>
                           <Box
                             sx={{
@@ -508,7 +528,7 @@ const UploadTaxDocs = ({ id }) => {
                                   customStyles.mobileViewTableCellValue
                                 }
                               >
-                                {row.file_name}
+                                {row.file_name.replace(/^[^_]*_([^_]*_)/, "")}
                               </Typography>
                             </Box>
                             <Box sx={{ marginTop: "3px" }}>
