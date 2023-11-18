@@ -20,14 +20,17 @@ import {
   Avatar,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import CustomAlert from "../../components/CustomAlert";
+import CustomAlert from "../../../components/CustomAlert";
 
 import DeleteIcon from "@mui/icons-material/Delete";
-import Api from "../../components/Api";
-import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
+import Api from "../../../components/Api";
+import {
+  privateApiGET,
+  privateApiPOST,
+} from "../../../components/PrivateRoute";
 import { makeStyles } from "@mui/styles";
-import CustomInputTextField from "../../components/CustomInputField";
-import { thousands_separators } from "../../utils/index";
+import CustomInputTextField from "../../../components/CustomInputField";
+import { thousands_separators } from "../../../utils/index";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {

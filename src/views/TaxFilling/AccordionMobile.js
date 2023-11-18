@@ -8,15 +8,15 @@ import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@mui/styles";
-import BankDetails from "./bankDetails";
-import FilerDetails from "./filerDeatils";
-import IncomeDetails from "./incomeDetails";
-import PickAppointment from "./pickAppointment";
-import UploadTaxDocs from "./TaxDocs";
-import TaxReturns from "./taxReturns";
+import BankDetails from "./Forms/bankDetails";
+import FilerDetails from "./Forms/filerDeatils";
+import IncomeDetails from "./Forms/incomeDetails";
+import PickAppointment from "./Forms/pickAppointment";
+import UploadTaxDocs from "./Forms/TaxDocs";
+import TaxReturns from "./Forms/taxReturns";
 import PayPalPayment from "../Home/payPalPayment";
-import ConfirmDetails from "./confirmDetails";
-import RefundQuote from "./refundQuote";
+import ConfirmDetails from "./Forms/confirmDetails";
+import RefundQuote from "./Forms/refundQuote";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {

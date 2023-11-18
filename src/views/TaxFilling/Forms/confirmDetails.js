@@ -21,10 +21,13 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
-import { statesNames, countryCode } from "../../constants";
-import Api from "../../components/Api";
-import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
-import CustomInputTextField from "../../components/CustomInputField";
+import { statesNames, countryCode } from "../../../constants";
+import Api from "../../../components/Api";
+import {
+  privateApiGET,
+  privateApiPOST,
+} from "../../../components/PrivateRoute";
+import CustomInputTextField from "../../../components/CustomInputField";
 import { CustomLabel } from "./filerDeatils";
 
 const useStyles = makeStyles((theme) => ({

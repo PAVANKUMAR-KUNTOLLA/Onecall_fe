@@ -12,9 +12,9 @@ import {
 } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup"; // Import Yup for validation
-import Api from "../../components/Api";
-import { privateApiPOST } from "../../components/PrivateRoute";
-import CustomInputTextField from "./../../components/CustomInputField";
+import Api from "../../../components/Api";
+import { privateApiPOST } from "../../../components/PrivateRoute";
+import CustomInputTextField from "../../../components/CustomInputField";
 
 const validationSchema = Yup.object().shape({
   bankingType: Yup.string().required("Banking Type is required"),

@@ -204,7 +204,7 @@ const AppointmentUpdateConfirmationDialogBox = ({
         ) : data.action === "delete" ? (
           <Box sx={{ margin: { xs: "0 0 32px", sm: "32px 152px 32px" } }}>
             <Typography className={customStyles.mainText}>
-              Are you sure you want to delete your order?
+              Are you sure you want to delete your appointment?
             </Typography>
           </Box>
         ) : null}

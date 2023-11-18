@@ -19,14 +19,14 @@ import StackedBarChartOutlined from "@mui/icons-material/StackedBarChartOutlined
 import PriceCheckOutlined from "@mui/icons-material/PriceCheckOutlined";
 import SavingsOutlinedIcon from "@mui/icons-material/SavingsOutlined";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
-import FilerDeatils from "./filerDeatils";
-import IncomeDetails from "./incomeDetails";
-import BankDetails from "./bankDetails";
-import ConfirmDetails from "./confirmDetails";
-import PickAppointment from "./pickAppointment";
+import FilerDeatils from "./Forms/filerDeatils";
+import IncomeDetails from "./Forms/incomeDetails";
+import BankDetails from "./Forms/bankDetails";
+import ConfirmDetails from "./Forms/confirmDetails";
+import PickAppointment from "./Forms/pickAppointment";
 import PayPalPayment from "../Home/payPalPayment";
-import TaxReturns from "./taxReturns";
-import UploadTaxDocs from "./TaxDocs";
+import TaxReturns from "./Forms/taxReturns";
+import UploadTaxDocs from "./Forms/TaxDocs";
 
 export const customTextStyles = makeStyles((theme) => ({
   accordion: {

@@ -37,6 +37,8 @@ import financialYears from "../../../../mock-adapter/financialYears.json";
 import SearchFiltersPage from "./SearchFilters";
 import UsersDisplayPage from "./UsersDisplay";
 import AppointmentUpdateConfirmationDialogBox from "./UpdateAppointment";
+import { DataArray } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -98,6 +100,7 @@ const SearchClientsPage = () => {
   const customStyles = customTextStyles();
   const [isLoadingSpin, setIsLoadingSpin] = useState(false);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
   const [filters, setFilters] = useState({
     name: "All",
     criteria: "Equals to",
@@ -203,14 +206,23 @@ const SearchClientsPage = () => {
     }));
   };
 
-  const handleSetAppointmentDetailsUpdateDialogBoxOpen = (id, action) => {
-    setAppointmentDetailsData((prev) => ({
-      ...prev,
-      appointmentId: id,
-      action: action,
-    }));
-    if (action === "update" || action === "delete") {
+  const handleSetAppointmentDetailsUpdateDialogBoxOpen = (data, action) => {
+    if (
+      (action === "delete" &&
+        data.filing.appointmentDate &&
+        data.filing.appointmentTime) ||
+      action === "update"
+    ) {
+      setAppointmentDetailsData((prev) => ({
+        ...prev,
+        appointmentId: data.filing.appointmentId,
+        action: action,
+      }));
       setIsAppointmentUpdateConfirmationDialogBoxOpen(true);
+    } else if (!action && data.filing.taxFilingId) {
+      navigate(
+        `/app/tax-filing/${data.filing.taxFilingYear}/${data.filing.taxFilingId}/0`
+      );
     }
   };
 

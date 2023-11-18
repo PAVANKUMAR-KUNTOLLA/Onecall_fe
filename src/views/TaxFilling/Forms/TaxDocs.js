@@ -22,9 +22,12 @@ import { makeStyles } from "@mui/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { GetApp, CloudUpload, FilterAltOffSharp } from "@mui/icons-material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
-import Api from "../../components/Api";
-import CustomAlert from "../../components/CustomAlert";
+import {
+  privateApiGET,
+  privateApiPOST,
+} from "../../../components/PrivateRoute";
+import Api from "../../../components/Api";
+import CustomAlert from "../../../components/CustomAlert";
 import axios from "axios";
 
 export const customTextStyles = makeStyles((theme) => ({
@@ -136,6 +139,7 @@ const UploadTaxDocs = ({ id }) => {
     let payload = {
       file_name: file,
       id: id,
+      type: "docs",
     };
 
     privateApiPOST(Api.downloadTaxDocsFile, payload, { responseType: "blob" })
@@ -165,6 +169,7 @@ const UploadTaxDocs = ({ id }) => {
     let payload = {
       file_name: file,
       id: id,
+      type: "docs",
     };
 
     privateApiPOST(Api.deleteTaxDocsFile, payload)
@@ -221,6 +226,7 @@ const UploadTaxDocs = ({ id }) => {
     const formData = new FormData();
     formData.append("upload", state.selectedFile);
     formData.append("id", id);
+    formData.append("type", "docs");
 
     const token = sessionStorage.getItem("token");
     axios
@@ -267,7 +273,7 @@ const UploadTaxDocs = ({ id }) => {
 
   const handleFetchMyTaxDocs = () => {
     setState((prev) => ({ ...prev, isMyTaxDocsLoading: true }));
-    let payload = { id: id };
+    let payload = { id: id, type: "docs" };
     privateApiPOST(Api.uploadTaxDocs, payload)
       .then((response) => {
         const { status, data } = response;
@@ -472,7 +478,7 @@ const UploadTaxDocs = ({ id }) => {
                           <Box
                             sx={{
                               display: "flex",
-                              flexWrap: "wrap",
+                              flexWrap: "nowrap",
                               justifyContent: "space-between",
                             }}
                           >

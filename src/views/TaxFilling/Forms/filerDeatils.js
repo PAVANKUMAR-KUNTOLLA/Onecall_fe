@@ -20,10 +20,13 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { makeStyles } from "@mui/styles";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
-import { statesNames, countryCode } from "../../constants";
-import Api from "../../components/Api";
-import { privateApiGET, privateApiPOST } from "../../components/PrivateRoute";
-import CustomInputTextField from "../../components/CustomInputField";
+import { statesNames, countryCode } from "../../../constants";
+import Api from "../../../components/Api";
+import {
+  privateApiGET,
+  privateApiPOST,
+} from "../../../components/PrivateRoute";
+import CustomInputTextField from "../../../components/CustomInputField";
 import { ALIGN_LEFT } from "@blueprintjs/core/lib/esm/common/classes";
 
 const customTextStyles = makeStyles((theme) => ({

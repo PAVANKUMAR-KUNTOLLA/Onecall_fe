@@ -186,12 +186,12 @@ const UsersDisplayPage = ({
                           {row.phone_no}
                         </TableCell>
                         <TableCell className={customStyles.tableData}>
-                          {row.appointment.date}
+                          {row.filing.appointmentDate}
                         </TableCell>
                         <TableCell className={customStyles.tableData}>
-                          {row.appointment.time}
+                          {row.filing.appointmentTime}
                         </TableCell>
-                        <TableCell>
+                        <TableCell sx={{ display: "flex", flexWrap: "nowrap" }}>
                           {/* <IconButton
                             disabled={isDeleteLoadingSpin}
                             size="small"
@@ -223,7 +223,7 @@ const UsersDisplayPage = ({
                           <button
                             onClick={(e) =>
                               handleUpdateAppointmentDetails(
-                                row.appointment.id,
+                                row,
                                 action[row.id]
                               )
                             }

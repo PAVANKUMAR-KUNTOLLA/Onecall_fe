@@ -17,9 +17,9 @@ import {
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup"; // Import Yup for validation
 import TextField from "@mui/material/TextField";
-import Api from "../../components/Api";
-import { privateApiPOST } from "../../components/PrivateRoute";
-import CustomInputTextField from "../../components/CustomInputField";
+import Api from "../../../components/Api";
+import { privateApiPOST } from "../../../components/PrivateRoute";
+import CustomInputTextField from "../../../components/CustomInputField";
 
 const IncomeDetails = ({
   id,
