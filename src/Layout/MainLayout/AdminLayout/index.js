@@ -196,7 +196,7 @@ function AdminAppBar(props) {
             <Avatar
               variant="square"
               src="/static/img/irs_image.jpg"
-              sx={{ width: "81px", height: "83px" }}
+              sx={{ width: "61px", height: "63px" }}
             />
           </Box>
         </Box>

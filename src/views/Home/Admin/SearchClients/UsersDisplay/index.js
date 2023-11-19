@@ -150,7 +150,7 @@ const UsersDisplayPage = ({
                 aria-label="Place Order Series Table"
               >
                 <TableHead>
-                  <TableRow>
+                  <TableRow sx={{ backgroundColor: "#CCEEEE" }}>
                     <TableCell className={customStyles.tableHeader}>
                       Full Name
                     </TableCell>
@@ -203,7 +203,7 @@ const UsersDisplayPage = ({
                             <DeleteIcon />
                           </IconButton> */}
 
-                          <select
+                          {/* <select
                             id="action"
                             name="action"
                             value={row.id in action ? action[row.id] : ""}
@@ -219,23 +219,25 @@ const UsersDisplayPage = ({
                             <option value="delete">Delete</option>
                             <option value="update">Update</option>
                             <option value="refund">Refund</option>
-                          </select>
-                          <button
-                            onClick={(e) =>
-                              handleUpdateAppointmentDetails(
-                                row,
-                                action[row.id]
-                              )
-                            }
-                            style={{
-                              minHeight: "25px",
-                              padding: "2px",
-                              marginLeft: "5px",
-                              border: "1px solid black",
-                            }}
-                          >
-                            Submit
-                          </button>
+                          </select> */}
+                          {["view", "update", "delete", "refund"].map(
+                            (each, id) => (
+                              <button
+                                key={id}
+                                onClick={(e) =>
+                                  handleUpdateAppointmentDetails(row, each)
+                                }
+                                style={{
+                                  minHeight: "25px",
+                                  padding: "2px",
+                                  marginLeft: "5px",
+                                  border: "1px solid black",
+                                }}
+                              >
+                                {each}
+                              </button>
+                            )
+                          )}
                         </TableCell>
                         <TableCell className={customStyles.mobileView}>
                           <Box>
@@ -313,6 +315,14 @@ const UsersDisplayPage = ({
                 </TableBody>
               </Table>
             </TableContainer>
+          )}
+          {data.length === 0 && !isUserDetailsLoadingSpin && (
+            <Typography
+              variant="h5"
+              sx={{ textAlign: "center", margin: "5px 0" }}
+            >
+              No Records Found
+            </Typography>
           )}
         </Box>
       </Box>

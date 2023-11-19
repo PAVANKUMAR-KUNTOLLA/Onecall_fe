@@ -123,127 +123,125 @@ const AdminHomePage = () => {
   useEffect(() => {}, []);
 
   return (
-    <Box>
-      <Container maxWidth="lg">
-        <Grid container>
-          <Grid item xs={isMenuOpen ? 3 : 1}>
-            <Card
+    <Box sx={{ margin: "0 30px 0 20px" }}>
+      {/* <Container maxWidth="lg"> */}
+      <Grid container>
+        <Grid item xs={isMenuOpen ? 2 : 1}>
+          <Card
+            sx={{
+              minHeight: isMenuOpen ? "320px" : "50px",
+              borderRadius: "2px",
+              marginRight: "10px",
+            }}
+          >
+            <IconButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <MenuIcon />
+            </IconButton>
+
+            {isMenuOpen && (
+              <Box>
+                <Box
+                  sx={{
+                    border: "1px solid #D5D5D5",
+                    margin: "10px 5px",
+                  }}
+                >
+                  <Typography className={customStyles.tabHeader}>
+                    Manage Client Information
+                  </Typography>
+                  <Button
+                    onClick={() => handleActiveTabChange("Search Clients")}
+                    variant={
+                      isActiveTab === "Search Clients" ? "contained" : "text"
+                    }
+                    className={customStyles.tabButton}
+                    sx={{
+                      color:
+                        isActiveTab === "Search Clients" ? "#fff" : "#474747",
+                    }}
+                  >
+                    Search Clients (New)
+                  </Button>
+                </Box>
+                <Box
+                  sx={{
+                    border: "1px solid #D5D5D5",
+                    margin: "30px 5px 10px",
+                  }}
+                >
+                  <Typography className={customStyles.tabHeader}>
+                    Manage Associate Information
+                  </Typography>
+                  <Button
+                    onClick={() => handleActiveTabChange("Associates List")}
+                    variant={
+                      isActiveTab === "Associates List" ? "contained" : "text"
+                    }
+                    className={customStyles.tabButton}
+                    sx={{
+                      color:
+                        isActiveTab === "Associates List" ? "#fff" : "#474747",
+                    }}
+                  >
+                    Associates List
+                  </Button>
+                  <Button
+                    onClick={() => handleActiveTabChange("Add Associate")}
+                    variant={
+                      isActiveTab === "Add Associate" ? "contained" : "text"
+                    }
+                    className={customStyles.tabButton}
+                    sx={{
+                      color:
+                        isActiveTab === "Add Associate" ? "#fff" : "#474747",
+                    }}
+                  >
+                    Add Associate
+                  </Button>
+                </Box>
+              </Box>
+            )}
+          </Card>
+        </Grid>
+        <Grid item xs={isMenuOpen ? 10 : 11}>
+          {isLoadingSpin ? (
+            <Box
+              display="flex"
+              height="100%"
+              width="100%"
+              justifyContent="center"
+              alignItems="center"
               sx={{
-                minHeight: isMenuOpen ? "320px" : "50px",
-                borderRadius: "2px",
-                marginRight: "10px",
+                position: "absolute",
+                zIndex: "10",
+                left: 0,
+                top: "30%",
               }}
             >
-              <IconButton onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <MenuIcon />
-              </IconButton>
-
-              {isMenuOpen && (
-                <Box>
-                  <Box
-                    sx={{
-                      border: "1px solid #D5D5D5",
-                      margin: "10px 5px",
-                    }}
-                  >
-                    <Typography className={customStyles.tabHeader}>
-                      Manage Client Information
-                    </Typography>
-                    <Button
-                      onClick={() => handleActiveTabChange("Search Clients")}
-                      variant={
-                        isActiveTab === "Search Clients" ? "contained" : "text"
-                      }
-                      className={customStyles.tabButton}
-                      sx={{
-                        color:
-                          isActiveTab === "Search Clients" ? "#fff" : "#474747",
-                      }}
-                    >
-                      Search Clients (New)
-                    </Button>
-                  </Box>
-                  <Box
-                    sx={{
-                      border: "1px solid #D5D5D5",
-                      margin: "30px 5px 10px",
-                    }}
-                  >
-                    <Typography className={customStyles.tabHeader}>
-                      Manage Associate Information
-                    </Typography>
-                    <Button
-                      onClick={() => handleActiveTabChange("Associates List")}
-                      variant={
-                        isActiveTab === "Associates List" ? "contained" : "text"
-                      }
-                      className={customStyles.tabButton}
-                      sx={{
-                        color:
-                          isActiveTab === "Associates List"
-                            ? "#fff"
-                            : "#474747",
-                      }}
-                    >
-                      Associates List
-                    </Button>
-                    <Button
-                      onClick={() => handleActiveTabChange("Add Associate")}
-                      variant={
-                        isActiveTab === "Add Associate" ? "contained" : "text"
-                      }
-                      className={customStyles.tabButton}
-                      sx={{
-                        color:
-                          isActiveTab === "Add Associate" ? "#fff" : "#474747",
-                      }}
-                    >
-                      Add Associate
-                    </Button>
-                  </Box>
-                </Box>
-              )}
-            </Card>
-          </Grid>
-          <Grid item xs={isMenuOpen ? 9 : 11}>
-            {isLoadingSpin ? (
-              <Box
-                display="flex"
-                height="100%"
-                width="100%"
-                justifyContent="center"
-                alignItems="center"
-                sx={{
-                  position: "absolute",
-                  zIndex: "10",
-                  left: 0,
-                  top: "30%",
-                }}
-              >
-                <CircularProgress size={30} />
-              </Box>
-            ) : data ? (
-              <Box
-                sx={{
-                  backgroundColor: "rgba(255,255,255,1)",
-                  boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                  borderRadius: "4px",
-                  padding: "20px 10px",
-                  height: "800px", // Adjust the height as needed
-                  overflow: "auto", // Add overflow to enable scrolling
-                  maxHeight: "800px", // Add a maximum height to prevent content from overflowing
-                }}
-              >
-                <PerfectScrollbar>
-                  {isActiveTab === "Search Clients" && <SearchClientsPage />}
-                  {isActiveTab === "Associates List" && <AssociatesListPage />}
-                  {isActiveTab === "Add Associate" && <AddAssociatePage />}
-                </PerfectScrollbar>
-              </Box>
-            ) : null}
-          </Grid>
+              <CircularProgress size={30} />
+            </Box>
+          ) : data ? (
+            <Box
+              sx={{
+                backgroundColor: "rgba(255,255,255,1)",
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                borderRadius: "4px",
+                padding: "20px 10px",
+                height: "1000px", // Adjust the height as needed
+                overflow: "auto", // Add overflow to enable scrolling
+                maxHeight: "1000px", // Add a maximum height to prevent content from overflowing
+              }}
+            >
+              <PerfectScrollbar>
+                {isActiveTab === "Search Clients" && <SearchClientsPage />}
+                {isActiveTab === "Associates List" && <AssociatesListPage />}
+                {isActiveTab === "Add Associate" && <AddAssociatePage />}
+              </PerfectScrollbar>
+            </Box>
+          ) : null}
         </Grid>
-      </Container>
+      </Grid>
+      {/* </Container> */}
     </Box>
   );
 };
