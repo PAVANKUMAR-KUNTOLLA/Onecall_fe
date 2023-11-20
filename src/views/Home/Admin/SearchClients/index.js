@@ -37,7 +37,6 @@ import financialYears from "../../../../mock-adapter/financialYears.json";
 import SearchFiltersPage from "./SearchFilters";
 import UsersDisplayPage from "./UsersDisplay";
 import AppointmentUpdateConfirmationDialogBox from "./UpdateAppointment";
-import { DataArray } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import RefundPage from "./Refund";
 

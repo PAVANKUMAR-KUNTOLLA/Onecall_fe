@@ -1851,7 +1851,7 @@ const FilerDetails = ({
                         </Grid>
                       </Grid>
                     )}
-                    <Box>
+                    <Grid item xs={12}>
                       {isDependantDetailsLoading ? (
                         <CircularProgress />
                       ) : (
@@ -1873,19 +1873,32 @@ const FilerDetails = ({
                             <TableHead>
                               <TableRow>
                                 <TableCell className={customStyles.tableHeader}>
-                                  First Name
+                                  Name
                                 </TableCell>
+
                                 <TableCell className={customStyles.tableHeader}>
-                                  Last Name
+                                  Relationship
                                 </TableCell>
                                 <TableCell className={customStyles.tableHeader}>
                                   SSN/ITIN
                                 </TableCell>
                                 <TableCell className={customStyles.tableHeader}>
-                                  Relationship
+                                  Apply ?
+                                </TableCell>
+                                <TableCell className={customStyles.tableHeader}>
+                                  DOB
                                 </TableCell>
                                 <TableCell className={customStyles.tableHeader}>
                                   Visa Type
+                                </TableCell>
+                                <TableCell className={customStyles.tableHeader}>
+                                  C.S
+                                </TableCell>
+                                <TableCell className={customStyles.tableHeader}>
+                                  Months
+                                </TableCell>
+                                <TableCell className={customStyles.tableHeader}>
+                                  Action
                                 </TableCell>
                               </TableRow>
                             </TableHead>
@@ -1896,17 +1909,8 @@ const FilerDetails = ({
                                     <TableCell
                                       className={customStyles.tableData}
                                     >
-                                      {row.additionalFirstName}
-                                    </TableCell>
-                                    <TableCell
-                                      className={customStyles.tableData}
-                                    >
+                                      {row.additionalFirstName}{" "}
                                       {row.additionalLastName}
-                                    </TableCell>
-                                    <TableCell
-                                      className={customStyles.tableData}
-                                    >
-                                      {transform(row.additionalSsnOrItin)}
                                     </TableCell>
                                     <TableCell
                                       className={customStyles.tableData}
@@ -1916,7 +1920,34 @@ const FilerDetails = ({
                                     <TableCell
                                       className={customStyles.tableData}
                                     >
+                                      {transform(row.additionalSsnOrItin)}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      {row.additionalApplyForItin
+                                        ? "YES"
+                                        : "NO"}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      {row.additionalDateOfBirth}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
                                       {row.additionalVisaType}
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      USA
+                                    </TableCell>
+                                    <TableCell
+                                      className={customStyles.tableData}
+                                    >
+                                      {row.additionalStayCount}
                                     </TableCell>
                                     <TableCell
                                       className={customStyles.tableData}
@@ -2073,12 +2104,20 @@ const FilerDetails = ({
                             </TableBody>
                           </Table>
 
+                          {dependantDetails.length === 0 && (
+                            <Typography
+                              variant="h5"
+                              sx={{ textAlign: "center", margin: "5px 0" }}
+                            >
+                              No Records Found
+                            </Typography>
+                          )}
                           <Typography
                             variant="h5"
                             sx={{
                               textAlign: "center",
                               color: "red",
-                              marginTop: "15px",
+                              marginTop: "20px",
                             }}
                           >
                             TO MODIFY EXISTING DEPENDENT DETAILS, DELETE THE
@@ -2086,7 +2125,7 @@ const FilerDetails = ({
                           </Typography>
                         </TableContainer>
                       )}
-                    </Box>
+                    </Grid>
                     <Grid item xs={12}>
                       <Box
                         sx={{

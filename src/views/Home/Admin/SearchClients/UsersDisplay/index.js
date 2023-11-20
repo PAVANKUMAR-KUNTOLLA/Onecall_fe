@@ -192,34 +192,6 @@ const UsersDisplayPage = ({
                           {row.filing.appointmentTime}
                         </TableCell>
                         <TableCell sx={{ display: "flex", flexWrap: "nowrap" }}>
-                          {/* <IconButton
-                            disabled={isDeleteLoadingSpin}
-                            size="small"
-                            onClick={() => {
-                              handleDeleteAssociate(row.id);
-                            }}
-                            className={customStyles.buttons}
-                          >
-                            <DeleteIcon />
-                          </IconButton> */}
-
-                          {/* <select
-                            id="action"
-                            name="action"
-                            value={row.id in action ? action[row.id] : ""}
-                            onChange={(e) =>
-                              setAction((prev) => ({
-                                ...prev,
-                                [row.id]: e.target.value,
-                              }))
-                            }
-                            style={{ minHeight: "25px", padding: "5px" }}
-                          >
-                            <option value="view">View</option>
-                            <option value="delete">Delete</option>
-                            <option value="update">Update</option>
-                            <option value="refund">Refund</option>
-                          </select> */}
                           {["view", "update", "delete", "refund"].map(
                             (each, id) => (
                               <button

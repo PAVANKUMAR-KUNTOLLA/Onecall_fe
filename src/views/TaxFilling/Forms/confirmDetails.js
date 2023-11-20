@@ -853,8 +853,7 @@ const ConfirmDetails = ({
           </Grid>
         </Grid>
 
-        <Box>
-          (
+        <Grid item xs={12}>
           <TableContainer
             sx={{
               marginTop: "32px",
@@ -867,24 +866,33 @@ const ConfirmDetails = ({
               sx={{
                 borderCollapse: "collapse",
               }}
-              aria-label="Place Order Series Table"
             >
               <TableHead>
                 <TableRow>
                   <TableCell className={customStyles.tableHeader}>
-                    First Name
+                    Name
                   </TableCell>
+
                   <TableCell className={customStyles.tableHeader}>
-                    Last Name
+                    Relationship
                   </TableCell>
                   <TableCell className={customStyles.tableHeader}>
                     SSN/ITIN
                   </TableCell>
                   <TableCell className={customStyles.tableHeader}>
-                    Relationship
+                    Apply ?
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    DOB
                   </TableCell>
                   <TableCell className={customStyles.tableHeader}>
                     Visa Type
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    C.S
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    Months
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -893,20 +901,30 @@ const ConfirmDetails = ({
                   dependantDetails.map((row, index) => (
                     <TableRow key={index}>
                       <TableCell className={customStyles.tableData}>
-                        {row.additionalFirstName}
-                      </TableCell>
-                      <TableCell className={customStyles.tableData}>
-                        {row.additionalLastName}
-                      </TableCell>
-                      <TableCell className={customStyles.tableData}>
-                        {transform(row.additionalSsnOrItin)}
+                        {row.additionalFirstName} {row.additionalLastName}
                       </TableCell>
                       <TableCell className={customStyles.tableData}>
                         {row.additionalRelationship}
                       </TableCell>
                       <TableCell className={customStyles.tableData}>
+                        {transform(row.additionalSsnOrItin)}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.additionalApplyForItin ? "YES" : "NO"}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.additionalDateOfBirth}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
                         {row.additionalVisaType}
                       </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        USA
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.additionalStayCount}
+                      </TableCell>
+
                       <TableCell className={customStyles.mobileView}>
                         <Box>
                           <Box
@@ -973,7 +991,7 @@ const ConfirmDetails = ({
                             sx={{
                               display: "flex",
                               flexWrap: "wrap",
-                              justifyContent: "space-around",
+                              justifyContent: "space-between",
                               marginTop: "16px",
                             }}
                           >
@@ -1020,7 +1038,7 @@ const ConfirmDetails = ({
               </TableBody>
             </Table>
           </TableContainer>
-        </Box>
+        </Grid>
         <Grid container spacing={2}>
           {/* Interest Income */}
           <Grid item sm={12} xs={12}>
