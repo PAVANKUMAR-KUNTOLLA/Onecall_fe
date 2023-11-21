@@ -89,7 +89,7 @@ const SearchFiltersPage = ({
         </Grid>
       </Grid>
       <Typography
-        color={"red"}
+        color={"#11a63d"}
         sx={{
           textAlign: "center",
           marginTop: "2px",

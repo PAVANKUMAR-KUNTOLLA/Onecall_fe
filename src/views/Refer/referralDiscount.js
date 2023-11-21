@@ -21,7 +21,7 @@ const ReferralDiscount = () => {
         backgroundImage: "none",
       }}
     >
-      <Container>
+      <Container maxWidth="lg">
         <Box>
           <Typography variant="h3">Referral Discount Details :</Typography>
           <Typography sx={{ marginTop: "10px" }}>

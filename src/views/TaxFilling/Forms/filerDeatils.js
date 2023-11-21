@@ -17,6 +17,8 @@ import {
   ButtonBase,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { makeStyles } from "@mui/styles";
 import * as Yup from "yup";
 import { Formik, Form } from "formik";
@@ -27,12 +29,11 @@ import {
   privateApiPOST,
 } from "../../../components/PrivateRoute";
 import CustomInputTextField from "../../../components/CustomInputField";
-import { ALIGN_LEFT } from "@blueprintjs/core/lib/esm/common/classes";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "700",
+    fontWeight: 600,
     lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
       // marginBottom: "8px",
@@ -41,7 +42,7 @@ const customTextStyles = makeStyles((theme) => ({
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "400",
+    fontWeight: 400,
     lineHeight: "23px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -97,6 +98,7 @@ export function CustomLabel({ label, required }) {
 }
 
 const FilerDetails = ({
+  open,
   id,
   personalDetails,
   contactDetails,
@@ -225,7 +227,9 @@ const FilerDetails = ({
   };
 
   useEffect(() => {
-    handleFetchDependantDetails();
+    if (open) {
+      handleFetchDependantDetails();
+    }
   }, []);
 
   return (
@@ -236,7 +240,7 @@ const FilerDetails = ({
         minHeight: { xs: "auto", sm: "800px" },
       }}
     >
-      <Container>
+      <Container maxWidth="lg">
         {isFilerDetailsLoading ? (
           <CircularProgress />
         ) : (
@@ -460,9 +464,9 @@ const FilerDetails = ({
                   <Grid container spacing={2}>
                     {/* Left Side - Personal Details */}
 
-                    <Grid item lg={6} sm={6} xs={12}>
+                    <Grid item sm={6} xs={12}>
                       <Box className={customStyles.leftSide}>
-                        <Typography variant="h4" sx={{ marginBottom: "16px" }}>
+                        <Typography variant="h4" sx={{ marginBottom: "36px" }}>
                           Personal Details
                         </Typography>
 
@@ -477,10 +481,10 @@ const FilerDetails = ({
                           <Typography
                             variant="subtitle1"
                             color="textSecondary"
-                            sx={{ marginTop: "20px", maxWidth: "30%" }}
+                            sx={{ marginTop: "20px", maxWidth: "25%" }}
                           >
                             Taxpayer Name
-                            <font color="red" size="2">
+                            <font color="#11a63d" size="2">
                               (As Per SSN):
                             </font>
                           </Typography>
@@ -671,7 +675,6 @@ const FilerDetails = ({
                     {/* Right Side - Contact Details */}
                     <Grid
                       item
-                      lg={6}
                       sm={6}
                       xs={12}
                       // sx={{ marginLeft: { xs: "0px", sm: "60px" } }}
@@ -681,7 +684,7 @@ const FilerDetails = ({
                           Contact Details
                         </Typography>
                         <Typography
-                          color={"red"}
+                          color={"#11a63d"}
                           sx={{ marginLeft: "10px" }}
                           variant="h5"
                         >
@@ -1109,7 +1112,7 @@ const FilerDetails = ({
                     <Grid container spacing={2}>
                       {/* Left Side - Spouse Details */}
                       <Grid item lg={6} sm={6} xs={12}>
-                        <Typography variant="h5">Spouse Details</Typography>
+                        <Typography variant="h4">Spouse Details</Typography>
                         <Grid container spacing={2}>
                           <CustomInputTextField
                             attribute="First Name"
@@ -1236,7 +1239,7 @@ const FilerDetails = ({
                                 handleDownloadTemplate("ITIN_Information.xls")
                               }
                               sx={{
-                                marginTop: "2px",
+                                marginTop: "12px",
                                 textDecoration: "underline",
                               }}
                               disableTouchRipple
@@ -1249,7 +1252,7 @@ const FilerDetails = ({
 
                       {/* Right Side - Spouse Contact */}
                       <Grid item lg={6} sm={6} xs={12}>
-                        <Typography variant="h5">Spouse Contact</Typography>
+                        <Typography variant="h4">Spouse Contact</Typography>
                         <Grid container spacing={2}>
                           <CustomInputTextField
                             attribute="Date of Birth"
@@ -1465,6 +1468,9 @@ const FilerDetails = ({
                           type="button"
                           variant="outlined"
                           color="primary"
+                          startIcon={
+                            values.isNewDependant ? <RemoveIcon /> : <AddIcon />
+                          }
                           onClick={() => {
                             // Toggle between true and false
                             setFieldValue(
@@ -1473,8 +1479,7 @@ const FilerDetails = ({
                             );
                           }}
                           sx={{
-                            display: "block",
-                            width: "170px",
+                            width: "210px",
                             margin: "10px",
                           }}
                         >
@@ -1489,7 +1494,7 @@ const FilerDetails = ({
                       <Grid container spacing={2}>
                         {/* Left Side - additional Details */}
                         <Grid item lg={6} sm={6} xs={12}>
-                          <Typography variant="h5">
+                          <Typography variant="h4">
                             Additional Details
                           </Typography>
                           <Grid container spacing={2}>
@@ -1660,7 +1665,7 @@ const FilerDetails = ({
 
                         {/* Right Side - additional Contact */}
                         <Grid item lg={6} sm={6} xs={12}>
-                          <Typography variant="h5">
+                          <Typography variant="h4">
                             Additional Contact
                           </Typography>
                           <Grid container spacing={2}>
@@ -2109,7 +2114,7 @@ const FilerDetails = ({
                               variant="h5"
                               sx={{ textAlign: "center", margin: "5px 0" }}
                             >
-                              No Records Found
+                              No Dependants Found
                             </Typography>
                           )}
                           <Typography
@@ -2130,9 +2135,9 @@ const FilerDetails = ({
                       <Box
                         sx={{
                           display: "flex",
-                          justifyContent: "flex-end",
-                          alignItems: "flex-end",
-                          marginTop: { xs: "8px", sm: "16px" },
+                          justifyContent: "center",
+                          alignItems: "center",
+                          margin: { xs: "8px 0", sm: "26px 0 20px" },
                         }}
                       >
                         <Button

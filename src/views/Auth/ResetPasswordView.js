@@ -80,7 +80,7 @@ const ResetPasswordView = ({ match }) => {
   return (
     <Page title="Reset Password">
       <Box sx={{ backgroundColor: "#183360", height: "100vh" }}>
-        <Container>
+        <Container maxWidth="lg">
           <Box
             sx={{
               backgroundColor: "#f7f7f7",

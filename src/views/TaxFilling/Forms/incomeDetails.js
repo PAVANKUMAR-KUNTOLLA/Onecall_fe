@@ -22,6 +22,7 @@ import { privateApiPOST } from "../../../components/PrivateRoute";
 import CustomInputTextField from "../../../components/CustomInputField";
 
 const IncomeDetails = ({
+  open,
   id,
   data,
   handleFetchData,
@@ -55,7 +56,7 @@ const IncomeDetails = ({
       }}
     >
       {" "}
-      <Container>
+      <Container maxWidth="lg">
         {isIncomeDetailsLoading ? (
           <CircularProgress />
         ) : (
@@ -756,7 +757,7 @@ const IncomeDetails = ({
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "flex-end",
+                    justifyContent: "center",
                     paddingBottom: { xs: "20px" },
                   }}
                 >

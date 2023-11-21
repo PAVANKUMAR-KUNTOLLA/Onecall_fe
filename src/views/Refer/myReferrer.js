@@ -59,7 +59,7 @@ const MyReferrer = () => {
         backgroundImage: "none",
       }}
     >
-      <Container>
+      <Container maxWidth="lg">
         <Typography variant="h4">Referal Details:</Typography>
 
         <Grid container>

@@ -132,7 +132,7 @@ const MyReferrals = () => {
         backgroundImage: "none",
       }}
     >
-      <Container>
+      <Container maxWidth="lg">
         <Box>
           <Typography variant="h4" sx={{ marginLeft: "10px" }}>
             Registerd Till Now:

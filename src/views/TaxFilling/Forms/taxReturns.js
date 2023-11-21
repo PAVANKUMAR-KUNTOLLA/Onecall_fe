@@ -40,16 +40,16 @@ import CustomAlert from "../../../components/CustomAlert";
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "400",
-    lineHeight: "23px",
+    fontWeight: 600,
+    lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "700",
-    lineHeight: "22px",
+    fontWeight: 400,
+    lineHeight: "23px",
     [theme.breakpoints.down("sm")]: {
       // marginBottom: "8px",
       display: "none",
@@ -94,7 +94,7 @@ export const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const TaxReturns = () => {
+const TaxReturns = ({ open }) => {
   const customStyles = customTextStyles();
   const params = useParams();
   const [showAlert, setShowAlert] = useState({
@@ -278,10 +278,17 @@ const TaxReturns = () => {
   };
 
   useEffect(() => {
-    handleFetchMyTaxDocs();
+    if (open) {
+      handleFetchMyTaxDocs();
+    }
   }, []);
   return (
-    <Box>
+    <Box
+      sx={{
+        padding: "20px 0 5px",
+        border: { xs: "none", sm: "1px solid #3A97BB" },
+      }}
+    >
       {showAlert.isAlert && (
         <CustomAlert
           open={showAlert.isAlert}
@@ -298,12 +305,12 @@ const TaxReturns = () => {
           }
         />
       )}
-      <Container>
+      <Container maxWidth="lg">
         {role === "ADMIN" ? (
           <Box
             sx={{
-              padding: "20px 0 5px",
-              border: { xs: "none", sm: "1px solid #3A97BB" },
+              // padding: "20px 0 5px",
+              // border: { xs: "none", sm: "1px solid #3A97BB" },
               minHeight: { xs: "auto", sm: "400px" },
             }}
           >
@@ -379,8 +386,6 @@ const TaxReturns = () => {
         ) : null}
         <Box
           sx={{
-            padding: "20px 0 5px",
-            border: { xs: "none", sm: "1px solid #3A97BB" },
             minHeight: { xs: "auto", sm: role === "ADMIN" ? "400px" : "800px" },
           }}
         >
@@ -557,6 +562,14 @@ const TaxReturns = () => {
                   ))}
               </TableBody>
             </Table>
+            {state.myTaxDocs.length === 0 && (
+              <Typography
+                variant="h5"
+                sx={{ textAlign: "center", margin: "10px 0" }}
+              >
+                No TaxReturns Found
+              </Typography>
+            )}
           </TableContainer>
         </Box>
       </Container>

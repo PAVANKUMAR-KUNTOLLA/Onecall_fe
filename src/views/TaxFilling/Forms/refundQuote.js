@@ -1,7 +1,7 @@
 import { Container, Typography, Box, Paper, Grid } from "@mui/material";
 import React from "react";
 
-const RefundQuote = () => {
+const RefundQuote = ({ open }) => {
   return (
     <Box
       sx={{
@@ -11,7 +11,7 @@ const RefundQuote = () => {
       }}
     >
       {" "}
-      <Container>
+      <Container maxWidth="lg">
         <Paper elevation={3} style={{ padding: "16px" }}>
           <Grid container alignItems="center" justifyContent="center">
             <Grid item>

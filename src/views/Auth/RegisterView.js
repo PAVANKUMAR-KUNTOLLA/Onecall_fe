@@ -76,7 +76,7 @@ const RegisterView = () => {
   return (
     <Page title="Register">
       <Box sx={{ backgroundColor: "#183360", height: "100vh" }}>
-        <Container>
+        <Container maxWidth="lg">
           <Box
             sx={{
               backgroundColor: "#f7f7f7",

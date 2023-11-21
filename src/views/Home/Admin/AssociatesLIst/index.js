@@ -36,16 +36,16 @@ import {
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "400",
-    lineHeight: "23px",
+    fontWeight: "700",
+    lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "700",
-    lineHeight: "22px",
+    fontWeight: "400",
+    lineHeight: "23px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
@@ -369,6 +369,14 @@ const AssociatesListPage = () => {
                     ))}
                 </TableBody>
               </Table>
+              {associateDetails.length === 0 && !isLoadingSpin && (
+                <Typography
+                  variant="h5"
+                  sx={{ textAlign: "center", margin: "10px 0" }}
+                >
+                  No Records Found
+                </Typography>
+              )}
             </TableContainer>
           )}
         </Box>

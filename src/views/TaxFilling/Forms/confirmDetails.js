@@ -33,16 +33,16 @@ import { CustomLabel } from "./filerDeatils";
 const useStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "400",
-    lineHeight: "23px",
+    fontWeight: "600",
+    lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "700",
-    lineHeight: "22px",
+    fontWeight: "400",
+    lineHeight: "23px",
     [theme.breakpoints.down("sm")]: {
       // marginBottom: "8px",
       display: "none",
@@ -79,6 +79,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ConfirmDetails = ({
+  open,
   id,
   personalDetails,
   contactDetails,
@@ -189,11 +190,13 @@ const ConfirmDetails = ({
         minHeight: { xs: "auto", sm: "800px" },
       }}
     >
-      <Container>
+      <Container maxWidth="lg">
         <Grid container spacing={2}>
           <Grid item lg={6} sm={6} xs={12}>
             <Box className={customStyles.leftSide}>
-              <Typography variant="h5">Personal Details</Typography>
+              <Typography variant="h4" sx={{ marginBottom: "36px" }}>
+                Personal Details
+              </Typography>
 
               <Box
                 sx={{
@@ -206,10 +209,10 @@ const ConfirmDetails = ({
                 <Typography
                   variant="subtitle1"
                   color="textSecondary"
-                  sx={{ marginTop: "20px", maxWidth: "30%" }}
+                  sx={{ marginTop: "20px", maxWidth: "25%" }}
                 >
                   Taxpayer Name
-                  <font color="red" size="2">
+                  <font color="#11a63d" size="2">
                     (As Per SSN):
                   </font>
                 </Typography>
@@ -334,7 +337,7 @@ const ConfirmDetails = ({
                 Contact Details
               </Typography>
               <Typography
-                color={"red"}
+                color={"#11a63d"}
                 sx={{ marginLeft: "10px" }}
                 variant="h5"
               >
@@ -641,7 +644,7 @@ const ConfirmDetails = ({
           <Grid container spacing={2}>
             {/* Left Side - Spouse Details */}
             <Grid item lg={6} sm={6} xs={12}>
-              <Typography variant="h5" mb={2}>
+              <Typography variant="h4" mb={2}>
                 Spouse Details
               </Typography>
               <Grid container spacing={2}>
@@ -708,7 +711,7 @@ const ConfirmDetails = ({
 
             {/* Right Side - Spouse Contact */}
             <Grid item lg={6} sm={6} xs={12}>
-              <Typography variant="h5" mb={2}>
+              <Typography variant="h4" mb={2}>
                 Spouse Contact
               </Typography>
               <Grid container spacing={2}>
@@ -846,7 +849,7 @@ const ConfirmDetails = ({
               paddingBottom: { xs: "10px", sm: "0px" },
             }}
           >
-            <Typography variant="h5">Dependant Details</Typography>
+            <Typography variant="h4">Dependant Details</Typography>
             <Table
               sx={{
                 borderCollapse: "collapse",
@@ -1022,6 +1025,14 @@ const ConfirmDetails = ({
                   ))}
               </TableBody>
             </Table>
+            {dependantDetails.length === 0 && (
+              <Typography
+                variant="h5"
+                sx={{ textAlign: "center", margin: "10px 0" }}
+              >
+                No Dependants Found
+              </Typography>
+            )}
           </TableContainer>
         </Grid>
         <Grid container spacing={2}>
@@ -1713,7 +1724,7 @@ const ConfirmDetails = ({
             variant="contained"
             color="primary"
             onClick={() => handlePickAppointment("Pick Appointment")}
-            sx={{ display: { xs: "none", sm: "block" } }}
+            sx={{ display: { xs: "none", sm: "block", margin: "20px 0" } }}
           >
             Confirm Personal Details To Pick An Appointment
           </Button>

@@ -33,7 +33,7 @@ import axios from "axios";
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "700",
+    fontWeight: 600,
     lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
       // marginBottom: "8px",
@@ -42,7 +42,7 @@ export const customTextStyles = makeStyles((theme) => ({
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "400",
+    fontWeight: 400,
     lineHeight: "23px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -99,7 +99,7 @@ export const customTextStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
   },
   root: {
-    color: "red",
+    color: "#11a63d",
     fontSize: "1.0rem",
     marginLeft: "10px",
   },
@@ -116,7 +116,7 @@ export const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const UploadTaxDocs = ({ id }) => {
+const UploadTaxDocs = ({ open, id }) => {
   const customStyles = customTextStyles();
   const [showAlert, setShowAlert] = useState({
     isAlert: false,
@@ -293,7 +293,9 @@ const UploadTaxDocs = ({ id }) => {
   };
 
   useEffect(() => {
-    handleFetchMyTaxDocs();
+    if (open) {
+      handleFetchMyTaxDocs();
+    }
   }, []);
 
   return (
@@ -305,7 +307,7 @@ const UploadTaxDocs = ({ id }) => {
       }}
     >
       {" "}
-      <Container>
+      <Container maxWidth="lg">
         {showAlert.isAlert && (
           <CustomAlert
             open={showAlert.isAlert}
@@ -324,7 +326,7 @@ const UploadTaxDocs = ({ id }) => {
         )}
         <Card className={customStyles.alertCard}>
           <CardContent>
-            <Typography sx={{ marginBottom: "10px", color: "red" }}>
+            <Typography sx={{ marginBottom: "10px", color: "#11a63d" }}>
               Alerts
             </Typography>
             <Typography variant="body2">
@@ -615,6 +617,14 @@ const UploadTaxDocs = ({ id }) => {
                     ))}
                 </TableBody>
               </Table>
+              {state.myTaxDocs.length === 0 && (
+                <Typography
+                  variant="h5"
+                  sx={{ textAlign: "center", margin: "10px 0" }}
+                >
+                  No TaxDocs Found
+                </Typography>
+              )}
             </TableContainer>
           )}
         </Box>

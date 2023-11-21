@@ -35,7 +35,7 @@ import { thousands_separators } from "../../../utils/index";
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "700",
+    fontWeight: 600,
     lineHeight: "22px",
     [theme.breakpoints.down("sm")]: {
       // marginBottom: "8px",
@@ -44,7 +44,7 @@ const customTextStyles = makeStyles((theme) => ({
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "400",
+    fontWeight: 400,
     lineHeight: "23px",
     [theme.breakpoints.down("sm")]: {
       display: "none",
@@ -80,7 +80,7 @@ const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const PickAppointment = ({ id }) => {
+const PickAppointment = ({ open, id }) => {
   const customStyles = customTextStyles();
   const [isPickAppointmentDetailsLoading, setIsPickAppointmentDetailsLoading] =
     useState(false);
@@ -238,7 +238,7 @@ const PickAppointment = ({ id }) => {
   };
 
   useEffect(() => {
-    if (sessionStorage.getItem("token")) {
+    if (sessionStorage.getItem("token") && open) {
       handleFetchAppointmentDetails();
     }
   }, []);
@@ -282,7 +282,7 @@ const PickAppointment = ({ id }) => {
           }
         />
       ) : null}
-      <Container>
+      <Container maxWidth="lg">
         <Typography variant="h5">
           Tax Notes Interview - Schedule your date:
         </Typography>
@@ -326,7 +326,7 @@ const PickAppointment = ({ id }) => {
             />
           </Box>
         </Box>
-        <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
+        <Typography variant="body1" color="#11a63d" sx={{ marginTop: "30px" }}>
           Become a confirmed client by making an advance fee payment. Same day
           tax filing available for Confirmed Clients.
         </Typography>
@@ -343,16 +343,16 @@ const PickAppointment = ({ id }) => {
           </Button>
         </Typography>
 
-        <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
+        <Typography variant="body1" color="#11a63d" sx={{ marginTop: "30px" }}>
           {`We will call you anytime between 11.00 AM CST to 11.30 PM CST on your appointment date.`}
         </Typography>
-        <Typography variant="body1" color="red" sx={{ marginLeft: "10px" }}>
+        <Typography variant="body1" color="#11a63d" sx={{ marginLeft: "10px" }}>
           {`- We try to match your preferred time. Unfortunately, it is not a guaranteed time.`}
         </Typography>
-        <Typography variant="body1" color="red" sx={{ marginLeft: "10px" }}>
+        <Typography variant="body1" color="#11a63d" sx={{ marginLeft: "10px" }}>
           {`- We try to match your preferred time. Unfortunately, it is not a guaranteed time.`}
         </Typography>
-        <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
+        <Typography variant="body1" color="#11a63d" sx={{ marginTop: "30px" }}>
           Please pick your availability between{" "}
           <Typography variant="body1" color="primary" component="span">
             01/11/2023 to 04/18/2023
@@ -416,7 +416,11 @@ const PickAppointment = ({ id }) => {
               </CustomInputTextField>
             </Box>
           </Box>
-          <Typography variant="body1" color="red" sx={{ marginTop: "30px" }}>
+          <Typography
+            variant="body1"
+            color="#11a63d"
+            sx={{ marginTop: "30px" }}
+          >
             Maximum number of appointments you can have is "ONE". If you already
             have an appointment delete it before scheduling new appointment
           </Typography>
@@ -647,6 +651,14 @@ const PickAppointment = ({ id }) => {
                     ))}
                 </TableBody>
               </Table>
+              {appointmentDetails.length === 0 && (
+                <Typography
+                  variant="h5"
+                  sx={{ textAlign: "center", margin: "10px 0" }}
+                >
+                  No Appointments Found
+                </Typography>
+              )}
             </TableContainer>
           )}
         </Box>

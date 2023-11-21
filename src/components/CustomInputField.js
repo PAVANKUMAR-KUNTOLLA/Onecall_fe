@@ -4,7 +4,7 @@ import { Box, TextField, Grid, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
 const NO_WRAP_ATTRIBUTES = [
-  "Occupation / Job Title",
+  "Middle Initial",
   "Email Address",
   "Password",
   "Email ID (User ID)",

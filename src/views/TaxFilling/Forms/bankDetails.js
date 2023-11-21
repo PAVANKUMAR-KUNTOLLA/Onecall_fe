@@ -73,7 +73,7 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-const BankDetails = ({ id, data, handleFetchData }) => {
+const BankDetails = ({ open, id, data, handleFetchData }) => {
   const [isBankDetailsLoading, setIsBankDetailsLoading] = useState(false);
 
   const initialValues = {
@@ -98,7 +98,7 @@ const BankDetails = ({ id, data, handleFetchData }) => {
       }}
     >
       {" "}
-      <Container>
+      <Container maxWidth="lg">
         {isBankDetailsLoading ? (
           <CircularProgress />
         ) : (
@@ -210,7 +210,7 @@ const BankDetails = ({ id, data, handleFetchData }) => {
                         sx={{
                           marginTop: "30px",
                           marginLeft: "15px",
-                          color: "red",
+                          color: "#11a63d",
                         }}
                       >
                         Note: Please understand that there is no risk by
@@ -415,7 +415,7 @@ const BankDetails = ({ id, data, handleFetchData }) => {
                 <Box
                   sx={{
                     display: "flex",
-                    justifyContent: "flex-end",
+                    justifyContent: "center",
                     paddingBottom: { xs: "20px" },
                     marginTop: { xs: "20px" },
                   }}

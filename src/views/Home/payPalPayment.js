@@ -13,7 +13,7 @@ const PayPalPayment = () => {
     event.preventDefault();
   };
   return (
-    <Container>
+    <Container maxWidth="lg">
       <Grid spacing={2} container justifyContent="center" alignItems="center">
         <Grid item xs={12} sm={7}>
           <Box
@@ -29,7 +29,7 @@ const PayPalPayment = () => {
           >
             <Typography
               variant="body1"
-              color="red"
+              color="#11a63d"
               sx={{ marginBottom: "20px" }}
             >
               P.S: If you choose this Payment option (PayPal), your tax filing
@@ -107,7 +107,7 @@ const PayPalPayment = () => {
                 height="1"
               />
             </form>
-            <Typography color="red">
+            <Typography color="#11a63d">
               We will send your tax filing copies with instructions with in 2
               business days.
             </Typography>

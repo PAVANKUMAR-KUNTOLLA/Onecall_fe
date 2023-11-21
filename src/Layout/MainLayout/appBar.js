@@ -260,7 +260,7 @@ function AppBar(props) {
                 maxHeight: "45px",
                 padding: "6px 15px",
                 "&:hover": {
-                  backgroundColor: "#2069DB",
+                  // backgroundColor: "#2069DB",
                   color: "#ffffff",
                 },
               }}
@@ -277,7 +277,7 @@ function AppBar(props) {
                 maxHeight: "45px",
                 padding: "6px 15px",
                 "&:hover": {
-                  backgroundColor: "#2069DB",
+                  // backgroundColor: "#2069DB",
                   color: "#ffffff",
                 },
               }}

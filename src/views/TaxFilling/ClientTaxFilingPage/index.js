@@ -207,7 +207,7 @@ const ClientTaxFillingPage = () => {
                             YOUR AVAILABILITY IN Pick an Appointment PAGE
                           </Typography>
                           <Typography
-                            color={"red"}
+                            color={"#11a63d"}
                             sx={{
                               marginLeft: "24px",
                               wordSpacing: "3px",
@@ -229,6 +229,7 @@ const ClientTaxFillingPage = () => {
                       )}
                       {isActiveTab === "Confirm Details" && (
                         <ConfirmDetails
+                          open={isActiveTab === "Confirm Details"}
                           id={data["id"]}
                           personalDetails={data["personalDetails"]}
                           contactDetails={data["contactDetails"]}
@@ -241,10 +242,17 @@ const ClientTaxFillingPage = () => {
                         />
                       )}
                       {isActiveTab === "Pick Appointment" && (
-                        <PickAppointment id={data["id"]} />
+                        <PickAppointment
+                          open={isActiveTab === "Pick Appointment"}
+                          id={data["id"]}
+                        />
                       )}
-                      {isActiveTab === "Refund Quote" && <RefundQuote />}
-                      {isActiveTab === "Pay Now" && <PayPalPayment />}
+                      {isActiveTab === "Refund Quote" && (
+                        <RefundQuote open={isActiveTab === "Refund Quote"} />
+                      )}
+                      {isActiveTab === "Pay Now" && (
+                        <PayPalPayment open={isActiveTab === "Pay Now"} />
+                      )}
                     </PerfectScrollbar>
                   </Box>
                 ) : null}

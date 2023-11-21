@@ -44,7 +44,7 @@ const ReferFriend = () => {
         backgroundImage: "none",
       }}
     >
-      <Container>
+      <Container maxWidth="lg">
         <Typography variant="h4">Referal Details:</Typography>
         <Formik
           initialValues={initialValues}

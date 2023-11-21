@@ -3,11 +3,11 @@ export const themeColors = {
   darkPaper: "#000000",
 
   // Primary
-  primaryLight: "#4c87df",
-  primaryMain: "#2069D8",
-  primaryDark: "#164997",
-  primary200: "#91cfff",
-  primary800: "#206ad8",
+  primaryLight: "#b7e8fa",
+  primaryMain: "#297fb9",
+  primaryDark: "#205f97",
+  primary200: "#8ad9f7",
+  primary800: "#297fb9",
 
   // primaryLight: "#d35590",
   // primaryMain: "#9e1f63",

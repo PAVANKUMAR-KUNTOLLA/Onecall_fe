@@ -28,8 +28,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import config from "../../../config";
 import { makeStyles } from "@mui/styles";
-import taxServicesData from "../../../mock-adapter/taxServicesData.json";
-import DrawerAppBar from "../../../Layout/MainLayout/appBarMaterialUI";
+import CustomAlert from "../../../components/CustomAlert";
 
 import Api from "../../../components/Api";
 import {
@@ -40,27 +39,29 @@ import {
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
     fontSize: "16px",
-    fontWeight: "400",
-    lineHeight: "23px",
+    fontWeight: "700",
+    lineHeight: "22px",
+    borderBottom: 0,
     [theme.breakpoints.down("sm")]: {
       display: "none",
     },
   },
   tableData: {
     fontSize: "16px",
-    fontWeight: "700",
-    lineHeight: "22px",
+    fontWeight: "400",
+    lineHeight: "23px",
+    borderBottom: 0,
     [theme.breakpoints.down("sm")]: {
       // marginBottom: "8px",
       display: "none",
     },
   },
   headerText: {
-    fontSize: "24px",
+    fontSize: "21px",
     fontWeight: "600",
     marginTop: "32px",
     marginBottom: "16px",
-    color: "#2069DB",
+    color: "#11a63d",
   },
   confirmButton: {
     fontSize: "14px",
@@ -104,6 +105,12 @@ const ClientHomePage = () => {
   const [isTaxYearsLoading, setIsTaxYearsLoading] = useState(false);
   const [currSelectedYear, setCurrSelectedYear] = useState("");
   const dispatch = useDispatch();
+  const [showAlert, setShowAlert] = useState({
+    isAlert: false,
+    alertTitle: "",
+    alertText: "",
+    severity: "",
+  });
 
   const handleNavigate = (value) => {
     let path = value;
@@ -125,11 +132,22 @@ const ClientHomePage = () => {
           setMyServices(data?.data);
           setIsMyServicesLoading(false);
           setCurrSelectedYear("");
+          setShowAlert({
+            isAlert: true,
+            severity: "success",
+            alertText: data?.["message"],
+          });
         }
       })
       .catch((error) => {
         console.log("Error", error);
         setIsMyServicesLoading(false);
+        const { data } = error.response;
+        setShowAlert({
+          isAlert: true,
+          severity: "error",
+          alertText: data?.["message"],
+        });
       });
   };
 
@@ -175,268 +193,349 @@ const ClientHomePage = () => {
   return (
     <Box>
       <Container maxWidth="lg">
-        <Typography className={customStyles.headerText}>
-          My Selected Services
-        </Typography>
-        <TableContainer sx={{ marginTop: "32px" }}>
-          <Table
-            sx={{
-              borderCollapse: "collapse",
-            }}
-            aria-label="Place Order Series Table"
-          >
-            <TableHead>
-              <TableRow>
-                <TableCell className={customStyles.tableHeader}>ID</TableCell>
-                <TableCell className={customStyles.tableHeader}>
-                  SERVICE TYPE
-                </TableCell>
-                <TableCell className={customStyles.tableHeader}>YEAR</TableCell>
-                <TableCell className={customStyles.tableHeader}>
-                  STATUS
-                </TableCell>
-                <TableCell className={customStyles.tableHeader}>
-                  ACTIONS
-                </TableCell>
-                <TableCell className={customStyles.tableHeader}>
-                  PAY NOW
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {myServices.length > 0 &&
-                myServices.map((row, index) => (
-                  <TableRow key={index}>
-                    <TableCell className={customStyles.tableData}>
-                      {row.id}
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      {row.service_type}
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      {row.year}
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      {row.status}
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      <Link
-                        to={`../tax-filing/${row.year}/${row.id}/0`}
-                        onClick={() =>
-                          handleNavigate(
-                            `../tax-filing/${row.year}/${row.id}/0`
-                          )
-                        }
-                        sx={{ cursor: "pointer" }}
-                      >
-                        Start Process
-                      </Link>
-                    </TableCell>
-                    <TableCell className={customStyles.tableData}>
-                      <Link
-                        to={`../tax-filing/${row.year}/${row.id}/7`}
-                        onClick={() =>
-                          handleNavigate(
-                            `../tax-filing/${row.year}/${row.id}/7`
-                          )
-                        }
-                        sx={{ cursor: "pointer" }}
-                      >
-                        Pay Now
-                      </Link>
-                    </TableCell>
-                    <TableCell className={customStyles.mobileView}>
-                      <Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "space-between",
-                            marginTop: "16px",
-                          }}
-                        >
-                          <Box>
-                            <Typography
-                              className={customStyles.mobileViewTableCellHeader}
-                            >
-                              id
-                            </Typography>
-
-                            <Typography
-                              className={customStyles.mobileViewTableCellValue}
-                            >
-                              {row.id}
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <Typography
-                              className={customStyles.mobileViewTableCellHeader}
-                            >
-                              Year
-                            </Typography>
-
-                            <Typography
-                              className={customStyles.mobileViewTableCellValue}
-                            >
-                              {row.year}
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <Typography
-                              className={customStyles.mobileViewTableCellHeader}
-                            >
-                              Service Type
-                            </Typography>
-
-                            <Typography
-                              className={customStyles.mobileViewTableCellValue}
-                            >
-                              {row.service_type}
-                            </Typography>
-                          </Box>
-                        </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexWrap: "wrap",
-                            justifyContent: "space-between",
-                            marginTop: "16px",
-                          }}
-                        >
-                          <Box>
-                            <Typography
-                              className={customStyles.mobileViewTableCellHeader}
-                            >
-                              Status
-                            </Typography>
-
-                            <Typography
-                              className={customStyles.mobileViewTableCellValue}
-                            >
-                              {row.status}
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <Typography
-                              className={customStyles.mobileViewTableCellHeader}
-                            >
-                              Actions
-                            </Typography>
-                            <Typography
-                              className={customStyles.mobileViewTableCellValue}
-                            >
-                              <Link
-                                to={`../tax-filing/${row.year}/${row.id}/0`}
-                                onClick={() =>
-                                  handleNavigate(
-                                    `../tax-filing/${row.year}/${row.id}/0`
-                                  )
-                                }
-                                sx={{ cursor: "pointer" }}
-                              >
-                                Start Process
-                              </Link>
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <Typography
-                              className={customStyles.mobileViewTableCellHeader}
-                            >
-                              Pay Now
-                            </Typography>
-                            <Typography
-                              className={customStyles.mobileViewTableCellValue}
-                            >
-                              <Link
-                                to={`../tax-filing/${row.year}/${row.id}/7`}
-                                onClick={() =>
-                                  handleNavigate(
-                                    `../tax-filing/${row.year}/${row.id}/7`
-                                  )
-                                }
-                                sx={{
-                                  cursor: "pointer",
-                                }}
-                              >
-                                Pay Now
-                              </Link>
-                            </Typography>
-                          </Box>
-                        </Box>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {showAlert.isAlert && (
+          <CustomAlert
+            open={showAlert.isAlert}
+            severity={showAlert.severity}
+            alertTitle={showAlert.alertTitle}
+            alertText={showAlert.alertText}
+            onClose={() =>
+              setShowAlert({
+                isAlert: false,
+                alertTitle: "",
+                alertText: "",
+                severity: "",
+              })
+            }
+          />
+        )}
         <Box
           sx={{
-            marginTop: "25px",
+            border: "1px solid #D5E1E8",
+            minHeight: "700px",
+            padding: "0 10px",
           }}
         >
-          <FormControl>
-            <FormLabel
-              id="demo-radio-buttons-group-label"
-              className={customStyles.headerText}
-            >
-              Select Tax Service
-            </FormLabel>
-            <RadioGroup
-              aria-labelledby="demo-radio-buttons-group-label"
-              name="radio-buttons-group"
-              value={currSelectedYear}
-              onChange={handleCurrYearTaxServiceChange}
-              color="secondary"
-            >
-              <Grid container>
-                {taxYearServices.length > 0 &&
-                  taxYearServices.map((each, id) => (
-                    <Grid item xs={4} key={id} sx={{ marginLeft: "30px" }}>
-                      <FormControlLabel
-                        value={each.name}
-                        control={<Radio />}
-                        label={
-                          <div
-                            style={{
-                              whiteSpace: "nowrap",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              width: "100%",
-                            }}
-                          >
-                            {`${each.name} - Tax Filing`}
-                          </div>
-                        }
-                      />
-                    </Grid>
-                  ))}
-              </Grid>
-            </RadioGroup>
-          </FormControl>
-          <Button
-            onClick={() => currSelectedYear && handleAddTaxServiceChange()}
-            variant="contained"
-            className={customStyles.confirmButton}
-            color="secondary"
+          <Typography
             sx={{
-              opacity:
-                // isLoadingSpin ||
-                !currSelectedYear ? 0.5 : 1,
-              marginLeft: "12px",
-              marginTop: "10px",
-              display: "block",
+              color: "#0060A1",
+              padding: "15px 20px",
+              fontSize: "20px",
+              fontWeight: 600,
+              lineHeight: "30px",
             }}
           >
-            Add Service{"  "}
-            {/* {isLoadingSpin && (
+            Tax Filing Services
+          </Typography>
+          <Typography
+            sx={{
+              backgroundColor: "#C7DFF0",
+              padding: "15px 20px",
+              fontSize: "16px",
+              fontWeight: "24px",
+            }}
+          >
+            * Click on "Start Process" against selected "Tax Filing" Service
+          </Typography>
+          <Typography className={customStyles.headerText} sx={{}}>
+            My Selected Services
+          </Typography>
+          <TableContainer sx={{ marginTop: "32px", padding: "0 20px" }}>
+            <Table
+              sx={{
+                borderCollapse: "collapse",
+              }}
+              aria-label="Place Order Series Table"
+            >
+              <TableHead>
+                <TableRow>
+                  <TableCell className={customStyles.tableHeader}>ID</TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    SERVICE TYPE
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    YEAR
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    STATUS
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    ACTIONS
+                  </TableCell>
+                  <TableCell className={customStyles.tableHeader}>
+                    PAY NOW
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {myServices.length > 0 &&
+                  myServices.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell className={customStyles.tableData}>
+                        {row.id}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.service_type}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.year}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        {row.status}
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        <Link
+                          to={`../tax-filing/${row.year}/${row.id}/0`}
+                          onClick={() =>
+                            handleNavigate(
+                              `../tax-filing/${row.year}/${row.id}/0`
+                            )
+                          }
+                          sx={{ cursor: "pointer" }}
+                        >
+                          Start Process
+                        </Link>
+                      </TableCell>
+                      <TableCell className={customStyles.tableData}>
+                        <Link
+                          to={`../tax-filing/${row.year}/${row.id}/7`}
+                          onClick={() =>
+                            handleNavigate(
+                              `../tax-filing/${row.year}/${row.id}/7`
+                            )
+                          }
+                          sx={{ cursor: "pointer" }}
+                        >
+                          Pay Now
+                        </Link>
+                      </TableCell>
+                      <TableCell className={customStyles.mobileView}>
+                        <Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              justifyContent: "space-between",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                id
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.id}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Year
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.year}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Service Type
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.service_type}
+                              </Typography>
+                            </Box>
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              justifyContent: "space-between",
+                              marginTop: "16px",
+                            }}
+                          >
+                            <Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Status
+                              </Typography>
+
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                {row.status}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Actions
+                              </Typography>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                <Link
+                                  to={`../tax-filing/${row.year}/${row.id}/0`}
+                                  onClick={() =>
+                                    handleNavigate(
+                                      `../tax-filing/${row.year}/${row.id}/0`
+                                    )
+                                  }
+                                  sx={{ cursor: "pointer" }}
+                                >
+                                  Start Process
+                                </Link>
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellHeader
+                                }
+                              >
+                                Pay Now
+                              </Typography>
+                              <Typography
+                                className={
+                                  customStyles.mobileViewTableCellValue
+                                }
+                              >
+                                <Link
+                                  to={`../tax-filing/${row.year}/${row.id}/7`}
+                                  onClick={() =>
+                                    handleNavigate(
+                                      `../tax-filing/${row.year}/${row.id}/7`
+                                    )
+                                  }
+                                  sx={{
+                                    cursor: "pointer",
+                                  }}
+                                >
+                                  Pay Now
+                                </Link>
+                              </Typography>
+                            </Box>
+                          </Box>
+                        </Box>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <Box
+            sx={{
+              marginTop: "25px",
+            }}
+          >
+            <FormControl sx={{ width: "100%" }}>
+              <FormLabel
+                id="demo-radio-buttons-group-label"
+                className={customStyles.headerText}
+              >
+                Select Tax Service
+              </FormLabel>
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                name="radio-buttons-group"
+                value={currSelectedYear}
+                onChange={handleCurrYearTaxServiceChange}
+                color="secondary"
+              >
+                <Grid container>
+                  {taxYearServices.length > 0 &&
+                    taxYearServices.map((each, id) => (
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        key={id}
+                        sx={{ padding: "10px 50px" }}
+                      >
+                        <FormControlLabel
+                          value={each.name}
+                          control={<Radio />}
+                          label={
+                            <div
+                              style={{
+                                whiteSpace: "nowrap",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                width: "100%",
+                              }}
+                            >
+                              {`${each.name} - Tax Filing`}
+                            </div>
+                          }
+                        />
+                      </Grid>
+                    ))}
+                </Grid>
+              </RadioGroup>
+            </FormControl>
+            <Button
+              onClick={() => currSelectedYear && handleAddTaxServiceChange()}
+              variant="contained"
+              className={customStyles.confirmButton}
+              color="secondary"
+              sx={{
+                opacity:
+                  // isLoadingSpin ||
+                  !currSelectedYear ? 0.5 : 1,
+                marginLeft: "12px",
+                marginTop: "10px",
+                display: "block",
+              }}
+            >
+              Add Service{"  "}
+              {/* {isLoadingSpin && (
                 <CircularProgress
                   size={15}
                   color="primary"
                   sx={{ marginLeft: "15px" }}
                 />
               )} */}
-          </Button>
+            </Button>
+          </Box>
+          <Typography variant="h4" sx={{ margin: "80px 0 10px" }}>
+            You need to logout & login back by selecting Current Year Option
+            from Drop down for 2023 Tax Year{" "}
+          </Typography>
         </Box>
       </Container>
     </Box>
