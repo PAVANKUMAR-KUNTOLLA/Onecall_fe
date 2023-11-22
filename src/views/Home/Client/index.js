@@ -214,6 +214,7 @@ const ClientHomePage = () => {
             border: "1px solid #D5E1E8",
             minHeight: "700px",
             padding: "0 10px",
+            marginBottom: "60px",
           }}
         >
           <Typography
@@ -532,7 +533,7 @@ const ClientHomePage = () => {
               )} */}
             </Button>
           </Box>
-          <Typography variant="h4" sx={{ margin: "80px 0 10px" }}>
+          <Typography variant="h4" sx={{ margin: "80px 0 20px" }}>
             You need to logout & login back by selecting Current Year Option
             from Drop down for 2023 Tax Year{" "}
           </Typography>
