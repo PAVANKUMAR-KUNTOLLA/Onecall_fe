@@ -5,10 +5,10 @@ import { Grid, Box, Avatar, Typography, Tabs, Tab } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
-import FilerDeatils from "./Forms/filerDeatils";
-import IncomeDetails from "./Forms/incomeDetails";
-import BankDetails from "./Forms/bankDetails";
-import TaxReturns from "./Forms/taxReturns";
+import FilerDeatils from "./Forms/FilerDetails";
+import IncomeDetails from "./Forms/IncomeDetails";
+import BankDetails from "./Forms/BankDetails";
+import TaxReturns from "./Forms/TaxReturns";
 import UploadTaxDocs from "./Forms/TaxDocs";
 
 export const customTextStyles = makeStyles((theme) => ({
@@ -68,16 +68,17 @@ export const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const TabsDesktop = ({ data, handleFetchData, handleDownloadTemplate }) => {
+const TabsDesktop = ({
+  value,
+  setValue,
+  handleChange,
+  handleActiveTabChange,
+  data,
+  handleFetchData,
+  handleDownloadTemplate,
+}) => {
   const params = useParams();
   const customTextClasses = customTextStyles();
-  const [value, setValue] = useState(parseInt(params.action));
-
-  console.log(params.action);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -157,6 +158,7 @@ const TabsDesktop = ({ data, handleFetchData, handleDownloadTemplate }) => {
       <CustomTabPanel value={value} index={0}>
         <FilerDeatils
           open={value === 0}
+          setValue={setValue}
           id={data["id"]}
           personalDetails={data["personalDetails"]}
           contactDetails={data["contactDetails"]}
@@ -170,6 +172,7 @@ const TabsDesktop = ({ data, handleFetchData, handleDownloadTemplate }) => {
       <CustomTabPanel value={value} index={1}>
         <IncomeDetails
           open={value === 1}
+          setValue={setValue}
           id={data["id"]}
           data={data["incomeDetails"]}
           handleFetchData={handleFetchData}
@@ -179,6 +182,7 @@ const TabsDesktop = ({ data, handleFetchData, handleDownloadTemplate }) => {
       <CustomTabPanel value={value} index={2}>
         <BankDetails
           open={value === 2}
+          setValue={setValue}
           id={data["id"]}
           data={data["bankDetails"]}
           handleFetchData={handleFetchData}
@@ -188,7 +192,12 @@ const TabsDesktop = ({ data, handleFetchData, handleDownloadTemplate }) => {
         <Grid container>
           <Grid item xs={12}>
             <Box>
-              <UploadTaxDocs open={value === 3} id={data["id"]} />
+              <UploadTaxDocs
+                open={value === 3}
+                setValue={setValue}
+                handleActiveTabChange={handleActiveTabChange}
+                id={data["id"]}
+              />
             </Box>
           </Grid>
         </Grid>

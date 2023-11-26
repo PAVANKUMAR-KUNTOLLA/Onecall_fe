@@ -36,6 +36,14 @@ const AdminTaxFillingPage = () => {
   const [data, setData] = useState({});
   const [isLoadingSpin, setIsLoadingSpin] = useState(true);
 
+  const [tabsDesktopValue, setTabsDesktopValue] = useState(
+    parseInt(params.action)
+  );
+
+  const handleTabsDesktopChange = (event, newValue) => {
+    setTabsDesktopValue(newValue);
+  };
+
   const handleFetchTaxFilingDetails = () => {
     setIsLoadingSpin(true);
     let payload = { id: params.id };
@@ -125,6 +133,9 @@ const AdminTaxFillingPage = () => {
                   </Typography>
 
                   <TabsDesktop
+                    value={tabsDesktopValue}
+                    setValue={setTabsDesktopValue}
+                    handleChange={handleTabsDesktopChange}
                     data={data}
                     handleFetchData={handleFetchTaxFilingDetails}
                     handleDownloadTemplate={handleDownloadTemplate}

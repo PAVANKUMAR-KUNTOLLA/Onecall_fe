@@ -10,6 +10,8 @@ const NO_WRAP_ATTRIBUTES = [
   "Email ID (User ID)",
   "Confirm Password",
   "Referral ID (Optional)",
+  "Preferrable Time",
+  "Time Zone",
 ];
 
 const CustomInputTextField = ({

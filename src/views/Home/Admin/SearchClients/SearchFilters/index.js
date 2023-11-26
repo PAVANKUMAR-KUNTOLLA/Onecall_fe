@@ -95,7 +95,7 @@ const SearchFiltersPage = ({
           marginTop: "2px",
         }}
       >
-        Note : Appointment Date Search format - MM/dd/YYYY
+        Note : Appointment Date Search format - MM/DD/YYYY
       </Typography>
     </Box>
   );

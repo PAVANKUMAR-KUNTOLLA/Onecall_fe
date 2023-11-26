@@ -16,6 +16,8 @@ import {
   Container,
   Paper,
 } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Card, CardContent, Link } from "@mui/material";
 
 import { makeStyles } from "@mui/styles";
@@ -29,6 +31,7 @@ import {
 import Api from "../../../components/Api";
 import CustomAlert from "../../../components/CustomAlert";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -116,8 +119,9 @@ export const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const UploadTaxDocs = ({ open, id }) => {
+const UploadTaxDocs = ({ open, setValue, handleActiveTabChange, id }) => {
   const customStyles = customTextStyles();
+  const role = useSelector((state) => state.app.role);
   const [showAlert, setShowAlert] = useState({
     isAlert: false,
     alertTitle: "",
@@ -366,7 +370,7 @@ const UploadTaxDocs = ({ open, id }) => {
           </Link>
           <br />
           <Link
-            href="/static/img/FBAR_Information_2022.xls"
+            href="/static/img/FBAR_Information_2023.xls"
             className={customStyles.link}
           >
             FBAR Information
@@ -398,7 +402,7 @@ const UploadTaxDocs = ({ open, id }) => {
                 </TableCell>
                 <TableCell width="5%"> - </TableCell>
                 <TableCell align="left" width="75%">
-                  If you want to provide any additional information to your Tax
+                  If you want to provide any additional information to our Tax
                   Consultant, please discuss during the Tax Interview.
                 </TableCell>
               </TableRow>
@@ -628,6 +632,36 @@ const UploadTaxDocs = ({ open, id }) => {
             </TableContainer>
           )}
         </Box>
+        <Grid item xs={12}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: { xs: "8px 0", sm: "26px 0 20px" },
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={() => setValue(2)}
+              startIcon={<ArrowBackIosIcon />}
+              color="primary"
+              sx={{ margin: "0 10px", display: "flex", alignItems: "center" }}
+            >
+              Back
+            </Button>
+            {role === "CLIENT" && (
+              <Button
+                variant="contained"
+                onClick={() => handleActiveTabChange("Confirm Details")}
+                color="primary"
+                sx={{ margin: "0 10px", display: "flex", alignItems: "center" }}
+              >
+                Confirm Details
+              </Button>
+            )}
+          </Box>
+        </Grid>
       </Container>
     </Box>
   );

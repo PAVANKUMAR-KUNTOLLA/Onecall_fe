@@ -28,7 +28,7 @@ import {
   privateApiPOST,
 } from "../../../components/PrivateRoute";
 import CustomInputTextField from "../../../components/CustomInputField";
-import { CustomLabel } from "./filerDeatils";
+import { CustomLabel } from "./FilerDetails";
 
 const useStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -106,8 +106,29 @@ const ConfirmDetails = ({
     const rawSsn = input.replace(/-/g, ""); // Remove hyphens
     const formattedSsn = rawSsn
       .replace(/\D/g, "") // Remove non-digits
-      .replace(/(\d{3})(\d{3})(\d{3})/, "$1-$2-$3"); // Format as 123-45-6789
+      .replace(/(\d{3})(\d{2})(\d{4})/, "$1-$2-$3"); // Format as 123-45-6789
     return formattedSsn;
+  };
+
+  const formatPhoneNumber = (phoneNumber) => {
+    if (phoneNumber === undefined || phoneNumber === null) {
+      return "";
+    }
+
+    if (phoneNumber.includes("-")) {
+      return phoneNumber;
+    }
+
+    // Remove non-numeric characters from the phone number
+    const numericOnly = phoneNumber.replace(/\D/g, "");
+
+    // Use regex to capture groups of digits in the desired format
+    const formattedNumber = numericOnly.replace(
+      /(\d{3})(\d{3})(\d{4})/,
+      "($1)-$2-$3"
+    );
+
+    return formattedNumber;
   };
 
   const [formData, setFormData] = useState({
@@ -266,29 +287,48 @@ const ConfirmDetails = ({
                 value={transform(formData.ssn)}
                 variant="outlined"
               />
-              <CustomInputTextField
-                disabled
-                attribute="Date of Birth"
-                attributeTextAlign="right"
-                is_required={true}
-                fullWidth
-                margin="normal"
-                name="dateOfBirth"
-                type="date"
-                value={formData.dateOfBirth}
-                variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                InputProps={{
-                  style: {
-                    color: "black",
-                  },
-                }}
-                inputProps={{
-                  placeholder: "",
-                }}
-              />
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={10}>
+                    <CustomInputTextField
+                      disabled
+                      attribute="Date of Birth"
+                      attributeTextAlign="right"
+                      is_required={true}
+                      fullWidth
+                      margin="normal"
+                      name="dateOfBirth"
+                      value={formData.dateOfBirth}
+                      variant="outlined"
+                      InputLabelProps={{
+                        shrink: true, // This is important for the label to behave correctly
+                      }}
+                      InputProps={{
+                        style: {
+                          color: "black", // Customize the label color
+                        },
+                      }}
+                      inputProps={{
+                        // To disable the default placeholder
+                        placeholder: "",
+                        // Other attributes you might need
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={2} sx={{ margin: "auto 0" }}>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        color: "#11a63d",
+                        whiteSpace: "nowrap",
+                        marginLeft: "-20px",
+                      }}
+                    >
+                      [MM/DD/YYYY]
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
               <CustomInputTextField
                 disabled
                 attribute="Gender"
@@ -316,17 +356,35 @@ const ConfirmDetails = ({
                 value={formData.occupation}
                 variant="outlined"
               />
-              <CustomInputTextField
-                disabled
-                attribute="Residential Status"
-                attributeTextAlign="right"
-                is_required={true}
-                fullWidth
-                margin="normal"
-                name="residentialStatus"
-                value={formData.residentialStatus}
-                variant="outlined"
-              />
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={10}>
+                    <CustomInputTextField
+                      disabled
+                      attribute="Residential Status"
+                      attributeTextAlign="right"
+                      is_required={true}
+                      fullWidth
+                      margin="normal"
+                      name="residentialStatus"
+                      value={formData.residentialStatus}
+                      variant="outlined"
+                    />
+                  </Grid>
+                  <Grid item xs={2} sx={{ margin: "auto 0" }}>
+                    <Typography
+                      variant="h5"
+                      sx={{
+                        color: "#11a63d",
+                        whiteSpace: "nowrap",
+                        marginLeft: "-20px",
+                      }}
+                    >
+                      [VISA TYPE]
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Box>
           </Grid>
 
@@ -469,7 +527,7 @@ const ConfirmDetails = ({
                 </TextField>
                 <TextField
                   name="primaryPhoneNumber"
-                  value={formData.primaryPhoneNumber}
+                  value={formatPhoneNumber(formData.primaryPhoneNumber)}
                   variant="outlined"
                   disabled
                   sx={{
@@ -541,7 +599,7 @@ const ConfirmDetails = ({
                 <TextField
                   attribute="Secondary Phone"
                   name="secondaryPhoneNumber"
-                  value={formData.secondaryPhoneNumber}
+                  value={formatPhoneNumber(formData.secondaryPhoneNumber)}
                   variant="outlined"
                   disabled
                   sx={{
@@ -585,7 +643,7 @@ const ConfirmDetails = ({
               >
                 <Typography variant="body1">
                   <CustomLabel
-                    label="Have you filed your taxes with Taxcooler in the last year?"
+                    label="Have you filed your taxes with Onecall Tax Services in the last year?"
                     required={true}
                   />
                 </Typography>
@@ -715,28 +773,47 @@ const ConfirmDetails = ({
                 Spouse Contact
               </Typography>
               <Grid container spacing={2}>
-                <CustomInputTextField
-                  attribute="Date of Birth"
-                  is_required={true}
-                  attributeMarginTop="8px"
-                  fullWidth
-                  name="spouseDateOfBirth"
-                  type="date"
-                  value={formData.spouseDateOfBirth}
-                  variant="outlined"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  InputProps={{
-                    style: {
-                      color: "black",
-                    },
-                  }}
-                  inputProps={{
-                    placeholder: "",
-                  }}
-                  disabled
-                />
+                <Grid item xs={12}>
+                  <Grid container>
+                    <Grid item xs={10}>
+                      <CustomInputTextField
+                        disabled
+                        attribute="Date of Birth"
+                        is_required={true}
+                        margin="normal"
+                        name="spouseDateOfBirth"
+                        fullWidth
+                        value={formData.spouseDateOfBirth}
+                        variant="outlined"
+                        InputLabelProps={{
+                          shrink: true, // This is important for the label to behave correctly
+                        }}
+                        InputProps={{
+                          style: {
+                            color: "black", // Customize the label color
+                          },
+                        }}
+                        inputProps={{
+                          // To disable the default placeholder
+                          placeholder: "",
+                          // Other attributes you might need
+                        }}
+                      />
+                    </Grid>
+                    <Grid item xs={2} sx={{ margin: "auto 0" }}>
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: "#11a63d",
+                          whiteSpace: "nowrap",
+                          marginLeft: "-20px",
+                        }}
+                      >
+                        [MM/DD/YYYY]
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
 
                 <CustomInputTextField
                   attribute="Gender"
@@ -1136,7 +1213,7 @@ const ConfirmDetails = ({
                   width: "550px", // Set the width here
                 }}
               >
-                Did you sell any stocks in 2022?
+                Did you sell any stocks in 2023?
               </FormLabel>
               <RadioGroup
                 name="soldStocks"
@@ -1178,7 +1255,7 @@ const ConfirmDetails = ({
                   width: "550px", // Set the width here
                 }}
               >
-                Did you sell any Crypto Currency in 2022?
+                Did you sell any Crypto Currency in 2023?
               </FormLabel>
               <RadioGroup
                 name="soldCrypto"
@@ -1219,7 +1296,7 @@ const ConfirmDetails = ({
                   width: "550px", // Set the width here
                 }}
               >
-                Do you have any foreign country income in 2022?
+                Do you have any foreign country income in 2023?
               </FormLabel>
               <RadioGroup
                 name="foreignIncome"
@@ -1262,7 +1339,7 @@ const ConfirmDetails = ({
                 }}
               >
                 Do you have contributions/distributions to/from retirement
-                accounts in year 2022?
+                accounts in year 2023?
               </FormLabel>
               <RadioGroup
                 name="retirementAccounts"
@@ -1304,7 +1381,7 @@ const ConfirmDetails = ({
                   width: "550px", // Set the width here
                 }}
               >
-                Did you get State tax refund(s) in 2022?
+                Did you get State tax refund(s) in 2023?
               </FormLabel>
               <RadioGroup
                 name="stateTaxRefund"
@@ -1474,7 +1551,7 @@ const ConfirmDetails = ({
                   width: "550px", // Set the width here
                 }}
               >
-                Do you have 1099-Misc/1099-NEC Income in year 2022?
+                Do you have 1099-Misc/1099-NEC Income in year 2023?
               </FormLabel>
               <RadioGroup
                 name="income1099"
@@ -1533,186 +1610,185 @@ const ConfirmDetails = ({
               />
             </Grid>
           </Grid>
-          <Grid container spacing={2} sx={{ marginLeft: "0px" }}>
-            <Typography variant="h4" sx={{ marginTop: "30px" }}>
-              Important Note
-            </Typography>
+        </Grid>
+        <Grid container spacing={2} sx={{ marginLeft: "0px" }}>
+          <Typography variant="h4" sx={{ marginTop: "30px" }}>
+            Important Note
+          </Typography>
+          <Typography
+            sx={{
+              marginTop: "30px",
+              wordSpacing: "2px",
+            }}
+          >
+            The IRS and certain State Revenue Departments facilitate DIRECT
+            DEPOSIT / WITHDRAWAL of Tax Refund or Tax Dues on the Tax Returns.
+            If you are interested in availing this option, we request you to
+            kindly input the following details.
+          </Typography>
+
+          <Grid container sx={{ marginBottom: "30px", marginTop: "30px" }}>
+            <Grid
+              item
+              xs={10}
+              sm={4}
+              style={{ display: "flex", alignItems: "center" }}
+            >
+              <Typography variant="body1">
+                I prefer to receive my tax refunds by way of
+              </Typography>
+            </Grid>
+            <Grid item xs={2} sm={4}>
+              <select
+                id="bankingType"
+                name="bankingType"
+                value={formData.bankingType}
+                style={{ width: "100%" }}
+                disabled
+              >
+                <option value="">Select Option</option>
+                <option value="DIRECT DEPOSIT INTO MY BANK ACCOUNT">
+                  Direct deposit into my bank account
+                </option>
+                <option value="PAPER CHECK">Paper Check</option>
+              </select>
+            </Grid>
+          </Grid>
+        </Grid>
+
+        {formData.bankingType === "DIRECT DEPOSIT INTO MY BANK ACCOUNT" && (
+          <Grid item xs={12}>
+            {/* Additional Fields for Direct Deposit */}
             <Typography
+              variant="h5"
+              sx={{ marginTop: "30px", marginLeft: "15px" }}
+            >
+              Direct Deposit Information
+            </Typography>
+            <Typography sx={{ marginTop: "30px", marginLeft: "15px" }}>
+              Note : Please understand that there is no risk by entering Bank
+              Account and Routing Numbers
+            </Typography>
+            <Grid
+              container
+              spacing={2}
               sx={{
-                marginTop: "30px",
-                wordSpacing: "2px",
+                border: "1px solid #000000",
+                padding: "20px",
+                marginBottom: "20px",
+                backgroundColor: "#C7DFF0",
               }}
             >
-              The IRS and certain State Revenue Departments facilitate DIRECT
-              DEPOSIT / WITHDRAWAL of Tax Refund or Tax Dues on the Tax Returns.
-              If you are interested in availing this option, we request you to
-              kindly input the following details.
-            </Typography>
-
-            <Grid container sx={{ marginBottom: "30px", marginTop: "30px" }}>
-              <Grid
-                item
-                xs={10}
-                sm={4}
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <Typography variant="body1">
-                  I prefer to receive my tax refunds by way of
-                </Typography>
-              </Grid>
-              <Grid item xs={2} sm={4}>
-                <select
-                  id="bankingType"
-                  name="bankingType"
-                  value={formData.bankingType}
-                  style={{ width: "100%" }}
-                  disabled
+              <Grid item lg={6} sm={6} xs={12}>
+                <CustomInputTextField
+                  attribute="Bank Name"
+                  is_required={false}
+                  margin="normal"
+                  name="bankName"
+                  fullWidth
+                  value={formData.bankName}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
+                />
+                <CustomInputTextField
+                  attribute="Account Number"
+                  is_required={false}
+                  margin="normal"
+                  name="accountNumber"
+                  fullWidth
+                  value={formData.accountNumber}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
+                />
+                <CustomInputTextField
+                  attribute="Routing Number"
+                  is_required={false}
+                  margin="normal"
+                  name="routingNumber"
+                  fullWidth
+                  value={formData.routingNumber}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
+                />
+                <CustomInputTextField
+                  attribute="Account Type"
+                  is_required={false}
+                  margin="normal"
+                  name="accountType"
+                  select
+                  fullWidth
+                  value={formData.accountType}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
                 >
-                  <option value="">Select Option</option>
-                  <option value="DIRECT DEPOSIT INTO MY BANK ACCOUNT">
-                    Direct deposit into my bank account
-                  </option>
-                  <option value="PAPER CHECK">Paper Check</option>
-                </select>
+                  <MenuItem value="SAVINGS">Savings</MenuItem>
+                  <MenuItem value="CHECKING">Checking</MenuItem>
+                </CustomInputTextField>
+                <CustomInputTextField
+                  attribute="Ownership"
+                  is_required={false}
+                  margin="normal"
+                  name="ownership"
+                  select
+                  fullWidth
+                  value={formData.ownership}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
+                >
+                  <MenuItem value="TAXPAYER">Tax Payer</MenuItem>
+                  <MenuItem value="SPOUSE">Spouse</MenuItem>
+                  <MenuItem value="JOINT">Joint</MenuItem>
+                </CustomInputTextField>
+              </Grid>
+              <Grid item lg={6} sm={6} xs={12}>
+                <CustomInputTextField
+                  attribute="Account Holder Name"
+                  is_required={false}
+                  margin="normal"
+                  name="accountHolderName"
+                  fullWidth
+                  value={formData.accountHolderName}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
+                />
+                <CustomInputTextField
+                  attribute="Confirm Account Number"
+                  is_required={false}
+                  margin="normal"
+                  name="confirmAccountNumber"
+                  fullWidth
+                  value={formData.confirmAccountNumber}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
+                />
+                <CustomInputTextField
+                  attribute="Confirm Routing Number"
+                  is_required={false}
+                  margin="normal"
+                  name="confirmRoutingNumber"
+                  fullWidth
+                  value={formData.confirmRoutingNumber}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
+                />
+                <CustomInputTextField
+                  attribute="Confirm Account Type"
+                  is_required={false}
+                  margin="normal"
+                  name="confirmAccountType"
+                  select
+                  fullWidth
+                  value={formData.confirmAccountType}
+                  variant="outlined"
+                  disabled={formData.bankingType === "PAPER CHECK"}
+                >
+                  <MenuItem value="SAVINGS">Savings</MenuItem>
+                  <MenuItem value="CHECKING">Checking</MenuItem>
+                </CustomInputTextField>
               </Grid>
             </Grid>
           </Grid>
-
-          {formData.bankingType === "DIRECT DEPOSIT INTO MY BANK ACCOUNT" && (
-            <Grid>
-              {/* Additional Fields for Direct Deposit */}
-              <Typography
-                variant="h5"
-                sx={{ marginTop: "30px", marginLeft: "15px" }}
-              >
-                Direct Deposit Information
-              </Typography>
-              <Typography sx={{ marginTop: "30px", marginLeft: "15px" }}>
-                Note : Please understand that there is no risk by entering Bank
-                Account and Routing Numbers
-              </Typography>
-              <Grid
-                container
-                spacing={2}
-                sx={{
-                  border: "1px solid #000000",
-                  padding: "20px",
-                  marginBottom: "20px",
-                  backgroundColor: "#C7DFF0",
-                }}
-              >
-                <Grid item lg={6} sm={6} xs={12}>
-                  <CustomInputTextField
-                    attribute="Bank Name"
-                    is_required={false}
-                    margin="normal"
-                    name="bankName"
-                    fullWidth
-                    value={formData.bankName}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  />
-                  <CustomInputTextField
-                    attribute="Account Number"
-                    is_required={false}
-                    margin="normal"
-                    name="accountNumber"
-                    fullWidth
-                    value={formData.accountNumber}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  />
-                  <CustomInputTextField
-                    attribute="Routing Number"
-                    is_required={false}
-                    margin="normal"
-                    name="routingNumber"
-                    fullWidth
-                    value={formData.routingNumber}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  />
-                  <CustomInputTextField
-                    attribute="Account Type"
-                    is_required={false}
-                    margin="normal"
-                    name="accountType"
-                    select
-                    fullWidth
-                    value={formData.accountType}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  >
-                    <MenuItem value="SAVINGS">Savings</MenuItem>
-                    <MenuItem value="CHECKING">Checking</MenuItem>
-                  </CustomInputTextField>
-                  <CustomInputTextField
-                    attribute="Ownership"
-                    is_required={false}
-                    margin="normal"
-                    name="ownership"
-                    select
-                    fullWidth
-                    value={formData.ownership}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  >
-                    <MenuItem value="TAXPAYER/SPOUSE">
-                      Tax Payer / Spouse
-                    </MenuItem>
-                    <MenuItem value="JOINT">Joint</MenuItem>
-                  </CustomInputTextField>
-                </Grid>
-                <Grid item lg={6} sm={6} xs={12}>
-                  <CustomInputTextField
-                    attribute="Account Holder Name"
-                    is_required={false}
-                    margin="normal"
-                    name="accountHolderName"
-                    fullWidth
-                    value={formData.accountHolderName}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  />
-                  <CustomInputTextField
-                    attribute="Confirm Account Number"
-                    is_required={false}
-                    margin="normal"
-                    name="confirmAccountNumber"
-                    fullWidth
-                    value={formData.confirmAccountNumber}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  />
-                  <CustomInputTextField
-                    attribute="Confirm Routing Number"
-                    is_required={false}
-                    margin="normal"
-                    name="confirmRoutingNumber"
-                    fullWidth
-                    value={formData.confirmRoutingNumber}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  />
-                  <CustomInputTextField
-                    attribute="Confirm Account Type"
-                    is_required={false}
-                    margin="normal"
-                    name="confirmAccountType"
-                    select
-                    fullWidth
-                    value={formData.confirmAccountType}
-                    variant="outlined"
-                    disabled={formData.bankingType === "PAPER CHECK"}
-                  >
-                    <MenuItem value="SAVINGS">Savings</MenuItem>
-                    <MenuItem value="CHECKING">Checking</MenuItem>
-                  </CustomInputTextField>
-                </Grid>
-              </Grid>
-            </Grid>
-          )}
-        </Grid>
+        )}
         <Box
           sx={{
             display: "flex",

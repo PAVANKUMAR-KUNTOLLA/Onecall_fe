@@ -83,3 +83,21 @@ export const refundTypes = [
   "ADVANCE PAYMENT",
   "REFERRAL DISCOUNT",
 ];
+
+export const dependantRelationships = [
+  "FATHER",
+  "MOTHER",
+  "DAUGHTER",
+  "SON",
+  "FATHER IN LAW",
+  "MOTHER IN LAW",
+  "OTHER",
+];
+
+export const residentialStatus = [
+  "H4",
+  "US Citizen",
+  "L2",
+  "Green Card",
+  "Other",
+];

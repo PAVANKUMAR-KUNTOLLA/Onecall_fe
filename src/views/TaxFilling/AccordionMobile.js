@@ -6,15 +6,15 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import { Grid, Box, Avatar, Typography } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { makeStyles } from "@mui/styles";
-import BankDetails from "./Forms/bankDetails";
-import FilerDetails from "./Forms/filerDeatils";
-import IncomeDetails from "./Forms/incomeDetails";
-import PickAppointment from "./Forms/pickAppointment";
+import BankDetails from "./Forms/BankDetails";
+import FilerDetails from "./Forms/FilerDetails";
+import IncomeDetails from "./Forms/IncomeDetails";
+import PickAppointment from "./Forms/PickAppointment";
 import UploadTaxDocs from "./Forms/TaxDocs";
-import TaxReturns from "./Forms/taxReturns";
+import TaxReturns from "./Forms/TaxReturns";
 import PayPalPayment from "../Home/payPalPayment";
-import ConfirmDetails from "./Forms/confirmDetails";
-import RefundQuote from "./Forms/refundQuote";
+import ConfirmDetails from "./Forms/ConfirmDetails";
+import RefundQuote from "./Forms/RefundQuote";
 
 const customTextStyles = makeStyles((theme) => ({
   accordion: {

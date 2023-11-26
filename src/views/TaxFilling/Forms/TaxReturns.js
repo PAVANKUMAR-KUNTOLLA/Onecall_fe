@@ -94,7 +94,7 @@ export const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
-const TaxReturns = ({ open }) => {
+const TaxReturns = ({ open, setValue }) => {
   const customStyles = customTextStyles();
   const params = useParams();
   const [showAlert, setShowAlert] = useState({

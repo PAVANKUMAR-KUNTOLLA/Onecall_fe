@@ -53,7 +53,7 @@ const ReferralDiscount = () => {
               <Typography variant="body1" sx={{ color: "#FF0000" }}>
                 <strong>*</strong> If you have more referral discount than your
                 tax filing fee, it will be carried forward and used towards your
-                future service fee with Taxcooler Inc
+                future service fee with Onecall Tax Services Inc
               </Typography>
             </ListItem>
             <ListItem>
@@ -71,7 +71,7 @@ const ReferralDiscount = () => {
             <ListItem>
               <Typography variant="body1" sx={{ color: "#FF0000" }}>
                 <strong>*</strong> New Client means who did not file with
-                TaxCooler Inc in any of the previous years
+                Onecall Tax Services Inc in any of the previous years
               </Typography>
             </ListItem>
             <ListItem>
@@ -93,8 +93,8 @@ const ReferralDiscount = () => {
                       This discount will be applied on your filing fee when you
                       are filing your tax return. If you filed your tax return
                       already, the discount will be carried forward to your
-                      future filing fee (or any other service fee with Taxcooler
-                      Inc)
+                      future filing fee (or any other service fee with Onecall
+                      Tax Services Inc)
                     </li>
                   </ul>
                 </font>

@@ -14,6 +14,8 @@ import {
   Tooltip,
   ButtonBase,
 } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Formik, Field, Form } from "formik";
 import * as Yup from "yup"; // Import Yup for validation
 import TextField from "@mui/material/TextField";
@@ -23,6 +25,7 @@ import CustomInputTextField from "../../../components/CustomInputField";
 
 const IncomeDetails = ({
   open,
+  setValue,
   id,
   data,
   handleFetchData,
@@ -230,7 +233,7 @@ const IncomeDetails = ({
                           width: "550px", // Set the width here
                         }}
                       >
-                        Did you sell any stocks in 2022?
+                        Did you sell any stocks in 2023?
                       </FormLabel>
                       <RadioGroup
                         name="soldStocks"
@@ -278,7 +281,7 @@ const IncomeDetails = ({
                           width: "550px", // Set the width here
                         }}
                       >
-                        Did you sell any Crypto Currency in 2022?
+                        Did you sell any Crypto Currency in 2023?
                       </FormLabel>
                       <RadioGroup
                         name="soldCrypto"
@@ -339,7 +342,7 @@ const IncomeDetails = ({
                           width: "550px", // Set the width here
                         }}
                       >
-                        Do you have any foreign country income in 2022?
+                        Do you have any foreign country income in 2023?
                       </FormLabel>
                       <RadioGroup
                         name="foreignIncome"
@@ -389,7 +392,7 @@ const IncomeDetails = ({
                         }}
                       >
                         Do you have contributions/distributions to/from
-                        retirement accounts in year 2022?
+                        retirement accounts in year 2023?
                       </FormLabel>
                       <RadioGroup
                         name="retirementAccounts"
@@ -437,7 +440,7 @@ const IncomeDetails = ({
                           width: "550px", // Set the width here
                         }}
                       >
-                        Did you get State tax refund(s) in 2022?
+                        Did you get State tax refund(s) in 2023?
                       </FormLabel>
                       <RadioGroup
                         name="stateTaxRefund"
@@ -518,7 +521,7 @@ const IncomeDetails = ({
                       {values.foreignBankAccount ? (
                         <ButtonBase
                           onClick={() =>
-                            handleDownloadTemplate("FBAR_Information_2022.xls")
+                            handleDownloadTemplate("FBAR_Information_2023.xls")
                           }
                           sx={{
                             marginTop: "2px",
@@ -573,7 +576,7 @@ const IncomeDetails = ({
                         />
                       </RadioGroup>
                       <Tooltip
-                        title="As per recent IRS laws, you need to report if the combined investments(stocks/bonds/Accounts/Partnerships) of all your foreign assets exceeds $50,000 on at least 1 day in year 2022. You do not need to pay any tax on this amount. You need to report these details to avoid penalties."
+                        title="As per recent IRS laws, you need to report if the combined investments(stocks/bonds/Accounts/Partnerships) of all your foreign assets exceeds $50,000 on at least 1 day in year 2023. You do not need to pay any tax on this amount. You need to report these details to avoid penalties."
                         placement="left-end"
                       >
                         <Button>Details</Button>
@@ -582,7 +585,7 @@ const IncomeDetails = ({
                         <ButtonBase
                           onClick={() =>
                             handleDownloadTemplate(
-                              "FBAR_Information_2022_1.xls"
+                              "FBAR_Information_2023_1.xls"
                             )
                           }
                           sx={{
@@ -656,7 +659,7 @@ const IncomeDetails = ({
                           width: "550px", // Set the width here
                         }}
                       >
-                        Do you have 1099-Misc/1099-NEC Income in year 2022?
+                        Do you have 1099-Misc/1099-NEC Income in year 2023?
                       </FormLabel>
                       <RadioGroup
                         name="income1099"
@@ -769,6 +772,35 @@ const IncomeDetails = ({
             )}
           </Formik>
         )}
+        <Grid item xs={12}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: { xs: "8px 0", sm: "26px 0 20px" },
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={() => setValue(0)}
+              startIcon={<ArrowBackIosIcon />}
+              color="primary"
+              sx={{ margin: "0 10px", display: "flex", alignItems: "center" }}
+            >
+              Back
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => setValue(2)}
+              endIcon={<ArrowForwardIosIcon />}
+              color="primary"
+              sx={{ margin: "0 10px", display: "flex", alignItems: "center" }}
+            >
+              Next
+            </Button>
+          </Box>
+        </Grid>
       </Container>
     </Box>
   );

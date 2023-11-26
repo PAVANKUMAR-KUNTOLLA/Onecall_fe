@@ -10,6 +10,8 @@ import {
   CircularProgress,
   FormControl,
 } from "@mui/material";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { Formik, Form } from "formik";
 import * as Yup from "yup"; // Import Yup for validation
 import Api from "../../../components/Api";
@@ -73,7 +75,7 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-const BankDetails = ({ open, id, data, handleFetchData }) => {
+const BankDetails = ({ open, setValue, id, data, handleFetchData }) => {
   const [isBankDetailsLoading, setIsBankDetailsLoading] = useState(false);
 
   const initialValues = {
@@ -319,9 +321,8 @@ const BankDetails = ({ open, id, data, handleFetchData }) => {
                         error={Boolean(touched.ownership && errors.ownership)}
                         helperText={touched.ownership && errors.ownership}
                       >
-                        <MenuItem value="TAXPAYER/SPOUSE">
-                          Tax Payer / Spouse
-                        </MenuItem>
+                        <MenuItem value="TAXPAYER">Tax Payer</MenuItem>
+                        <MenuItem value="SPOUSE">Spouse</MenuItem>
                         <MenuItem value="JOINT">Joint</MenuItem>
                       </CustomInputTextField>
                     </Grid>
@@ -428,6 +429,35 @@ const BankDetails = ({ open, id, data, handleFetchData }) => {
             )}
           </Formik>
         )}
+        <Grid item xs={12}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              margin: { xs: "8px 0", sm: "26px 0 20px" },
+            }}
+          >
+            <Button
+              variant="outlined"
+              onClick={() => setValue(1)}
+              startIcon={<ArrowBackIosIcon />}
+              color="primary"
+              sx={{ margin: "0 10px", display: "flex", alignItems: "center" }}
+            >
+              Back
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => setValue(3)}
+              endIcon={<ArrowForwardIosIcon />}
+              color="primary"
+              sx={{ margin: "0 10px", display: "flex", alignItems: "center" }}
+            >
+              Next
+            </Button>
+          </Box>
+        </Grid>
       </Container>
     </Box>
   );

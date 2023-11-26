@@ -14,8 +14,8 @@ import { useParams } from "react-router-dom";
 import TabsDesktop from "../TabsDesktop";
 import BasicAccordion from "../AccordionMobile";
 import { makeStyles } from "@mui/styles";
-import ConfirmDetails from "../Forms/confirmDetails";
-import PickAppointment from "../Forms/pickAppointment";
+import ConfirmDetails from "../Forms/ConfirmDetails";
+import PickAppointment from "../Forms/PickAppointment";
 import PayPalPayment from "../../Home/payPalPayment";
 import PerfectScrollbar from "react-perfect-scrollbar";
 
@@ -24,7 +24,7 @@ import {
   privateApiGET,
   privateApiPOST,
 } from "../../../components/PrivateRoute";
-import RefundQuote from "../Forms/refundQuote";
+import RefundQuote from "../Forms/RefundQuote";
 
 export const customTextStyles = makeStyles((theme) => ({
   tabButton: {
@@ -50,6 +50,14 @@ const ClientTaxFillingPage = () => {
 
   const handleActiveTabChange = (tabName) => {
     setIsActiveTab(tabName);
+  };
+
+  const [tabsDesktopValue, setTabsDesktopValue] = useState(
+    parseInt(params.action)
+  );
+
+  const handleTabsDesktopChange = (event, newValue) => {
+    setTabsDesktopValue(newValue);
   };
 
   const handleFetchTaxFilingDetails = () => {
@@ -221,6 +229,10 @@ const ClientTaxFillingPage = () => {
                           </Typography>
 
                           <TabsDesktop
+                            value={tabsDesktopValue}
+                            setValue={setTabsDesktopValue}
+                            handleChange={handleTabsDesktopChange}
+                            handleActiveTabChange={handleActiveTabChange}
                             data={data}
                             handleFetchData={handleFetchTaxFilingDetails}
                             handleDownloadTemplate={handleDownloadTemplate}

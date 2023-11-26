@@ -15,6 +15,7 @@ export default {
   personalContactDetails: "/api/v1/personal_contact_details/",
   spouseDetails: "/api/v1/spouse_details",
   dependantDetails: "/api/v1/dependant_details/",
+  addDependant: "/api/v1/add_dependant/",
   deleteDependant: "/api/v1/delete_dependant/",
   bankDetails: "/api/v1/bank_details/",
   incomeDetails: "/api/v1/income_details/",

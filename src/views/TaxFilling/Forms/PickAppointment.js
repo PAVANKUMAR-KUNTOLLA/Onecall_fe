@@ -31,6 +31,7 @@ import {
 import { makeStyles } from "@mui/styles";
 import CustomInputTextField from "../../../components/CustomInputField";
 import { thousands_separators } from "../../../utils/index";
+import ConfirmedClientConfirmationDialogBox from "../ConfirmClientDialogBox";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -85,6 +86,10 @@ const PickAppointment = ({ open, id }) => {
   const [isPickAppointmentDetailsLoading, setIsPickAppointmentDetailsLoading] =
     useState(false);
   const state = useSelector((state) => state.app);
+  const [
+    isConfirmedClientConfirmationDialogBoxOpen,
+    setIsConfirmedClientConfirmationDialogBoxOpen,
+  ] = useState(false);
 
   const [appointmentData, setAppointmentData] = useState({
     date: "",
@@ -258,6 +263,10 @@ const PickAppointment = ({ open, id }) => {
 
   const timeOptions = generateTimeOptions();
 
+  const handleCloseConfirmedClientConfirmationDialogBoxOpen = () => {
+    setIsConfirmedClientConfirmationDialogBoxOpen(false);
+  };
+
   return (
     <Box
       sx={{
@@ -336,7 +345,7 @@ const PickAppointment = ({ open, id }) => {
           <Button
             variant="contained"
             color="primary"
-            onClick={showMsg}
+            onClick={() => setIsConfirmedClientConfirmationDialogBoxOpen(true)}
             sx={{ marginTop: { xs: "10px" } }}
           >
             CLICK HERE
@@ -349,13 +358,10 @@ const PickAppointment = ({ open, id }) => {
         <Typography variant="body1" color="#11a63d" sx={{ marginLeft: "10px" }}>
           {`- We try to match your preferred time. Unfortunately, it is not a guaranteed time.`}
         </Typography>
-        <Typography variant="body1" color="#11a63d" sx={{ marginLeft: "10px" }}>
-          {`- We try to match your preferred time. Unfortunately, it is not a guaranteed time.`}
-        </Typography>
         <Typography variant="body1" color="#11a63d" sx={{ marginTop: "30px" }}>
           Please pick your availability between{" "}
           <Typography variant="body1" color="primary" component="span">
-            01/11/2023 to 04/18/2023
+            01/11/2024 to 04/18/2024
           </Typography>
         </Typography>
         <form autoComplete="off" onSubmit={handleSubmit}>
@@ -367,19 +373,36 @@ const PickAppointment = ({ open, id }) => {
               marginTop: "30px",
             }}
           >
-            <Box sx={{ width: { xs: "100%", sm: "30%" } }}>
-              <CustomInputTextField
-                attributeMarginTop="12px"
-                attribute="Date"
-                is_required={false}
-                type="date"
-                value={appointmentData.date}
-                onChange={handleDateChange}
-                fullWidth
-                required
-              />
+            <Box sx={{ width: { xs: "100%", sm: "35%" } }}>
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={10}>
+                    <CustomInputTextField
+                      attributeMarginTop="12px"
+                      attribute="Date"
+                      is_required={false}
+                      value={appointmentData.date}
+                      onChange={handleDateChange}
+                      fullWidth
+                      required
+                    />
+                  </Grid>
+                  <Grid item xs={2} sx={{ margin: "auto 0" }}>
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        color: "#11a63d",
+                        whiteSpace: "nowrap",
+                        marginLeft: "-15px",
+                      }}
+                    >
+                      [MM/DD/YYYY]
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Box>
-            <Box sx={{ width: { xs: "100%", sm: "40%" } }}>
+            <Box sx={{ width: { xs: "100%", sm: "35%" } }}>
               <CustomInputTextField
                 attributeMarginTop="12px"
                 attribute="Preferrable Time"
@@ -399,7 +422,7 @@ const PickAppointment = ({ open, id }) => {
                 ))}
               </CustomInputTextField>
             </Box>
-            <Box sx={{ width: { xs: "100%", sm: "30%" } }}>
+            <Box sx={{ width: { xs: "100%", sm: "25%" } }}>
               <CustomInputTextField
                 attributeMarginTop="12px"
                 attribute="Time Zone"
@@ -663,6 +686,10 @@ const PickAppointment = ({ open, id }) => {
           )}
         </Box>
       </Container>
+      <ConfirmedClientConfirmationDialogBox
+        open={isConfirmedClientConfirmationDialogBoxOpen}
+        handleClose={handleCloseConfirmedClientConfirmationDialogBoxOpen}
+      />
     </Box>
   );
 };
