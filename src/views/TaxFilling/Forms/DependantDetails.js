@@ -257,8 +257,8 @@ const DependantDetails = ({
                       variant="body1"
                       style={{ color: "blue", wordSpacing: "2px" }}
                     >
-                      NOTE: Make sure the kids or dependants reported in your
-                      (Taxpayer) 2023 Tax Return are not claimed as dependants
+                      NOTE: Make sure the kids or dependents reported in your
+                      (Taxpayer) 2023 Tax Return are not claimed as dependents
                       in any other 2023 Individual Tax Returns.
                     </Typography>
                   </Grid>
@@ -673,7 +673,7 @@ const DependantDetails = ({
                           disabled={isSubmitting}
                           sx={{ margin: "0 10px" }}
                         >
-                          Save Dependant Details
+                          Save Dependents Details
                         </Button>
                       </Box>
                     </Grid>
@@ -697,7 +697,7 @@ const DependantDetails = ({
               variant="h5"
               sx={{ textAlign: "center", marginTop: "20px" }}
             >
-              Existing Dependant Details
+              Existing Dependents Details
             </Typography>
             <Table
               sx={{

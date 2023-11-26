@@ -926,7 +926,7 @@ const ConfirmDetails = ({
               paddingBottom: { xs: "10px", sm: "0px" },
             }}
           >
-            <Typography variant="h4">Dependant Details</Typography>
+            <Typography variant="h4">Dependents Details</Typography>
             <Table
               sx={{
                 borderCollapse: "collapse",
