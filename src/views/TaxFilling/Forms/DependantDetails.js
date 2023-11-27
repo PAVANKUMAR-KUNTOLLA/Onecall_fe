@@ -161,7 +161,7 @@ const DependantDetails = ({
               additionalLastName: Yup.string(),
               additionalSsnOrItin: Yup.string(),
               additionalApplyForItin: Yup.string(),
-              additionalDateOfBirth: Yup.date(),
+              additionalDateOfBirth: Yup.string(),
               additionalGender: Yup.string(),
               additionalOccupation: Yup.string(),
               additionalVisaType: Yup.string(),

@@ -32,6 +32,7 @@ import Api from "../../../components/Api";
 import CustomAlert from "../../../components/CustomAlert";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 export const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -121,6 +122,7 @@ export const customTextStyles = makeStyles((theme) => ({
 
 const UploadTaxDocs = ({ open, setValue, handleActiveTabChange, id }) => {
   const customStyles = customTextStyles();
+  const params = useParams();
   const role = useSelector((state) => state.app.role);
   const [showAlert, setShowAlert] = useState({
     isAlert: false,
@@ -167,15 +169,14 @@ const UploadTaxDocs = ({ open, setValue, handleActiveTabChange, id }) => {
       });
   };
 
-  const handleDeleteFile = (file) => {
+  const handleDeleteFile = (id, file) => {
     setIsLoading(true);
-
     let payload = {
+      file_id: id,
       file_name: file,
-      id: id,
+      id: params.id,
       type: "docs",
     };
-
     privateApiPOST(Api.deleteTaxDocsFile, payload)
       .then((res) => {
         const { status, data } = res;
@@ -497,23 +498,17 @@ const UploadTaxDocs = ({ open, setValue, handleActiveTabChange, id }) => {
                                 handleDownloadFile(row.file_name);
                               }}
                             >
-                              Download{" "}
-                              {isLoading && (
-                                <CircularProgress sx={{ ml: 1 }} size={14} />
-                              )}
+                              Downloa
                             </Button>
                             <Button
                               disabled={isLoading}
                               startIcon={<DeleteIcon />}
                               size="small"
                               onClick={() => {
-                                handleDeleteFile(row.file_name);
+                                handleDeleteFile(row.id, row.file_name);
                               }}
                             >
-                              Delete{" "}
-                              {isLoading && (
-                                <CircularProgress sx={{ ml: 1 }} size={14} />
-                              )}
+                              Delete
                             </Button>
                           </Box>
                         </TableCell>

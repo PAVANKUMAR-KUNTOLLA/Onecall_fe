@@ -186,8 +186,7 @@ const ConfirmDetails = ({
     foreignAssets: incomeDetails["foreignAssets"],
     rentalIncome: incomeDetails["rentalIncome"],
     income1099: incomeDetails["income1099"],
-    incomeDescription: incomeDetails["incomeDescription"],
-    incomeAmount: incomeDetails["incomeAmount"],
+    otherIncomeDetails: incomeDetails["otherIncomeDetails"],
     addAdditionalInformation: false,
 
     //Bank Details
@@ -1585,29 +1584,55 @@ const ConfirmDetails = ({
               marginLeft: "0px",
             }}
           >
-            <Grid item xs={12} className="leftSide">
-              <Typography variant="h5">Add other Income Information</Typography>
+            <Grid item xs={12}>
+              <TableContainer
+                sx={{
+                  paddingBottom: { xs: "10px", sm: "0px" },
+                }}
+              >
+                <Typography variant="h4" sx={{ marginTop: "20px" }}>
+                  Other Income Details
+                </Typography>
+                <Table
+                  sx={{
+                    borderCollapse: "collapse",
+                  }}
+                >
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className={customStyles.tableHeader}>
+                        Income Description
+                      </TableCell>
 
-              <CustomInputTextField
-                disabled
-                fullWidth
-                attribute="Income Description"
-                margin="normal"
-                name="incomeDescription"
-                value={formData.incomeDescription}
-                variant="outlined"
-              />
+                      <TableCell className={customStyles.tableHeader}>
+                        Income Amount
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {formData.otherIncomeDetails.length > 0 &&
+                      formData.otherIncomeDetails.map((row, index) => (
+                        <TableRow key={index}>
+                          <TableCell className={customStyles.tableData}>
+                            {row.incomeDescription}
+                          </TableCell>
+                          <TableCell className={customStyles.tableData}>
+                            {row.incomeAmount}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                  </TableBody>
+                </Table>
 
-              <CustomInputTextField
-                disabled
-                fullWidth
-                attribute="Income Amount"
-                margin="normal"
-                name="incomeAmount"
-                value={formData.incomeAmount}
-                variant="outlined"
-                type="number"
-              />
+                {formData.otherIncomeDetails.length === 0 && (
+                  <Typography
+                    variant="h5"
+                    sx={{ textAlign: "center", margin: "5px 0" }}
+                  >
+                    No Other Incomes Found
+                  </Typography>
+                )}
+              </TableContainer>
             </Grid>
           </Grid>
         </Grid>

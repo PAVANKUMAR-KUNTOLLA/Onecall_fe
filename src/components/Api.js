@@ -18,6 +18,7 @@ export default {
   addDependant: "/api/v1/add_dependant/",
   deleteDependant: "/api/v1/delete_dependant/",
   bankDetails: "/api/v1/bank_details/",
+  otherIncomeDetails: "/api/v1/other_income_details/",
   incomeDetails: "/api/v1/income_details/",
   uploadTaxDocs: "/api/v1/upload_tax_docs/",
   confirmDetails: "/api/v1/confirm_details/",

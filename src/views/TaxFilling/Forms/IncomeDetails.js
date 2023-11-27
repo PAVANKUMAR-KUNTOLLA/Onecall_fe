@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -22,6 +22,7 @@ import TextField from "@mui/material/TextField";
 import Api from "../../../components/Api";
 import { privateApiPOST } from "../../../components/PrivateRoute";
 import CustomInputTextField from "../../../components/CustomInputField";
+import OtherIncomeDetails from "./OtherIncomeDetails";
 
 const IncomeDetails = ({
   open,
@@ -32,6 +33,7 @@ const IncomeDetails = ({
   handleDownloadTemplate,
 }) => {
   const [isIncomeDetailsLoading, setIsIncomeDetailsLoading] = useState(false);
+  const [otherIncomeDetails, setotherIncomeDetails] = useState([]);
 
   const initialValues = {
     interestIncome: data["interestIncome"],
@@ -45,10 +47,49 @@ const IncomeDetails = ({
     foreignAssets: data["foreignAssets"],
     rentalIncome: data["rentalIncome"],
     income1099: data["income1099"],
-    incomeDescription: data["incomeDescription"],
-    incomeAmount: data["incomeAmount"],
-    addAdditionalInformation: false,
   };
+
+  const handleDeleteOtherIncomeDetails = (otherIncomeId) => {
+    setIsIncomeDetailsLoading(true);
+    let payload = { id: id, otherIncomeId: otherIncomeId, type: "delete" };
+    privateApiPOST(Api.otherIncomeDetails, payload)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setIsIncomeDetailsLoading(false);
+          setotherIncomeDetails(data?.data["otherIncomeDetails"]);
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsIncomeDetailsLoading(false);
+      });
+  };
+
+  const handleFetchOtherIncomeDetails = () => {
+    setIsIncomeDetailsLoading(true);
+    let payload = { id: id };
+    privateApiPOST(Api.otherIncomeDetails, payload)
+      .then((response) => {
+        const { status, data } = response;
+        if (status === 200) {
+          console.log("data", data);
+          setIsIncomeDetailsLoading(false);
+          setotherIncomeDetails(data?.data["otherIncomeDetails"]);
+        }
+      })
+      .catch((error) => {
+        console.log("Error", error);
+        setIsIncomeDetailsLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    if (open) {
+      handleFetchOtherIncomeDetails();
+    }
+  }, []);
 
   return (
     <Box
@@ -56,9 +97,9 @@ const IncomeDetails = ({
         padding: "20px 0 5px",
         border: { xs: "none", sm: "1px solid #3A97BB" },
         minHeight: { xs: "auto", sm: "800px" },
+        position: "relative",
       }}
     >
-      {" "}
       <Container maxWidth="lg">
         {isIncomeDetailsLoading ? (
           <CircularProgress />
@@ -690,88 +731,34 @@ const IncomeDetails = ({
                     </FormControl>
                   </Grid>
 
-                  <Grid
-                    container
-                    spacing={2}
-                    sx={{
-                      marginTop: "30px",
-                      marginBottom: "30px",
-                      marginLeft: "0px",
-                    }}
-                  >
-                    <Grid item xs={12} className="leftSide">
-                      <Typography variant="h5">
-                        Add other Income Information
-                      </Typography>
-
-                      <CustomInputTextField
-                        error={Boolean(
-                          touched.incomeDescription && errors.incomeDescription
-                        )}
-                        fullWidth
-                        helperText={
-                          touched.incomeDescription && errors.incomeDescription
-                        }
-                        attribute="Income Description"
-                        margin="normal"
-                        name="incomeDescription"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.incomeDescription}
-                        variant="outlined"
-                      />
-
-                      <CustomInputTextField
-                        error={Boolean(
-                          touched.incomeAmount && errors.incomeAmount
-                        )}
-                        fullWidth
-                        helperText={touched.incomeAmount && errors.incomeAmount}
-                        attribute="Income Amount"
-                        margin="normal"
-                        name="incomeAmount"
-                        onBlur={handleBlur}
-                        onChange={handleChange}
-                        value={values.incomeAmount}
-                        variant="outlined"
-                        type="number"
-                      />
-
-                      {/* <Grid item xs={12} sm={6}>
-                        <Button
-                          variant={
-                            values.addAdditionalInformation
-                              ? "contained"
-                              : "outlined"
-                          }
-                          color="primary"
-                          name="addAdditionalInformation"
-                          onClick={() =>
-                            handleChange(!values.addAdditionalInformation)
-                          }
-                          value={values.addAdditionalInformation}
-                        >
-                          Add Additional Information
-                        </Button>
-                      </Grid> */}
-                    </Grid>
+                  <Grid item xs={12}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        margin: { xs: "8px 0", sm: "26px 0 20px" },
+                        position: "absolute",
+                        bottom: "6%",
+                        left: "45%",
+                      }}
+                    >
+                      <Button type="submit" variant="contained" color="primary">
+                        Save
+                      </Button>
+                    </Box>
                   </Grid>
                 </Grid>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    paddingBottom: { xs: "20px" },
-                  }}
-                >
-                  <Button type="submit" variant="contained" color="primary">
-                    Save
-                  </Button>
-                </Box>
               </Form>
             )}
           </Formik>
         )}
+        <OtherIncomeDetails
+          id={id}
+          otherIncomeDetails={otherIncomeDetails}
+          handleFetchData={handleFetchOtherIncomeDetails}
+          handleDelete={handleDeleteOtherIncomeDetails}
+        />
         <Grid item xs={12}>
           <Box
             sx={{
