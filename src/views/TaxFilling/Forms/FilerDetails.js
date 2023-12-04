@@ -317,20 +317,26 @@ const FilerDetails = ({
                   ),
 
                   // additional Spouse Details (Add validation rules as needed)
-                  spouseFirstName: Yup.string().when("taxPayerStatus", {
-                    is: "MARRIED",
-                    then: Yup.string().required(
-                      "Spouse First Name is required"
-                    ),
-                    otherwise: Yup.string(),
-                  }),
+                  spouseFirstName: Yup.string()
+                    .when("taxPayerStatus", {
+                      is: "MARRIED",
+                      then: Yup.string().required(
+                        "Spouse First Name is required"
+                      ),
+                      otherwise: Yup.string(),
+                    })
+                    .required("First name is required"),
                   spouseMiddleInitial: Yup.string(),
-                  spouseLastName: Yup.string(),
+                  spouseLastName: Yup.string().required(
+                    "Last name is required"
+                  ),
                   spouseSsnOrItin: Yup.string(),
                   spouseApplyForItin: Yup.string(),
-                  spouseDateOfBirth: Yup.string(),
-                  spouseGender: Yup.string(),
-                  spouseOccupation: Yup.string(),
+                  spouseDateOfBirth: Yup.string().required("DOB is required"),
+                  spouseGender: Yup.string().required("Gender is required"),
+                  spouseOccupation: Yup.string().required(
+                    "Occupation is required"
+                  ),
                   spouseResidentialStatus: Yup.string(),
                   spouseEmail: Yup.string().when("taxPayerStatus", {
                     is: "MARRIED",
@@ -987,7 +993,7 @@ const FilerDetails = ({
 
                           <CustomInputTextField
                             attribute="Email Id"
-                            is_required={true}
+                            is_required={false}
                             error={Boolean(
                               touched.contactEmail && errors.contactEmail
                             )}
@@ -1132,7 +1138,7 @@ const FilerDetails = ({
 
                             <CustomInputTextField
                               attribute="Last Name"
-                              is_required={false}
+                              is_required={true}
                               // label={
                               //   <CustomLabel
                               //     label="Spouse Last Name"
@@ -1235,7 +1241,7 @@ const FilerDetails = ({
                                 <Grid item xs={10}>
                                   <CustomInputTextField
                                     attribute="Date of Birth"
-                                    is_required={false}
+                                    is_required={true}
                                     // label={
                                     //   <CustomLabel
                                     //     label="Date of Birth"
@@ -1289,7 +1295,7 @@ const FilerDetails = ({
 
                             <CustomInputTextField
                               attribute="Gender"
-                              is_required={false}
+                              is_required={true}
                               // label={
                               //   <CustomLabel
                               //     label="Spouse Gender"
@@ -1318,7 +1324,7 @@ const FilerDetails = ({
 
                             <CustomInputTextField
                               attribute="Occupation / Job Title"
-                              is_required={false}
+                              is_required={true}
                               // label={
                               //   <CustomLabel
                               //     label="Spouse Occupation / Job Title"

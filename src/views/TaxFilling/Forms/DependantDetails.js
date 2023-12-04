@@ -156,20 +156,30 @@ const DependantDetails = ({
 
               isNewDependant: Yup.boolean().required("Please select an option"),
 
-              additionalFirstName: Yup.string(),
+              additionalFirstName: Yup.string().required(
+                "First Name is required"
+              ),
               additionalMiddleInitial: Yup.string(),
-              additionalLastName: Yup.string(),
+              additionalLastName: Yup.string().required(
+                "Last Name is required"
+              ),
               additionalSsnOrItin: Yup.string(),
               additionalApplyForItin: Yup.string(),
-              additionalDateOfBirth: Yup.string(),
+              additionalDateOfBirth: Yup.string().required(
+                "Data of birth is required"
+              ),
               additionalGender: Yup.string(),
               additionalOccupation: Yup.string(),
-              additionalVisaType: Yup.string(),
+              additionalVisaType: Yup.string().required(
+                "visa type is required"
+              ),
               additionalEmail: Yup.string()
                 .email("Must be a valid email")
                 .max(255),
-              additionalRelationship: Yup.string(),
-              additionalStayCount: Yup.number(),
+              additionalRelationship: Yup.string().required(
+                "Relationship is required"
+              ),
+              additionalStayCount: Yup.number().required("count is required"),
             })}
             onSubmit={(values, { setSubmitting, resetForm }) => {
               setIsDependantDetailsLoading(true);
@@ -305,6 +315,7 @@ const DependantDetails = ({
                             //     required={true}
                             //   />
                             // }
+                            is_required={true}
                             margin="normal"
                             name={`additionalFirstName`}
                             onBlur={handleBlur}
@@ -342,11 +353,9 @@ const DependantDetails = ({
                           <CustomInputTextField
                             attribute="Last Name"
                             // label={
-                            //   <CustomLabel
-                            //     label="Last Name"
-                            //     required={true}
-                            //   />
+                            //   <CustomLabel label="Last Name" required={true} />
                             // }
+                            is_required={true}
                             margin="normal"
                             name={`additionalLastName`}
                             onBlur={handleBlur}
@@ -437,6 +446,7 @@ const DependantDetails = ({
                             //     required={true}
                             //   />
                             // }
+                            is_required={true}
                             margin="normal"
                             name={`additionalRelationship`}
                             onBlur={handleBlur}
@@ -478,6 +488,7 @@ const DependantDetails = ({
                                   //     required={true}
                                   //   />
                                   // }
+                                  is_required={true}
                                   margin="normal"
                                   name={`additionalDateOfBirth`}
                                   onBlur={handleBlur}
@@ -583,6 +594,7 @@ const DependantDetails = ({
                             //     required={true}
                             //   />
                             // }
+                            is_required={true}
                             margin="normal"
                             name={`additionalVisaType`}
                             onBlur={handleBlur}
@@ -634,6 +646,7 @@ const DependantDetails = ({
                             //     required={true}
                             //   />
                             // }
+                            is_required={true}
                             margin="normal"
                             name={`additionalStayCount`}
                             onBlur={handleBlur}
