@@ -358,8 +358,9 @@ const SearchClientsPage = () => {
       }));
       setIsAppointmentUpdateConfirmationDialogBoxOpen(true);
     } else if ((!action || action === "view") && data.filing.taxFilingId) {
-      navigate(
-        `/app/tax-filing/${data.filing.taxFilingYear}/${data.filing.taxFilingId}/0`
+      window.open(
+        `/app/tax-filing/${data.filing.taxFilingYear}/${data.filing.taxFilingId}/0`,
+        "_blank"
       );
     } else if (action === "refund" && data.id) {
       setIsRefundPageOpen(true);

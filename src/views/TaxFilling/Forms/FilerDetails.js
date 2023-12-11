@@ -36,6 +36,7 @@ import {
 } from "../../../components/PrivateRoute";
 import CustomInputTextField from "../../../components/CustomInputField";
 import DependantDetails from "./DependantDetails";
+import SSN from "../../../components/ssn_field";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -478,7 +479,7 @@ const FilerDetails = ({
                             </Box>
                           </Box>
 
-                          <CustomInputTextField
+                          {/* <CustomInputTextField
                             attribute="SSN"
                             attributeTextAlign="right"
                             is_required={true}
@@ -492,7 +493,19 @@ const FilerDetails = ({
                             onChange={handleChange}
                             value={transform(values.ssn)}
                             variant="outlined"
+                          /> */}
+                          <SSN
+                            error={Boolean(touched.ssn && errors.ssn)}
+                            fullWidth
+                            // label={<CustomLabel label="SSN" required={true} />}
+                            margin="normal"
+                            name="ssn"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={transform(values.ssn)}
+                            variant="outlined"
                           />
+
                           <Grid item xs={12}>
                             <Grid container>
                               <Grid item xs={10}>

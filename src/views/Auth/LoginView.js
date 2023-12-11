@@ -113,6 +113,9 @@ const useStyles = makeStyles((theme) => ({
       marginTop: "-100px",
     },
   },
+  "& .css-t7eypm-MuiTypography-root": {
+    fontWeight: "700",
+  },
 }));
 
 const LoginView = () => {
@@ -248,6 +251,7 @@ const LoginView = () => {
                   type="email"
                   value={values.email}
                   variant="outlined"
+                  sx={{ fontWeight: "700 !important" }}
                 />
                 <CustomInputTextField
                   attribute="Password"

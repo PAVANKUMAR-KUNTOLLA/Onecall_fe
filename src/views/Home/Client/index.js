@@ -98,12 +98,13 @@ export const customTextStyles = makeStyles((theme) => ({
 const ClientHomePage = () => {
   const customStyles = customTextStyles();
   let navigate = useNavigate();
-  const state = useSelector((state) => state.issue);
+  const state = useSelector((state) => state.app);
   const [myServices, setMyServices] = useState([]);
   const [taxYearServices, setTaxYearServices] = useState([]);
   const [isMyServicesLoading, setIsMyServicesLoading] = useState(false);
   const [isTaxYearsLoading, setIsTaxYearsLoading] = useState(false);
   const [currSelectedYear, setCurrSelectedYear] = useState("");
+  const [appointmentDetails, setAppointmentDetails] = useState();
   const dispatch = useDispatch();
   const [showAlert, setShowAlert] = useState({
     isAlert: false,
@@ -185,10 +186,69 @@ const ClientHomePage = () => {
       });
   };
 
+  const handleFetchAppointmentDetails = () => {
+    // setIsPickAppointmentDetailsLoading(true);
+    console.log(myServices[1]);
+
+    if (myServices && myServices.length > 0) {
+      let payload = { id: myServices[0].id };
+      privateApiPOST(Api.appointmentDetails, payload)
+        .then((response) => {
+          const { status, data } = response;
+          if (status === 200) {
+            console.log("data", data);
+            // setIsPickAppointmentDetailsLoading(false);
+            setAppointmentDetails(data?.data);
+          }
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          if (error.response.status === 400 || error.response.status === 401) {
+            setShowAlert({
+              isAlert: true,
+              alertText: error.response.data?.message || "Error occurred",
+              severity: "error",
+              alertTitle: "Error",
+            });
+          } else {
+            setShowAlert({
+              isAlert: true,
+              alertText: "Something went wrong",
+              severity: "error",
+              alertTitle: "Error",
+            });
+          }
+          // setIsPickAppointmentDetailsLoading(false);
+        });
+    }
+  };
+
+  const getLatestBookedAppointment = (appointments) => {
+    if (!Array.isArray(appointments) || appointments.length === 0) {
+      return null;
+    }
+
+    const sortedAppointments = appointments
+      .filter((appointment) => appointment.status === "BOOKED")
+      .sort(
+        (a, b) =>
+          new Date(b.date + " " + b.start_time) -
+          new Date(a.date + " " + a.start_time)
+      );
+
+    return sortedAppointments.length > 0 ? sortedAppointments[0] : null;
+  };
+
+  const latestBookedAppointment =
+    getLatestBookedAppointment(appointmentDetails);
   useEffect(() => {
     handleFetchTaxYearServices();
     handleFetchMyServices();
   }, []);
+
+  useEffect(() => {
+    handleFetchAppointmentDetails();
+  }, [myServices]);
 
   return (
     <Box>
@@ -238,6 +298,26 @@ const ClientHomePage = () => {
           >
             * Click on "Start Process" against selected "Tax Filing" Service
           </Typography>
+          {latestBookedAppointment && (
+            <Typography
+              sx={{
+                backgroundColor: "#C7DFF0",
+                padding: "15px 20px",
+                fontSize: "16px",
+                fontWeight: "24px",
+              }}
+            >
+              <span>
+                {" "}
+                * The appointment was was {
+                  latestBookedAppointment.status
+                } on {latestBookedAppointment.date} . The timing was{" "}
+                {latestBookedAppointment.start_time} -{" "}
+                {latestBookedAppointment.end_time}.
+              </span>
+            </Typography>
+          )}
+
           <Typography className={customStyles.headerText} sx={{}}>
             My Selected Services
           </Typography>

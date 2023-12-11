@@ -211,8 +211,8 @@ const ClientTaxFillingPage = () => {
                               textAlign: "center",
                             }}
                           >
-                            NOTE : ON FILLING ALL INFORMATION PLEASE MENTION
-                            YOUR AVAILABILITY IN Pick an Appointment PAGE
+                            NOTE : ON FILING ALL INFORMATION PLEASE MENTION YOUR
+                            AVAILABILITY IN Pick an Appointment PAGE
                           </Typography>
                           <Typography
                             color={"#11a63d"}

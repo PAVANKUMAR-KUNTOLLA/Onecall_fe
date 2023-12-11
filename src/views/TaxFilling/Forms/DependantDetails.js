@@ -141,6 +141,13 @@ const DependantDetails = ({
     additionalRelationship: "",
   });
 
+  const handleSaveDependentDetails = () => {
+    setFormData({
+      ...formData,
+      providedLivingSupport: true, // Update the value of providedLivingSupport to true
+    });
+  };
+
   return (
     <Box sx={{ marginBottom: "100px" }}>
       {!isDependantDetailsLoading && (
@@ -437,39 +444,6 @@ const DependantDetails = ({
                               Download ITIN Information Excel
                             </ButtonBase>
                           )}
-
-                          <CustomInputTextField
-                            attribute="Relationship"
-                            // label={
-                            //   <CustomLabel
-                            //     label="Relationship"
-                            //     required={true}
-                            //   />
-                            // }
-                            is_required={true}
-                            margin="normal"
-                            name={`additionalRelationship`}
-                            onBlur={handleBlur}
-                            onChange={handleChange}
-                            fullWidth
-                            select
-                            value={values.additionalRelationship}
-                            variant="outlined"
-                            error={
-                              touched.additionalRelationship &&
-                              errors.additionalRelationship
-                            }
-                            helperText={
-                              touched.additionalRelationship &&
-                              errors.additionalRelationship
-                            }
-                          >
-                            {dependantRelationships.map((each, id) => (
-                              <MenuItem value={each} key={id}>
-                                {each}
-                              </MenuItem>
-                            ))}
-                          </CustomInputTextField>
                         </Grid>
                       </Grid>
 
@@ -561,7 +535,7 @@ const DependantDetails = ({
                             <MenuItem value="Other">Other</MenuItem>
                           </CustomInputTextField>
 
-                          <CustomInputTextField
+                          {/* <CustomInputTextField
                             attribute="Occupation / Job Title"
                             // label={
                             //   <CustomLabel
@@ -584,7 +558,7 @@ const DependantDetails = ({
                               touched.additionalOccupation &&
                               errors.additionalOccupation
                             }
-                          />
+                          /> */}
 
                           <CustomInputTextField
                             attribute="Visa Type"
@@ -619,7 +593,7 @@ const DependantDetails = ({
                             ))}
                           </CustomInputTextField>
 
-                          <CustomInputTextField
+                          {/* <CustomInputTextField
                             attribute="Email Id"
                             // label={
                             //   <CustomLabel label="Email Id" required={true} />
@@ -637,24 +611,57 @@ const DependantDetails = ({
                             helperText={
                               touched.additionalEmail && errors.additionalEmail
                             }
-                          />
+                            
+                          /> */}
                           <CustomInputTextField
-                            attribute="No. of months dependent has stayed with you in U.S"
+                            attribute="Relationship"
                             // label={
                             //   <CustomLabel
-                            //     label="No. of months dependent has stayed with you in U.S"
+                            //     label="Relationship"
                             //     required={true}
                             //   />
                             // }
                             is_required={true}
                             margin="normal"
-                            name={`additionalStayCount`}
+                            name={`additionalRelationship`}
                             onBlur={handleBlur}
                             onChange={handleChange}
+                            fullWidth
+                            select
+                            value={values.additionalRelationship}
+                            variant="outlined"
+                            error={
+                              touched.additionalRelationship &&
+                              errors.additionalRelationship
+                            }
+                            helperText={
+                              touched.additionalRelationship &&
+                              errors.additionalRelationship
+                            }
+                          >
+                            {dependantRelationships.map((each, id) => (
+                              <MenuItem value={each} key={id}>
+                                {each}
+                              </MenuItem>
+                            ))}
+                          </CustomInputTextField>
+                          <CustomInputTextField
+                            attribute="No. of months dependent has stayed with you in U.S"
+                            is_required={true}
+                            margin="normal"
+                            name={`additionalStayCount`}
+                            onBlur={handleBlur}
+                            onChange={(e) => {
+                              const value = parseInt(e.target.value, 10);
+                              if (value <= 12) {
+                                handleChange(e);
+                              }
+                            }}
                             type="number"
                             fullWidth
                             value={values.additionalStayCount}
                             variant="outlined"
+                            inputProps={{ max: 12 }} // Set maximum value to 12
                             error={
                               touched.additionalStayCount &&
                               errors.additionalStayCount
@@ -684,6 +691,7 @@ const DependantDetails = ({
                           variant="contained"
                           color="primary"
                           disabled={isSubmitting}
+                          onClick={handleSaveDependentDetails}
                           sx={{ margin: "0 10px" }}
                         >
                           Save Dependents Details
