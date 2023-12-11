@@ -26,6 +26,7 @@ import { residentialStatus, dependantRelationships } from "../../../constants";
 import Api from "../../../components/Api";
 import { privateApiPOST } from "../../../components/PrivateRoute";
 import CustomInputTextField from "../../../components/CustomInputField";
+import SSN from "../../../components/ssn_field";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -379,8 +380,20 @@ const DependantDetails = ({
                               errors.additionalLastName
                             }
                           />
-
-                          <CustomInputTextField
+                          <SSN
+                            error={Boolean(touched.ssn && errors.ssn)}
+                            fullWidth
+                            // label={<CustomLabel label="SSN" required={true} />}
+                            margin="normal"
+                            name="ssn"
+                            onBlur={handleBlur}
+                            onChange={handleChange}
+                            value={transform(values.additionalSsnOrItin)}
+                            variant="outlined"
+                            setFieldValue={setFieldValue}
+                            alignLeft={true}
+                          />
+                          {/* <CustomInputTextField
                             attribute="SSN/ITIN"
                             // label={
                             //   <CustomLabel label="SSN/ITIN" required={true} />
@@ -400,7 +413,7 @@ const DependantDetails = ({
                               touched.additionalSsnOrItin &&
                               errors.additionalSsnOrItin
                             }
-                          />
+                          /> */}
 
                           <CustomInputTextField
                             attribute="Do you want to apply for ITIN?"
@@ -449,7 +462,9 @@ const DependantDetails = ({
 
                       {/* Right Side - additional Contact */}
                       <Grid item lg={6} sm={6} xs={12}>
-                        <Typography variant="h4">Additional Contact</Typography>
+                        <Typography variant="h4" sx={{ visibility: "hidden" }}>
+                          Additional Contact
+                        </Typography>
                         <Grid container spacing={2}>
                           <Grid item xs={12}>
                             <Grid container>

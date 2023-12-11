@@ -3,7 +3,14 @@ import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
 import { Typography, TextField } from "@mui/material";
 
-const SSN = ({ error, helperText, name, value: ssnValue, setFieldValue }) => {
+const SSN = ({
+  error,
+  helperText,
+  name,
+  value: ssnValue,
+  setFieldValue,
+  alignLeft,
+}) => {
   const [completeSSN, setCompleteSSN] = useState(ssnValue);
 
   // useEffect(() => {
@@ -64,7 +71,8 @@ const SSN = ({ error, helperText, name, value: ssnValue, setFieldValue }) => {
               marginRight: { xs: 0, sm: "5px" },
               justifyContent: {
                 xs: "flex-start",
-                sm: "flex-end",
+
+                sm: alignLeft ? "flex-start" : "flex-end",
               },
             }}
           >

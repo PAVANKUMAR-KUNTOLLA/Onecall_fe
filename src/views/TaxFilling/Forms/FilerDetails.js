@@ -331,14 +331,16 @@ const FilerDetails = ({
                   spouseLastName: Yup.string().required(
                     "Last name is required"
                   ),
-                  spouseSsnOrItin: Yup.string(),
+                  spouseSsnOrItin: Yup.string().required("SSN is required"),
                   spouseApplyForItin: Yup.string(),
                   spouseDateOfBirth: Yup.string().required("DOB is required"),
                   spouseGender: Yup.string().required("Gender is required"),
                   spouseOccupation: Yup.string().required(
                     "Occupation is required"
                   ),
-                  spouseResidentialStatus: Yup.string(),
+                  spouseResidentialStatus: Yup.string().required(
+                    "Residential Status is required"
+                  ),
                   spouseEmail: Yup.string().when("taxPayerStatus", {
                     is: "MARRIED",
                     then: Yup.string()
@@ -521,30 +523,25 @@ const FilerDetails = ({
                                   helperText={
                                     touched.dateOfBirth && errors.dateOfBirth
                                   }
-                                  // label={
-                                  //   <CustomLabel
-                                  //     label="Date of Birth"
-                                  //     required={true}
-                                  //   />
-                                  // }
                                   margin="normal"
+                                  type="text" // Change the type to "text"
                                   name="dateOfBirth"
                                   onBlur={handleBlur}
                                   onChange={handleChange}
-                                  value={values.dateOfBirth}
+                                  value={transformDateFormat(
+                                    values.dateOfBirth
+                                  )} // Format the value using transformDateFormat
                                   variant="outlined"
                                   InputLabelProps={{
-                                    shrink: true, // This is important for the label to behave correctly
+                                    shrink: true,
                                   }}
                                   InputProps={{
                                     style: {
-                                      color: "black", // Customize the label color
+                                      color: "black",
                                     },
                                   }}
                                   inputProps={{
-                                    // To disable the default placeholder
                                     placeholder: "",
-                                    // Other attributes you might need
                                   }}
                                 />
                               </Grid>
@@ -1173,10 +1170,23 @@ const FilerDetails = ({
                                 touched.spouseLastName && errors.spouseLastName
                               }
                             />
+                            <SSN
+                              error={Boolean(touched.ssn && errors.ssn)}
+                              fullWidth
+                              // label={<CustomLabel label="SSN" required={true} />}
+                              margin="normal"
+                              name="ssn"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              value={transform(values.spouseSsnOrItin)}
+                              variant="outlined"
+                              setFieldValue={setFieldValue}
+                              alignLeft={true}
+                            />
 
-                            <CustomInputTextField
+                            {/* <CustomInputTextField
                               attribute="SSN/ITIN"
-                              is_required={false}
+                              is_required={true}
                               // label={
                               //   <CustomLabel
                               //     label="Spouse SSN/ITIN"
@@ -1198,7 +1208,7 @@ const FilerDetails = ({
                                 touched.spouseSsnOrItin &&
                                 errors.spouseSsnOrItin
                               }
-                            />
+                            /> */}
 
                             <CustomInputTextField
                               attribute="Do you want to apply for ITIN?"
@@ -1364,7 +1374,7 @@ const FilerDetails = ({
 
                             <CustomInputTextField
                               attribute="Residential Status"
-                              is_required={false}
+                              is_required={true}
                               // label={
                               //   <CustomLabel
                               //     label="Spouse Residential Status"

@@ -309,9 +309,8 @@ const ClientHomePage = () => {
             >
               <span>
                 {" "}
-                * The appointment was was {
-                  latestBookedAppointment.status
-                } on {latestBookedAppointment.date} . The timing was{" "}
+                * The appointment was {latestBookedAppointment.status} on{" "}
+                {latestBookedAppointment.date} . The timing was{" "}
                 {latestBookedAppointment.start_time} -{" "}
                 {latestBookedAppointment.end_time}.
               </span>
