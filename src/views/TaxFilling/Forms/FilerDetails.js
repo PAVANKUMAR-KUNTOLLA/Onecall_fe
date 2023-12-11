@@ -503,6 +503,7 @@ const FilerDetails = ({
                             onBlur={handleBlur}
                             onChange={handleChange}
                             value={transform(values.ssn)}
+                            setFieldValue={setFieldValue}
                             variant="outlined"
                           />
 

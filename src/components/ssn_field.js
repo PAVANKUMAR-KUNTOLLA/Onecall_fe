@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import { Box } from "@mui/material";
-import TextField from "@mui/material/TextField";
+import { Typography, TextField } from "@mui/material";
 
-const SSN = ({
-  error,
-  helperText,
-  value: ssnValue,
-  onChange: handleParentChange,
-}) => {
-  const [completeSSN, setCompleteSSN] = useState("");
+const SSN = ({ error, helperText, name, value: ssnValue, setFieldValue }) => {
+  const [completeSSN, setCompleteSSN] = useState(ssnValue);
 
-  useEffect(() => {
-    setCompleteSSN(ssnValue || "");
-  }, [ssnValue]);
+  // useEffect(() => {
+  //   setCompleteSSN(ssnValue || "");
+  // }, [ssnValue]);
 
   const handleSSN1Change = (e) => {
     const value = e.target.value;
@@ -22,7 +17,7 @@ const SSN = ({
     } else if (value.length <= 3) {
       const updatedSSN = `${value}-${ssn2}-${ssn3}`;
       setCompleteSSN(updatedSSN);
-      handleParentChange(updatedSSN);
+      setFieldValue(name, updatedSSN.replaceAll("-", ""));
     }
   };
 
@@ -33,7 +28,7 @@ const SSN = ({
     } else if (value.length <= 2) {
       const updatedSSN = `${ssn1}-${value}-${ssn3}`;
       setCompleteSSN(updatedSSN);
-      handleParentChange(updatedSSN);
+      setFieldValue(name, updatedSSN.replaceAll("-", ""));
     }
   };
 
@@ -42,7 +37,7 @@ const SSN = ({
     if (value.length <= 4) {
       const updatedSSN = `${ssn1}-${ssn2}-${value}`;
       setCompleteSSN(updatedSSN);
-      handleParentChange(updatedSSN);
+      setFieldValue(name, updatedSSN.replaceAll("-", ""));
     }
   };
 
@@ -52,30 +47,43 @@ const SSN = ({
   const ssn3 = ssnParts[2] || "";
 
   return (
-    <Box>
-      <tr>
-        <td align="right" style={{ padding: "8px", paddingLeft: "135px" }}>
-          <div>
-            &nbsp;SSN
-            <font
-              color="red"
-              size="3"
-              style={{ marginLeft: "3px", marginBottom: "30px" }}
-            >
-              &nbsp;*
-            </font>
-          </div>
-        </td>
-
-        <td>:</td>
-        <td colSpan="2" align="left" style={{ padding: "8px" }}>
-          <Grid
-            container
-            spacing={1}
-            alignItems="center"
-            sx={{ paddingLeft: "0px" }}
+    <Grid
+      item
+      xs={12}
+      sx={{
+        maxHeight: "60px",
+        marginTop: "12px",
+      }}
+    >
+      <Grid container>
+        <Grid item xs={4} sx={{ marginTop: "12px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: { xs: 0, sm: "5px" },
+              justifyContent: {
+                xs: "flex-start",
+                sm: "flex-end",
+              },
+            }}
           >
-            <Grid item xs={2}>
+            <Typography variant="body1">SSN</Typography>
+            <Typography
+              sx={{
+                color: "red",
+                fontSize: "0.875rem",
+                marginLeft: "3px",
+              }}
+            >
+              *
+            </Typography>
+            &nbsp;:
+          </Box>
+        </Grid>
+        <Grid item xs={8}>
+          <Grid container spacing={1} sx={{ alignItems: "center" }}>
+            <Grid item xs={3}>
               <TextField
                 type="text"
                 id="ssn1"
@@ -84,6 +92,8 @@ const SSN = ({
                 variant="outlined"
                 value={ssn1}
                 onChange={handleSSN1Change}
+                error={error}
+                helperText={helperText}
                 inputProps={{ maxLength: 3 }}
                 sx={{
                   "& .MuiOutlinedInput-root": {
@@ -105,7 +115,7 @@ const SSN = ({
             <Grid item xs={0.5}>
               -
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <TextField
                 type="text"
                 id="ssn2"
@@ -115,6 +125,8 @@ const SSN = ({
                 value={ssn2}
                 onChange={handleSSN2Change}
                 inputProps={{ maxLength: 2 }}
+                error={error}
+                helperText={helperText}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -135,7 +147,7 @@ const SSN = ({
             <Grid item xs={0.5}>
               -
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={3}>
               <TextField
                 type="text"
                 id="ssn3"
@@ -145,6 +157,8 @@ const SSN = ({
                 value={ssn3}
                 onChange={handleSSN3Change}
                 inputProps={{ maxLength: 4 }}
+                error={error}
+                helperText={helperText}
                 sx={{
                   "& .MuiOutlinedInput-root": {
                     "& fieldset": {
@@ -163,9 +177,9 @@ const SSN = ({
               />
             </Grid>
           </Grid>
-        </td>
-      </tr>
-    </Box>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
