@@ -12,6 +12,7 @@ const NO_WRAP_ATTRIBUTES = [
   "Referral ID (Optional)",
   "Preferrable Time",
   "Time Zone",
+  "Phone Number",
 ];
 
 const CustomInputTextField = ({

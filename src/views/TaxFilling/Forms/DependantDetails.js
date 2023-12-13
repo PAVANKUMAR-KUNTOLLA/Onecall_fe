@@ -16,6 +16,7 @@ import {
   CircularProgress,
   ButtonBase,
 } from "@mui/material";
+import CustomDatePicker from "../../../components/DatePicker";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -26,7 +27,7 @@ import { residentialStatus, dependantRelationships } from "../../../constants";
 import Api from "../../../components/Api";
 import { privateApiPOST } from "../../../components/PrivateRoute";
 import CustomInputTextField from "../../../components/CustomInputField";
-import SSN from "../../../components/ssn_field";
+import SSN from "../../../components/SSNField";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -467,60 +468,12 @@ const DependantDetails = ({
                         </Typography>
                         <Grid container spacing={2}>
                           <Grid item xs={12}>
-                            <Grid container>
-                              <Grid item xs={10}>
-                                <CustomInputTextField
-                                  attribute="Dependent DOB"
-                                  // label={
-                                  //   <CustomLabel
-                                  //     label="Date of Birth"
-                                  //     required={true}
-                                  //   />
-                                  // }
-                                  is_required={true}
-                                  margin="normal"
-                                  name={`additionalDateOfBirth`}
-                                  onBlur={handleBlur}
-                                  fullWidth
-                                  onChange={handleChange}
-                                  value={values.additionalDateOfBirth}
-                                  variant="outlined"
-                                  error={
-                                    touched.additionalDateOfBirth &&
-                                    errors.additionalDateOfBirth
-                                  }
-                                  helperText={
-                                    touched.additionalDateOfBirth &&
-                                    errors.additionalDateOfBirth
-                                  }
-                                  InputLabelProps={{
-                                    shrink: true, // This is important for the label to behave correctly
-                                  }}
-                                  InputProps={{
-                                    style: {
-                                      color: "black", // Customize the label color
-                                    },
-                                  }}
-                                  inputProps={{
-                                    // To disable the default placeholder
-                                    placeholder: "",
-                                    // Other attributes you might need
-                                  }}
-                                />
-                              </Grid>
-                              <Grid item xs={2} sx={{ margin: "auto 0" }}>
-                                <Typography
-                                  variant="h6"
-                                  sx={{
-                                    color: "#11a63d",
-                                    whiteSpace: "nowrap",
-                                    marginLeft: "-20px",
-                                  }}
-                                >
-                                  [MM/DD/YYYY]
-                                </Typography>
-                              </Grid>
-                            </Grid>
+                            <CustomDatePicker
+                              name="additionalDateOfBirth"
+                              label="Date Of Birth"
+                              value={values.additionalDateOfBirth}
+                              setFieldValue={setFieldValue}
+                            />
                           </Grid>
 
                           <CustomInputTextField

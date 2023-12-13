@@ -16,6 +16,9 @@ import {
   CircularProgress,
   ButtonBase,
 } from "@mui/material";
+
+import CustomDatePicker from "../../../components/DatePicker";
+
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
@@ -36,7 +39,7 @@ import {
 } from "../../../components/PrivateRoute";
 import CustomInputTextField from "../../../components/CustomInputField";
 import DependantDetails from "./DependantDetails";
-import SSN from "../../../components/ssn_field";
+import SSN from "../../../components/SSNField";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -160,6 +163,14 @@ const FilerDetails = ({
     return formattedNumber;
   };
 
+  const dateOfBirth = personalDetails["dateOfBirth"]
+    ? new Date(personalDetails["dateOfBirth"])
+    : "";
+
+  const spouseDateOfBirth = spouseDetails["spouseDateOfBirth"]
+    ? new Date(spouseDetails["spouseDateOfBirth"])
+    : "";
+
   const [formData, setFormData] = useState({
     // Personal Details
 
@@ -167,7 +178,7 @@ const FilerDetails = ({
     middleName: personalDetails["middleName"],
     lastName: personalDetails["lastName"],
     ssn: personalDetails["ssn"],
-    dateOfBirth: personalDetails["dateOfBirth"],
+    dateOfBirth: dateOfBirth,
     gender: personalDetails["gender"],
     occupation: personalDetails["occupation"],
     residentialStatus: personalDetails["residentialStatus"],
@@ -195,7 +206,7 @@ const FilerDetails = ({
     spouseLastName: spouseDetails["spouseLastName"],
     spouseSsnOrItin: spouseDetails["spouseSsnOrItin"],
     spouseApplyForItin: spouseDetails["spouseApplyForItin"], // Default to "No"
-    spouseDateOfBirth: spouseDetails["spouseDateOfBirth"],
+    spouseDateOfBirth: spouseDateOfBirth,
     spouseGender: spouseDetails["spouseGender"],
     spouseOccupation: spouseDetails["spouseOccupation"],
     spouseResidentialStatus: spouseDetails["spouseResidentialStatus"],
@@ -510,54 +521,12 @@ const FilerDetails = ({
                           />
 
                           <Grid item xs={12}>
-                            <Grid container>
-                              <Grid item xs={10}>
-                                <CustomInputTextField
-                                  attribute="Date of Birth"
-                                  attributeTextAlign="right"
-                                  is_required={true}
-                                  error={Boolean(
-                                    touched.dateOfBirth && errors.dateOfBirth
-                                  )}
-                                  fullWidth
-                                  helperText={
-                                    touched.dateOfBirth && errors.dateOfBirth
-                                  }
-                                  margin="normal"
-                                  type="text" // Change the type to "text"
-                                  name="dateOfBirth"
-                                  onBlur={handleBlur}
-                                  onChange={handleChange}
-                                  value={transformDateFormat(
-                                    values.dateOfBirth
-                                  )} // Format the value using transformDateFormat
-                                  variant="outlined"
-                                  InputLabelProps={{
-                                    shrink: true,
-                                  }}
-                                  InputProps={{
-                                    style: {
-                                      color: "black",
-                                    },
-                                  }}
-                                  inputProps={{
-                                    placeholder: "",
-                                  }}
-                                />
-                              </Grid>
-                              <Grid item xs={2} sx={{ margin: "auto 0" }}>
-                                <Typography
-                                  variant="h6"
-                                  sx={{
-                                    color: "#11a63d",
-                                    whiteSpace: "nowrap",
-                                    marginLeft: "-20px",
-                                  }}
-                                >
-                                  [MM/DD/YYYY]
-                                </Typography>
-                              </Grid>
-                            </Grid>
+                            <CustomDatePicker
+                              name="dateOfBirth"
+                              label="Date Of Birth"
+                              value={values.dateOfBirth}
+                              setFieldValue={setFieldValue}
+                            />
                           </Grid>
 
                           <CustomInputTextField
@@ -1261,60 +1230,12 @@ const FilerDetails = ({
                           <Typography variant="h4">Spouse Contact</Typography>
                           <Grid container spacing={2}>
                             <Grid item xs={12}>
-                              <Grid container>
-                                <Grid item xs={10}>
-                                  <CustomInputTextField
-                                    attribute="Date of Birth"
-                                    is_required={true}
-                                    // label={
-                                    //   <CustomLabel
-                                    //     label="Date of Birth"
-                                    //     required={true}
-                                    //   />
-                                    // }
-                                    margin="normal"
-                                    name="spouseDateOfBirth"
-                                    onBlur={handleBlur}
-                                    fullWidth
-                                    onChange={handleChange}
-                                    value={values.spouseDateOfBirth}
-                                    variant="outlined"
-                                    error={Boolean(
-                                      touched.spouseDateOfBirth &&
-                                        errors.spouseDateOfBirth
-                                    )}
-                                    helperText={
-                                      touched.spouseDateOfBirth &&
-                                      errors.spouseDateOfBirth
-                                    }
-                                    InputLabelProps={{
-                                      shrink: true, // This is important for the label to behave correctly
-                                    }}
-                                    InputProps={{
-                                      style: {
-                                        color: "black", // Customize the label color
-                                      },
-                                    }}
-                                    inputProps={{
-                                      // To disable the default placeholder
-                                      placeholder: "",
-                                      // Other attributes you might need
-                                    }}
-                                  />
-                                </Grid>
-                                <Grid item xs={2} sx={{ margin: "auto 0" }}>
-                                  <Typography
-                                    variant="h6"
-                                    sx={{
-                                      color: "#11a63d",
-                                      whiteSpace: "nowrap",
-                                      marginLeft: "-20px",
-                                    }}
-                                  >
-                                    [MM/DD/YYYY]
-                                  </Typography>
-                                </Grid>
-                              </Grid>
+                              <CustomDatePicker
+                                name="spouseDateOfBirth"
+                                label="Date Of Birth"
+                                value={values.spouseDateOfBirth}
+                                setFieldValue={setFieldValue}
+                              />
                             </Grid>
 
                             <CustomInputTextField

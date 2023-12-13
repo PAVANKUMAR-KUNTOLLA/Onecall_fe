@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import {
   Container,
   Typography,
@@ -32,6 +34,7 @@ import { makeStyles } from "@mui/styles";
 import CustomInputTextField from "../../../components/CustomInputField";
 import { thousands_separators } from "../../../utils/index";
 import ConfirmedClientConfirmationDialogBox from "../ConfirmClientDialogBox";
+import CustomDatePicker from "../../../components/DatePicker";
 
 const customTextStyles = makeStyles((theme) => ({
   tableHeader: {
@@ -81,6 +84,12 @@ const customTextStyles = makeStyles((theme) => ({
   },
 }));
 
+const validationSchema = Yup.object().shape({
+  date: Yup.date().required("Date is required"),
+  time: Yup.string().required("Time is required"),
+  timezone: Yup.string().required("Timezone is required"),
+});
+
 const PickAppointment = ({ open, id }) => {
   const customStyles = customTextStyles();
   const [isPickAppointmentDetailsLoading, setIsPickAppointmentDetailsLoading] =
@@ -91,11 +100,52 @@ const PickAppointment = ({ open, id }) => {
     setIsConfirmedClientConfirmationDialogBoxOpen,
   ] = useState(false);
 
-  const [appointmentData, setAppointmentData] = useState({
-    date: "",
-    time: "23:00",
-    timezone: "America/Chicago",
+  const formik = useFormik({
+    initialValues: {
+      date: "",
+      time: "23:00",
+      timezone: "America/Chicago",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      setIsPickAppointmentDetailsLoading(true);
+      privateApiPOST(Api.bookAppointment, { id: id, ...values })
+        .then((response) => {
+          const { status, data } = response;
+          if (status === 200) {
+            console.log("data", data);
+            setShowAlert({
+              isAlert: true,
+              alertText: data?.message,
+              severity: "success",
+            });
+            formik.resetForm();
+            handleFetchAppointmentDetails();
+          }
+          setIsPickAppointmentDetailsLoading(false);
+        })
+        .catch((error) => {
+          console.log("Error", error);
+          if (error.response.status === 400 || error.response.status === 401) {
+            setShowAlert({
+              isAlert: true,
+              alertText: error.response.data?.message,
+              severity: "error",
+              alertTitle: "Error",
+            });
+          } else {
+            setShowAlert({
+              isAlert: true,
+              alertText: "Something went wrong",
+              severity: "error",
+              alertTitle: "Error",
+            });
+          }
+          setIsPickAppointmentDetailsLoading(false);
+        });
+    },
   });
+
   const [appointmentDetails, setAppointmentDetails] = useState([]);
 
   const [showAlert, setShowAlert] = useState({
@@ -104,27 +154,6 @@ const PickAppointment = ({ open, id }) => {
     alertText: "",
     severity: "",
   });
-
-  const handleDateChange = (event) => {
-    setAppointmentData({
-      ...appointmentData,
-      date: event.target.value,
-    });
-  };
-
-  const handleTimeChange = (event) => {
-    setAppointmentData({
-      ...appointmentData,
-      time: event.target.value,
-    });
-  };
-
-  const handleTimezoneChange = (event) => {
-    setAppointmentData({
-      ...appointmentData,
-      timezone: event.target.value,
-    });
-  };
 
   const handleCancelAppointment = (appointmentId) => {
     setIsPickAppointmentDetailsLoading(true);
@@ -185,57 +214,6 @@ const PickAppointment = ({ open, id }) => {
         }
         setIsPickAppointmentDetailsLoading(false);
       });
-  };
-  const handleFetchAppointmentChange = (payload) => {
-    setIsPickAppointmentDetailsLoading(true);
-
-    privateApiPOST(Api.bookAppointment, payload)
-      .then((response) => {
-        const { status, data } = response;
-        if (status === 200) {
-          console.log("data", data);
-          if (status === 200) {
-            console.log("data", data?.data);
-            setShowAlert({
-              isAlert: true,
-              alertText: data?.message,
-              severity: "success",
-            });
-          }
-          setAppointmentData({
-            date: "",
-            time: "23:00",
-            timezone: "America/Chicago",
-          });
-          handleFetchAppointmentDetails();
-        }
-        setIsPickAppointmentDetailsLoading(false);
-      })
-      .catch((error) => {
-        console.log("Error", error);
-        if (error.response.status === 400 || error.response.status === 401) {
-          setShowAlert({
-            isAlert: true,
-            alertText: error.response.data?.message,
-            severity: "error",
-            alertTitle: "Error",
-          });
-        } else {
-          setShowAlert({
-            isAlert: true,
-            alertText: "Something went wrong",
-            severity: "error",
-            alertTitle: "Error",
-          });
-        }
-        setIsPickAppointmentDetailsLoading(false);
-      });
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    let payload = { ...appointmentData, id: id };
-    handleFetchAppointmentChange(payload);
   };
 
   const showMsg = () => {
@@ -364,80 +342,67 @@ const PickAppointment = ({ open, id }) => {
             01/11/2024 to 04/18/2024
           </Typography>
         </Typography>
-        <form autoComplete="off" onSubmit={handleSubmit}>
+        <form autoComplete="off" onSubmit={formik.handleSubmit}>
           <Box
             sx={{
-              display: { xs: "block", sm: "flex" },
-              flexWrap: "wrap",
-              justifyContent: "space-between",
               marginTop: "30px",
             }}
           >
-            <Box sx={{ width: { xs: "100%", sm: "35%" } }}>
-              <Grid item xs={12}>
-                <Grid container>
-                  <Grid item xs={10}>
-                    <CustomInputTextField
-                      attributeMarginTop="12px"
-                      attribute="Date"
-                      is_required={false}
-                      value={appointmentData.date}
-                      onChange={handleDateChange}
-                      fullWidth
-                      required
-                    />
-                  </Grid>
-                  <Grid item xs={2} sx={{ margin: "auto 0" }}>
-                    <Typography
-                      variant="h6"
-                      sx={{
-                        color: "#11a63d",
-                        whiteSpace: "nowrap",
-                        marginLeft: "-15px",
-                      }}
-                    >
-                      [MM/DD/YYYY]
-                    </Typography>
-                  </Grid>
-                </Grid>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={4}>
+                <CustomDatePicker
+                  name="date"
+                  label="Date"
+                  value={formik.values.date}
+                  setFieldValue={formik.setFieldValue}
+                  error={formik.touched.date && Boolean(formik.errors.date)}
+                  helperText={formik.touched.date && formik.errors.date}
+                />
               </Grid>
-            </Box>
-            <Box sx={{ width: { xs: "100%", sm: "35%" } }}>
-              <CustomInputTextField
-                attributeMarginTop="12px"
-                attribute="Preferrable Time"
-                is_required={false}
-                select
-                // label="Time"
-                value={appointmentData.time}
-                onChange={handleTimeChange}
-                variant="outlined"
-                fullWidth
-                required
-              >
-                {timeOptions.map((option) => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </CustomInputTextField>
-            </Box>
-            <Box sx={{ width: { xs: "100%", sm: "25%" } }}>
-              <CustomInputTextField
-                attributeMarginTop="12px"
-                attribute="Time Zone"
-                is_required={false}
-                select
-                value={appointmentData.timezone}
-                onChange={handleTimezoneChange}
-                fullWidth
-                required
-              >
-                <MenuItem value="America/Chicago">CST</MenuItem>
-                <MenuItem value="EST">EST</MenuItem>
-                {/* Add more time zones as needed */}
-              </CustomInputTextField>
-            </Box>
+              <Grid item xs={12} sm={5}>
+                <CustomInputTextField
+                  attributeMarginTop="12px"
+                  attribute="Preferrable Time"
+                  is_required={false}
+                  select
+                  value={formik.values.time}
+                  onChange={(e) => formik.setFieldValue("time", e.target.value)}
+                  variant="outlined"
+                  fullWidth
+                  required
+                  error={formik.touched.time && Boolean(formik.errors.time)}
+                  helperText={formik.touched.time && formik.errors.time}
+                >
+                  {timeOptions.map((option) => (
+                    <MenuItem key={option} value={option}>
+                      {option}
+                    </MenuItem>
+                  ))}
+                </CustomInputTextField>
+              </Grid>
+              <Grid item xs={12} sm={3}>
+                <CustomInputTextField
+                  attributeMarginTop="12px"
+                  attribute="Time Zone"
+                  is_required={false}
+                  select
+                  value={formik.values.timezone}
+                  onChange={(e) =>
+                    formik.setFieldValue("timezone", e.target.value)
+                  }
+                  fullWidth
+                  required
+                  error={
+                    formik.touched.timezone && Boolean(formik.errors.timezone)
+                  }
+                  helperText={formik.touched.timezone && formik.errors.timezone}
+                >
+                  <MenuItem value="America/Chicago">CST</MenuItem>
+                  <MenuItem value="EST">EST</MenuItem>
+                  {/* Add more time zones as needed */}
+                </CustomInputTextField>
+              </Grid>
+            </Grid>
           </Box>
           <Typography
             variant="body1"
@@ -445,13 +410,13 @@ const PickAppointment = ({ open, id }) => {
             sx={{ marginTop: "30px" }}
           >
             Maximum number of appointments you can have is "ONE". If you already
-            have an appointment delete it before scheduling new appointment
+            have an appointment, delete it before scheduling a new appointment
           </Typography>
           <Button
             type="submit"
             variant="contained"
             color="primary"
-            onClick={showMsg}
+            onClick={showMsg} // Make sure to handle this separately if needed
             sx={{ display: "block", margin: "0 auto", marginTop: "20px" }}
           >
             SUBMIT

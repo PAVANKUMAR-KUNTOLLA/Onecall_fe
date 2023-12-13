@@ -58,6 +58,7 @@
     "moment": "^2.29.1",
     "prop-types": "^15.8.1",
     "react": "^18.0.0",
+    "react-datepicker": "^4.24.0",
     "react-dom": "^18.0.0",
     "react-drag-drop-files": "^2.3.9",
     "react-helmet": "^6.1.0",
