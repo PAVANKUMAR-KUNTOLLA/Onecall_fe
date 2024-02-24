@@ -251,7 +251,7 @@ const LoginView = () => {
                   type="email"
                   value={values.email}
                   variant="outlined"
-                  sx={{ fontWeight: "700 !important" }}
+                  is_bold={true}
                 />
                 <CustomInputTextField
                   attribute="Password"
@@ -266,6 +266,7 @@ const LoginView = () => {
                   type="password"
                   value={values.password}
                   variant="outlined"
+                  is_bold={true}
                 />
                 {/* <TextField
                         select

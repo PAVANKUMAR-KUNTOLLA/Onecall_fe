@@ -79,10 +79,10 @@ export const AppBar = () => {
           </Typography>
         </Box>
         <Typography variant="body2" sx={{ fontSize: "16px" }}>
-          <strong>Phone:</strong> (248) 971-3300
+          <strong>Phone:</strong> (201) 277-3977
         </Typography>
         <Typography variant="body2" sx={{ fontSize: "16px" }}>
-          <strong>E-mail:</strong> Onecalltaxservices.digital@gmail.com
+          <strong>E-mail:</strong> support@onecalltaxservices.com
         </Typography>
       </Box>
       <Avatar
@@ -129,7 +129,7 @@ const Authentication = () => {
       <Box
         sx={{
           height: "100vh",
-          backgroundImage: "url(/static/img/green_bg.jpg)",
+          backgroundImage: "url(/static/img/login_bg.png)",
           paddingTop: "8%",
           backgroundRepeat: "no-repeat",
           backgroundSize: "100% 100%",

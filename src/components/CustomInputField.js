@@ -18,6 +18,7 @@ const NO_WRAP_ATTRIBUTES = [
 const CustomInputTextField = ({
   attribute,
   is_required,
+  is_bold,
   attributeTextAlign,
   attributeMarginTop,
   ...others
@@ -76,6 +77,7 @@ const CustomInputTextField = ({
             <Typography
               variant="body1"
               sx={{
+                ...(is_bold && { fontWeight: 600 }), // Apply fontWeight if is_bold is true
                 whiteSpace: NO_WRAP_ATTRIBUTES.includes(attribute)
                   ? "nowrap"
                   : "pre-wrap",
@@ -122,8 +124,13 @@ const CustomInputTextField = ({
   );
 };
 
+CustomInputTextField.defaultProps = {
+  is_bold: false,
+};
+
 CustomInputTextField.prototype = {
   is_required: PropTypes.bool,
+  is_bold: PropTypes.bool,
   attribute: PropTypes.string, //['success','warning', 'error']
   attributeTextAlign: PropTypes.string, //['success','warning', 'error']
   attributeMarginTop: PropTypes.string,

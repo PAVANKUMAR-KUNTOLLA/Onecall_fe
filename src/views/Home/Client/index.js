@@ -104,7 +104,7 @@ const ClientHomePage = () => {
   const [isMyServicesLoading, setIsMyServicesLoading] = useState(false);
   const [isTaxYearsLoading, setIsTaxYearsLoading] = useState(false);
   const [currSelectedYear, setCurrSelectedYear] = useState("");
-  const [appointmentDetails, setAppointmentDetails] = useState();
+  const [appointmentDetails, setAppointmentDetails] = useState({});
   const dispatch = useDispatch();
   const [showAlert, setShowAlert] = useState({
     isAlert: false,
@@ -187,18 +187,15 @@ const ClientHomePage = () => {
   };
 
   const handleFetchAppointmentDetails = () => {
-    // setIsPickAppointmentDetailsLoading(true);
-    console.log(myServices[1]);
-
     if (myServices && myServices.length > 0) {
-      let payload = { id: myServices[0].id };
-      privateApiPOST(Api.appointmentDetails, payload)
+      let payload = {};
+      privateApiPOST(Api.latestAppointment, payload)
         .then((response) => {
           const { status, data } = response;
           if (status === 200) {
             console.log("data", data);
             // setIsPickAppointmentDetailsLoading(false);
-            setAppointmentDetails(data?.data);
+            setAppointmentDetails(data?.data[0]);
           }
         })
         .catch((error) => {
@@ -223,24 +220,6 @@ const ClientHomePage = () => {
     }
   };
 
-  const getLatestBookedAppointment = (appointments) => {
-    if (!Array.isArray(appointments) || appointments.length === 0) {
-      return null;
-    }
-
-    const sortedAppointments = appointments
-      .filter((appointment) => appointment.status === "BOOKED")
-      .sort(
-        (a, b) =>
-          new Date(b.date + " " + b.start_time) -
-          new Date(a.date + " " + a.start_time)
-      );
-
-    return sortedAppointments.length > 0 ? sortedAppointments[0] : null;
-  };
-
-  const latestBookedAppointment =
-    getLatestBookedAppointment(appointmentDetails);
   useEffect(() => {
     handleFetchTaxYearServices();
     handleFetchMyServices();
@@ -250,6 +229,7 @@ const ClientHomePage = () => {
     handleFetchAppointmentDetails();
   }, [myServices]);
 
+  console.log(appointmentDetails);
   return (
     <Box>
       <Container maxWidth="lg">
@@ -298,7 +278,7 @@ const ClientHomePage = () => {
           >
             * Click on "Start Process" against selected "Tax Filing" Service
           </Typography>
-          {latestBookedAppointment && (
+          {appointmentDetails && (
             <Typography
               sx={{
                 backgroundColor: "#C7DFF0",
@@ -309,10 +289,9 @@ const ClientHomePage = () => {
             >
               <span>
                 {" "}
-                * The appointment was {latestBookedAppointment.status} on{" "}
-                {latestBookedAppointment.date} . The timing was{" "}
-                {latestBookedAppointment.start_time} -{" "}
-                {latestBookedAppointment.end_time}.
+                * The appointment was {appointmentDetails["status"]} on{" "}
+                {appointmentDetails.date} . The timing was{" "}
+                {appointmentDetails.start_time} - {appointmentDetails.end_time}.
               </span>
             </Typography>
           )}

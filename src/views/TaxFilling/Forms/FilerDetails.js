@@ -258,6 +258,7 @@ const FilerDetails = ({
     }
   }, []);
 
+  console.log(formData.taxPayerStatus);
   return (
     <Box
       sx={{
@@ -300,7 +301,9 @@ const FilerDetails = ({
                     "Residential Status is required"
                   ),
                   street: Yup.string().max(255).required("Street is required"),
-                  apartment: Yup.string().max(255),
+                  apartment: Yup.string()
+                    .max(255)
+                    .required("Apartment is required"),
                   city: Yup.string().max(255).required("City is required"),
                   state: Yup.string().max(255).required("State is required"),
                   zipCode: Yup.string()
@@ -328,42 +331,57 @@ const FilerDetails = ({
                     "Please select your status"
                   ),
 
-                  // additional Spouse Details (Add validation rules as needed)
-                  spouseFirstName: Yup.string()
-                    .when("taxPayerStatus", {
-                      is: "MARRIED",
-                      then: Yup.string().required(
-                        "Spouse First Name is required"
-                      ),
-                      otherwise: Yup.string(),
-                    })
-                    .required("First name is required"),
+                  // Additional Spouse Details (Add validation rules as needed)
+                  spouseFirstName: Yup.string().when("taxPayerStatus", {
+                    is: "MARRIED",
+                    then: Yup.string().required(
+                      "Spouse First Name is required"
+                    ),
+                  }),
                   spouseMiddleInitial: Yup.string(),
-                  spouseLastName: Yup.string().required(
-                    "Last name is required"
-                  ),
-                  spouseSsnOrItin: Yup.string().required("SSN is required"),
+                  spouseLastName: Yup.string().when("taxPayerStatus", {
+                    is: "MARRIED",
+                    then: Yup.string().required("Spouse Last Name is required"),
+                  }),
+                  spouseSsnOrItin: Yup.string().when("taxPayerStatus", {
+                    is: "MARRIED",
+                    then: Yup.string().required("Spouse SSN/ITIN is required"),
+                  }),
                   spouseApplyForItin: Yup.string(),
-                  spouseDateOfBirth: Yup.string().required("DOB is required"),
-                  spouseGender: Yup.string().required("Gender is required"),
-                  spouseOccupation: Yup.string().required(
-                    "Occupation is required"
-                  ),
-                  spouseResidentialStatus: Yup.string().required(
-                    "Residential Status is required"
-                  ),
+                  spouseDateOfBirth: Yup.string().when("taxPayerStatus", {
+                    is: "MARRIED",
+                    then: Yup.string().required(
+                      "Spouse Date of Birth is required"
+                    ),
+                  }),
+                  spouseGender: Yup.string().when("taxPayerStatus", {
+                    is: "MARRIED",
+                    then: Yup.string().required("Spouse Gender is required"),
+                  }),
+                  spouseOccupation: Yup.string().when("taxPayerStatus", {
+                    is: "MARRIED",
+                    then: Yup.string().required(
+                      "Spouse Occupation is required"
+                    ),
+                  }),
+                  spouseResidentialStatus: Yup.string().when("taxPayerStatus", {
+                    is: "MARRIED",
+                    then: Yup.string().required(
+                      "Spouse Residential Status is required"
+                    ),
+                  }),
                   spouseEmail: Yup.string().when("taxPayerStatus", {
                     is: "MARRIED",
                     then: Yup.string()
                       .email("Must be a valid email")
                       .max(255)
                       .required("Spouse Email is required"),
-                    otherwise: Yup.string(),
                   }),
 
                   //  additional Details (Add validation rules as needed)
                 })}
                 onSubmit={(values, { setSubmitting, resetForm }) => {
+                  console.log("values", values);
                   setIsFilerDetailsLoading(true);
                   setSubmitting(true);
                   let payload = { ...values, id: id };
@@ -1140,7 +1158,10 @@ const FilerDetails = ({
                               }
                             />
                             <SSN
-                              error={Boolean(touched.ssn && errors.ssn)}
+                              error={Boolean(
+                                touched.spouseSsnOrItin &&
+                                  errors.spouseSsnOrItin
+                              )}
                               fullWidth
                               // label={<CustomLabel label="SSN" required={true} />}
                               margin="normal"

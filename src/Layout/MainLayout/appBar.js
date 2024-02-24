@@ -191,10 +191,10 @@ function AppBar(props) {
                 </Typography>
               </Box>
               <Typography variant="body2" sx={{ fontSize: "16px" }}>
-                <strong>Phone:</strong> (248) 971-3300
+                <strong>Phone:</strong> (201) 277-3977
               </Typography>
               <Typography variant="body2" sx={{ fontSize: "16px" }}>
-                <strong>E-mail:</strong> Onecalltaxservices.digital@gmail.com
+                <strong>E-mail:</strong> support@onecalltaxservices.com
               </Typography>
             </Box>
             <Avatar
@@ -212,7 +212,7 @@ function AppBar(props) {
           >
             <Typography sx={{ color: "rgb(255, 0, 0)" }}>
               <strong>BEST WAY TO CONTACT US : PLEASE SEND AN EMAIL TO</strong>{" "}
-              onecalltaxservices.digital@gmail.com
+              support@onecalltaxservices.com
             </Typography>
 
             <Typography sx={{ fontSize: "16px" }}>

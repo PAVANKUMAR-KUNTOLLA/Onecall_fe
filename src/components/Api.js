@@ -27,6 +27,7 @@ export default {
   bookAppointment: "/api/v1/book_appointment/",
   updateAppointment: "/api/v1/update_appointment/",
   appointmentDetails: "/api/v1/appointment_details/",
+  latestAppointment: "/api/v1/latest_appointment/",
   deleteAppointment: "/api/v1/delete_appointment/",
   createRefund: "/api/v1/create_refund/",
   refunds: "/api/v1/refunds/",

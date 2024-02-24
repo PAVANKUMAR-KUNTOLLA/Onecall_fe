@@ -140,6 +140,7 @@ const ForgotPasswordView = () => {
           autoComplete="off"
           value={forgotPasswordState.email}
           onChange={(e) => setForgetPasswordState({ email: e.target.value })}
+          is_bold={true}
         />
 
         <Box my={2}>
