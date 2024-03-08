@@ -30,9 +30,7 @@ const SSN = ({
 
   const handleSSN2Change = (e) => {
     const value = e.target.value;
-    if (value.charAt(0) === "9") {
-      setCompleteSSN("");
-    } else if (value.length <= 2) {
+    if (value.length <= 2) {
       const updatedSSN = `${ssn1}-${value}-${ssn3}`;
       setCompleteSSN(updatedSSN);
       setFieldValue(name, updatedSSN.replaceAll("-", ""));
