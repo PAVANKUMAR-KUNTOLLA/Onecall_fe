@@ -1165,7 +1165,7 @@ const FilerDetails = ({
                               fullWidth
                               // label={<CustomLabel label="SSN" required={true} />}
                               margin="normal"
-                              name="ssn"
+                              name="spouseSsnOrItin"
                               onBlur={handleBlur}
                               onChange={handleChange}
                               value={transform(values.spouseSsnOrItin)}
@@ -1174,6 +1174,7 @@ const FilerDetails = ({
                               alignLeft={true}
                             />
 
+                      
                             {/* <CustomInputTextField
                               attribute="SSN/ITIN"
                               is_required={true}
